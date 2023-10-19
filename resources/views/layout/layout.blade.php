@@ -31,18 +31,16 @@
 </head>
 
 <body>
-  <div class="b-example-divider">
-
+  <div class="d-flex" >
   <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;height:100vh;background-color:#588157">
      <div><a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
       <img src="assets/LOGO (2).png" class="mx-auto d-flex " width="130" height="130" alt="Responsive image">
     </a></div>
-<span class="border-bottom mb-3"></span>
-
+    <span class="border-bottom mb-3"></span>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="/layout" class="nav-link " aria-current="page">
-          Home
+        <a href="/akun" class="nav-link @yield('akun')" aria-current="page">
+          Kelola Akun 
         </a>
       </li>
      
@@ -51,16 +49,18 @@
           Orders
         </a>
       </li>
-      
+  
     </ul>
-    <hr>
+    
     
   </div>
-</div>
-    <div class="container">
+  {{-- nav disini --}}
+  <div class="container">
           {{-- @include('layout.flash-message') --}}
           @yield('content')
     </div>
+</div>
+
 </body>
 <footer>
     @yield('footer')
