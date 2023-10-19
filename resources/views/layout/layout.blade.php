@@ -33,10 +33,30 @@
 <body>
   <div class="b-example-divider">
 
+    <nav style="background: #ffff">
+      <div class="container">
+        <a style="font-weight: bold; font-size:25px;">One Finance Planning App</a>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" >
+              <img src="{{ url('img') . '/pp.png' }}" alt="" width="32" height="32" class="rounded-circle me-2">
+          </a>
+          <ul class="dropdown-menu text-small shadow  dropdown-menu-end">
+              <li><a class="dropdown-item" style="pointer-events: none" href="#"></a></li>
+              <li>
+                  <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+          </ul>
+      </div>
+      </div>
+    </nav>
+
   <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;height:100vh;background-color:#588157">
      <div><a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
       <img src="assets/LOGO (2).png" class="mx-auto d-flex " width="130" height="130" alt="Responsive image">
     </a></div>
+    
 <span class="border-bottom mb-3"></span>
 
     <ul class="nav nav-pills flex-column mb-auto">
@@ -48,7 +68,7 @@
      
       <li>
         <a href="/" class="nav-link @yield('dashboard')">
-          Orders
+          Dashboard
         </a>
       </li>
       
