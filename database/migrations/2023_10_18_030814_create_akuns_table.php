@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_akun',true);
             $table->string('username',60)->nullable(false);
             $table->text('password')->nullable(false);
-            $table->enum('level',['superadmin', 'admin','bendaharasekolah', 'pemohon'])->nullable(false);
+            $table->enum('role',['superadmin', 'admin','bendaharasekolah', 'pemohon'])->nullable(false);
 
         });
     }
