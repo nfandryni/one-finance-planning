@@ -33,7 +33,7 @@
 <body>
   <div class="b-example-divider">
 
-    <nav style="background: #ffff">
+    {{-- <nav style="background: #ffff">
       <div class="container">
         <a style="font-weight: bold; font-size:25px;">One Finance Planning App</a>
         <div class="dropdown">
@@ -50,7 +50,7 @@
           </ul>
       </div>
       </div>
-    </nav>
+    </nav> --}}
 
   <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;height:100vh;background-color:#588157">
      <div><a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">

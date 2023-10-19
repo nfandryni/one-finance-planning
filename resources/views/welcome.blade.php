@@ -3,6 +3,6 @@
 @section('title', 'Daftar Surat')
 @section('content')
     <div class="row">
-        test
+       test
     </div>
 @endsection

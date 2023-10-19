@@ -20,3 +20,7 @@ Route::get('/layout', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/akun', function () {
+    return view('kelola-akun.index');
+});
