@@ -5,13 +5,7 @@
     @yield('header')
 
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+     
 
       .nav-link{color: #ffffff }
       .nav-link:hover{color: #221d1d}
@@ -26,6 +20,9 @@
           font-size: 3.5rem;
         }
       }
+      body{
+        background-color: #F2F2F2
+      }
     </style>
 
 </head>
@@ -34,7 +31,7 @@
   <div class="d-flex" >
   <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;height:100vh;background-color:#588157">
      <div><a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-      <img src="assets/LOGO (2).png" class="mx-auto d-flex " width="130" height="130" alt="Responsive image">
+      <img src="assets/LOGO (2).png" class="mx-auto d-flex " width="130vw" height="130" alt="Responsive image">
     </a></div>
     <span class="border-bottom mb-3"></span>
     <ul class="nav nav-pills flex-column mb-auto">
@@ -55,7 +52,8 @@
     
   </div>
   {{-- nav disini --}}
-  <div class="container">
+
+  <div class=" ms-3 me-3 " style="border: 1px solid black; width:1000vw ">
           {{-- @include('layout.flash-message') --}}
           @yield('content')
     </div>

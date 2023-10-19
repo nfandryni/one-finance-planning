@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-class akun extends Authenticatable
+use Illuminate\Database\Eloquent\Model;
+
+class akun extends Model
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory;
     protected $table = 'akun';
     protected $primaryKey = 'user_id';
     protected $fillable = ['username', 'password', 'role'];

@@ -6,7 +6,6 @@ use App\Http\Controllers\PengajuanKebutuhanController;
 use App\Http\Controllers\RealisasiController;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,5 +62,3 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/akun', function () {
     return view('kelola-akun.index');
 });
-
-

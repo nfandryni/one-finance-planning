@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -12,16 +13,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
-        // if(!Auth::user()):
-            return view('login.login');
-        // else:
-        //     if(Auth::user()->role == 'admin'):
-        //         return redirect()->to('/dashboard/');
-        //     else:
-        //         return redirect()->to('/kasir/dashboard');
-        //     endif;
-        // endif;
+        return view('login.login');
+        
     }
 
     public function logincheck(Request $request){
@@ -50,7 +43,7 @@ class LoginController extends Controller
                 
             else{
 
-                return redirect()->to('/dashboard');
+                return redirect()->to('/');
             }
         }
         else{

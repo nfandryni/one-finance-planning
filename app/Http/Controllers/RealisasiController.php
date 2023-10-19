@@ -6,15 +6,13 @@ use App\Models\jenis_pengeluaran;
 use App\Models\pengeluaran;
 use App\Models\realisasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 
 class RealisasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(realisasi $realisasi)
+    public function index()
     {
         $data = [
             'realisasi' => $realisasi->all()
@@ -26,7 +24,7 @@ class RealisasiController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(realisasi $realisasi)
+    public function create()
     {
         $realisasi = $realisasi->all();
 
@@ -68,7 +66,7 @@ class RealisasiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(realisasi $realisasi)
     {
         //
     }
@@ -76,13 +74,9 @@ class RealisasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id, realisasi $realisasi)
+    public function edit(realisasi $realisasi)
     {
-        $realisasiData = realisasi::where('id_realisasi', $id)->first();
-
-        return view('dashboard-bendahara.edit', [
-            'realisasi' => $realisasiData,
-        ]);
+        //
     }
 
     /**
@@ -90,40 +84,14 @@ class RealisasiController extends Controller
      */
     public function update(Request $request, realisasi $realisasi)
     {
-        $id_realisasi = $request->input('id_realisasi');
-
-        $data = $request->validate([
-            'judul_realisasi' => 'sometimes',
-            'tujuan' => 'sometimes',
-            'waktu' => 'sometimes|file',
-            'total_pembayaran' => 'sometimes',
-        ]);
-
-        if ($id_realisasi !== null) {
-          
-            $dataUpdate = $realisasi->where('id_realisasi', $id_realisasi)->update($data);
-
-            if ($dataUpdate) {
-                return redirect('dashboard-bendahara/realisasi')->with('success', 'Data realisasi berhasil diupdate');
-            }
-
-            return back()->with('error', 'Data jenis realisasi gagal diupdate');
-        }
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(realisasi $realisasi, Request $request)
+    public function destroy(realisasi $realisasi)
     {
-        $id_realisasi = $request->input('id_realisasi');
-        $data = realisasi::find($id_realisasi)->delete();
-
-        if (!$data) {
-            return response()->json(['success' => false, 'pesan' => 'Data tidak ditemukan'], 404);
-        }
-
-     
-        return response()->json(['success' => false, 'pesan' => 'Data gagal dihapus']);
+        //
     }
 }
