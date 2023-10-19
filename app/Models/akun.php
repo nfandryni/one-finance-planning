@@ -10,7 +10,7 @@ class akun extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
     protected $table = 'akun';
-    protected $primaryKey = 'id_akun';
+    protected $primaryKey = 'user_id';
     protected $fillable = ['username', 'password', 'role'];
     public $timestamps = false;
 }

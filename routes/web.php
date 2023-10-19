@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AkunController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengajuanKebutuhanController;
 use App\Http\Controllers\RealisasiController;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +28,17 @@ Route::get('/', function () {
 });
 
 
-Route::get('login',[AuthController::class,'index'])->name('login');
-Route::post('login',[AuthController::class,'check']);
+Route::get('login',[LoginController::class,'index'])->name('login');
+Route::post('login',[LoginController::class,'logincheck']);
+Route::prefix('dashboard-bendahara')->group(function () {
+    Route::get('/', [RealisasiController::class, 'index']);
+    Route::get('/tambah', [RealisasiController::class, 'create']);
+    Route::post('/simpan', [RealisasiController::class, 'store']);
+    Route::get('/edit/{id}', [RealisasiController::class, 'edit']);
+    Route::post('/edit/simpan', [RealisasiController::class, 'update']);
+    Route::delete('/hapus', [RealisasiController::class, 'destroy']);
+});
+
 Route::middleware(['auth'])->group(function () {
 
     Route::prefix('dashboard-superadmin')->middleware(['akses:superadmin'])->group(function () {
@@ -40,23 +49,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/edit/simpan', [AkunController::class, 'update']);
         Route::delete('/hapus', [AkunController::class, 'destroy']);
     });
-
+//->middleware(['akses:bendahara'])
  
-    Route::prefix('dashboard-bendahara')->middleware(['akses:bendahara'])->group(function () {
-        Route::get('/', [RealisasiController::class, 'index']);
-        Route::get('/tambah', [RealisasiController::class, 'create']);
-        Route::post('/simpan', [RealisasiController::class, 'store']);
-        Route::get('/edit/{id}', [RealisasiController::class, 'edit']);
-        Route::post('/edit/simpan', [RealisasiController::class, 'update']);
-        Route::delete('/hapus', [RealisasiController::class, 'destroy']);
-    });
-
+   
     Route::prefix('dashboard-pemohon')->middleware(['akses:pemohon'])->group(function () {
         Route::get('/', [PengajuanKebutuhanController::class, 'index']);
         Route::post('/hapus', [PengajuanKebutuhanController::class, 'destroy']);
     });
 
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logout', [LoginController::class, 'logout']);
 });
 
 Route::get('/akun', function () {

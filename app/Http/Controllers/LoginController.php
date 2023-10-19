@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class AuthController extends Controller
         // endif;
     }
 
-    public function check(Request $request){
+    public function logincheck(Request $request){
         $akun = $request->validate(
             [
                 'username' => ['required'],

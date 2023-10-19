@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('item_perencanaan', function (Blueprint $table) {
             $table->integer('id_item_perencanaan', true);
-            $table->integer('id_item_kebutuhan', false)->index('id_item_kebutuhan');
+            $table->integer('id_item_kebutuhan', false)->nullable(true)->index('id_item_kebutuhan');
             $table->integer('id_perencanaan_keuangan', false)->index('id_perencanaan_keuangan');
             $table->integer('id_realisasi', false)->index('id_realisasi');
             $table->string('item_perencanaan', 60)->nullable(false);

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pemohon', function (Blueprint $table) {
             $table->integer('id_pemohon', true);
-            $table->integer('id_akun', false)->index('id_akun');
+            $table->integer('user_id', false)->index('user_id');
             $table->string('email', 60)->nullable(false);
             $table->string('jabatan', 60)->nullable(false);
             $table->enum('kategori',['WAKA','Kaprog','BK', 'Perpustakaan'])->nullable(false);
@@ -21,8 +21,8 @@ return new class extends Migration
 
             //foreign key dengan table akun 
             
-            $table->foreign('id_akun')->on('akun')
-                ->references('id_akun')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->on('akun')
+                ->references('user_id')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

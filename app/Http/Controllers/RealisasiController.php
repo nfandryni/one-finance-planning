@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\jenis_pengeluaran;
+use App\Models\pengeluaran;
 use App\Models\realisasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,7 @@ class RealisasiController extends Controller
             'realisasi' => $realisasi->all()
         ];
 
-        return view('dashboard-bendahara.index', $data);
+        return view('dashboard-bendahara.realisasi.index', $data);
     }
 
     /**
@@ -28,12 +30,12 @@ class RealisasiController extends Controller
     {
         $realisasi = $realisasi->all();
 
-        return view('dashboard-bendahara.tambah', [
+        return view('dashboard-bendahara.realisasi.tambah', [
             'realisasi' => $realisasi,
         ]);
     }
 
-    public function store(Request $request, realisasi $realisasi)
+    public function store(Request $request, realisasi $realisasi, pengeluaran $pengeluaran)
     {
         $data = $request->validate([
             // 'tanggal_surat' => 'required',
