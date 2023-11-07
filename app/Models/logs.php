@@ -10,6 +10,6 @@ class logs extends Model
     use HasFactory;
     protected $table = 'logs';
     protected $primaryKey = 'id_logs';
-    protected $fillable = ['aktor', 'aktivitas', 'waktu'];
+    protected $fillable = ['aksi', 'aktivitas', 'waktu'];
     public $timestamps = false;
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->integer('id_logs',true);
-            $table->string('aktor',60)->nullable(false);
+            $table->string('aksi',60)->nullable(false);
             $table->string('aktivitas',225)->nullable(false);
             $table->datetime('waktu')->nullable(false);
         });

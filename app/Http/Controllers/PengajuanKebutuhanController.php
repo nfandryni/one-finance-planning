@@ -10,9 +10,13 @@ class PengajuanKebutuhanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Pengajuan_Kebutuhan $pengajuan_kebutuhan)
     {
         //
+        $data = [
+            'pengajuan_kebutuhan'=> $pengajuan_kebutuhan->all()
+        ];
+        return view('pengajuan-kebutuhan.index',$data);
     }
 
     /**
@@ -26,9 +30,39 @@ class PengajuanKebutuhanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Pengajuan_Kebutuhan $pengajuan_kebutuhan, Request $request)
     {
         //
+        $data = $request->validate(
+            [
+                'nama_kegiatan' => ['required'],
+                'pemohon' => ['required'],
+                'waktu'    => ['required'],
+                'tujuan' => ['required'],
+            ]
+        );
+        if($request->input('id_pengajuan_kebutuhan') !== null ){
+            //Proses Update
+            $dataUpdate = Pengajuan_Kebutuhan::where('id_pengajuan_kebutuhan',$request->input('id_pengajuan_kebutuhan'))
+                            ->update($data);
+            if($dataUpdate){
+                return redirect('/dashboard/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan berhasil di update');
+            }else{
+                return back()->with('error','Data Pengajuan-Kebutuhan gagal di update');
+            }
+        }
+        else{
+            //Proses Insert
+            if($data):
+                $data['id_pmohon'] = 1;
+            //Simpan jika data terisi semua
+                $pengajuan_kebutuhan->create($data);
+                return redirect('/dashboard/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan baru berhasil ditambah');
+            else:
+            //Kembali ke form tambah data
+                return back()->with('error','Data Pengajuan Kebutuhan gagal ditambahkan');
+            endif;
+        }
     }
 
     /**

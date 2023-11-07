@@ -20,7 +20,7 @@ class AksesUser
             return $next($request);
         }
        else {
-        return '';
+        return redirect('/login');
        }
     }
 }

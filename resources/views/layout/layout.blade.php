@@ -1,18 +1,12 @@
+
 <html>
 <head>
     @vite(['resources/sass/app.scss','resources/js/app.js'])
     <title>@yield('title')</title>
     @yield('header')
-
+    <script src="https://kit.fontawesome.com/4be914391d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
       .nav-link{color: #ffffff }
       .nav-link:hover{color: #221d1d}
      
@@ -21,7 +15,14 @@
         background-color: #ffffff;
         font-weight: 700
       }
-      @media (min-width: 768px) {
+      .bdr {
+      border-radius: 6px;
+      }
+      .table-striped>tbody>tr:nth-child(odd)>td,
+      .table-striped>tbody>tr:nth-child(odd)>th {
+      background-color: #FFC107;
+      }
+      @media (min-width: 900px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
@@ -30,59 +31,105 @@
 
 </head>
 
+
 <body>
-  <div class="b-example-divider">
-
-    {{-- <nav style="background: #ffff">
-      <div class="container">
-        <a style="font-weight: bold; font-size:25px;">One Finance Planning App</a>
-        <div class="dropdown">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" >
-              <img src="{{ url('img') . '/pp.png' }}" alt="" width="32" height="32" class="rounded-circle me-2">
-          </a>
-          <ul class="dropdown-menu text-small shadow  dropdown-menu-end">
-              <li><a class="dropdown-item" style="pointer-events: none" href="#"></a></li>
-              <li>
-                  <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="/profile">Profile</a></li>
-              <li><a class="dropdown-item" href="/logout">Sign out</a></li>
-          </ul>
-      </div>
-      </div>
-    </nav> --}}
-
-  <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;height:100vh;background-color:#588157">
+  
+  <div class="d-flex" style=" height: 100%;">
+  <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;background-color:#588157;">
      <div><a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-      <img src="assets/LOGO (2).png" class="mx-auto d-flex " width="130" height="130" alt="Responsive image">
+      <img src="{{url('assets/LOGO (2).png') }}" class="mx-auto d-flex " width="130" height="130" alt="Responsive image">
     </a></div>
-    
-<span class="border-bottom mb-3"></span>
-
+    <span class="border-bottom mb-3"></span>
     <ul class="nav nav-pills flex-column mb-auto">
+
       <li class="nav-item">
-        <a href="/layout" class="nav-link " aria-current="page">
-          Home
+        <a href="/" class="nav-link @yield('dashboard-bendahara')" aria-current="page">
+          Dashboard
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/dashboard-bendahara/pengeluaran" class="nav-link @yield('pengeluaran')" aria-current="page">
+          Pengeluaran
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')" aria-current="page">
+          Jenis Pengeluaran
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')" aria-current="page">
+          Sumber Dana
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/dashboard-bendahara/logs" class="nav-link @yield('logs')" aria-current="page">
+          Log Activity
         </a>
       </li>
      
       <li>
-        <a href="/" class="nav-link @yield('dashboard')">
-          Dashboard
+        <a href="/logout" class="nav-link @yield('logout')" aria-current="page">
+        Logout
         </a>
       </li>
-      
+ 
     </ul>
-    <hr>
-    
+   
+   
   </div>
-</div>
-    <div class="container">
-          {{-- @include('layout.flash-message') --}}
-          @yield('content')
+
+    <div class="card" style="width: 1100;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
+            {{-- nav disini --}}
+            <header class="p-2 mb-3 border-bottom bg-light">
+                <div class="container">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between ">
+                        <span class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+                            <h1 class="fw-bold">One Finance Planning</h1>
+                        </span>
+
+                        <div class="dropdown text-end">
+                            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                                data-bs-toggle="dropdown">
+                                <img src="/foto/pfp.jpg" alt="mdo" width="32" height="32"
+                                    class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu ">
+                                <li>
+                                    <div class="col-md-12 d-flex">
+                                        <div class="col-md-4 ms-2 me-2">
+                                            <img src='/foto/pfp.jpg' alt="/" width="50" height="50"
+                                                class="rounded-circle" />
+                                        </div>
+                                        <div class="col-md-6 ms-2 me-2 ">
+                                            {{ Auth::user()->username }}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/logout">Log out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            {{-- content  --}}
+            <div class=" ms-3 me-3 ">
+                @include('layout.flash-message')
+                @yield('content')
+            </div>
+        </div>
     </div>
+
+
 </body>
 <footer>
     @yield('footer')
 </footer>
-<html>   
+<html>
