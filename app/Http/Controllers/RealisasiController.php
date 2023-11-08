@@ -38,7 +38,6 @@ class RealisasiController extends Controller
     public function store(Request $request, realisasi $realisasi, pengeluaran $pengeluaran)
     {
         $data = $request->validate([
-            // 'tanggal_surat' => 'required',
             'id_pengeluaran' => 'required',
             'judul_realisasi' => 'required',
             'tujuan' => 'required',

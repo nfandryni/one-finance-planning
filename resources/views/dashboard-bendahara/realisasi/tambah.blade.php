@@ -12,11 +12,15 @@
                                 <div class="form-group">
                                     <label>Nama Realisasi</label>
                                     <input type="text" class="form-control" name="judul_realisasi" />
-                                    
+                                    <select id="">
+                                        foreach($perencanaan_keuangan as $p)
+                                        <option value="{{$p->id_perencanaan_keuangan}}">{{$p->nama_perencanaan_keuangan}}</option>
+                                        endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Tujuan</label>
-                                    <input type="text" class="form-control" name="tujuan" />
+                                    <input type="text" class="form-control" name="tujuan" value/>
                                     
                                 </div>
                                 <div class="form-group">
@@ -69,7 +73,7 @@
                             </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <a href="/dashboard/surat"><btn class="btn btn-dark">KEMBALI</btn></a>
+                                <a href="/dashboard-bendahara/realisasi"><btn class="btn btn-dark">KEMBALI</btn></a>
                                 <button type="submit" class="btn btn-success">SIMPAN</button>
                                 
                             </div>

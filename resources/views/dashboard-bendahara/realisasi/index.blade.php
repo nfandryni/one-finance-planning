@@ -12,7 +12,7 @@
                         <div class="col-sm-2">
                             <div><br>
                             <a href="realisasi/tambah">
-									<btn class="btn btn-success">Tambah Realisasi</btn>
+									<btn class="btn btn-primary">Tambah Realisasi</btn>
 							</a>
                             </div>
                         </div>
