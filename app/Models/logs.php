@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class logs extends Model
 {
     use HasFactory;
-    protected $table = 'logs_aplikasi';
+    protected $table = 'logs';
     protected $primaryKey = 'id_logs';
-    protected $fillable = ['aktor', 'aktivitas', 'waktu'];
+    protected $fillable = ['aksi', 'aktivitas', 'waktu'];
     public $timestamps = false;
 }

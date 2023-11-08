@@ -1,49 +1,46 @@
 @extends('layout.layout')
-@section('akun', 'active')
+@section('realisasi', 'active')
 @section('title', 'Daftar Realisasi')
 @section('content')
 <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <span class="h1">
-                        Kelola Data Realisasi
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div class="row" >
-                        <div class="col" >
-                            <a href="/dashboard-bendahara/tambah">
-                                <btn class="btn btn-primary left">Tambah Data</btn>
-                            </a>
-
+    <div class="row"><h2 class="fw-bold">Kelola Data Realisasi</h2>
+    <div class="card" style="height: 75px;">
+        <h4 class=" fw-bold p-3">Cetak Data Realisasi </h4>
+    </div>
+    <div class="col-md-12">
+                    <div class="row justify-content-md-center" style="align-items: center">
+                        <div class="col-sm-2">
+                            <div><br>
+                            <a href="realisasi/tambah">
+									<btn class="btn btn-success">Tambah Realisasi</btn>
+							</a>
+                            </div>
                         </div>
-                        <p>
-                            <hr>
-                        <table class="table table-hover table-bordered DataTable">
-                            <thead>
+                    </div>
+                    </div>
+                         </div>
+
+                        <table class="table table-borderless table-striped mt-2 DataTable">
+                            <thead> 
                                 <tr>
-                                    <th>Judul Realisasi</th>
-                                    <th>Waktu</th>
-                                    <th>Total Dana</th>
-                                    <th>AKSI</th>
+                                    <th>ID</th>
+                                    <th>Nama realisasi</th>
+                                    <th>Nama Ruangan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($realisasi as $s)
+                                 @foreach ($realisasi as $s)
                                     <tr>
-                                        <td>{{ $s->judul_realisasi }}</td>
-                                        <td>{{ $s->waktu }}</td>
-                                        <td>{{ $s->total_dana }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $s->nama_realisasi }}</td>
+                                        <td>{{ $s->nama_ruangan }}</td>
                                         <td>
-                                            <a href="edit/{{ $s->id_realisasi }}">
-                                                <btn class="btn btn-primary">EDIT</btn>
-                                            </a>
-                                            <btn class="btn btn-danger btnHapus" idRealisasi="{{ $s->id_realisasi }}">HAPUS</btn>
+                                            <i class="fa-solid fa-pen" data-bs-toggle="modal" data-id='{{ $s->id_realisasi }}' style="cursor: pointer; margin:2px" data-bs-target="#editrealisasi"></i>
+                                            <btn class="btnHapus" style="cursor: pointer" idrealisasi="{{ $s->id_realisasi }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach 
                             </tbody>
                         </table>
                     </div>
@@ -54,13 +51,16 @@
             </div>
         </div>
     </div>
+@include('dashboard-bendahara.realisasi.edit')
+
 @endsection
 
-{{-- @section('footer')
+
+@section('footer')
     <script type="module">
-        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
+        $('tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
-            let idRealisasi = $(this).closest('.btnHapus').attr('idRealisasi');
+            let idrealisasi = $(this).closest('.btnHapus').attr('idrealisasi');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -73,9 +73,9 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'hapus',
+                        url: 'realisasi/hapus',
                         data: {
-                            id_realisasi: idRealisasi,
+                            id_realisasi: idrealisasi,
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
@@ -90,6 +90,9 @@
                 }
             });
         });
+        $(document).ready(function() {
+        $('.DataTable').DataTable({});
+    });
     </script>
 
-@endsection --}}
+@endsection 

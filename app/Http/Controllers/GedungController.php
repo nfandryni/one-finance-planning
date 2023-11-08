@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\gedung;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class GedungController extends Controller
 {
@@ -39,13 +41,13 @@ class GedungController extends Controller
         );
 
         //Proses Insert
-        if ($data) {
+        if (DB::statement("CALL tambah_gedung(?, ?)", ([$data['nama_gedung'], $data['nama_ruangan']]))) {
             // Simpan jika data terisi semua
-            $gedung->create($data);
-            return redirect('dashboard-bendahara/gedung')->with('success', 'Data gedung surat baru berhasil ditambah');
+            // $gedung->create($data);
+            return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung baru berhasil ditambah');
         } else {
             // Kembali ke form tambah data
-            return back()->with('error', 'Data jenis surat gagal ditambahkan');
+            return back()->with('error', 'Data Gedung gagal ditambahkan');
         }
     }
 
@@ -84,13 +86,12 @@ class GedungController extends Controller
         $id_gedung = $request->input('id_gedung');
 
         if ($id_gedung !== null) {
-            // Process Update
             $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-bendahara/gedung')->with('success', 'Data jenis surat berhasil di update');
+                return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung berhasil diupdate');
             } else {
-                return back()->with('error', 'Data jenis surat gagal di update');
+                return back()->with('error', 'Data Gedung gagal diupdate');
             }
         }
     }
@@ -103,13 +104,13 @@ class GedungController extends Controller
         $id_gedung = $request->input('id_gedung');
 
         // Hapus 
-        $aksi = $gedung->where('id_gedung_surat', $id_gedung)->delete();
+        $aksi = $gedung->where('id_gedung', $id_gedung)->delete();
 
         if ($aksi) {
             // Pesan Berhasil
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data gedung surat berhasil dihapus'
+                'pesan'   => 'Data Gedung berhasil dihapus'
             ];
         } else {
             // Pesan Gagal

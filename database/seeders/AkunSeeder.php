@@ -17,11 +17,20 @@ class AkunSeeder extends Seeder
 
         DB::table('akun')->insert([
             [
-                'username' => 'Super Admin',
+                'username' => 'bendahara',
+                'password' => Hash::make('123'),
+                'role' => 'bendaharasekolah',
+            ],
+            [
+                'username' => 'pemohon',
+                'password' => Hash::make('123'),
+                'role' => 'pemohon',
+            ],
+            [
+                'username' => 'superadmin',
                 'password' => Hash::make('123'),
                 'role' => 'superadmin',
             ],
-            // <!-- // Tambahkan data pengguna lain jika diperlukan -->
         ]);
     }
 }

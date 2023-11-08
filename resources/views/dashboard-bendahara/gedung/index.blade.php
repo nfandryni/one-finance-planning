@@ -1,47 +1,44 @@
 @extends('layout.layout')
-@section('akun', 'active')
+@section('gedung', 'active')
 @section('title', 'Daftar Gedung')
 @section('content')
 <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <span class="h1">
-                        Kelola Data Gedung
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div class="row" >
-                        <div class="col" >
-                            <a href="/dashboard-bendahara/tambah">
-                                <btn class="btn btn-primary left">Tambah Data</btn>
-                            </a>
-
+    <div class="row"><h2 class="fw-bold">Kelola Data Master - Gedung</h2>
+    <hr>
+    <div class="col-md-12">
+                    <div class="row justify-content-md-center" style="align-items: center">
+                        <div class="col-sm-2">
+                            <div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahGedung">
+                            Tambah Data
+                            </button>
+                            </div>
                         </div>
-                        <p>
-                            <hr>
-                        <table class="table table-hover table-bordered DataTable">
-                            <thead>
+                    </div>
+                    </div>
+                         </div>
+
+                        <table class="table table-borderless table-striped mt-2 DataTable">
+                            <thead> 
                                 <tr>
+                                    <th>ID</th>
                                     <th>Nama Gedung</th>
                                     <th>Nama Ruangan</th>
-                                    <th>AKSI</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($gedung as $s)
+                                 @foreach ($gedung as $s)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->nama_gedung }}</td>
                                         <td>{{ $s->nama_ruangan }}</td>
                                         <td>
-                                            <a href="edit/{{ $s->id_realisasi }}">
-                                                <btn class="btn btn-primary">EDIT</btn>
-                                            </a>
-                                            <btn class="btn btn-danger btnHapus" idRealisasi="{{ $s->id_realisasi }}">HAPUS</btn>
+                                            <i class="fa-solid fa-pen" data-bs-toggle="modal" data-id='{{ $s->id_gedung }}' style="cursor: pointer; margin:2px" data-bs-target="#editGedung"></i>
+                                            <btn class="btnHapus" style="cursor: pointer" idGedung="{{ $s->id_gedung }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach 
                             </tbody>
                         </table>
                     </div>
@@ -52,13 +49,17 @@
             </div>
         </div>
     </div>
+@include('dashboard-bendahara.gedung.edit')
+@include('dashboard-bendahara.gedung.tambah')
+
 @endsection
 
-{{-- @section('footer')
+
+@section('footer')
     <script type="module">
-        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
+        $('tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
-            let idRealisasi = $(this).closest('.btnHapus').attr('idRealisasi');
+            let idGedung = $(this).closest('.btnHapus').attr('idGedung');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -71,9 +72,9 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'hapus',
+                        url: 'gedung/hapus',
                         data: {
-                            id_realisasi: idRealisasi,
+                            id_gedung: idGedung,
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
@@ -88,6 +89,9 @@
                 }
             });
         });
+        $(document).ready(function() {
+        $('.DataTable').DataTable({});
+    });
     </script>
 
-@endsection --}}
+@endsection 

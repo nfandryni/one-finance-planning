@@ -10,6 +10,6 @@ class bendahara_sekolah extends Model
     use HasFactory;
     protected $table = 'bendahara_sekolah';
     protected $primaryKey = 'id_bendahara';
-    protected $fillable =['email', 'jabatan', 'foto_profil'];
+    protected $fillable =['user_id', 'email', 'jabatan', 'foto_profil'];
     public $timestamps = false;
 }
