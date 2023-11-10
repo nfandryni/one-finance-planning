@@ -18,11 +18,7 @@ return new class extends Migration
             $table->string('tujuan', 225)->nullable(false);
             $table->string('status', 25)->nullable(false);
             $table->datetime('waktu')->nullable(false);
-            $table->decimal('total_dana_kebutuhan', 10,2)->nullable(false);
-            $table->text('ttd_bendahara_sekolah')->nullable(true);
-            $table->text('ttd_kepsek')->nullable(true);
-            $table->text('ttd_ketua_komite')->nullable(true);
-            $table->text('ttd_bendahara_komite')->nullable(true);
+            $table->decimal('total_dana_kebutuhan', 10,2)->nullable(true);
 
             $table->foreign('id_pemohon')->on('pemohon')->references('id_pemohon')->onUpdate
             ('cascade')->onDelete('cascade');

@@ -74,8 +74,14 @@
           Gedung
         </a>
       </li>
+      <li>
         <a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')">
           Sumber Dana
+        </a>
+      </li>
+      <li>
+        <a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')">
+          Jenis Pengeluaran
         </a>
       </li>
       <li>

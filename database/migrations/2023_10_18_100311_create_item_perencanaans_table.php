@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -32,7 +33,18 @@ return new class extends Migration
             ('cascade')->onDelete('cascade');
             $table->foreign('id_realisasi')->on('realisasi')->references('id_realisasi')->onUpdate
             ('cascade')->onDelete('cascade');
+
+            
         });
+        DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
+
+        DB::unprepared(
+            "CREATE VIEW view_realisasi AS 
+            SELECT i.id_item_perencanaan, p.id_perencanaan_keuangan, r.id_realisasi, i.item_perencanaan, i.qty, i.harga_satuan, i.satuan, i.spesifikasi, i.bulan_rencana_realisasi, i.status, i.foto_barang_perencanaan, i.foto_realisasi from item_perencanaan AS i
+            INNER JOIN perencanaan_keuangan AS p ON i.id_perencanaan_keuangan = p.id_perencanaan_keuangan
+            INNER JOIN realisasi AS r ON i.id_realisasi = r.id_realisasi
+            "
+        );
     }
 
     /**

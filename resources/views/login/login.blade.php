@@ -31,12 +31,12 @@
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
 
                   <div class="form-outline mb-4">
-				  <input type='text' name='username' id='username' class="form-control form-control-lg" placeholder='Username...' required>
+				  <input type='text' name='username' id='username' class="form-control form-control-lg" placeholder='Username' required>
                     <label class="form-label" for="username">Username</label>
                   </div>
 
                   <div class="form-outline mb-4">
-					<input type='password' name='password' id="password" class='form-control form-control-lg' placeholder="Password..." required>
+					<input type='password' name='password' id="password" class='form-control form-control-lg' placeholder="Password" required>
                     <label class="form-label" for="password">Password</label>
                   </div>
 
