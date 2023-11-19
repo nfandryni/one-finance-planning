@@ -1,32 +1,42 @@
 
 <html>
 <head>
-    @vite(['resources/sass/app.scss','resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>@yield('title')</title>
     @yield('header')
     <script src="https://kit.fontawesome.com/4be914391d.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
+    </script>
     <style>
-      .nav-link{color: #ffffff }
-      .nav-link:hover{color: #221d1d}
-     
-      .nav-pills .nav-link.active{
-        color: #221d1d ;
-        background-color: #ffffff;
-        font-weight: 700
-      }
-      .bdr {
-      border-radius: 6px;
-      }
-      .table-striped>tbody>tr:nth-child(odd)>td,
-      .table-striped>tbody>tr:nth-child(odd)>th {
-      background-color: #FFC107;
-      }
-      @media (min-width: 900px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+        .nav-link {
+            color: #ffffff
         }
-      }
+
+        .nav-link:hover {
+            color: #221d1d
+        }
+
+        .nav-pills .nav-link.active {
+            color: #221d1d;
+            background-color: #ffffff;
+            font-weight: 700
+        }
+
+        .bdr {
+            border-radius: 6px;
+        }
+
+        .table-striped>tbody>tr:nth-child(odd)>td,
+        .table-striped>tbody>tr:nth-child(odd)>th {
+            background-color: #FFC107;
+        }
+
+        @media (min-width: 900px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
     </style>
 
 </head>
@@ -43,11 +53,23 @@
     <ul class="nav nav-pills flex-column mb-auto">
 
       <li class="nav-item">
-        <a href="/" class="nav-link @yield('dashboard-bendahara')" aria-current="page">
+        <a href="/dashboard-pemohon" class="nav-link @yield('dashboard-pemohon')" aria-current="page">
           Dashboard
         </a>
       </li>
 
+       <li class="nav-item">
+        <a href="/dashboard-pemohon/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')" aria-current="page">
+          Pengajuan Kebutuhan
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/dashboard-pemohon/gedung"class="nav-link @yield('gedung')" aria-current="page">
+          Gedung
+        </a>
+      </li>
+{{-- 
       <li class="nav-item">
         <a href="/dashboard-bendahara/pengeluaran" class="nav-link @yield('pengeluaran')" aria-current="page">
           Pengeluaran
@@ -70,7 +92,7 @@
         <a href="/dashboard-bendahara/logs" class="nav-link @yield('logs')" aria-current="page">
           Log Activity
         </a>
-      </li>
+      </li> --}}
      
       <li>
         <a href="/logout" class="nav-link @yield('logout')" aria-current="page">
@@ -83,7 +105,7 @@
    
   </div>
 
-    <div class="card" style="width: 1100;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
+    <div class="card" style="width: 1200;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
             {{-- nav disini --}}
             <header class="p-2 mb-3 border-bottom bg-light">
                 <div class="container">
