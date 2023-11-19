@@ -27,7 +27,11 @@
                             <tbody>
                                  @foreach ($realisasi as $s)
                                     <tr>
-                                        <td>{{ $s->judul_realisasi }}</td>
+                                        <td>{{ $s->judul_realisasi }}
+                                            @if(is_null($s->id_pengeluaran))
+                                            <p class='text-danger mt-1 fst-italic fs-6'>Catatan Pengeluaran belum Ditambahkan.</p>
+                                            @endif
+                                        </td>
                                         <td>{{ $s->waktu }}</td>    
                                         <td>{{ $s->total_pembayaran }}</td>
                                         <td>

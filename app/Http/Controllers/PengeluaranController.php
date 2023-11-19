@@ -55,8 +55,11 @@ class PengeluaranController extends Controller
 
         ]);
 
-        $idBendahara = $bendahara_sekolah->join('akun', 'bendahara_sekolah.id_akun', '=', 'akun.id_akun')->select('bendahara_sekolah.id_bendahara')->where('bendahara_sekolah.id_akun', auth()->user()->id_akun)->first();
-        $data['id_bendahara'] = $idBendahara->id_bendahara;
+        $user = Auth::user();
+        $id_akun = $user->user_id;
+        $id_pemohon_array = DB::select("SELECT id_bendahara FROM bendahara_sekolah WHERE user_id = ? LIMIT 1", [$id_akun]);
+        $id_bendahara = $id_pemohon_array[0]->id_bendahara;
+        $data['id_bendahara'] = $id_bendahara;
         // dd($idBendahara->id_bendahara);
 
         if ($request->hasFile('foto')) {

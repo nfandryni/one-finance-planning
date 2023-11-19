@@ -49,8 +49,8 @@
                                         </td>
                                         
                                         <td>
-                                            <a href="pengeluaran/edit/{{ $s->id_pengeluaran }}">
-                                                <btn class="btn btn-primary">EDIT</btn>
+                                            <a href="pengeluaran/edit/{{ $s->id_pengeluaran }}" class="btn btn-primary">
+                                                EDIT
                                             </a>
                                             <btn class="btn btn-danger btnHapus" idPengeluaran="{{ $s->id_pengeluaran }}">HAPUS</btn>
                                         </td>

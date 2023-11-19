@@ -26,7 +26,7 @@
 
         .table-striped>tbody>tr:nth-child(odd)>td,
         .table-striped>tbody>tr:nth-child(odd)>th {
-            background-color: #FFC107;
+            background-color: #f8f9fa;
         }
 
         @media (min-width: 900px) {
@@ -65,7 +65,7 @@
         </a>
       </li>
       <li>
-        <a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung')">
+        <a href="/dashboard-bendahara/gedung" class="nav-link">
           Kelola Data Master
         </a>
       </li>
@@ -85,6 +85,11 @@
         </a>
       </li>
       <li>
+        <a href="/dashboard-bendahara/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')">
+         Pengajuan Kebutuhan
+        </a>
+      </li>
+      <li>
         <a href="/dashboard-bendahara/perencanaan-keuangan" class="nav-link @yield('perencanaan-keuangan')">
          Perencanaan Keuangan
         </a>
@@ -92,11 +97,6 @@
       <li>
         <a href="/dashboard-bendahara/realisasi" class="nav-link @yield('realisasi')">
          Realisasi 
-        </a>
-      </li>
-      <li>
-        <a href="/dashboard-bendahara/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')">
-         Pengajuan Kebutuhan
         </a>
       </li>
       <li>

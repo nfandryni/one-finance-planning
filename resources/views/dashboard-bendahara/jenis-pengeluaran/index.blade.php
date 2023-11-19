@@ -33,11 +33,9 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->kategori }}</td>
                                         <td>
-                                            <a href="/dashboard-bendahara/jenis-pengeluaran/edit/{{ $s->id_jenis_pengeluaran }}" class="link-underline-opacity-0">
-                                             <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
-                                                </i>
-                                            </a>
-                                            <btn class="btnHapus" style="cursor: pointer" idJenisPengeluaran="{{ $s->id_jenis_pengeluaran }}"><i class="fa-solid fa-trash"></i></btn>
+                                        <a class='text-black' href="/dashboard-bendahara/jenis-pengeluaran/edit/{{ $s->id_jenis_pengeluaran }}"> <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
+                                           </i></a>
+                                            <btn class="btnHapus" style="cursor: pointer;" idJenisPengeluaran="{{ $s->id_jenis_pengeluaran }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -56,7 +54,7 @@
 @endsection
 @section('footer')
     <script type="module">
-        $('DataTable tbody').on('click', '.btnHapus', function(a) {
+        $('tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
             let idJenisPengeluaran = $(this).closest('.btnHapus').attr('idJenisPengeluaran');
             swal.fire({

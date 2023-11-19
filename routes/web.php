@@ -39,7 +39,7 @@ Route::post('login',[LoginController::class,'logincheck']);
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard-bendahara')->middleware(['akses:bendaharasekolah'])->group(function () {
         Route::get('/', [DashboardBendaharaController::class, 'index']);
-        Route::get('/realisasi', [RealisasiController::class,    'index']);
+        Route::get('/realisasi', [RealisasiController::class, 'index']);
         Route::get('/realisasi/tambah', [RealisasiController::class, 'create']);
         Route::post('/realisasi/simpan', [RealisasiController::class, 'store']);
         Route::get('/realisasi/edit/{id}', [RealisasiController::class, 'edit']);

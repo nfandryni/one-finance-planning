@@ -1,16 +1,11 @@
 @extends('layout.layout')
 @section('title', 'Edit Sumber Dana')
 @section('content')
-<br>
-    <div class="row">
+    <div class="row px-3">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
                     <span class="h1">
                         Edit Data Sumber Dana
                     </span>
-                </div>
-                <div class="card-body">
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-5">
@@ -37,6 +32,4 @@
                 </div>
 
             </div>
-        </div>
-    </div>
 @endsection

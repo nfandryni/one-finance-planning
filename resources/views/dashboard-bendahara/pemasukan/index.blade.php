@@ -48,8 +48,8 @@
                                         <td>{{ $s->waktu }}</td>
                                         <td><img src='../foto/{{$s->file}}' width='200px'/></td>
                                         <td>
-                                            <a href="/dashboard-bendahara/pemasukan/edit/{{$s->id_pemasukan}}">
-                                                <btn class="btn btn-primary">EDIT</btn>
+                                            <a href="/dashboard-bendahara/pemasukan/edit/{{$s->id_pemasukan}}" class="btn btn-primary">
+                                                EDIT
                                                 </a>
                                             <btn class="btn btn-danger btnHapus" idPemasukan="{{ $s->id_pemasukan }}">HAPUS</btn>
                                         </td>

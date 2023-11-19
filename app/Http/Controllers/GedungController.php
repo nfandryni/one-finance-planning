@@ -67,7 +67,6 @@ class GedungController extends Controller
         $data = [
             'gedung' =>  gedung::where('id_gedung', $id)->first()
         ];
-        dd($data);
         return view('dashboard-bendahara.gedung.edit', $data);
     }
 
