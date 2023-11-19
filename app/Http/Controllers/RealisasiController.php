@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\jenis_pengeluaran;
 use App\Models\pengeluaran;
+use App\Models\perencanaan_keuangan;
 use App\Models\realisasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiController extends Controller
 {
@@ -26,13 +28,16 @@ class RealisasiController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(realisasi $realisasi)
+    public function create(realisasi $realisasi, perencanaan_keuangan $perencanaan_keuangan, pengeluaran $pengeluaran)
     {
-        $realisasi = $realisasi->all();
+        $data = [
+            'realisasi' => $realisasi->all(),
+            'perencanaan_keuangan' => $perencanaan_keuangan->all(),
+            'pengeluaran' => $pengeluaran->all(),
 
-        return view('dashboard-bendahara.realisasi.tambah', [
-            'realisasi' => $realisasi,
-        ]);
+        ];
+
+        return view('dashboard-bendahara.realisasi.tambah', $data);
     }
 
     public function store(Request $request, realisasi $realisasi, pengeluaran $pengeluaran)
@@ -70,6 +75,12 @@ class RealisasiController extends Controller
     public function show(string $id)
     {
         //
+
+        $data = [
+            'viewrealisasi' => DB::table('view_realisasi')->first()
+        ];
+
+        return view('dashboard-bendahara.realisasi.detail', $data);
     }
 
     /**

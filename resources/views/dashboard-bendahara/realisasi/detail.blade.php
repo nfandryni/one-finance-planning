@@ -2,6 +2,7 @@
 @section('realisasi', 'active')
 @section('title', 'Daftar Realisasi')
 @section('content')
+
 <br>
     <div class="row px-5">
     <h2 class="fw-bold">Kelola Data Realisasi</h2>
@@ -25,7 +26,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 @foreach ($realisasi as $s)
+                                 @foreach ($viewrealisasi as $s)
                                     <tr>
                                         <td>{{ $s->judul_realisasi }}</td>
                                         <td>{{ $s->waktu }}</td>    
@@ -48,45 +49,3 @@
     </div>
 
 @endsection
-
-
-@section('footer')
-    <script type="module">
-        $('tbody').on('click', '.btnHapus', function(a) {
-            a.preventDefault();
-            let idrealisasi = $(this).closest('.btnHapus').attr('idrealisasi');
-            swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
-                showCancelButton: true,
-                confirmButtonText: 'Setuju',
-                cancelButtonText: `Batal`,
-                confirmButtonColor: 'red'
-
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //Ajax Delete
-                    $.ajax({
-                        type: 'DELETE',
-                        url: 'realisasi/hapus',
-                        data: {
-                            id_realisasi: idrealisasi,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        success: function(data) {
-                            if (data.success) {
-                                swal.fire('Berhasil di hapus!', '', 'success').then(function() {
-                                    //Refresh Halaman
-                                    location.reload();
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-        });
-        $(document).ready(function() {
-        $('.DataTable').DataTable({});
-    });
-    </script>
-
-@endsection 

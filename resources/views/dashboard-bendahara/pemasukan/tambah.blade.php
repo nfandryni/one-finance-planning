@@ -2,15 +2,11 @@
 @section('title', 'Tambah Pemasukan ')
 @section('content')
 <br>
-    <div class="row">
+    <div class="row px-5">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
                     <span class="h1">
                         Tambah Data Pemasukan
                     </span>
-                </div>
-                <div class="card-body">
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-5">
@@ -43,8 +39,8 @@
                                 <p></p>
                         <div class="row">
                             <div class="col-md-4">
-                                <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-dark">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-success">SIMPAN</button>
+                                <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-danger inline-block ">KEMBALI</btn></a>
+                                <button type="submit" class="btn btn-success inline-block">SIMPAN</button>
                                 
                             </div>
                                 @csrf
@@ -52,7 +48,5 @@
                     </form>
                 </div>
 
-            </div>
         </div>
-    </div>
 @endsection

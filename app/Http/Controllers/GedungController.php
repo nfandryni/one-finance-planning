@@ -62,12 +62,12 @@ class GedungController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id, Request $request, gedung $gedung)
+    public function edit(string $id)
     {
         $data = [
             'gedung' =>  gedung::where('id_gedung', $id)->first()
         ];
-
+        dd($data);
         return view('dashboard-bendahara.gedung.edit', $data);
     }
 

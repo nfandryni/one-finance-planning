@@ -3,27 +3,25 @@
 @section('title', 'Daftar Pengeluaran')
 @section('content')
 <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <span class="h1">
-                        Pengeluaran
-                    </span><br><br>
-                    {{-- Menghitung jumlah pengeluaran diambil dari stored function yang ada di migration --}}
-                    <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row" >
+<div class="row">
+    <h2 class="fw-bold">Kelola Data Master - Pengeluaran</h2>
+    <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
+    <div class="col-md-12">
+                    <div class="row justify-content-md-center" style="align-items: center">
+                      
+                        <div class="col-sm-2">
                         <div class="col" >
                             <a href="pengeluaran/tambah">
-                                <btn class="btn btn-success">Tambah Pengeluaran</btn>
+                                <btn class="btn btn-primary">Tambah Pengeluaran</btn>
                             </a>
 
                         </div>
-                        <p>
-                            <hr>
-                        <table class="table table-hover table-bordered DataTable">
+                        </div>
+                    </div>
+                    </div>
+                         </div>
+
+                        <table class="table table-borderless table-striped mt-2 DataTable">
                             <thead>
                                 <tr>
                                     <th>Sumber Dana</th>
@@ -104,6 +102,9 @@
                 }
             });
         });
+        $(document).ready(function() {
+        $('.DataTable').DataTable({});
+    });
     </script>
 
 @endsection

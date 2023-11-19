@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('id_gedung', false)->index('id_gedung');
             $table->string('item_kebutuhan', 60)->nullable(false);
             $table->integer('qty')->nullable(false);
-            $table->decimal('harga_satuan', 10,2)->nullable(false);
+            $table->integer('harga_satuan', false)->nullable(false);
             $table->string('satuan', 20)->nullable(false);
             $table->string('spesifikasi', 225)->nullable(false);
             $table->text('foto_barang_kebutuhan')->nullable(false);

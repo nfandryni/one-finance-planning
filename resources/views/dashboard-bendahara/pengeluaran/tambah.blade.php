@@ -1,16 +1,11 @@
 @extends('layout.layout')
 @section('pengeluaran', 'active ')
 @section('content')
-<br>
-    <div class="row">
+    <div class="row px-5">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
                     <span class="h1">
                         Tambah Pengeluaran
                     </span>
-                </div>
-                <div class="card-body">
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-5">
@@ -29,7 +24,7 @@
                                         <option value="{{$s->id_jenis_pengeluaran}}">{{$s->kategori}}</option>
                                         @endforeach
                                     </select>
-                                    <label>Nama</label>
+                                    <label>Nama Pengeluaran</label>
                                     <input type="text" class="form-control" name="nama" />
                                     <label>Nominal</label>
                                     <input type="text" class="form-control" name="nominal" />
@@ -49,7 +44,5 @@
                     </form>
                 </div>
 
-            </div>
         </div>
-    </div>
 @endsection

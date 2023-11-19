@@ -125,7 +125,7 @@
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" >
-            <img src="../pfp.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="{{url('pfp.jpg') }}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu ">
             <li>
@@ -148,6 +148,7 @@
 
 {{-- nav disini --}}
 <div class="container">
+
         @include('layout.flash-message')
         @yield('content')
   </div>

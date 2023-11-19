@@ -3,27 +3,26 @@
 @section('title', 'Daftar Jenis Pengeluaran')
 @section('content')
 <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <span class="h1">
-                        Jenis Pengeluaran
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div class="row" >
+<div class="row"><h2 class="fw-bold">Kelola Data Master - Jenis Pengeluaran</h2>
+    <hr>
+    <div class="col-md-12">
+                    <div class="row justify-content-md-center" style="align-items: center">
+                      
+                        <div class="col-sm-2">
                         <div class="col" >
-                            <a href="jenis-pengeluaran/tambah">
-                                <btn class="btn btn-success">Tambah Jenis Pengeluaran</btn>
-                            </a>
-
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahJenisPengeluaran">
+                            Tambah Data
+                            </button>
                         </div>
-                        <p>
-                            <hr>
-                        <table class="table table-hover table-bordered DataTable">
+                        </div>
+                    </div>
+                    </div>
+                         </div>
+
+                        <table class="table table-borderless table-striped mt-2 DataTable">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Kategori</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -31,13 +30,14 @@
                             <tbody>
                                 @foreach ($jenis_pengeluaran as $s)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->kategori }}</td>
-                                        
                                         <td>
-                                            <a href="jenis-pengeluaran/edit/{{ $s->id_jenis_pengeluaran }}">
-                                                <btn class="btn btn-primary">EDIT</btn>
+                                            <a href="/dashboard-bendahara/jenis-pengeluaran/edit/{{ $s->id_jenis_pengeluaran }}" class="link-underline-opacity-0">
+                                             <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
+                                                </i>
                                             </a>
-                                            <btn class="btn btn-danger btnHapus" idJenisPengeluaran="{{ $s->id_jenis_pengeluaran }}">HAPUS</btn>
+                                            <btn class="btnHapus" style="cursor: pointer" idJenisPengeluaran="{{ $s->id_jenis_pengeluaran }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -51,11 +51,12 @@
             </div>
         </div>
     </div>
+    
+@include('dashboard-bendahara.jenis-pengeluaran.tambah')
 @endsection
-
 @section('footer')
     <script type="module">
-        $('tbody').on('click', '.btnHapus', function(a) {
+        $('DataTable tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
             let idJenisPengeluaran = $(this).closest('.btnHapus').attr('idJenisPengeluaran');
             swal.fire({
@@ -87,6 +88,10 @@
                 }
             });
         });
+        $(document).ready(function() {
+        $('.DataTable').DataTable({
+        });
+    });
     </script>
 
 @endsection
