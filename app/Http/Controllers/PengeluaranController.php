@@ -84,6 +84,7 @@ class PengeluaranController extends Controller
                 ->join('sumber_dana', 'pengeluaran.id_sumber_dana', '=', 'sumber_dana.id_sumber_dana')
                 ->join('jenis_pengeluaran', 'pengeluaran.id_jenis_pengeluaran', '=', 'jenis_pengeluaran.id_jenis_pengeluaran')
                 ->join('bendahara_sekolah', 'pengeluaran.id_bendahara', '=', 'bendahara_sekolah.id_bendahara')
+                 ->where('pengeluaran.id_pengeluaran', $id)
                 ->get(),
             ];
             return view('dashboard-bendahara.pengeluaran.detail', $data);

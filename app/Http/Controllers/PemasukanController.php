@@ -58,7 +58,7 @@ class PemasukanController extends Controller
         $id_bendahara_array = DB::select("SELECT id_bendahara FROM bendahara_sekolah WHERE user_id = ? LIMIT 1", [$id_akun]);
         $id_bendahara = $id_bendahara_array[0]->id_bendahara;
         $data['id_bendahara'] = $id_bendahara;
-        
+
         if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
             $foto_file = $request->file('foto');
             $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
@@ -87,6 +87,7 @@ class PemasukanController extends Controller
             'pemasukan'=> DB::table('pemasukan')
             ->join('sumber_dana', 'pemasukan.id_sumber_dana', '=', 'sumber_dana.id_sumber_dana')
             ->join('bendahara_sekolah', 'pemasukan.id_bendahara', '=', 'bendahara_sekolah.id_bendahara')
+            ->where('pemasukan.id_pemasukan', $id)
             ->get(),
         ];
         return view('dashboard-bendahara.pemasukan.detail', $data);
