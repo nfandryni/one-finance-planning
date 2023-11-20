@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class logs extends Model
+class log extends Model
 {
     use HasFactory;
-    protected $table = 'logs_aplikasi';
+    protected $table = 'log';
     protected $primaryKey = 'id_logs';
-    protected $fillable = ['aktor', 'aktivitas', 'waktu'];
+    protected $fillable = ['aksi', 'aktivitas', 'waktu'];
     public $timestamps = false;
 }
