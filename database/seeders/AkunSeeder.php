@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class AkunSeeder extends Seeder
 {
     
-    public function run(): void
+    public function run()
     {
         // ->insert merupakan eloquent orm
         DB::table('akun')->insert([

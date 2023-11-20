@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
     </script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .nav-link {
@@ -71,56 +71,56 @@
                         </a>
                     </li>
                 @elseif(auth()->user()->role == 'bendaharasekolah')
-									<li>
-										<a href="/dashboard-bendahara" class="nav-link @yield('dashboard')">
-											Dashboard
-										</a>
-									</li>
-									<li>
-										<a href="/pemasukan" class="nav-link @yield('pemasukan')">
-										Dana Pemasukan
-										</a>
-									</li>
-									<li>
-										<a href="/dashboard-bendahara/pengeluaran" class="nav-link @yield('pengeluaran')">
-										Dana Pengeluaran
-										</a>
-									</li>
-									<li>
-										<a href="/dashboard-bendahara/gedung" class="nav-link">
-											Kelola Data Master
-										</a>
-									</li>
-									<li>
-										<a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung')">
-											Gedung
-										</a>
-									</li>
-									<li>
-										<a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')">
-											Sumber Dana
-										</a>
-									</li>
-									<li>
-										<a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')">
-											Jenis Pengeluaran
-										</a>
-									</li>
-									<li>
-										<a href="/dashboard-bendahara/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')">
-										Konfirmasi Pengajuan
-										</a>
-									</li>
-									<li>
-										<a href="/dashboard-bendahara/perencanaan-keuangan" class="nav-link @yield('perencanaan-keuangan')">
-										Perencanaan Keuangan
-										</a>
-									</li>
-									<li>
-										<a href="/dashboard-bendahara/realisasi" class="nav-link @yield('realisasi')">
-										Realisasi 
-										</a>
-									</li>
+                    <li>
+                        <a href="/dashboard-bendahara" class="nav-link @yield('dashboard')">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/pemasukan" class="nav-link @yield('pemasukan')">
+                            Dana Pemasukan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/pengeluaran" class="nav-link @yield('pengeluaran')">
+                            Dana Pengeluaran
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/gedung" class="nav-link">
+                            Kelola Data Master
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung')">
+                            Gedung
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')">
+                            Sumber Dana
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')">
+                            Jenis Pengeluaran
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')">
+                            Konfirmasi Pengajuan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/perencanaan-keuangan" class="nav-link @yield('perencanaan-keuangan')">
+                            Perencanaan Keuangan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/realisasi" class="nav-link @yield('realisasi')">
+                            Realisasi
+                        </a>
+                    </li>
                 @elseif(auth()->user()->role == 'pemohon')
                 @endif
             </ul>
@@ -140,15 +140,15 @@
                         <div class="dropdown text-end">
                             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                                 data-bs-toggle="dropdown">
-                                <img src='{{ $profile->foto_profil ? url('foto') . '/' . $profile->foto_profil : url('foto') . '/pfp.jpg' }}' alt="mdo" width="32" height="32"
-                                    class="rounded-circle">
+                                <img src='{{ $profile->foto_profil ? url('foto') . '/' . $profile->foto_profil : url('foto') . '/pfp.jpg' }}'
+                                    alt="mdo" width="32" height="32" class="rounded-circle">
                             </a>
                             <ul class="dropdown-menu ">
                                 <li>
                                     <div class="col-md-12 d-flex">
                                         <div class="col-md-3 ms-2 me-2">
-                                            <img src='{{ $profile->foto_profil ? url('foto') . '/' . $profile->foto_profil : url('foto') . '/pfp.jpg' }}' alt="/" width="50" height="50"
-                                                class="rounded-circle" />
+                                            <img src='{{ $profile->foto_profil ? url('foto') . '/' . $profile->foto_profil : url('foto') . '/pfp.jpg' }}'
+                                                alt="/" width="50" height="50" class="rounded-circle" />
                                         </div>
                                         <div class="col-md-7 ms-2 me-2 ">
                                             {{ $profile->nama }}
@@ -160,8 +160,22 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="dashboard-superadmin/riwayat">Riwayat Aktivitas </a>
-                                </li>
+                                @if (auth()->user()->role == 'superadmin')
+                                    <li>
+                                        <a class="dropdown-item" href="dashboard-superadmin/riwayat">Riwayat Aktivitas
+                                        </a>
+                                    </li>
+                                @elseif(auth()->user()->role == 'admin')
+
+                                @elseif(auth()->user()->role == 'bendaharasekolah')
+                                    <li>
+                                        <a href="/dashboard-bendahara/logs" class="dropdown-item" >
+                                            Log Activity
+                                        </a>
+                                    </li>
+                                @elseif(auth()->user()->role == 'pemohon')
+                                @endif
+
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -179,12 +193,8 @@
         </div>
     </div>
 
-  
-
-
-
 </body>
 <footer>
-  @yield('footer')
+    @yield('footer')
 </footer>
 <html>

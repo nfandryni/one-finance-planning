@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-             @foreach ($log as $s)
+             @foreach ($logs as $s)
                 <tr>
                     <td>{{ $s->aksi }}</td>
                     <td>{{ $s->aktivitas }}</td>

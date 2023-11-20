@@ -68,21 +68,8 @@ Route::middleware(['auth'])->group(function () {
         
     });
   
-    Route::middleware(['akses:bendaharasekolah'])->group(function () {
-        Route::prefix('/dashboard-bendahara')->group(function () {
-            Route::get('/', [DashboardBendaharaController::class, 'index']);
-        });
-        
-        Route::prefix('/pemasukan')->group(function () {
-            Route::get('/', [PemasukanController::class, 'index']);
-            Route::get('/pemasukan/tambah', [PemasukanController::class, 'create']);
-            Route::post('/pemasukan/simpan', [PemasukanController::class, 'store']);
-            Route::get('/pemasukan/edit/{id}', [PemasukanController::class, 'edit']);
-            Route::get('/pemasukan/detail/{id}', [PemasukanController::class, 'show']);
-            Route::post('/pemasukan/edit/simpan', [PemasukanController::class, 'update']);
-            Route::delete('/pemasukan/hapus', [PemasukanController::class, 'destroy']);
-        });
-        
+    Route::prefix('dashboard-bendahara')->middleware(['akses:bendaharasekolah'])->group(function () {
+        Route::get('/', [DashboardBendaharaController::class, 'index']);
         Route::get('/realisasi', [RealisasiController::class, 'index']);
         Route::get('/realisasi/tambah', [RealisasiController::class, 'create']);
         Route::post('/realisasi/simpan', [RealisasiController::class, 'store']);
@@ -92,26 +79,25 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/realisasi/edit-item/{id}', [RealisasiController::class, 'edit_item']);
         Route::get('/realisasi/detail/{id}', [RealisasiController::class, 'show']);
         Route::delete('/realisasi/hapus', [RealisasiController::class, 'destroy']);
-
         Route::get('/gedung', [GedungController::class, 'index']);
         Route::post('/gedung/tambah/simpan', [GedungController::class, 'store']);
         Route::get('/gedung/edit/{id}', [GedungController::class, 'edit']);
         Route::post('/gedung/edit/simpan', [GedungController::class, 'update']);
         Route::delete('/gedung/hapus', [GedungController::class, 'destroy']);
-
         Route::get('/sumber-dana', [SumberDanaController::class, 'index']);
         Route::get('/sumber-dana/tambah', [SumberDanaController::class, 'create']);
         Route::post('/sumber-dana/simpan', [SumberDanaController::class, 'store']);
         Route::get('/sumber-dana/edit/{id}', [SumberDanaController::class, 'edit']);
         Route::post('/sumber-dana/edit/simpan', [SumberDanaController::class, 'update']);
         Route::delete('/sumber-dana/hapus', [SumberDanaController::class, 'destroy']);
+        Route::get('/pemasukan', [PemasukanController::class, 'index']);
+        Route::get('/pemasukan/tambah', [PemasukanController::class, 'create']);
+        Route::post('/pemasukan/simpan', [PemasukanController::class, 'store']);
+        Route::get('/pemasukan/edit/{id}', [PemasukanController::class, 'edit']);
+        Route::get('/pemasukan/detail/{id}', [PemasukanController::class, 'show']);
+        Route::post('/pemasukan/edit/simpan', [PemasukanController::class, 'update']);
+        Route::delete('/pemasukan/hapus', [PemasukanController::class, 'destroy']);
 
-        
-
-        Route::get('/logs', [LogsController::class, 'index']);
-        Route::delete('/logs/hapus', [LogsController::class, 'destroy']);
-
-        Route::get('/pengeluaran', [PengeluaranController::class, 'index']);
         Route::get('/pengeluaran/tambah', [PengeluaranController::class, 'create']);
         Route::post('/pengeluaran/simpan', [PengeluaranController::class, 'store']);
         Route::get('/pengeluaran/edit/{id}', [PengeluaranController::class, 'edit']);
@@ -125,13 +111,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/jenis-pengeluaran/edit/{id}', [JenisPengeluaranController::class, 'edit']);
         Route::post('/jenis-pengeluaran/edit/simpan', [JenisPengeluaranController::class, 'update']);
         Route::delete('/jenis-pengeluaran/hapus', [JenisPengeluaranController::class, 'destroy']);
-
-
-
-    });
    Route::get('/logout', [LoginController::class, 'logout']);
 });
  
 
-
+});
 

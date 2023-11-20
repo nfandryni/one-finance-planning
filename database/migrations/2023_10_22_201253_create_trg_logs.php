@@ -13,7 +13,7 @@ return new class extends Migration
         DB::unprepared("
             CREATE TRIGGER tambah_akun AFTER INSERT ON akun FOR EACH ROW
             BEGIN
-                INSERT INTO log(aksi, aktivitas, waktu)
+                INSERT INTO logs(aksi, aktivitas, waktu)
                 VALUES ('INSERT', CONCAT('Menambahkan akun baru dengan username ', NEW.username), NOW());
             END
         ");
@@ -21,7 +21,7 @@ return new class extends Migration
         DB::unprepared("
             CREATE TRIGGER update_akun AFTER UPDATE ON akun FOR EACH ROW
             BEGIN
-                INSERT INTO log(aksi, aktivitas, waktu)
+                INSERT INTO logs(aksi, aktivitas, waktu)
                 VALUES ('UPDATE', CONCAT('Memperbarui akun dengan username ', OLD.username, ' dan ID ', OLD.user_id), NOW());
             END
         ");
@@ -29,7 +29,7 @@ return new class extends Migration
         DB::unprepared("
             CREATE TRIGGER hapus_akun AFTER DELETE ON akun FOR EACH ROW
             BEGIN
-                INSERT INTO log(aksi, aktivitas, waktu)
+                INSERT INTO logs(aksi, aktivitas, waktu)
                 VALUES ('DELETE', CONCAT('Menghapus Akun dengan nama ', OLD.username), NOW());
             END
         ");
