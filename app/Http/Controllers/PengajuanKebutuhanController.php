@@ -57,9 +57,9 @@ class PengajuanKebutuhanController extends Controller
             $dataUpdate = Pengajuan_Kebutuhan::where('id_pengajuan_kebutuhan',$request->input('id_pengajuan_kebutuhan'))
                             ->update($data);
             if($dataUpdate){
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan berhasil di update');
+                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan Berhasil di Update');
             }else{
-                return back()->with('error','Data Pengajuan Kebutuhan gagal di update');
+                return back()->with('error','Data Pengajuan Kebutuhan Gagal di Update');
             }
         }
         else{
@@ -68,10 +68,10 @@ class PengajuanKebutuhanController extends Controller
               
             //Simpan jika data terisi semua
                 $pengajuan_kebutuhan->create($data);
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan baru berhasil ditambah');
+                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan  Berhasil di Tambah');
             else:
             //Kembali ke form tambah data
-                return back()->with('error','Data Pengajuan Kebutuhan gagal ditambahkan');
+                return back()->with('error','Data Pengajuan Kebutuhan Gagal di Tambahkan');
             endif;
         }
     }
@@ -123,9 +123,9 @@ class PengajuanKebutuhanController extends Controller
             $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data sumber dana berhasil di update');
+                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data Pengajuan Kebutuhan Berhasil di Update');
             } else {
-                return back()->with('error', 'Data sumber dana gagal di update');
+                return back()->with('error', 'Data Pengajuan Kebutuhan Gagal di Update');
             }
         }
     }

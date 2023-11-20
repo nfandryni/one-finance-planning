@@ -63,9 +63,9 @@ class ItemKebutuhanController extends Controller
             $dataUpdate = item_kebutuhan::where('id_item_kebutuhan',$request->input('id_item_kebutuhan'))
                             ->update($data);
             if($dataUpdate){
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan berhasil di update');
+                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan Berhasil di Update');
             }else{
-                return back()->with('error','Data Pengajuan Kebutuhan gagal di update');
+                return back()->with('error','Data Pengajuan Kebutuhan Gagal di Update');
             }
         }
         else{
@@ -74,10 +74,10 @@ class ItemKebutuhanController extends Controller
               
             //Simpan jika data terisi semua
                 $item_kebutuhan->create($data);
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan baru berhasil ditambah');
+                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Item Kebutuhan Berhasil di Tambah');
             else:
             //Kembali ke form tambah data
-                return back()->with('error','Data Pengajuan Kebutuhan gagal ditambahkan');
+                return back()->with('error','Data Item Kebutuhan Gagal di Tambahkan');
             endif;
         }
     }
@@ -141,9 +141,9 @@ class ItemKebutuhanController extends Controller
             $dataUpdate = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data sumber dana berhasil di update');
+                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data Item Kebutuhan Berhasil di Update');
             } else {
-                return back()->with('error', 'Data sumber dana gagal di update');
+                return back()->with('error', 'Data Item Kebutuhan Gagal di Update');
             }
         }
     }

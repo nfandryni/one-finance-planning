@@ -45,10 +45,10 @@ class GedungController extends Controller
         if ($data) {
             // Simpan jika data terisi semua
             $gedung->create($data);
-            return redirect('dashboard-pemohon/gedung')->with('success', 'Data gedung baru berhasil ditambah');
+            return redirect('dashboard-pemohon/gedung')->with('success', 'Data Gedung Berhasil di Tambah');
         } else {
             // Kembali ke form tambah data
-            return back()->with('error', 'Data sumber dana gagal ditambahkan');
+            return back()->with('error', 'Data Gedung Gagal di Tambahkan');
         }
     }
 
@@ -94,9 +94,9 @@ class GedungController extends Controller
             $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-pemohon/gedung')->with('success', 'Data gedung berhasil di update');
+                return redirect('dashboard-pemohon/gedung')->with('success', 'Data Gedung Gerhasil di Update');
             } else {
-                return back()->with('error', 'Data gedung gagal di update');
+                return back()->with('error', 'Data Gedung Gagal di Update');
             }
         }
     }
