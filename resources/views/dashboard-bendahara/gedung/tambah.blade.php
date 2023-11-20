@@ -3,7 +3,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-4 pt-2 fw-bold" id="tambahGedungLabel">Tambah Data Gedung</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
       <form method="POST" action="/dashboard-bendahara/gedung/tambah/simpan" enctype="multipart/form-data" >

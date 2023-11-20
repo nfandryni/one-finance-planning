@@ -2,6 +2,7 @@
 @section('pemasukan', 'active')
 @section('title', 'Daftar Pemasukan')
 @section('content')
+
 <br>
 <div class="row"><h2 class="fw-bold">Kelola Data Pemasukan</h2>
 <h3 class="card-title"> Jumlah Pemasukan: {{ $jumlahDana ?? 0 }}</h3><br><br>
@@ -19,8 +20,7 @@
                          </div>
 
                         <table class="table table-borderless table-striped mt-2 DataTable">
-                            <thead> 
-                                <tr>
+                           
                             <thead>
                                 <tr>
                                     <th>Sumber Dana</th>
@@ -93,6 +93,9 @@
                 }
             });
         });
+        $(document).ready(function() {
+        $('.DataTable').DataTable({});
+    });
     </script>
 
 @endsection 

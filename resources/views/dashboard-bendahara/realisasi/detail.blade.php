@@ -1,36 +1,57 @@
 @extends('layout.layout')
 @section('realisasi', 'active')
-@section('title', 'Daftar Realisasi')
+@section('title', 'Detail Realisasi')
 @section('content')
 
     <div class="row px-5">
- 
-        <div class="col-md-12">
-            <div class="row justify-content-md-center" style="align-items: center">
-                
-                <div>
-
-            <a href='/dashboard-bendahara/realisasi/edit-realisasi/{{$realisasi->first()->id_realisasi}}' class='btn btn-warning'><i class="fa-solid fa-pen"></i> Realisasi</a>
-            <a href='' class='btn btn btn-warning'><i class="fa-solid fa-pen"></i> Item Perencanaan</a>
-        </div>
-        </div>
+    <div class="col-md-4">
+                <a href="/dashboard-bendahara/realisasi"><btn class="btn btn-dark">KEMBALI</btn></a>
+            </div>
                         <div>
                             <br/>
-                            <h3>Realisasi</h3>
-                            <p>Nama Realisasi {{ $realisasi->first()->judul_realisasi }}</p> 
-                            <!-- @if(is_null($realisasi)) -->
-                            <!-- <p>Pengeluaran belum Ditambahkan</p> -->
-                            <!-- @else -->
-                            <!-- <p>Nama Pengeluaran {{ $realisasi->first()->nama }}</p>  -->
-                            <!-- @endif -->
-                            <p>Tujuan {{ $realisasi->first()->tujuan }} </p>
-                            <p>Waktu {{ $realisasi->first()->waktu }} </p>
-                            <p>Total Pembayaran {{ $realisasi->first()->total_pembayaran }}</p>
+                            <h3 class='fw-bold'>Detail Realisasi</h3>
+                            <div class='mt-1'>
+                                <div class="row mb-2">
+                                <div class="col-md-2">
+                                <label class='fw-bold'>Nama Realisasi</label>
+                                </div>
+                                <div class="col-md-3">
+                                : {{$realisasi->judul_realisasi}}
+                            </div>
+                            </div>
+                            <div class='mt-1'>
+                                <div class="row mb-2">
+                                <div class="col-md-2">
+                                <label class='fw-bold'>Tujuan</label>
+                                </div>
+                                <div class="col-md-3">
+                                : {{$realisasi->tujuan}}
+                            </div>
+                            </div>
+                            <div class='mt-1'>
+                                <div class="row mb-2">
+                                <div class="col-md-2">
+                                <label class='fw-bold'>Waktu</label>
+                                </div>
+                                <div class="col-md-3">
+                                : {{$realisasi->waktu}}
+                            </div>
+                            </div>
+                            <div class='mt-1'>
+                                <div class="row mb-2">
+                                <div class="col-md-2">
+                                <label class='fw-bold'>Total Pembayaran</label>
+                                </div>
+                                <div class="col-md-3">
+                                : {{$realisasi->total_pembayaran}}
+                            </div>
+                            </div>
+                         
                         </div>
                         <hr/>
                         <div>
                             
-                            <h3>Item Realisasi</h3>
+                            <h3 class='fw-bold'>Detail Item Realisasi</h3>
                             @foreach ($item as $r)
                             <div class="row fw-bold">
 
@@ -57,6 +78,9 @@
     </div>
     <div class="col">
         <p>Foto Realisasi</p>
+    </div>
+    <div class="col">
+        <p>Aksi</p>
     </div>
 </div>
 <div class="row">
@@ -85,10 +109,13 @@
         <p> 
             @if(is_null( $r->foto_realisasi ))
             Tidak ada
-         @else
-        {{ $r->foto_realisasi }}
-        @endif
-    </p>
+            @else
+            {{ $r->foto_realisasi }}
+            @endif
+        </p>
+    </div>
+    <div class="col">
+        <a class='text-black' href="/dashboard-bendahara/realisasi/edit-item/{{ $r->id_item_perencanaan }}"><i class="fa-solid fa-pen" style="cursor: pointer; margin:2px"></i></a>
     </div>
 </div>
                              

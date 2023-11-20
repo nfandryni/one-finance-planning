@@ -79,13 +79,19 @@ class RealisasiController extends Controller
             'realisasi' => DB::table('realisasi')
             ->leftJoin('pengeluaran as p', 'realisasi.id_pengeluaran', '=', 'p.id_pengeluaran')
             ->select('realisasi.*', 'p.id_pengeluaran', 'p.nama')
-            ->get(),
-            'item' => DB::table('item_perencanaan')
-            ->join('realisasi', 'item_perencanaan.id_realisasi', '=', 'realisasi.id_realisasi')
-            ->where('realisasi.id_realisasi', '=', $id)
-            ->get(),
-        ];
+            ->where('realisasi.id_realisasi', $id)
+            ->first(),
 
+                'item' => DB::table('item_perencanaan')
+                ->join('realisasi', 'item_perencanaan.id_realisasi', '=', 'realisasi.id_realisasi')
+                ->where('item_perencanaan.id_realisasi', '=', $id)
+                ->get(),
+            ];
+
+        // dd($data);
+
+
+        // dd($data);
         // dd($data);
         return view('dashboard-bendahara.realisasi.detail', $data);
     }
@@ -106,11 +112,14 @@ class RealisasiController extends Controller
 
     public function edit_item(string $id, realisasi $realisasi)
     {
-        $realisasiData = realisasi::where('id_realisasi', $id)->first();
+       $data = [
+        'item' => DB::table('item_perencanaan')
+        ->join('realisasi', 'item_perencanaan.id_realisasi', '=', 'realisasi.id_realisasi')
+        ->where('item_perencanaan.id_realisasi', '=', $id)
+        ->get()
+       ];
 
-        return view('dashboard-bendahara.realisasi.edit-realisasi', [
-            'realisasi' => $realisasiData,
-        ]);
+        return view('dashboard-bendahara.realisasi.edit-realisasi', $data);
     }
 
     /**

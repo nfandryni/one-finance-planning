@@ -22,22 +22,20 @@
                                     <div class="form-group">
                                     <label>Pengeluaran</label>
                                     <select name="id_pengeluaran" class="form-control">
+                                        @if($pengeluaran->isEmpty())
+                                        <option>Tambahkan Data Pengeluaran!</option>
+                                        @endif
+                                        <option selected hidden>
+                                            Pilih Pengeluaran
+                                        </option>
                                         @foreach ($pengeluaran as $s)
-                                        <!-- @if(is_null($s)) -->
-                                        <!-- <p>Tambahkan Data Pengeluaran!</p> -->
-                                        <!-- @else -->
-                                            <option hidden selected>
-                                                Pilih Pengeluaran
-                                            </option>
                                             <option value="{{ $s->id_pengeluaran }}"
                                                 {{ $s->id_pengeluaran == $s->id_pengeluaran ? 'selected' : '' }}>
                                                 {{ $s->nama }}
                                             </option>
-                                        <!-- @endif -->
                                         @endforeach
                                     </select>
                                 </div>
-                                @csrf
                                 
                             </div>
                             <div class="col-md-5">
@@ -46,7 +44,6 @@
                                     <input type="text" disabled class="form-control" name="tujuan"
                                         value="{{ $realisasi->tujuan }}" />
                                 </div>
-                                @csrf
                                 
                             </div>
                             <div class="col-md-5">
@@ -55,7 +52,6 @@
                                     <input type="text" disabled class="form-control" name="tujuan"
                                         value="{{ $realisasi->total_pembayaran }}" />
                                 </div>
-                                @csrf
                                 
                             </div>
                             <div class="col-md-5">
@@ -65,14 +61,13 @@
                                     <input type="date" disabled class="form-control" name="waktu"
                                         value="{{ $realisasi->waktu }}" />
                                 </div>
-                                @csrf
                                 
                             </div>
                         </div>
                         <div class="row">
                             <p></p>
                             <div class="col-md-4">
-                                <a href="/dashboard-bendahara/realisasi/detail/{{$realisasi->id_realisasi}}"><btn class="btn btn-dark">KEMBALI</btn></a>
+                                <a href="/dashboard-bendahara/realisasi"><btn class="btn btn-dark">KEMBALI</btn></a>
                                 <button type="submit" class="btn btn-success">SIMPAN</button>
                                 
                             </div>

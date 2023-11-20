@@ -31,14 +31,12 @@ class PemasukanController extends Controller
      */
     public function create(pemasukan $pemasukan, sumber_dana $sumber_dana, bendahara_sekolah $bendahara)
     {
-        $data = [
-            'pemasukan'=> DB::table('pemasukan')
-            ->join('sumber_dana', 'pemasukan.id_sumber_dana', '=', 'sumber_dana.id_sumber_dana')
-            ->join('bendahara_sekolah', 'pemasukan.id_bendahara', '=', 'bendahara_sekolah.id_bendahara')
-            ->select('pemasukan.*', 'sumber_dana.*')
-            ->get()
-        ];  
-        return view('dashboard-bendahara.pemasukan.tambah', $data);
+        $sumberDana = sumber_dana::all();
+        $bendaharaSekolah = bendahara_sekolah::all();
+    
+        // dd($sumberDana, $bendaharaSekolah);
+        return view('dashboard-bendahara.pemasukan.tambah', compact('sumberDana', 'bendaharaSekolah'));
+
     }
 
     /**
@@ -60,7 +58,7 @@ class PemasukanController extends Controller
         $id_bendahara_array = DB::select("SELECT id_bendahara FROM bendahara_sekolah WHERE user_id = ? LIMIT 1", [$id_akun]);
         $id_bendahara = $id_bendahara_array[0]->id_bendahara;
         $data['id_bendahara'] = $id_bendahara;
-
+        
         if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
             $foto_file = $request->file('foto');
             $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();

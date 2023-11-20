@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/realisasi/edit-realisasi/{id}', [RealisasiController::class, 'edit_realisasi']);
         Route::post('/realisasi/edit-realsasi/simpan', [RealisasiController::class, 'update_realisasi']);
         Route::get('/realisasi/edit-item/{id}', [RealisasiController::class, 'edit_item']);
-        Route::post('/realisasi/edit-item/{id}', [RealisasiController::class, 'edit_item']);
+        Route::post('/realisasi/edit-item/{id}', [RealisasiController::class, 'update_realisasi']);
         Route::get('/realisasi/detail/{id}', [RealisasiController::class, 'show']);
         Route::delete('/realisasi/hapus', [RealisasiController::class, 'destroy']);
 

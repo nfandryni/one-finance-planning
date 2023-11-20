@@ -17,7 +17,7 @@ class PerencanaanKeuanganSeeder extends Seeder
         DB::table('perencanaan_keuangan')->insert([
             [
                 'id_sumber_dana' => '1',
-                'judul_perencanaan' => 'Makan NASI GORENG',
+                'judul_perencanaan' => 'Makan NASI WARTEG',
                 'tujuan' => 'Bertujuan MENGENYANGKAN PERUT',
                 'waktu' => '2023-11-18',
                 'total_dana_perencanaan' => '2000000',
