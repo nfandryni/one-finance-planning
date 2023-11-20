@@ -32,9 +32,11 @@ class PemasukanController extends Controller
     public function create(pemasukan $pemasukan, sumber_dana $sumber_dana, bendahara_sekolah $bendahara)
     {
         $data = [
-            'pemasukan'=> $pemasukan->all(),
-            'sumber_dana'=>$sumber_dana->all(),
-            'bendahara'=>$bendahara->all()
+            'pemasukan'=> DB::table('pemasukan')
+            ->join('sumber_dana', 'pemasukan.id_sumber_dana', '=', 'sumber_dana.id_sumber_dana')
+            ->join('bendahara_sekolah', 'pemasukan.id_bendahara', '=', 'bendahara_sekolah.id_bendahara')
+            ->select('pemasukan.*', 'sumber_dana.*')
+            ->get()
         ];  
         return view('dashboard-bendahara.pemasukan.tambah', $data);
     }
@@ -50,20 +52,20 @@ class PemasukanController extends Controller
                 'nama'    => ['required'],
                 'nominal'    => ['required'],
                 'waktu'    => ['required'],
-                'file'    => ['required'],
+                'foto'    => ['required'],
             ]
         );
         $user = Auth::user();
         $id_akun = $user->user_id;
-        $id_bendahara_array = DB::select("SELECT id_bendahara FROM bendahara WHERE user_id = ? LIMIT 1", [$id_akun]);
+        $id_bendahara_array = DB::select("SELECT id_bendahara FROM bendahara_sekolah WHERE user_id = ? LIMIT 1", [$id_akun]);
         $id_bendahara = $id_bendahara_array[0]->id_bendahara;
         $data['id_bendahara'] = $id_bendahara;
 
-        if ($request->hasFile('file') && $request->file('file')->isValid()) {
-            $foto_file = $request->file('file');
+        if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+            $foto_file = $request->file('foto');
             $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
             $foto_file->move(public_path('foto'), $foto_nama);
-            $data['file'] = $foto_nama;
+            $data['foto'] = $foto_nama;
         }
 
         if ($data) {
@@ -83,6 +85,13 @@ class PemasukanController extends Controller
     public function show(string $id)
     {
         //
+        $data = [
+            'pemasukan'=> DB::table('pemasukan')
+            ->join('sumber_dana', 'pemasukan.id_sumber_dana', '=', 'sumber_dana.id_sumber_dana')
+            ->join('bendahara_sekolah', 'pemasukan.id_bendahara', '=', 'bendahara_sekolah.id_bendahara')
+            ->get(),
+        ];
+        return view('dashboard-bendahara.pemasukan.detail', $data);
     }
 
     /**

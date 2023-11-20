@@ -3,13 +3,9 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
                     <span class="h1">
                         Edit Data Jenis Pengeluaran
                     </span>
-                </div>
-                <div class="card-body">
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-5">
@@ -36,7 +32,5 @@
                 </div>
 
 
-            </div>
-        </div>
     </div>
 @endsection

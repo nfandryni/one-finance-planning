@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pemasukan/tambah', [PemasukanController::class, 'create']);
         Route::post('/pemasukan/simpan', [PemasukanController::class, 'store']);
         Route::get('/pemasukan/edit/{id}', [PemasukanController::class, 'edit']);
+        Route::get('/pemasukan/detail/{id}', [PemasukanController::class, 'show']);
         Route::post('/pemasukan/edit/simpan', [PemasukanController::class, 'update']);
         Route::delete('/pemasukan/hapus', [PemasukanController::class, 'destroy']);
 
@@ -76,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengeluaran/tambah', [PengeluaranController::class, 'create']);
         Route::post('/pengeluaran/simpan', [PengeluaranController::class, 'store']);
         Route::get('/pengeluaran/edit/{id}', [PengeluaranController::class, 'edit']);
+        Route::get('/pengeluaran/detail/{id}', [PengeluaranController::class, 'show']);
         Route::post('/pengeluaran/edit/simpan', [PengeluaranController::class, 'update']);
         Route::delete('/pengeluaran/hapus', [PengeluaranController::class, 'destroy']);
 

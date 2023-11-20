@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\pemasukan;
 use Illuminate\Http\Request;
 
 class DashboardBendaharaController extends Controller
@@ -9,7 +9,9 @@ class DashboardBendaharaController extends Controller
     //
     public function index()
     {
-
-        return view('dashboard-bendahara.index');
+        $data = [
+            'pemasukan'=>pemasukan::with(['sumber_dana', 'akun'])->get(),
+        ];
+        return view('dashboard-bendahara.index', $data);
     }
 }

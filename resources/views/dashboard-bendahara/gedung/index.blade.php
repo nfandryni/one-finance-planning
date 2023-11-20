@@ -34,7 +34,7 @@
                                         <td>{{ $s->nama_gedung }}</td>
                                         <td>{{ $s->nama_ruangan }}</td>
                                         <td>
-                                        <a class='text-black' href="/dashboard-bendahara/gedung/edit/{{ $s->id_gedung }}"><i class="fa-solid fa-pen" data-bs-toggle="modal" data-id='{{$s->id_gedung}}' style="cursor: pointer; margin:2px">
+                                        <a class='text-black' href="/dashboard-bendahara/gedung/edit/{{ $s->id_gedung }}"><i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
                                             </i></a>
                                             <btn class="btnHapus" style="cursor: pointer" idGedung="{{ $s->id_gedung }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>

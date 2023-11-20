@@ -5,36 +5,35 @@
 
     <div class="row px-5">
  
-    <div class="col-md-12">
-        @foreach ($realisasi as $s)
-                    <div class="row justify-content-md-center" style="align-items: center">
-                    <div class='mb-4'>
-                       <a href='/dashboard-bendahara/realisasi/edit-realisasi/{{$s->id_realisasi}}' class='btn text-white' style='background-color:#6610f2'><i class="fa-solid fa-pen"></i>Realisasi</a>
-                       <a href='' class='btn text-white' style='background-color:#6610f2'><i class="fa-solid fa-pen"></i>Item Perencanaan</a>
-                    </div>
-                        <div class=''>
-                            
+        <div class="col-md-12">
+            <div class="row justify-content-md-center" style="align-items: center">
+                
+                <div>
+
+            <a href='/dashboard-bendahara/realisasi/edit-realisasi/{{$realisasi->first()->id_realisasi}}' class='btn btn-warning'><i class="fa-solid fa-pen"></i> Realisasi</a>
+            <a href='' class='btn btn btn-warning'><i class="fa-solid fa-pen"></i> Item Perencanaan</a>
+        </div>
+        </div>
+                        <div>
+                            <br/>
                             <h3>Realisasi</h3>
-                            <p>Nama Realisasi {{ $s->judul_realisasi }}</p> 
-                            <!-- @if(is_null($p)) -->
+                            <p>Nama Realisasi {{ $realisasi->first()->judul_realisasi }}</p> 
+                            <!-- @if(is_null($realisasi)) -->
                             <!-- <p>Pengeluaran belum Ditambahkan</p> -->
                             <!-- @else -->
-                            <!-- <p>Nama Pengeluaran {{ $p->nama }}</p>  -->
+                            <!-- <p>Nama Pengeluaran {{ $realisasi->first()->nama }}</p>  -->
                             <!-- @endif -->
-                            <p>Waktu {{ $s->waktu }} </p>
-                            <p>Total Pembayaran {{ $s->total_pembayaran }}</p>
-                               
-                            
-                            
-                            @endforeach 
+                            <p>Tujuan {{ $realisasi->first()->tujuan }} </p>
+                            <p>Waktu {{ $realisasi->first()->waktu }} </p>
+                            <p>Total Pembayaran {{ $realisasi->first()->total_pembayaran }}</p>
                         </div>
-                    </div>
-                  <hr/>
-                  <div class=''>
+                        <hr/>
+                        <div>
                             
                             <h3>Item Realisasi</h3>
-                            @foreach ($item_perencanaan as $s)
+                            @foreach ($item as $r)
                             <div class="row fw-bold">
+
     <div class="col">
         <p>Item</p>
     </div>
@@ -62,47 +61,39 @@
 </div>
 <div class="row">
     <div class="col">
-        <p> {{ $s->item_perencanaan }}</p>
+        <p> {{ $r->item_perencanaan }}</p>
     </div>
     <div class="col">
-        <p>  {{ $s->qty }}</p>
+        <p>  {{ $r->qty }}</p>
     </div>
     <div class="col">
-        <p>{{ $s->harga_satuan }} </p>
+        <p>{{ $r->harga_satuan }} </p>
     </div>
     <div class="col">
-        <p>    {{ $s->satuan }}</p>
+        <p>    {{ $r->satuan }}</p>
     </div>
     <div class="col">
-        <p> {{ $s->spesifikasi }}</p>
+        <p> {{ $r->spesifikasi }}</p>
     </div>
     <div class="col">
-        <p> {{ $s->status }}</p>
+        <p> {{ $r->status }}</p>
     </div>
     <div class="col">
-        <p>   
-                            {{ $s->foto_barang_perencanaan }}</p>
+        <p> {{ $r->foto_barang_perencanaan }}</p>
     </div>
     <div class="col">
         <p> 
-            @if(is_null( $s->foto_realisasi ))
+            @if(is_null( $r->foto_realisasi ))
             Tidak ada
          @else
-        {{ $s->foto_realisasi }}
+        {{ $r->foto_realisasi }}
         @endif
     </p>
     </div>
 </div>
-
-                           
-                          
-                            
-                        
-                           
-                        
                              
-                            @endforeach 
-                        </div>
+@endforeach 
+</div>
             </div>
         </div>
 

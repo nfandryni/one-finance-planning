@@ -14,7 +14,7 @@
                                     <label>Sumber Dana</label>
                                     <br>
                                     <select class='form-select' name="id_sumber_dana">
-                                        @foreach($sumber_dana as $p)
+                                        @foreach($pemasukan as $p)
                                         <option selected disabled hidden>Pilih Nama Sumber</option>
                                         <option value='{{$p->id_sumber_dana}}'>{{$p->nama_sumber}}</option>
                                         @endforeach
@@ -34,13 +34,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Foto</label>
-                                    <input type="file" class="form-control" name="file" required/>
+                                    <input type="file" class="form-control" name="foto" required/>
                                 </div>
                                 <p></p>
                         <div class="row">
                             <div class="col-md-4">
-                                <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-danger inline-block ">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-success inline-block">SIMPAN</button>
+                                <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-dark inline-block ">KEMBALI</btn></a>
+                                <button type="submit" class="btn btn-primary inline-block">SIMPAN</button>
                                 
                             </div>
                                 @csrf

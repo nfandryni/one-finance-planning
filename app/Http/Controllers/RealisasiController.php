@@ -77,14 +77,16 @@ class RealisasiController extends Controller
         //
         $data = [
             'realisasi' => DB::table('realisasi')
-            ->join('pengeluaran', 'realisasi.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
-            ->join('item_perencanaan', 'item_perencanaan.id_realisasi', '=', 'item_perencanaan.id_realisasi')
+            ->leftJoin('pengeluaran as p', 'realisasi.id_pengeluaran', '=', 'p.id_pengeluaran')
+            ->select('realisasi.*', 'p.id_pengeluaran', 'p.nama')
             ->get(),
-            'item_perencanaan' => DB::table('item_perencanaan')->get(),
-            'pengeluaran' => DB::table('pengeluaran')
-          
+            'item' => DB::table('item_perencanaan')
+            ->join('realisasi', 'item_perencanaan.id_realisasi', '=', 'realisasi.id_realisasi')
+            ->where('realisasi.id_realisasi', '=', $id)
+            ->get(),
         ];
 
+        // dd($data);
         return view('dashboard-bendahara.realisasi.detail', $data);
     }
 

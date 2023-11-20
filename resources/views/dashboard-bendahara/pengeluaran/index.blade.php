@@ -4,7 +4,7 @@
 @section('content')
 <br>
 <div class="row">
-    <h2 class="fw-bold">Kelola Data Master - Pengeluaran</h2>
+    <h2 class="fw-bold">Kelola Data Pengeluaran</h2>
     <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
     <div class="col-md-12">
                     <div class="row justify-content-md-center" style="align-items: center">
@@ -12,7 +12,7 @@
                         <div class="col-sm-2">
                         <div class="col" >
                             <a href="pengeluaran/tambah">
-                                <btn class="btn btn-primary">Tambah Pengeluaran</btn>
+                                <btn class="btn btn-primary">Tambah Data</btn>
                             </a>
 
                         </div>
@@ -25,11 +25,10 @@
                             <thead>
                                 <tr>
                                     <th>Sumber Dana</th>
+                                    <th>Nama Pengeluaran</th>
                                     <th>Jenis Pengeluaran</th>
-                                    <th>Nama</th>
                                     <th>Nominal</th>
                                     <th>Waktu</th>
-                                    <th>Foto</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -37,22 +36,16 @@
                                 @foreach ($pengeluaran as $s)
                                     <tr>
                                         <td>{{ $s->sumber_dana->nama_sumber }}</td>
-                                        <td>{{ $s->jenis_pengeluaran->kategori }}</td>
                                         <td>{{ $s->nama }}</td>
+                                        <td>{{ $s->jenis_pengeluaran->kategori }}</td>
                                         <td>{{ $s->nominal }}</td>
                                         <td>{{ $s->waktu }}</td>
-                                        <td>
-                                            @if ($s->foto)
-                                                <img src="{{ url('foto') . '/' . $s->foto }} "
-                                                    style="max-width: 250px; height: auto;" />
-                                            @endif
-                                        </td>
                                         
                                         <td>
-                                            <a href="pengeluaran/edit/{{ $s->id_pengeluaran }}" class="btn btn-primary">
-                                                EDIT
-                                            </a>
-                                            <btn class="btn btn-danger btnHapus" idPengeluaran="{{ $s->id_pengeluaran }}">HAPUS</btn>
+                                        <a class='text-black' href="/dashboard-bendahara/pengeluaran/edit/{{ $s->id_pengeluaran }}"><i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
+                                            </i></a>
+                                            <a  href='/dashboard-bendahara/pengeluaran/detail/{{$s->id_pengeluaran}}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
+                                            <btn class="btnHapus" style='cursor: pointer' idPengeluaran="{{ $s->id_pengeluaran }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>
                                     </tr>
                                 @endforeach

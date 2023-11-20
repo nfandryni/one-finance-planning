@@ -15,16 +15,16 @@
         </div>
         <div class="modal-body">
         <form method="POST" action="/dashboard-bendahara/jenis-pengeluaran/simpan">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class='form-group'>
-                                    <label>Jenis Pengeluaran</label>
-                                    
-                                    <input type="text" class="form-control" name="kategori"/>
-                                </div>
-                                    @csrf
-                            </div>
-                        </div>
+        <div class="row">
+              <div class="col-md-8">
+                  <div class="form-group mx-2">
+                      <label>Jenis Pengeluaran</label>
+                      <input type="text" class="form-control mb-3" name="kategori" required />
+                  </div>
+                            
+                  @csrf
+      </div>
+      </div>
                         <br/>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

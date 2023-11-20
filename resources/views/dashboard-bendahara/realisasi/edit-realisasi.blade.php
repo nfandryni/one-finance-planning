@@ -72,7 +72,7 @@
                         <div class="row">
                             <p></p>
                             <div class="col-md-4">
-                                <a href="/dashboard-bendahara/sumber-dana"><btn class="btn btn-dark">KEMBALI</btn></a>
+                                <a href="/dashboard-bendahara/realisasi/detail/{{$realisasi->id_realisasi}}"><btn class="btn btn-dark">KEMBALI</btn></a>
                                 <button type="submit" class="btn btn-success">SIMPAN</button>
                                 
                             </div>

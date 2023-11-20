@@ -114,7 +114,7 @@
     
     </div>
 
-<div class="card w-100" style="max-height: 100vh; overflow: scroll; background-color: #F2F2F2">
+<div class="card w-100" style="max-height: 100vh; overflow-y: auto; background-color: #F2F2F2">
   {{-- nav disini --}}
   <header class="p-2 mb-3 border-bottom bg-light">
     <div class="container">

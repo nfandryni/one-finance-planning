@@ -1,15 +1,11 @@
 @extends('layout.layout')
 @section('pengeluaran', 'active')
 @section('content')
-    <div class="row">
+    <div class="row px-5">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
                     <span class="h1">
                         Edit Pengeluaran
                     </span>
-                </div>
-                <div class="card-body">
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-5">
@@ -37,7 +33,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label>Nama</label>
+                                    <label>Nama Pengeluaran</label>
                                     <input type="text" class="form-control" name="nama"
                                         value="{{ $pengeluaran->nama }}" />
                                 </div>
@@ -54,7 +50,7 @@
                                 <div class="form-group">
                                     <label>Foto</label>
                                     <input type="file" class="form-control" name="foto" 
-                                    value="{{ $pengeluaran->foto }}"/>
+                                    value="{{ $pengeluaran->foto }}"/><br/>
                                     <img src="{{ url('foto') . '/' . $pengeluaran->foto }}" width='200px'/>
 
                                 </div>
@@ -62,17 +58,18 @@
                                     <input type="hidden" name="id_pengeluaran" value="{{ $pengeluaran->id_pengeluaran }}" />
                                 </div>
                                 @csrf
-                                <div class="col-md-4 mt-3">
-                                    <a href="/dashboard-bendahara/pengeluaran" onclick="window.history.back();"> <btn class="btn btn-dark">KEMBALI</btn></a>
-                                    <button type="submit" class="btn btn-success">SIMPAN</button>
-                                    
+                                <div class="row">
+                                <div class="col-md-4">
+                                <br/>
+                                <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-dark">KEMBALI</btn></a>
+                                <button type="submit" class="btn btn-success">SIMPAN</button>
+                                
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </form>
                 </div>
 
             </div>
-        </div>
-    </div>
 @endsection

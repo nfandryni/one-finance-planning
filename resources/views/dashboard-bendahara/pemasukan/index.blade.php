@@ -3,41 +3,31 @@
 @section('title', 'Daftar Pemasukan')
 @section('content')
 <br>
-    <div class="row"><h1>Kelola Data Pemasukan</h1>
-    <h3 class="card-title"> Jumlah Pemasukan: {{ $jumlahDana ?? 0 }}</h3><br><br>
-
+<div class="row"><h2 class="fw-bold">Kelola Data Pemasukan</h2>
+<h3 class="card-title"> Jumlah Pemasukan: {{ $jumlahDana ?? 0 }}</h3><br><br>
+    <hr>
     <div class="col-md-12">
-            <div class="row justify-content-md-center" style="align-items: center">
-              <div class="col-sm">
-             
-                  <div class="col-sm">
+                    <div class="row justify-content-md-center" style="align-items: center">
+                        <div class="col-sm-2">
+                        <div class="col-sm">
                     <a href="/dashboard-bendahara/pemasukan/tambah">
                       <btn class="btn btn-primary">Tambah Data</btn>
                   </a></div>
-              </div>
-              <div class="col-sm">
-                <div class="form-group">
-                <input type="text" placeholder="Cari pemasukan..." class="form-control" name="pemasukan" />
-            </div>
-              </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-             
-            <div>
-            </div>
-        </div>
+                        </div>
+                    </div>
+                    </div>
                          </div>
-                        <p>
-                            <hr>
-                        <table class="table table-hover table-bordered DataTable">
+
+                        <table class="table table-borderless table-striped mt-2 DataTable">
+                            <thead> 
+                                <tr>
                             <thead>
                                 <tr>
                                     <th>Sumber Dana</th>
+                                    <th>Nama Pemasukan</th>
                                     <th>Nominal (Rupiah)</th>
                                     <th>Waktu</th>
                                     <th>Penanggung Jawab</th>
-                                    <th>Foto</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -45,15 +35,15 @@
                                  @foreach ($pemasukan as $s)
                                     <tr>
                                         <td>{{ $s->sumber_dana->nama_sumber }}</td>
+                                        <td>{{ $s->nama }}</td>
                                         <td>{{ $s->nominal }}</td>
                                         <td>{{ $s->waktu }}</td>
-                                        <td>{{ $s->penanggung_jawab }}</td>
-                                        <td><img src='../foto/{{$s->file}}' width='200px'/></td>
+                                        <td>{{ $s->id_bendahara }}</td>         
                                         <td>
-                                            <a href="/dashboard-bendahara/pemasukan/edit/{{$s->id_pemasukan}}" class="btn btn-primary">
-                                                EDIT
-                                                </a>
-                                            <btn class="btn btn-danger btnHapus" idPemasukan="{{ $s->id_pemasukan }}">HAPUS</btn>
+                                        <a class='text-black' href="/dashboard-bendahara/pemasukan/edit/{{ $s->id_pemasukan }}"><i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
+                                            </i></a>
+                                            <a  href='/dashboard-bendahara/pemasukan/detail/{{$s->id_pemasukan}}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
+                                            <btn class="btnHapus" style="cursor: pointer" idPemasukan="{{ $s->id_pemasukan }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>
                                     </tr>
                                 @endforeach 
