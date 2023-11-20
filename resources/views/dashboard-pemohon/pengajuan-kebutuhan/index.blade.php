@@ -6,7 +6,9 @@
                         
                         <div class="col-md-12" style="margin-bottom:2vh">
                             <span class="h4" style="font-weight:bold;">Kelola Data Pengajuan Kebutuhan</span>
-                        
+                        </div>
+                         {{-- Menghitung jumlah pengajuan kebutuhan diambil dari stored function yang ada di migration --}}
+                        <h3 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h3>
                         <div class="col-md-12">
                                 <div class="row justify-content-md-center" style="align-items: center">
                                  <div class="col-6"></div>
@@ -51,14 +53,14 @@
                                                     style="max-width: 250px; height: auto;" />
                                             @endif
                                         </td> --}}
-                                        <td  >
+                                        <td>
                                         <a href="item-kebutuhan/tambah/{{ $s->id_item_kebutuhan}}"  style="text-decoration: none; color:black">
                                             <i class="fa-solid fa-circle-plus" style="margin: 0 10px; cursor:pointer"></i>
                                         </a>
                                        
-                                            {{-- <a href="pengajuan-kebutuhan/edit/{{ $s->id_pengajuan_kebutuhan}}"  style="text-decoration: none; color:black">
+                                            <a href="pengajuan-kebutuhan/edit/{{ $s->id_pengajuan_kebutuhan}}"  style="text-decoration: none; color:black">
                                                 <i class="fa-solid fa-pen "></i>
-                                            </a> --}}
+                                            </a>
                                             <a href="pengajuan-kebutuhan/detail/{{ $s->id_pengajuan_kebutuhan}}"  style="text-decoration: none; color:black">
                                                  <i class="fa-solid fa-circle-info" style="margin: 0 20px; cursor:pointer"></i>
                                             </a>

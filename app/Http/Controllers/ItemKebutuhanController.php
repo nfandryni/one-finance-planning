@@ -45,7 +45,7 @@ class ItemKebutuhanController extends Controller
                 'harga_satuan' => ['required'],
                 'satuan' => ['required'],
                 'spesifikasi' => ['required'],
-                'foto_barang_kebutuhan' => ['required'],
+                'foto_barang_kebutuhan' => 'sometimes|file',
             ]
         );
 
@@ -94,9 +94,15 @@ class ItemKebutuhanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(item_kebutuhan $item_kebutuhan)
+    public function edit(string $id,item_kebutuhan $item_kebutuhan, pengajuan_kebutuhan $pengajuan_kebutuhan, gedung $gedung)
     {
         //
+        $data = [
+            'item_kebutuhan' => $item_kebutuhan::where('id_item_kebutuhan', $id)->first(),
+            'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all(),
+            'gedung' => $gedung->all()
+        ];
+        return view('dashboard-pemohon.item-kebutuhan.edit', $data);
     }
 
     /**
@@ -105,6 +111,41 @@ class ItemKebutuhanController extends Controller
     public function update(Request $request, item_kebutuhan $item_kebutuhan)
     {
         //
+        $data = $request->validate([
+
+            'id_pengajuan_kebutuhan' => ['required'],
+            'id_gedung' => ['required'],
+            'item_kebutuhan' => ['required'],
+            'qty'    => ['required'],
+            'harga_satuan' => ['required'],
+            'satuan' => ['required'],
+            'spesifikasi' => ['required'],
+            'foto_barang_kebutuhan' => 'sometimes|file',
+        ]);
+
+        $id_item_kebutuhan = $request->input('id_item_kebutuhan');
+
+        if ($item_kebutuhan !== null) {
+
+            if ($request->hasFile('foto_barang_kebutuhan')) {
+                $foto_file = $request->file('foto_barang_kebutuhan');
+                $foto_extension = $foto_file->getClientOriginalExtension();
+                $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_extension;
+                $foto_file->move(public_path('foto'), $foto_nama);
+
+                // File::delete(public_path('foto') . '/' . $update_data->foto);
+
+                $data['foto_barang_kebutuhan'] = $foto_nama;
+            }
+            // Process Update
+            $dataUpdate = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->update($data);
+
+            if ($dataUpdate) {
+                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data sumber dana berhasil di update');
+            } else {
+                return back()->with('error', 'Data sumber dana gagal di update');
+            }
+        }
     }
 
     /**
@@ -113,5 +154,25 @@ class ItemKebutuhanController extends Controller
     public function destroy(item_kebutuhan $item_kebutuhan)
     {
         //
+        $id_item_kebutuhan = $request->input('id_item_kebutuhan');
+
+        // Hapus 
+        $aksi = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->delete();
+
+        if ($aksi) {
+            // Pesan Berhasil
+            $pesan = [
+                'success' => true,
+                'pesan'   => 'Data berhasil dihapus'
+            ];
+        } else {
+            // Pesan Gagal
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Data gagal dihapus'
+            ];
+        }
+
+        return response()->json($pesan);
     }
 }

@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/sumber-dana/edit/simpan', [SumberDanaController::class, 'update']);
         Route::delete('/sumber-dana/hapus', [SumberDanaController::class, 'destroy']);
     });
-    Route::prefix('dashboard-bendahara')->middleware(['akses:bendaharasekolah'])->group(function () {
+    Route::prefix('dashboard-pemohon')->middleware(['akses:pemohon'])->group(function () {
         Route::get('/logs', [LogsController::class, 'index']);
         Route::delete('/logs/hapus', [LogsController::class, 'destroy']);
     });

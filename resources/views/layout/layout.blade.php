@@ -1,5 +1,5 @@
-
 <html>
+
 <head>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>@yield('title')</title>
@@ -29,7 +29,7 @@
 
         .table-striped>tbody>tr:nth-child(odd)>td,
         .table-striped>tbody>tr:nth-child(odd)>th {
-            background-color: #FFC107;
+            background-color: #f8f9fa;
         }
 
         @media (min-width: 900px) {
@@ -43,33 +43,44 @@
 
 
 <body>
-  
-  <div class="d-flex" style=" height: 100%;">
-  <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;background-color:#588157;">
-     <div><a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-      <img src="{{url('assets/LOGO (2).png') }}" class="mx-auto d-flex " width="130" height="130" alt="Responsive image">
-    </a></div>
-    <span class="border-bottom mb-3"></span>
-    <ul class="nav nav-pills flex-column mb-auto">
 
-      <li class="nav-item">
-        <a href="/dashboard-pemohon" class="nav-link @yield('dashboard-pemohon')" aria-current="page">
-          Dashboard
-        </a>
-      </li>
+    <div class="d-flex" style=" height: 100%;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;background-color:#588157;">
+            <div><a href="/"
+                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <img src="{{ url('assets/LOGO (2).png') }}" class="mx-auto d-flex " width="130" height="130"
+                        alt="Responsive image">
+                </a></div>
+            <span class="border-bottom mb-3"></span>
+            <ul class="nav nav-pills flex-column mb-auto">
 
-       <li class="nav-item">
-        <a href="/dashboard-pemohon/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')" aria-current="page">
-          Pengajuan Kebutuhan
-        </a>
-      </li>
+                <li class="nav-item">
+                    <a href="/dashboard-pemohon" class="nav-link @yield('dashboard-pemohon')" aria-current="page">
+                        Dashboard
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="/dashboard-pemohon/gedung"class="nav-link @yield('gedung')" aria-current="page">
+                        Gedung
+                    </a>
+                </li>
 
-      <li class="nav-item">
-        <a href="/dashboard-pemohon/gedung"class="nav-link @yield('gedung')" aria-current="page">
-          Gedung
-        </a>
-      </li>
-{{-- 
+                <li class="nav-item">
+                    <a href="/dashboard-pemohon/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')"
+                        aria-current="page">
+                        Pengajuan Kebutuhan
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/dashboard-pemohon/logs" class="nav-link @yield('logs')"
+                        aria-current="page">
+                        Log Activity
+                    </a>
+                </li>
+
+                {{-- 
       <li class="nav-item">
         <a href="/dashboard-bendahara/pengeluaran" class="nav-link @yield('pengeluaran')" aria-current="page">
           Pengeluaran
@@ -93,19 +104,19 @@
           Log Activity
         </a>
       </li> --}}
-     
-      <li>
-        <a href="/logout" class="nav-link @yield('logout')" aria-current="page">
-        Logout
-        </a>
-      </li>
- 
-    </ul>
-   
-   
-  </div>
 
-    <div class="card" style="width: 1200;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
+                <li>
+                    <a href="/logout" class="nav-link @yield('logout')" aria-current="page">
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+
+        </div>
+
+        <div class="card" style="width: 1200;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
             {{-- nav disini --}}
             <header class="p-2 mb-3 border-bottom bg-light">
                 <div class="container">

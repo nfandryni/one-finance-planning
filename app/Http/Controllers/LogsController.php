@@ -76,7 +76,7 @@ class LogsController extends Controller
                 // Pesan Berhasil
                 $pesan = [
                     'success' => true,
-                    'pesan'   => 'Data jenis pengeluaran berhasil dihapus'
+                    'pesan'   => 'Data Pengajuan Kebutuhan berhasil dihapus'
                 ];
             } else {
                 // Pesan Gagal

@@ -5,12 +5,10 @@
 <br>
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
+           
                     <span class="h1">
                         Log Activity
                     </span>
-                </div>
                 <div class="card-body">
                     <div class="row" >
                         <p>
@@ -39,10 +37,8 @@
                         </table>
                     </div>
                 </div>
-                <div class="card-footer">
 
                 </div>
-            </div>
         </div>
     </div>
 @endsection

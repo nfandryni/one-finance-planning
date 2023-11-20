@@ -56,7 +56,6 @@
                                     <input type="file" class="form-control" name="foto" 
                                     value="{{ $pengeluaran->foto }}"/>
                                     <img src="{{ url('foto') . '/' . $pengeluaran->foto }}" width='200px'/>
-
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="id_pengeluaran" value="{{ $pengeluaran->id_pengeluaran }}" />

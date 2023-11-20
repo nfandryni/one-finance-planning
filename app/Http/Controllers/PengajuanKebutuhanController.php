@@ -16,11 +16,12 @@ class PengajuanKebutuhanController extends Controller
      */
     public function index(Pengajuan_Kebutuhan $pengajuan_kebutuhan)
     {
-        //
+        //Stored Function
         $data = [
+           'totalList' => DB::select('SELECT total_pengajuan_kebutuhan() AS totalList')[0]->totalList,
             'pengajuan_kebutuhan'=> $pengajuan_kebutuhan->all()
         ];
-        return view('dashboard-pemohon.pengajuan-kebutuhan.index',$data);
+        return view('dashboard-pemohon.pengajuan-kebutuhan.index', $data);
     }
 
     /**
@@ -78,12 +79,12 @@ class PengajuanKebutuhanController extends Controller
         /**
      * Display the specified resource.
      */
-    public function show(pengajuan_kebutuhan $pengajuan_kebutuhan, item_kebutuhan $item_kebutuhan)
+    public function show(pengajuan_kebutuhan $pengajuan_kebutuhan, item_kebutuhan $item_kebutuhan, string $id)
     {
         //  
         $data = [
-            'pengajuan_kebutuhan'=> $pengajuan_kebutuhan->all(),
-            'item_kebutuhan'=> $item_kebutuhan->all()
+            'pengajuan_kebutuhan'=> $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id)->get(),
+            'item_kebutuhan'=> $item_kebutuhan->where('id_pengajuan_kebutuhan', $id)->get()      
         ];
         return view('dashboard-pemohon.pengajuan-kebutuhan.detail', $data);  
       

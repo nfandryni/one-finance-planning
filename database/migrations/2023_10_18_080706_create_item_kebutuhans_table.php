@@ -28,15 +28,17 @@ return new class extends Migration
             ('cascade')->onDelete('cascade');
 
         });
-        DB::unprepared('DROP VIEW IF EXISTS view_item_kebutuhan');
+     
+        DB::unprepared('DROP VIEW IF EXISTS view_pengajuan_kebutuhan');
 
         DB::unprepared(
-            "CREATE VIEW view_item_kebutuhan AS 
-            SELECT p.id_pengeluaran, s.nama_sumber, b.email, p.nama, p.nominal, p.waktu, p.foto from pengeluaran AS p
-            INNER JOIN sumber_dana AS s ON p.id_sumber_dana = s.id_sumber_dana
-            INNER JOIN bendahara_sekolah AS b ON p.id_bendahara = b.id_bendahara
+            "CREATE VIEW view_pengajuan_kebutuhan AS 
+            SELECT i.id_item_kebutuhan, p.id_pengajuan_kebutuhan, i.id_gedung, i.item_kebutuhan, i.qty, i.harga_satuan, 
+            i.satuan, i.spesifikasi, i.foto_barang_kebutuhan from item_kebutuhan AS i
+            INNER JOIN pengajuan_kebutuhan AS p ON i.id_pengajuan_kebutuhan = p.id_pengajuan_kebutuhan
             "
         );
+
     }
 
     /**
