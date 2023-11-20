@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('id_sumber_dana', false)->index('id_sumber_dana');
             $table->integer('id_jenis_pengeluaran', false)->index('id_jenis_pengeluaran');
             $table->string('nama', 60)->nullable(false);
-            $table->integer('nominal', false)->nullable(false);
+            $table->decimal('nominal', 10, 2)->nullable(false);
             $table->date('waktu')->nullable(false);
             $table->text('foto')->nullable(false);
 

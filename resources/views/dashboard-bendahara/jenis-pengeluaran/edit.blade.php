@@ -32,5 +32,14 @@
                 </div>
 
 
+<<<<<<< HEAD
     </div>
 @endsection
+=======
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+>>>>>>> 4dddaa7276c8d5197cd3c1b6e9de097afbc44761

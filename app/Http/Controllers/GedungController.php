@@ -18,6 +18,13 @@ class GedungController extends Controller
             'gedung' => $gedung->all()
         ];
         return view('dashboard-bendahara.gedung.index', $data);
+    public function index(Gedung $gedung, Request $request)
+    {
+        //
+        $data = [
+            'gedung'=> $gedung->all()
+        ];
+        return view('dashboard-pemohon.gedung.index',$data);
     }
 
     /**
@@ -26,6 +33,8 @@ class GedungController extends Controller
     public function create()
     {
         return view('dashboard-bendahara.gedung.tambah');
+        //
+        return view('dashboard-pemohon.gedung.tambah');
     }
 
     /**
@@ -33,24 +42,32 @@ class GedungController extends Controller
      */
     public function store(Request $request, gedung $gedung)
     {
-        $data = $request->validate(
             [
                 'nama_gedung'    => ['required'],
                 'nama_ruangan'    => ['required'],
+    public function store(Request $request, Gedung $gedung)
+    {
+        $data = $request->validate(
+            [
+                'nama_gedung' => ['required'],
+                'nama_ruangan' => ['required']
             ]
         );
-
         //Proses Insert
         if (DB::statement("CALL tambah_gedung(?, ?)", ([$data['nama_gedung'], $data['nama_ruangan']]))) {
             // Simpan jika data terisi semua
-            // $gedung->create($data);
             return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung baru berhasil ditambah');
         } else {
             // Kembali ke form tambah data
             return back()->with('error', 'Data Gedung gagal ditambahkan');
+        if ($data) {
+            // Simpan jika data terisi semua
+            return redirect('dashboard-pemohon/gedung')->with('success', 'Data gedung baru berhasil ditambah');
+        } else {
+            // Kembali ke form tambah data
+            return back()->with('error', 'Data sumber dana gagal ditambahkan');
         }
     }
-
     /**
      * Display the specified resource.
      */
@@ -64,42 +81,59 @@ class GedungController extends Controller
      */
     public function edit(string $id)
     {
-        $data = [
             'gedung' =>  gedung::where('id_gedung', $id)->first()
         ];
         return view('dashboard-bendahara.gedung.edit', $data);
+    public function edit(string $id, gedung $gedung)
+    {
+        {
+            //
+            $data = [
+                'gedung' => gedung::where('id_gedung', $id)->first()
+            ];
+    
+            return view('dashboard-pemohon.gedung.edit', $data);
+        }
     }
 
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, gedung $gedung)
     {
         $data = $request->validate(
             [
-                'nama_gedung'    => ['required'],
                 'nama_ruangan'    => ['required'],
             ]
             );
+        //
+        $data = $request->validate([
+            'nama_ruangan' => ['required'],
+        ]);
 
         $id_gedung = $request->input('id_gedung');
-
         if ($id_gedung !== null) {
             $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
 
-            if ($dataUpdate) {
                 return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung berhasil diupdate');
             } else {
                 return back()->with('error', 'Data Gedung gagal diupdate');
+            // Process Update
+            $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
+            if ($dataUpdate) {
+                return redirect('dashboard-pemohon/gedung')->with('success', 'Data gedung berhasil di update');
+            } else {
+                return back()->with('error', 'Data gedung gagal di update');
             }
         }
-    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(gedung $gedung, Request $request)
     {
+    public function destroy(Request $request, gedung $gedung)
+    {
+        //
         $id_gedung = $request->input('id_gedung');
 
         // Hapus 
@@ -110,9 +144,7 @@ class GedungController extends Controller
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data Gedung berhasil dihapus'
-            ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'

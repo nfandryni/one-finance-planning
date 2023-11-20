@@ -22,11 +22,9 @@
         .nav-pills .nav-link.active {
             color: #588157;
             background-color: #ffffff;
-            font-weight: bold
         }
 
-        .bdr {
-            border-radius: 6px;
+        border-radius: 6px;
         }
 
         .table-striped>tbody>tr:nth-child(odd)>td,
@@ -122,13 +120,29 @@
                         </a>
                     </li>
                 @elseif(auth()->user()->role == 'pemohon')
+                    <li class="nav-item">
+                        <a href="/dashboard-pemohon" class="nav-link @yield('dashboard-pemohon')" aria-current="page">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/dashboard-pemohon/gedung"class="nav-link @yield('gedung')" aria-current="page">
+                            Gedung
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/dashboard-pemohon/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')"
+                            aria-current="page">
+                            Pengajuan Kebutuhan
+                        </a>
+                    </li>
                 @endif
             </ul>
-
-
         </div>
 
-        <div class="" style="width: 1100;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
+        <div class="card" style="width: 1200;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
             {{-- nav disini --}}
             <header class="p-2 mb-3 border-bottom bg-light">
                 <div class="container">
@@ -141,7 +155,8 @@
                             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                                 data-bs-toggle="dropdown">
                                 <img src='{{ $profile->foto_profil ? url('foto') . '/' . $profile->foto_profil : url('foto') . '/pfp.jpg' }}'
-                                    alt="mdo" width="32" height="32" class="rounded-circle">
+                                    alt="pfp" width="32" height="32" class="rounded-circle">
+                                
                             </a>
                             <ul class="dropdown-menu ">
                                 <li>
@@ -154,8 +169,8 @@
                                             {{ $profile->nama }}
                                             {{ $profile->email }}
                                             {{-- {{ auth()->user()->role }} --}}
+                                          
                                         </div>
-                                    </div>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -169,11 +184,16 @@
 
                                 @elseif(auth()->user()->role == 'bendaharasekolah')
                                     <li>
-                                        <a href="/dashboard-bendahara/logs" class="dropdown-item" >
+                                        <a href="/dashboard-bendahara/logs" class="dropdown-item">
                                             Log Activity
                                         </a>
                                     </li>
                                 @elseif(auth()->user()->role == 'pemohon')
+                                    <li>
+                                        <a href="/dashboard-pemohon/logs" class="dropdown-item">
+                                            Log Activity
+                                        </a>
+                                    </li>
                                 @endif
 
                                 <li>

@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardAdmin;
 use App\Http\Controllers\PengajuanKebutuhanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardBendaharaController;
+use App\Http\Controllers\DashboardPemohonController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogsController;
@@ -14,25 +15,23 @@ use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\RealisasiController;
 use App\Http\Controllers\SumberDanaController;
+use App\Http\Controllers\ItemKebutuhanController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
 |--------------------------------------------------------------------------
-|
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
 |
 */
 
 
 
 
-
 Route::get('login',[LoginController::class,'index'])->name('login');
 Route::post('login',[LoginController::class,'logincheck']);
+
 
 
 // Route::get('/profile', [ProfileController::class, 'index']);
@@ -111,9 +110,42 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/jenis-pengeluaran/edit/{id}', [JenisPengeluaranController::class, 'edit']);
         Route::post('/jenis-pengeluaran/edit/simpan', [JenisPengeluaranController::class, 'update']);
         Route::delete('/jenis-pengeluaran/hapus', [JenisPengeluaranController::class, 'destroy']);
-   Route::get('/logout', [LoginController::class, 'logout']);
-});
- 
+   
+    });
+    Route::prefix('dashboard-pemohon')->group(function () {
+        Route::get('/', [DashboardPemohonController::class, 'index']);
+        Route::get('/pengajuan-kebutuhan', [PengajuanKebutuhanController::class, 'index']);
+        Route::get('/pengajuan-kebutuhan/tambah', [PengajuanKebutuhanController::class, 'create']);
+        Route::post('/pengajuan-kebutuhan/simpan', [PengajuanKebutuhanController::class, 'store']);
+        Route::get('/pengajuan-kebutuhan/detail/{id}', [PengajuanKebutuhanController::class, 'show']);
+        Route::get('/pengajuan-kebutuhan/edit/{id}', [PengajuanKebutuhanController::class, 'edit']);
+        Route::post('/pengajuan-kebutuhan/edit/simpan', [PengajuanKebutuhanController::class, 'update']);
+        Route::delete('/pengajuan-kebutuhan/hapus', [PengajuanKebutuhanController::class, 'destroy']);
+    });
+    Route::prefix('dashboard-pemohon')->middleware(['akses:pemohon'])->group(function () {
+        Route::get('/logs', [LogsController::class, 'index']);
+        Route::delete('/logs/hapus', [LogsController::class, 'destroy']);
+    });
+    Route::prefix('dashboard-pemohon')->group(function () {
+        Route::get('/', [DashboardPemohonController::class, 'index']);
+        Route::get('/gedung', [GedungController::class, 'index']);
+        Route::get('/gedung/tambah', [GedungController::class, 'create']);
+        Route::post('/gedung/simpan', [GedungController::class, 'store']);
+        Route::get('/gedung/edit/{id}', [GedungController::class, 'edit']);
+        Route::post('/gedung/edit/simpan', [GedungController::class, 'update']);
+        Route::delete('/gedung/hapus', [GedungController::class, 'destroy']);
+    });
+
+    Route::prefix('dashboard-pemohon')->group(function () {
+        Route::get('/', [DashboardPemohonController::class, 'index']);
+        Route::get('/item-kebutuhan', [ItemKebutuhanController::class, 'index']);
+        Route::get('/item-kebutuhan/tambah', [ItemKebutuhanController::class, 'create']);
+        Route::post('/item-kebutuhan/tambah/simpan', [ItemKebutuhanController::class, 'store']);
+        Route::get('/item-kebutuhan/edit/{id}', [ItemKebutuhanController::class, 'edit']);
+        Route::post('/item-kebutuhan/edit/simpan', [ItemKebutuhanController::class, 'update']);
+        Route::delete('/item-kebutuhan/hapus', [ItemKebutuhanController::class, 'destroy']);
+    });
+
+Route::get('/logout', [LoginController::class, 'logout']);
 
 });
-

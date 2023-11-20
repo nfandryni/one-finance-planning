@@ -20,4 +20,8 @@ class akun extends Authenticatable
 
     public $timestamps = false;
 
+    public function bendahara()
+    {
+        return $this->hasOne(bendahara_sekolah::class, 'id_bendahara', 'id_bendahara');
+    }
 }
