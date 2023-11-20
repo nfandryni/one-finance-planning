@@ -20,36 +20,36 @@ class DashboardController extends Controller
         
     }
 
-    public function loggs(log $log)
-    {
-        $data = [
-            'log' => $log->all()
-        ];
-        return view("superadmin.kelola-akun.log",  $data);
+    // public function loggs(logs $logs)
+    // {
+    //     $data = [
+    //         'logs' => $logs->all()
+    //     ];
+    //     return view("superadmin.kelola-akun.log",  $data);
         
-    }
+    // }
 
-    public function destroy(log $log, Request $request)
-    {
-        $id_logs = $request->input('id_logs');
+    // public function destroy(logs $logs, Request $request)
+    // {
+    //     $id_logs = $request->input('id_logs');
 
-        // Hapus 
-        $aksi = $log->where('id_logs', $id_logs)->delete();
+    //     // Hapus 
+    //     $aksi = $logs->where('id_logs', $id_logs)->delete();
 
-        if ($aksi) {
-            // Pesan Berhasil
-            $pesan = [
-                'success' => true,
-                'pesan'   => 'Data logs berhasil dihapus'
-            ];
-        } else {
-            // Pesan Gagal
-            $pesan = [
-                'success' => false,
-                'pesan'   => 'Data gagal dihapus'
-            ];
-        }
+    //     if ($aksi) {
+    //         // Pesan Berhasil
+    //         $pesan = [
+    //             'success' => true,
+    //             'pesan'   => 'Data logs berhasil dihapus'
+    //         ];
+    //     } else {
+    //         // Pesan Gagal
+    //         $pesan = [
+    //             'success' => false,
+    //             'pesan'   => 'Data gagal dihapus'
+    //         ];
+    //     }
 
-        return response()->json($pesan);
-    }
+    //     return response()->json($pesan);
+    // }
 }

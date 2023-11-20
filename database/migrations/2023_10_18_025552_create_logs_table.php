@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('log', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->integer('id_logs',true);
             $table->string('aksi',60)->nullable(false);
             $table->string('aktivitas',225)->nullable(false);

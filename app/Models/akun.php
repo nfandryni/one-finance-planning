@@ -19,4 +19,5 @@ class akun extends Authenticatable
     ];
 
     public $timestamps = false;
+
 }

@@ -43,6 +43,7 @@
 
 </head>
 
+
 <body>
     <div class="d-flex">
         {{-- sidebar --}}
@@ -69,6 +70,58 @@
                             Dashboard
                         </a>
                     </li>
+                @elseif(auth()->user()->role == 'bendaharasekolah')
+									<li>
+										<a href="/dashboard-bendahara" class="nav-link @yield('dashboard')">
+											Dashboard
+										</a>
+									</li>
+									<li>
+										<a href="/pemasukan" class="nav-link @yield('pemasukan')">
+										Dana Pemasukan
+										</a>
+									</li>
+									<li>
+										<a href="/dashboard-bendahara/pengeluaran" class="nav-link @yield('pengeluaran')">
+										Dana Pengeluaran
+										</a>
+									</li>
+									<li>
+										<a href="/dashboard-bendahara/gedung" class="nav-link">
+											Kelola Data Master
+										</a>
+									</li>
+									<li>
+										<a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung')">
+											Gedung
+										</a>
+									</li>
+									<li>
+										<a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')">
+											Sumber Dana
+										</a>
+									</li>
+									<li>
+										<a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')">
+											Jenis Pengeluaran
+										</a>
+									</li>
+									<li>
+										<a href="/dashboard-bendahara/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')">
+										Konfirmasi Pengajuan
+										</a>
+									</li>
+									<li>
+										<a href="/dashboard-bendahara/perencanaan-keuangan" class="nav-link @yield('perencanaan-keuangan')">
+										Perencanaan Keuangan
+										</a>
+									</li>
+									<li>
+										<a href="/dashboard-bendahara/realisasi" class="nav-link @yield('realisasi')">
+										Realisasi 
+										</a>
+									</li>
+                @elseif(auth()->user()->role == 'pemohon')
                 @endif
             </ul>
 
@@ -126,9 +179,12 @@
         </div>
     </div>
 
+  
+
+
 
 </body>
 <footer>
-    @yield('footer')
+  @yield('footer')
 </footer>
 <html>
