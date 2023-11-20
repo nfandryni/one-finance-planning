@@ -86,7 +86,7 @@
       </li>
       <li>
         <a href="/dashboard-bendahara/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')">
-         Pengajuan Kebutuhan
+         Konfirmasi Pengajuan
         </a>
       </li>
       <li>
@@ -131,7 +131,7 @@
             <li>
               <div class="col-md-12 d-flex">
                 <div class="col-md-4 ms-2 me-2">
-                  <img src='../pfp.jpg' alt="/" width="50" height="50" class="rounded-circle"/>
+                  <img src="{{url('pfp.jpg') }}" alt="/" width="50" height="50" class="rounded-circle"/>
                 </div>
                 <div class="col-md-6 ms-2 me-2">
                   {{ Auth::user()->username }}

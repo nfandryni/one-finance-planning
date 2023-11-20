@@ -53,9 +53,11 @@ class PemasukanController extends Controller
                 'file'    => ['required'],
             ]
         );
-        
         $user = Auth::user();
-        $data['id_bendahara'] = $user->user_id;
+        $id_akun = $user->user_id;
+        $id_bendahara_array = DB::select("SELECT id_bendahara FROM bendahara WHERE user_id = ? LIMIT 1", [$id_akun]);
+        $id_bendahara = $id_bendahara_array[0]->id_bendahara;
+        $data['id_bendahara'] = $id_bendahara;
 
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $foto_file = $request->file('file');

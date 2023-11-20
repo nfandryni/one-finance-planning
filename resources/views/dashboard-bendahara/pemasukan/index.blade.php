@@ -36,6 +36,7 @@
                                     <th>Sumber Dana</th>
                                     <th>Nominal (Rupiah)</th>
                                     <th>Waktu</th>
+                                    <th>Penanggung Jawab</th>
                                     <th>Foto</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -46,6 +47,7 @@
                                         <td>{{ $s->sumber_dana->nama_sumber }}</td>
                                         <td>{{ $s->nominal }}</td>
                                         <td>{{ $s->waktu }}</td>
+                                        <td>{{ $s->penanggung_jawab }}</td>
                                         <td><img src='../foto/{{$s->file}}' width='200px'/></td>
                                         <td>
                                             <a href="/dashboard-bendahara/pemasukan/edit/{{$s->id_pemasukan}}" class="btn btn-primary">

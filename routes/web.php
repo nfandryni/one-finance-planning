@@ -42,8 +42,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/realisasi', [RealisasiController::class, 'index']);
         Route::get('/realisasi/tambah', [RealisasiController::class, 'create']);
         Route::post('/realisasi/simpan', [RealisasiController::class, 'store']);
-        Route::get('/realisasi/edit/{id}', [RealisasiController::class, 'edit']);
-        Route::post('/realisasi/edit/simpan', [RealisasiController::class, 'update']);
+        Route::get('/realisasi/edit-realisasi/{id}', [RealisasiController::class, 'edit_realisasi']);
+        Route::post('/realisasi/edit-realsasi/simpan', [RealisasiController::class, 'update_realisasi']);
+        Route::get('/realisasi/edit-item/{id}', [RealisasiController::class, 'edit_item']);
+        Route::post('/realisasi/edit-item/{id}', [RealisasiController::class, 'edit_item']);
         Route::get('/realisasi/detail/{id}', [RealisasiController::class, 'show']);
         Route::delete('/realisasi/hapus', [RealisasiController::class, 'destroy']);
 

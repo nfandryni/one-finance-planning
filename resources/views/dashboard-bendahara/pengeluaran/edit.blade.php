@@ -63,7 +63,7 @@
                                 </div>
                                 @csrf
                                 <div class="col-md-4 mt-3">
-                                    <a href="/dashboard-bendahara/pengeluaran" onclick="window.history.back();"  <btn class="btn btn-dark">KEMBALI</btn></a>
+                                    <a href="/dashboard-bendahara/pengeluaran" onclick="window.history.back();"> <btn class="btn btn-dark">KEMBALI</btn></a>
                                     <button type="submit" class="btn btn-success">SIMPAN</button>
                                     
                                 </div>

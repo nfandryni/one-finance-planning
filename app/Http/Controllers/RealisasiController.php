@@ -72,12 +72,17 @@ class RealisasiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, pengeluaran $pengeluaran)
     {
         //
-
         $data = [
-            'viewrealisasi' => DB::table('view_realisasi')->first()
+            'realisasi' => DB::table('realisasi')
+            ->join('pengeluaran', 'realisasi.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
+            ->join('item_perencanaan', 'item_perencanaan.id_realisasi', '=', 'item_perencanaan.id_realisasi')
+            ->get(),
+            'item_perencanaan' => DB::table('item_perencanaan')->get(),
+            'pengeluaran' => DB::table('pengeluaran')
+          
         ];
 
         return view('dashboard-bendahara.realisasi.detail', $data);
@@ -86,11 +91,22 @@ class RealisasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id, realisasi $realisasi)
+    public function edit_realisasi(string $id, realisasi $realisasi, pengeluaran $pengeluaran)
+    {
+        $data = [
+            'realisasi' => realisasi::where('id_realisasi', $id)->first(),
+            'pengeluaran'=> $pengeluaran->get()
+
+        ];
+
+        return view('dashboard-bendahara.realisasi.edit-realisasi', $data);
+    }
+
+    public function edit_item(string $id, realisasi $realisasi)
     {
         $realisasiData = realisasi::where('id_realisasi', $id)->first();
 
-        return view('dashboard-bendahara.edit', [
+        return view('dashboard-bendahara.realisasi.edit-realisasi', [
             'realisasi' => $realisasiData,
         ]);
     }
@@ -98,7 +114,30 @@ class RealisasiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, realisasi $realisasi)
+    public function update_realisasi(Request $request, realisasi $realisasi)
+    {
+        $id_realisasi = $request->input('id_realisasi');
+
+        $data = $request->validate([
+            'judul_realisasi' => 'sometimes',
+            'tujuan' => 'sometimes',
+            'waktu' => 'sometimes|file',
+            'total_pembayaran' => 'sometimes',
+        ]);
+
+        if ($id_realisasi !== null) {
+          
+            $dataUpdate = $realisasi->where('id_realisasi', $id_realisasi)->update($data);
+
+            if ($dataUpdate) {
+                return redirect('dashboard-bendahara/realisasi')->with('success', 'Data realisasi berhasil diupdate');
+            }
+
+            return back()->with('error', 'Data jenis realisasi gagal diupdate');
+        }
+    }
+
+    public function update_item(Request $request, realisasi $realisasi)
     {
         $id_realisasi = $request->input('id_realisasi');
 

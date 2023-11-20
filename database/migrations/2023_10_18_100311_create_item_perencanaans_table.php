@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_item_perencanaan', true);
             $table->integer('id_item_kebutuhan', false)->nullable(true)->index('id_item_kebutuhan');
             $table->integer('id_perencanaan_keuangan', false)->index('id_perencanaan_keuangan');
-            $table->integer('id_realisasi', false)->index('id_realisasi');
+            $table->integer('id_realisasi', false)->index('id_realisasi')->nullable(true);
             $table->string('item_perencanaan', 60)->nullable(false);
             $table->integer('qty')->nullable(false);
             $table->integer('harga_satuan', false)->nullable(false);
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->date('bulan_rencana_realisasi')->nullable(false);
             $table->enum('status',['Terbeli','Belum Dibeli'])->default("Belum Dibeli")->nullable(false);
             $table->text('foto_barang_perencanaan')->nullable(false);
-            $table->text('foto_realisasi')->nullable(false);
+            $table->text('foto_realisasi')->nullable(true);
 
             $table->foreign('id_item_kebutuhan')->on('item_kebutuhan')->references('id_item_kebutuhan')->onUpdate
             ('cascade')->onDelete('cascade');
