@@ -1,4 +1,5 @@
 @extends('layout.layout')
+@section('pemasukan', 'active')
 @section('title', 'Edit Pemasukan')
 @section('content')
     <div class="row px-5">
@@ -14,9 +15,12 @@
                                     <div class="form-group">
                                     <label>Nama Sumber</label>
                                     <select class='form-select' name="id_sumber_dana">
-                                    @foreach($sumber_dana as $p)
-                                        <option value='{{$p->id_sumber_dana}}'>{{$p->nama_sumber}}</option>
-                                    @endforeach
+                                      @foreach ($sumber_dana as $s)
+                                            <option value="{{ $s->id_sumber_dana }}"
+                                                {{ $s->id_sumber_dana == $s->id_sumber_dana ? 'selected' : '' }}>
+                                                {{ $s->nama_sumber }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -49,7 +53,7 @@
                             <div class="col-md-4">
                                 <br/>
                                 <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-dark">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-success">SIMPAN</button>
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
                                 
                             </div>
                             <p>

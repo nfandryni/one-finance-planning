@@ -4,9 +4,16 @@
 @section('content')
 
     <div class="row px-5">
-    <div class="col-md-4">
-                <a href="/dashboard-bendahara/realisasi"><btn class="btn btn-dark">KEMBALI</btn></a>
-            </div>
+ 
+        <div class="col-md-12">
+            <div class="row justify-content-md-center" style="align-items: center">
+                
+                <div>
+
+            {{-- <a href='/dashboard-bendahara/realisasi/edit-realisasi/{{$realisasi->first()->id_realisasi}}' class='btn btn-warning'><i class="fa-solid fa-pen"></i> Realisasi</a>
+            <a href='' class='btn btn btn-warning'><i class="fa-solid fa-pen"></i> Item Perencanaan</a> --}}
+        </div>
+        </div>
                         <div>
                             <br/>
                             <h3 class='fw-bold'>Detail Realisasi</h3>

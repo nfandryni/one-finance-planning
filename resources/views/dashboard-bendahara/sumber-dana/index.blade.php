@@ -6,7 +6,7 @@
 <div class="row"><h2 class="fw-bold">Kelola Data Master - Sumber Dana</h2>
     <hr>
     <div class="col-md-12">
-                    <div class="row justify-content-md-center" style="align-items: center">
+                    <div class="row justify-content-md-end" style="align-items: center">
                       
                         <div class="col-sm-2">
                             <div>
@@ -35,7 +35,7 @@
                                         <td>
                                         <a class='text-black' href="/dashboard-bendahara/sumber-dana/edit/{{ $s->id_sumber_dana }}"> <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
                                            </i></a>
-                                            <btn class="btnHapus" style="cursor: pointer" idSumberDana="{{ $s->id_sumber_dana }}"><i class="fa-solid fa-trash"></i></btn>
+                                            <btn class="btnHapus" style='cursor:pointer' idSumberDana="{{ $s->id_sumber_dana }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>
                                     </tr>
                                 @endforeach 

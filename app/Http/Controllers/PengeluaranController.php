@@ -120,7 +120,6 @@ class PengeluaranController extends Controller
             'nominal' => 'sometimes',
             'waktu' => 'sometimes',
             'foto' => 'sometimes',
-
         ]);
 
         if ($pengeluaran !== null) {

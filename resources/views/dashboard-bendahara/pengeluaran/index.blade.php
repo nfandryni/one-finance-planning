@@ -7,12 +7,12 @@
     <h2 class="fw-bold">Kelola Data Pengeluaran</h2>
     <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
     <div class="col-md-12">
-                    <div class="row justify-content-md-center" style="align-items: center">
+                    <div class="row justify-content-md-end" style="align-items: center">
                       
                         <div class="col-sm-2">
                         <div class="col" >
                             <a href="pengeluaran/tambah">
-                                <btn class="btn btn-primary">Tambah Data</btn>
+                                <btn class="btn btn-primary" style='position:absolute;margin-top:20px;'>Tambah Data</btn>
                             </a>
 
                         </div>

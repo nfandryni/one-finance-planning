@@ -9,12 +9,19 @@ use Laravel\Sanctum\HasApiTokens;
 
 class akun extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable;
+
     protected $table = 'akun';
     protected $primaryKey = 'user_id';
     protected $fillable = ['username', 'password', 'role'];
-    public $timestamps = false;
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public $timestamps = false;
+
+    public function bendahara()
+    {
+        return $this->hasOne(bendahara_sekolah::class, 'id_bendahara', 'id_bendahara');
+    }
 }

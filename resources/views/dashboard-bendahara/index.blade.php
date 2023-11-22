@@ -8,19 +8,19 @@
 <h5>Di tempat Anda akan mengelola Dana Pemasukan, Dana Pengeluaran, Data Master, Perencanaan Keuangan, Realisasi, dan Pengajuan Kebutuhan secara transparan.</h5>
 <div class='row gap-4 m-4'>
 
-    <div class="card w-25">
+    <div class="card" style='width:300px'>
         <div class="card-body rounded-5">
    <h2 class='text-center mt-4 text-danger fw-bold '>Rp. 20.000.000 </h2>
    <p class='text-center h-20'>Dana BOS</p>
   </div>
 </div>
-<div class="card w-25">
+<div class="card" style='width:300px'>
   <div class="card-body rounded-5">
 <h2 class='text-center mt-4 text-danger fw-bold '>Rp. 35.000.000 </h2>
    <p class='text-center h-20'>Dana BOPD</p>
   </div>
 </div>
-<div class="card w-25">
+<div class="card" style='width:300px'>
   <div class="card-body rounded-5">
 <h2 class='text-center mt-4 text-danger fw-bold '>Rp. 560.000.000 </h2>
    <p class='text-center h-20'>Dana Komite</p>
@@ -46,7 +46,6 @@
                                     <th>Nama Pemasukan</th>
                                     <th>Nominal (Rupiah)</th>
                                     <th>Waktu</th>
-                                    <th>Penanggung Jawab</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,7 +55,6 @@
                                         <td>{{ $s->nama }}</td>
                                         <td>{{ $s->nominal }}</td>
                                         <td>{{ $s->waktu }}</td>
-                                        <td>{{ $s->id_bendahara }}</td>         
                                     </tr>
                                 @endforeach 
                             </tbody>

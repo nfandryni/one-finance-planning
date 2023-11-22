@@ -6,7 +6,7 @@
 <div class="row"><h2 class="fw-bold">Kelola Data Master - Jenis Pengeluaran</h2>
     <hr>
     <div class="col-md-12">
-                    <div class="row justify-content-md-center" style="align-items: center">
+                    <div class="row justify-content-md-end" style="align-items: center">
                       
                         <div class="col-sm-2">
                         <div class="col" >

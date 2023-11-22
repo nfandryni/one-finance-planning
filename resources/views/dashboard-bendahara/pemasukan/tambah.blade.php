@@ -1,4 +1,5 @@
 @extends('layout.layout')
+@section('pemasukan', 'active')
 @section('title', 'Tambah Pemasukan ')
 @section('content')
     <div class="row px-5">
@@ -38,7 +39,7 @@
                                 </div>
                                 <br/>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-dark">KEMBALI</btn></a>
                                         <button type="submit" class="btn btn-primary">SIMPAN</button>
                                         

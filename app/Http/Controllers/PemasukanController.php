@@ -6,6 +6,7 @@ use App\Models\akun;
 use App\Models\bendahara_sekolah;
 use App\Models\pemasukan;
 use App\Models\sumber_dana;
+use PDF;
 use Faker\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,11 +21,11 @@ class PemasukanController extends Controller
     {   
         $totalDana =  DB::select('SELECT total_pemasukan() AS totalDana')[0]->totalDana;
         $data = [
-            'pemasukan'=>pemasukan::with(['sumber_dana', 'akun'])->get(),
-            'jumlahDana'=>$totalDana
+            'pemasukan'=>DB::table('view_pemasukan')->get(),
+            'jumlahDana'=>$totalDana,
         ];
 
-        dd($data['pemasukan']);
+     
         return view('dashboard-bendahara.pemasukan.index', $data);
     }
 
@@ -36,7 +37,6 @@ class PemasukanController extends Controller
         $sumberDana = sumber_dana::all();
         $bendaharaSekolah = bendahara_sekolah::all();
     
-        // dd($sumberDana, $bendaharaSekolah);
         return view('dashboard-bendahara.pemasukan.tambah', compact('sumberDana', 'bendaharaSekolah'));
 
     }
@@ -109,6 +109,18 @@ class PemasukanController extends Controller
         return view('dashboard-bendahara.pemasukan.edit', $data);
     }
 
+    public function print(pemasukan $pemasukan)
+    {
+        $data = [
+            'pemasukan'=>DB::table('view_pemasukan')->get(),
+
+        ];
+
+        $pdf = PDF::loadView('dashboard-bendahara.pemasukan.print', $data);
+
+        return $pdf->download('pemasukan.pdf');
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -122,13 +134,13 @@ class PemasukanController extends Controller
                 'nama_pemasukan'    => ['sometimes'],
                 'nominal'    => ['sometimes'],
                 'waktu'    => ['sometimes'],
-                'file'    => ['sometimes'],
+                'foto'    => ['sometimes'],
             ]
         );
 
         if ($id_pemasukan !== null) {
-            if ($request->hasFile('file')) {
-                $foto_file = $request->file('file');
+            if ($request->hasFile('foto')) {
+                $foto_file = $request->file('foto');
                 $foto_extension = $foto_file->getClientOriginalExtension();
                 $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_extension;
                 $foto_file->move(public_path('foto'), $foto_nama);
@@ -136,7 +148,7 @@ class PemasukanController extends Controller
                 $update_data = $pemasukan->where('id_pemasukan', $id_pemasukan)->first();
                 // File::delete(public_path('foto') . '/' . $update_data->file);
 
-                $data['file'] = $foto_nama;
+                $data['foto'] = $foto_nama;
             }
 
             $dataUpdate = $pemasukan->where('id_pemasukan', $id_pemasukan)->update($data);

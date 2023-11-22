@@ -3,7 +3,7 @@
 @section('title', 'Daftar Realisasi')
 @section('content')
 <br>
-    <div class="row px-5">
+    <div class="">
     <h2 class="fw-bold">Kelola Data Realisasi</h2>
     <!-- <div class="card" style="height: 75px;">
         <h4 class=" fw-bold p-3">Cetak Data Realisasi </h4>
@@ -50,7 +50,7 @@
 
 @section('footer')
     <script type="module">
-        $('tbody').on('click', '.btnHapus', function(a) {
+        $('DataTable tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
             let idRealisasi = $(this).closest('.btnHapus').attr('idRealisasi');
             swal.fire({

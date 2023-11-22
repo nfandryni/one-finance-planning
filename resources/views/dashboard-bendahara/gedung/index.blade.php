@@ -6,15 +6,24 @@
     <div class="row"><h2 class="fw-bold">Kelola Data Master - Gedung</h2>
     <hr>
     <div class="col-md-12">
-                    <div class="row justify-content-md-center" style="align-items: center">
-                        <div class="col-sm-2">
-                            <div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahGedung">
-                            Tambah Data
-                            </button>
-                            </div>
-                        </div>
+                    <div class="row">
+                    <div class="row justify-content-md-end" style="align-items: center">
+                      
+                      <div class="col-sm-2">
+                      <div class="col" >
+                          <a href="pengeluaran/tambah">
+                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahGedung" style='position:absolute;margin-top:20px;'>
+                                   Tambah Data
+                                   </button>
+                          </a>
+
+                      </div>
+                      </div>
+                  </div>
+                    <div class="col-md-12 d-flex justify-content-end ">
                     </div>
+                   </div>
+            
                     </div>
                          </div>
 
