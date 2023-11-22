@@ -2,45 +2,45 @@
 @section('pengajuan-kebutuhan', 'active')
 @section('title', 'Daftar Pengajuan Kebutuhan')
 @section('content')
-    <div class="row px-5">
-
-        <div class="col-md-12" style="margin-bottom:2vh">
-            <span class="h4" style="font-weight:bold;">Kelola Data Pengajuan Kebutuhan</span>
-        </div>
-        {{-- Menghitung jumlah pengajuan kebutuhan diambil dari stored function yang ada di migration --}}
-        <h3 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h3>
-        <div class="col-md-12">
-            <div class="row justify-content-md-end" style="align-items: center">
-                <div class="col-sm-2">
-                    <div>
-                        <a href="pengajuan-kebutuhan/tambah">
-                            <btn class="btn btn-primary">Tambah Data</btn>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p>
-        <table class="table table-hover table-borderless table-striped DataTable">
-            <thead>
-                <tr>
-                    <th>Pemohon</th>
-                    <th>Nama Kegiatan</th>
-                    <th>Status</th>
-                    <th>Waktu</th>
-                    <th>Tujuan</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($pengajuan_kebutuhan as $s)
-                    <tr>
-                        <td>{{ $s->id_pemohon }}</td>
-                        <td>{{ $s->nama_kegiatan }}</td>
-                        <td>{{ $s->status }}</td>
-                        <td>{{ $s->waktu }}</td>
-                        <td>{{ $s->tujuan }}</td>
-                        {{-- <td>
+                    <div class="row ">
+                        
+                        <div class="col-md-12" style="margin-bottom:2vh">
+                            <span class="h4" style="font-weight:bold;">Kelola Data Pengajuan Kebutuhan</span>
+                        </div>
+                         {{-- Menghitung jumlah pengajuan kebutuhan diambil dari stored function yang ada di migration --}}
+                        <h3 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h3>
+                        <div class="col-md-12">
+                                <div class="row justify-content-md-end" style="align-items: center">
+                                    <div class="col-sm-2">
+                                        <div>
+                                         <a href="pengajuan-kebutuhan/tambah">
+                                            <btn class="btn btn-primary">Tambah Data</btn>
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>
+                         </div>
+                        <p>
+                        <table class="table table-hover table-borderless table-striped DataTable">
+                            <thead>
+                                <tr>
+                                    <th>Pemohon</th>
+                                    <th>Nama Kegiatan</th>
+                                    <th>Status</th>
+                                    <th>Waktu</th>
+                                    <th>Tujuan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pengajuan_kebutuhan as $s)
+                                    <tr>
+                                        <td>{{ $s->id_pemohon }}</td>
+                                        <td>{{ $s->nama_kegiatan }}</td>
+                                        <td>{{ $s->status }}</td>
+                                        <td>{{ $s->waktu }}</td>
+                                        <td>{{ $s->tujuan }}</td>
+                                        {{-- <td>
                                             @if ($s->file)
                                                 <img src="{{ url('foto') . '/' . $s->file }} "
                                                     style="max-width: 250px; height: auto;" />

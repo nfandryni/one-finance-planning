@@ -65,8 +65,15 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('/dashboard-admin')->group(function () {
             Route::get('/', [DashboardAdmin::class, 'index']);
         });
-        
-        
+
+        Route::prefix('/pemasukan')->group(function () {
+             Route::get('/', [PemasukanController::class, 'index']);
+        });
+
+        Route::prefix('/pengeluaran')->group(function () {
+            Route::get('/', [PengeluaranController::class, 'index']);
+       });
+       
     });
   
     Route::prefix('dashboard-bendahara')->middleware(['akses:bendaharasekolah'])->group(function () {
@@ -91,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/sumber-dana/edit/{id}', [SumberDanaController::class, 'edit']);
         Route::post('/sumber-dana/edit/simpan', [SumberDanaController::class, 'update']);
         Route::delete('/sumber-dana/hapus', [SumberDanaController::class, 'destroy']);
+        
         Route::get('/pemasukan', [PemasukanController::class, 'index']);
         Route::get('/pemasukan/tambah', [PemasukanController::class, 'create']);
         Route::post('/pemasukan/simpan', [PemasukanController::class, 'store']);
@@ -98,6 +106,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pemasukan/detail/{id}', [PemasukanController::class, 'show']);
         Route::post('/pemasukan/edit/simpan', [PemasukanController::class, 'update']);
         Route::delete('/pemasukan/hapus', [PemasukanController::class, 'destroy']);
+        Route::get('/pemasukan/print', [PemasukanController::class, 'print']);
 
         Route::get('/pengeluaran', [PengeluaranController::class, 'index']);
         Route::get('/pengeluaran/tambah', [PengeluaranController::class, 'create']);
@@ -106,10 +115,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengeluaran/detail/{id}', [PengeluaranController::class, 'show']);
         Route::post('/pengeluaran/edit/simpan', [PengeluaranController::class, 'update']);
         Route::delete('/pengeluaran/hapus', [PengeluaranController::class, 'destroy']);
+        Route::get('/pengeluaran/print', [PengeluaranController::class, 'print']);
 
         Route::get('/logs', [LogsController::class, 'index']);
 
-        Route::get('/print', [PemasukanController::class, 'print']);
 
         Route::get('/jenis-pengeluaran', [JenisPengeluaranController::class, 'index']);
         Route::get('/jenis-pengeluaran/tambah', [JenisPengeluaranController::class, 'create']);

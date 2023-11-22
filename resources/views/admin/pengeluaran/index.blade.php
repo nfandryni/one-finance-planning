@@ -1,44 +1,38 @@
 @extends('layout.layout')
-@section('sumber-dana', 'active')
-@section('title', 'Daftar Sumber Dana')
+@section('pengeluaran', 'active')
+@section('title', 'Daftar Pengeluaran')
 @section('content')
 <br>
-<div class="row"><h2 class="fw-bold">Kelola Data Master - Sumber Dana</h2>
-    <hr>
+<div class="row">
+    <h2 class="fw-bold">Kelola Data Pengeluaran</h2>
+    <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
     <div class="col-md-12">
-                    <div class="row justify-content-md-end" style="align-items: center">
-                      
-                        <div class="col-sm-2">
-                            <div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahSumberDana" style='position:absolute; margin-top:20px;'>
-                            Tambah Data
-                            </button>
-                            </div>
-                        </div>
-                    </div>
+                    
                     </div>
                          </div>
 
                         <table class="table table-borderless table-striped mt-2 DataTable">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nama Sumber Dana</th>
-                                    <th>Aksi</th>
+                                    <th>Sumber Dana</th>
+                                    <th>Nama Pengeluaran</th>
+                                    <th>Jenis Pengeluaran</th>
+                                    <th>Nominal</th>
+                                    <th>Waktu</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                 @foreach ($sumber_dana as $s)
+                                @foreach ($pengeluaran as $s)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $s->nama_sumber }}</td>
-                                        <td>
-                                        <a class='text-black' href="/dashboard-bendahara/sumber-dana/edit/{{ $s->id_sumber_dana }}"> <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
-                                           </i></a>
-                                            <btn class="btnHapus" style='cursor:pointer' idSumberDana="{{ $s->id_sumber_dana }}"><i class="fa-solid fa-trash"></i></btn>
-                                        </td>
+                                        <td>{{ $s->sumber_dana->nama_sumber }}</td>
+                                        <td>{{ $s->nama }}</td>
+                                        <td>{{ $s->jenis_pengeluaran->kategori }}</td>
+                                        <td>{{ $s->nominal }}</td>
+                                        <td>{{ $s->waktu }}</td>
+                                        
+                                        
                                     </tr>
-                                @endforeach 
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -49,14 +43,13 @@
             </div>
         </div>
     </div>
-@include('dashboard-bendahara.sumber-dana.tambah')
 @endsection
 
- @section('footer')
+@section('footer')
     <script type="module">
         $('tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
-            let idSumberDana = $(this).closest('.btnHapus').attr('idSumberDana');
+            let idPengeluaran = $(this).closest('.btnHapus').attr('idPengeluaran');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -69,9 +62,9 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: '/dashboard-bendahara/sumber-dana/hapus',
+                        url: '/dashboard-bendahara/pengeluaran/hapus',
                         data: {
-                            id_sumber_dana: idSumberDana,
+                            id_pengeluaran: idPengeluaran,
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
@@ -91,4 +84,4 @@
     });
     </script>
 
-@endsection 
+@endsection

@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="row" >
                         <div class="col" >
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahJenisPengeluaran">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" style='position:absolute; margin-top:20px;' data-bs-target="#tambahJenisPengeluaran">
                             Tambah Data
                             </button>
                         </div>

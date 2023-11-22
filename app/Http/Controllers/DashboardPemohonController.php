@@ -8,12 +8,11 @@ use Illuminate\Http\Request;
 
 class DashboardPemohonController extends Controller
 {
-    /**
+/**
      * Display a listing of the resource.
      */
     public function index(pengajuan_kebutuhan $pengajuan_kebutuhan)
     {
-        //
         $data = [
             'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all()
         ];

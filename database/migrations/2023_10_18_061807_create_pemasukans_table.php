@@ -30,7 +30,7 @@ return new class extends Migration
 
         DB::unprepared(
             "CREATE VIEW view_pemasukan AS 
-            SELECT p.id_pemasukan, s.nama_sumber, b.email, p.nama, p.nominal, p.waktu, p.foto from pemasukan AS p
+            SELECT p.id_pemasukan, s.nama_sumber, b.nama as penanggung_jawab, p.nama as nama_pemasukan, p.nominal, p.waktu, p.foto from pemasukan AS p
             INNER JOIN sumber_dana AS s ON p.id_sumber_dana = s.id_sumber_dana
             INNER JOIN bendahara_sekolah AS b ON p.id_bendahara = b.id_bendahara
             "
