@@ -11,9 +11,10 @@
                     </span>
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class='mt-1'>
+                                @foreach($pengeluaran as $p)
+                                <img src='../../../../foto/{{ $p->foto }}' width='400px'/>
                             <div class="row mb-2">
                                 <div class="col-md-2">
-                                @foreach($pengeluaran as $p)
                                 <label class='fw-bold'>Sumber Dana</label>
                             </div>
                             <div class="col-md-3">
@@ -34,7 +35,23 @@
                                 <label class='fw-bold'>Nama Pengeluaran</label>
                             </div>
                             <div class="col-md-3">
-                                : {{$p->nama}}
+                                : {{$p->nama_pengeluaran}}
+                            </div>
+                        </div>
+                        <div class='row mb-2'>
+                            <div class="col-md-2">
+                                <label class='fw-bold'>Jenis Pengeluaran</label>
+                            </div>
+                            <div class="col-md-3">
+                                : {{$p->kategori}}
+                            </div>
+                        </div>
+                        <div class='row mb-2'>
+                            <div class="col-md-2">
+                                <label class='fw-bold'>Penanggung Jawab</label>
+                            </div>
+                            <div class="col-md-3">
+                                : {{$p->penanggung_jawab}}
                             </div>
                         </div>
                         <div class='row mb-2'>
@@ -51,15 +68,6 @@
                             </div>
                             <div class="col-md-3">
                                : {{$p->waktu}}
-                            </div>
-                        </div>
-                        <div class='row mb-2'>
-                            <div class="col-md-2">
-                                <label class='fw-bold'>Bukti Pengeluaran </label>
-                            </div>
-                            <div class="col-md-3">
-                                :
-                                <img src='../../../../foto/{{ $p->foto }}' width='200px'/>
                             </div>
                         </div>
                     </div>

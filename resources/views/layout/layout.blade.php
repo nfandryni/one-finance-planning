@@ -7,8 +7,7 @@
     <script src="https://kit.fontawesome.com/4be914391d.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         .nav-link {
             color: #ffffff
@@ -69,6 +68,31 @@
                             Dashboard
                         </a>
                     </li>
+                    <li>
+                        <a href="/pemasukan" class="nav-link  @yield('pemasukan')">
+                            Dana Pemasukan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/pengeluaran" class="nav-link  @yield('pengeluaran')">
+                            Dana Pengeluaran
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="nav-link  @yield('')">
+                            Pengajuan Kebutuhan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="nav-link  @yield('')">
+                            Perencanaan Keuangan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="nav-link  @yield('')">
+                            Realisasi Kebutuhan
+                        </a>
+                    </li>
                 @elseif(auth()->user()->role == 'bendaharasekolah')
                     <li>
                         <a href="/dashboard-bendahara" class="nav-link @yield('dashboard')">
@@ -106,12 +130,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="nav-link @yield('pengajuan-kebutuhan')">
+                        <a  class="nav-link @yield('pengajuan-kebutuhan')">
                             Konfirmasi Pengajuan
                         </a>
                     </li>
                     <li>
-                        <a href="" class="nav-link @yield('perencanaan-keuangan')">
+                        <a class="nav-link @yield('perencanaan-keuangan')">
                             Perencanaan Keuangan
                         </a>
                     </li>
@@ -207,9 +231,9 @@
             </div>
         </div>
     </div>
-
+    <footer>
+        @yield('footer')
+    </footer>
 </body>
-<footer>
-    @yield('footer')
-</footer>
+
 <html>

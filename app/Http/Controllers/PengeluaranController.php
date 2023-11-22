@@ -5,6 +5,7 @@ use App\Models\jenis_pengeluaran;
 use App\Models\bendahara_sekolah;
 use App\Models\pengeluaran;
 use App\Models\sumber_dana;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,10 +20,18 @@ class PengeluaranController extends Controller
         //sumber dana dan jenis pengeluaran
         $totalDana =  DB::select('SELECT total_pengeluaran() AS totalDana')[0]->totalDana;
         $data = [
-            'pengeluaran'=>pengeluaran::with(['sumber_dana', 'jenis_pengeluaran'])->get(),
+            'pengeluaran'=>DB::table('view_pengeluaran')->get(),
             'jumlahDana'=>$totalDana
         ];
-        return view('dashboard-bendahara.pengeluaran.index',$data);
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            return view('dashboard-bendahara.pengeluaran.index',$data);
+        }
+        elseif($role == 'admin') {
+            return view('admin.pengeluaran.index', $data);
+        }
+       
     }
 
     /**
@@ -80,14 +89,21 @@ class PengeluaranController extends Controller
         {
             //
             $data = [
-                'pengeluaran'=> DB::table('pengeluaran')
-                ->join('sumber_dana', 'pengeluaran.id_sumber_dana', '=', 'sumber_dana.id_sumber_dana')
-                ->join('jenis_pengeluaran', 'pengeluaran.id_jenis_pengeluaran', '=', 'jenis_pengeluaran.id_jenis_pengeluaran')
-                ->join('bendahara_sekolah', 'pengeluaran.id_bendahara', '=', 'bendahara_sekolah.id_bendahara')
-                 ->where('pengeluaran.id_pengeluaran', $id)
-                ->get(),
+                'pengeluaran'=>DB::table('view_pengeluaran')->get(),
             ];
             return view('dashboard-bendahara.pengeluaran.detail', $data);
+        }
+
+        public function print(pengeluaran $pengeluaran)
+        {
+            $data = [
+                'pengeluaran'=>DB::table('view_pengeluaran')->get(),
+    
+            ];
+    
+            $pdf = PDF::loadView('dashboard-bendahara.pengeluaran.print', $data);
+    
+            return $pdf->download('pengeluaran.pdf');
         }
     /**
      * Display the specified resource.

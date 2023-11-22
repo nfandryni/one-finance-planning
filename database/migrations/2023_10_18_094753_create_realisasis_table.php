@@ -36,6 +36,7 @@ return new class extends Migration
             VALUES (NEW.id_perencanaan_keuangan, NEW.judul_perencanaan, NEW.tujuan, NEW.waktu, NEW.total_dana_perencanaan);
         END
     ");
+    
     }
 
     /**

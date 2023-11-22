@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\jenis_pengeluaran;
-use App\Models\pengeluaran;
+use App\Models\jenis_realisasi;
 use App\Models\perencanaan_keuangan;
 use App\Models\realisasi;
 use Illuminate\Http\Request;
@@ -28,22 +27,22 @@ class RealisasiController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(realisasi $realisasi, perencanaan_keuangan $perencanaan_keuangan, pengeluaran $pengeluaran)
+    public function create(pengeluaran $pengeluaran, perencanaan_keuangan $perencanaan_keuangan, realisasi $realisasi)
     {
         $data = [
-            'realisasi' => $realisasi->all(),
-            'perencanaan_keuangan' => $perencanaan_keuangan->all(),
             'pengeluaran' => $pengeluaran->all(),
+            'perencanaan_keuangan' => $perencanaan_keuangan->all(),
+            'realisasi' => $realisasi->all(),
 
         ];
 
         return view('dashboard-bendahara.realisasi.tambah', $data);
     }
 
-    public function store(Request $request, realisasi $realisasi, pengeluaran $pengeluaran)
+    public function store(Request $request, pengeluaran $pengeluaran, realisasi $realisasi)
     {
         $data = $request->validate([
-            'id_pengeluaran' => 'required',
+            'id_realisasi' => 'required',
             'judul_realisasi' => 'required',
             'tujuan' => 'required',
             'waktu' => 'required',
@@ -72,27 +71,17 @@ class RealisasiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id, pengeluaran $pengeluaran)
+    public function show(string $id)
     {
         //
         $data = [
-            'realisasi' => DB::table('realisasi')
-            ->leftJoin('pengeluaran as p', 'realisasi.id_pengeluaran', '=', 'p.id_pengeluaran')
-            ->select('realisasi.*', 'p.id_pengeluaran', 'p.nama')
-            ->where('realisasi.id_realisasi', $id)
-            ->first(),
+            'realisasi'=> realisasi::where('id_realisasi', $id)->first(),
 
-                'item' => DB::table('item_perencanaan')
-                ->join('realisasi', 'item_perencanaan.id_realisasi', '=', 'realisasi.id_realisasi')
-                ->where('item_perencanaan.id_realisasi', '=', $id)
-                ->get(),
-            ];
+            'item_realisasi'=> DB::table('view_realisasi')
+            ->where('view_realisasi.id_realisasi', $id)
+            ->get(),
+        ];
 
-        // dd($data);
-
-
-        // dd($data);
-        // dd($data);
         return view('dashboard-bendahara.realisasi.detail', $data);
     }
 

@@ -11,16 +11,20 @@
             <div class="row">
                 <div class="col-md-12 mt-3 d-flex justify-content-between">
                     <div class="col-md-6">
-                    <h1 class="fs-2 fw-bold ">Kelola Akun </h1>
+                        <h1 class="fs-2 fw-bold ">Kelola Akun </h1>
                     </div>
-                    <div class="col-md-6 d-flex justify-content-end ">
-                    <div>
-                        <btn class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#tambahAkun">Tambah Akun</btn>
-                    </div>
+                    <div class="col-md-6 d-flex justify-content-end gap-3">
+                        <div>
+                            <btn class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#tambahAkun">Tambah Akun</btn>
+                        </div>
+                        <a target="_blank" href="kelola-akun/generate" style="text-decoration: none; color:black">
+                            <btn class="btn btn-warning ">Cetak</btn>
+
+                        </a>
                     </div>
                 </div>
             </div>
-            
+
 
             {{-- table list  --}}
             <div class=" mt-4">
@@ -47,14 +51,11 @@
                                         </a>
                                         <a href="kelola-akun/detail/{{ $s->user_id }}"
                                             style="text-decoration: none; color:black">
-                                            <i class="fa-solid fa-circle-info "></i>
+                                            <i class="fa-solid fa-circle-info  "></i>
                                         </a>
-                                        <i class="fa-solid fa-trash btnHapus" userId="{{ $s->user_id }}"></i>
-                                        <a href="{{ url('kelola-akun/generate') }}"
-                                            style="text-decoration: none; color:black">
-                                            <i class="fa-solid fa-print "></i>
-                                        </a>
-                                         
+                                        <i class="fa-solid fa-trash btnHapus btn-danger" userId="{{ $s->user_id }}"></i>
+
+
                                         @csrf
                                     </td>
                                 </tr>
@@ -65,7 +66,7 @@
             </div>
         </div>
     </div>
-@include('superadmin.kelola-akun.tambah')
+    @include('superadmin.kelola-akun.tambah')
 @endsection
 
 
@@ -105,8 +106,8 @@
             });
         });
         $(document).ready(function() {
-        $('.DataTable').DataTable();
-    });
+            $('.DataTable').DataTable();
+        });
     </script>
 
 @endsection

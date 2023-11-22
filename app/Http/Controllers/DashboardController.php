@@ -10,15 +10,32 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data = [
-            $TotalAkun = DB::select('SELECT TotalAcc() as TotalAkun')[0]->TotalAkun,
-            $totalRole = json_decode( DB::table('v_chart')->get())
+        $totalAkun = DB::select('SELECT TotalAcc() as TotalAkun')[0]->TotalAkun;
+
+        $totalRole = DB::table('v_chart')->get();
+
+        $chartData = [
+            'labels' => [],
+            'datasets' => [
+                [
+                    'label' => 'Total Role',
+                    'borderWidth' => 1,
+                    'data' => [],
+                ],
+            ],
         ];
         
-        
-        // dd($data[1][0]);
+        foreach ($totalRole as $roleData) {
+            $chartData['labels'][] = $roleData->role;
+            $chartData['datasets'][0]['data'][] = $roleData->totalRole;
+        }
+
+        $data = [
+            'totalAkun' => $totalAkun,
+            'chartData' => $chartData,
+        ];
+       
         return view("superadmin.index", compact('data'));
-        
     }
 
     public function loggs(logs $logs)

@@ -21,13 +21,7 @@
                             <div class="col-md-5">
                                     <div class="form-group">
                                     <label>Pengeluaran</label>
-                                    <select name="id_pengeluaran" class="form-control">
-                                        @if($pengeluaran->isEmpty())
-                                        <option>Tambahkan Data Pengeluaran!</option>
-                                        @endif
-                                        <option selected hidden>
-                                            Pilih Pengeluaran
-                                        </option>
+                                    <select disabled name="id_pengeluaran" class="form-control">
                                         @foreach ($pengeluaran as $s)
                                             <option value="{{ $s->id_pengeluaran }}"
                                                 {{ $s->id_pengeluaran == $s->id_pengeluaran ? 'selected' : '' }}>
@@ -67,8 +61,8 @@
                         <div class="row">
                             <p></p>
                             <div class="col-md-4">
-                                <a href="/dashboard-bendahara/realisasi"><btn class="btn btn-dark">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-success">SIMPAN</button>
+                                <a href="/dashboard-bendahara/realisasi/detail/{{$realisasi->id_realisasi}}"><btn class="btn btn-dark">KEMBALI</btn></a>
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
                                 
                             </div>
                             <p>

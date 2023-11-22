@@ -33,7 +33,7 @@ class AkunController extends Controller
 
         $pdf = PDF::loadView('superadmin.kelola-akun.generate', $data);
 
-        return $pdf->download('document.pdf');
+        return $pdf->stream();
     }
 
     public function create()

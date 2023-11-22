@@ -3,45 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Data Akun</title>
+    <title>Daftar Akun</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
 <body>
-<table class="table table-borderless table-striped DataTable">
-                        <thead>
-                            <tr>
-                                <th>NO </th>
-                                <th>USERNAME </th>
-                                <th>ROLE</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($akun as $s)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $s->username }}</td>
-                                    <td class="text-capitalize">{{ $s->role }}</td>
-                                    <td>
-                                        <a href="kelola-akun/edit/{{ $s->user_id }}"
-                                            style="text-decoration: none; color:black">
-                                            <i class="fa-solid fa-pen "></i>
-                                        </a>
-                                        <a href="kelola-akun/detail/{{ $s->user_id }}"
-                                            style="text-decoration: none; color:black">
-                                            <i class="fa-solid fa-circle-info "></i>
-                                        </a>
-                                        <i class="fa-solid fa-trash btnHapus" userId="{{ $s->user_id }}"></i>
-                                        <a href="{{ url('kelola-akun/generate') }}"
-                                            style="text-decoration: none; color:black">
-                                           <i class="fa-solid fa-print"></i>
-                                        </a>
-                                         
-                                        @csrf
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+  
+  <h2 class='text-center m-2'>Daftar Akun</h2>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th scope='col'>No</th>
+              <th scope='col'>Username</th>
+              <th scope='col'>Role</th>
+          </tr>
+      </thead>
+      <tbody>
+          @foreach ($akun as $s)
+              <tr>
+                   <td scope="row">{{ $loop->iteration }}</td>
+                    <td>{{ $s->username }}</td>
+                    <td class="text-capitalize">{{ $s->role }}</td>
+              </tr>
+          @endforeach
+      </tbody>
+  </table>
 </body>
 
 </html>
+

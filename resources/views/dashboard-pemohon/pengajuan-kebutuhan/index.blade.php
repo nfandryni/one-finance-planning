@@ -2,7 +2,7 @@
 @section('pengajuan-kebutuhan', 'active')
 @section('title', 'Daftar Pengajuan Kebutuhan')
 @section('content')
-                    <div class="row px-5">
+                    <div class="row ">
                         
                         <div class="col-md-12" style="margin-bottom:2vh">
                             <span class="h4" style="font-weight:bold;">Kelola Data Pengajuan Kebutuhan</span>

@@ -24,9 +24,14 @@ class PemasukanController extends Controller
             'pemasukan'=>DB::table('view_pemasukan')->get(),
             'jumlahDana'=>$totalDana,
         ];
-
-     
-        return view('dashboard-bendahara.pemasukan.index', $data);
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            return view('dashboard-bendahara.pemasukan.index', $data);
+        }
+        elseif($role == 'admin') {
+            return view('admin.pemasukan.index', $data);
+        }
     }
 
     /**
@@ -37,6 +42,7 @@ class PemasukanController extends Controller
         $sumberDana = sumber_dana::all();
         $bendaharaSekolah = bendahara_sekolah::all();
     
+        // dd($sumberDana, $bendaharaSekolah);
         return view('dashboard-bendahara.pemasukan.tambah', compact('sumberDana', 'bendaharaSekolah'));
 
     }
@@ -86,11 +92,7 @@ class PemasukanController extends Controller
     {
         //
         $data = [
-            'pemasukan'=> DB::table('pemasukan')
-            ->join('sumber_dana', 'pemasukan.id_sumber_dana', '=', 'sumber_dana.id_sumber_dana')
-            ->join('bendahara_sekolah', 'pemasukan.id_bendahara', '=', 'bendahara_sekolah.id_bendahara')
-            ->where('pemasukan.id_pemasukan', $id)
-            ->get(),
+            'pemasukan'=>DB::table('view_pemasukan')->get(),
         ];
         return view('dashboard-bendahara.pemasukan.detail', $data);
     }
