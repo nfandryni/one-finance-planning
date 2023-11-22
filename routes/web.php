@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [AkunController::class, 'edit']);
             Route::post('edit/simpan', [AkunController::class, 'update']);
             Route::delete('hapus', [AkunController::class, 'destroy']);
+            Route::get('/generate', [AkunController::class, 'print']);
         });
       
     });
@@ -98,12 +99,17 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/pemasukan/edit/simpan', [PemasukanController::class, 'update']);
         Route::delete('/pemasukan/hapus', [PemasukanController::class, 'destroy']);
 
+        Route::get('/pengeluaran', [PengeluaranController::class, 'index']);
         Route::get('/pengeluaran/tambah', [PengeluaranController::class, 'create']);
         Route::post('/pengeluaran/simpan', [PengeluaranController::class, 'store']);
         Route::get('/pengeluaran/edit/{id}', [PengeluaranController::class, 'edit']);
         Route::get('/pengeluaran/detail/{id}', [PengeluaranController::class, 'show']);
         Route::post('/pengeluaran/edit/simpan', [PengeluaranController::class, 'update']);
         Route::delete('/pengeluaran/hapus', [PengeluaranController::class, 'destroy']);
+
+        Route::get('/logs', [LogsController::class, 'index']);
+
+        Route::get('/print', [PemasukanController::class, 'print']);
 
         Route::get('/jenis-pengeluaran', [JenisPengeluaranController::class, 'index']);
         Route::get('/jenis-pengeluaran/tambah', [JenisPengeluaranController::class, 'create']);
@@ -132,7 +138,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengajuan-kebutuhan/edit/{id}', [PengajuanKebutuhanController::class, 'edit']);
         Route::post('/pengajuan-kebutuhan/edit/simpan', [PengajuanKebutuhanController::class, 'update']);
         Route::delete('/pengajuan-kebutuhan/hapus', [PengajuanKebutuhanController::class, 'destroy']);
+        Route::get('/cetak', [PengajuanKebutuhanController::class, 'cetak']);
     });
+    
+
     Route::prefix('dashboard-pemohon')->middleware(['akses:pemohon'])->group(function () {
         Route::get('/logs', [LogsController::class, 'index']);
         Route::delete('/logs/hapus', [LogsController::class, 'destroy']);

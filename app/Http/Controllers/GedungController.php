@@ -18,7 +18,6 @@ class GedungController extends Controller
             'gedung' => $gedung->all()
         ];
         return view('dashboard-bendahara.gedung.index', $data);
-   
     }
 
     /**
@@ -27,37 +26,29 @@ class GedungController extends Controller
     public function create()
     {
         return view('dashboard-bendahara.gedung.tambah');
-        //
-        return view('dashboard-pemohon.gedung.tambah');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Gedung $gedung)
+    public function store(Request $request, gedung $gedung)
     {
         $data = $request->validate(
             [
-                'nama_gedung' => ['required'],
-                'nama_ruangan' => ['required']
+                'nama_gedung'    => ['required'],
+                'nama_ruangan'    => ['required'],
             ]
         );
         //Proses Insert
         if (DB::statement("CALL tambah_gedung(?, ?)", ([$data['nama_gedung'], $data['nama_ruangan']]))) {
             // Simpan jika data terisi semua
+            // $gedung->create($data);
             return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung baru berhasil ditambah');
         } else {
             // Kembali ke form tambah data
             return back()->with('error', 'Data Gedung gagal ditambahkan');
-        if ($data) {
-            // Simpan jika data terisi semua
-            $gedung->create($data);
-            return redirect('dashboard-pemohon/gedung')->with('success', 'Data Gedung Berhasil di Tambah');
-        } else {
-            // Kembali ke form tambah data
-            return back()->with('error', 'Data Gedung Gagal di Tambahkan');
         }
-    }}
+    }
     /**
      * Display the specified resource.
      */
@@ -72,7 +63,7 @@ class GedungController extends Controller
     public function edit(string $id)
     {
         $data = [
-            'gedung' => gedung::where('id_gedung', $id)->first()
+            'gedung' =>  gedung::where('id_gedung', $id)->first()
         ];
         return view('dashboard-bendahara.gedung.edit', $data);
     }
@@ -81,27 +72,19 @@ class GedungController extends Controller
     {
         $data = $request->validate(
             [
+                'nama_gedung'    => ['required'],
                 'nama_ruangan'    => ['required'],
             ]
             );
-        //
-        $data = $request->validate([
-            'nama_ruangan' => ['required'],
-        ]);
 
         $id_gedung = $request->input('id_gedung');
         if ($id_gedung !== null) {
             $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
 
+            if ($dataUpdate) {
                 return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung berhasil diupdate');
             } else {
                 return back()->with('error', 'Data Gedung gagal diupdate');
-            // Process Update
-            $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
-            if ($dataUpdate) {
-                return redirect('dashboard-pemohon/gedung')->with('success', 'Data Gedung Gerhasil di Update');
-            } else {
-                return back()->with('error', 'Data Gedung Gagal di Update');
             }
         }
     }
@@ -109,9 +92,8 @@ class GedungController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, gedung $gedung)
+    public function destroy(gedung $gedung, Request $request)
     {
-        //
         $id_gedung = $request->input('id_gedung');
 
         // Hapus 

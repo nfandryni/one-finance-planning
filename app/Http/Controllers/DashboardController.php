@@ -15,7 +15,8 @@ class DashboardController extends Controller
             $totalRole = json_decode( DB::table('v_chart')->get())
         ];
         
-        // dd($data[1]);
+        
+        // dd($data[1][0]);
         return view("superadmin.index", compact('data'));
         
     }

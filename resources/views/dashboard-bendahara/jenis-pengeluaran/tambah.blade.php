@@ -11,7 +11,7 @@
     <div class="modal-dialog w-75 modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-4 pt-2 fw-bold m-auto" id="tambahJenisPengeluaranLabel">Tambah Data Sumber Dana</h1>
+          <h1 class="modal-title fs-4 pt-2 fw-bold m-auto" id="tambahJenisPengeluaranLabel">Tambah Data Jenis Pengeluaran</h1>
         </div>
         <div class="modal-body">
         <form method="POST" action="/dashboard-bendahara/jenis-pengeluaran/simpan">

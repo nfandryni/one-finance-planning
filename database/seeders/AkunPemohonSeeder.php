@@ -15,7 +15,7 @@ class AkunPemohonSeeder extends Seeder
     {
         DB::table('pemohon')->insert([
             [
-                'id_akun' => '2',
+                'user_id' => '2',
                 'email' => 'pemohon@gmail.com',
                 'jabatan' => 'Kaprog',
                 'foto_profil' => 'Ak023asdfop3dsdwd',

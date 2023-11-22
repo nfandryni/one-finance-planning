@@ -85,9 +85,7 @@ class LogsController extends Controller
                 'pesan'   => 'Data gagal dihapus'
             ];
         }
-
         return response()->json($pesan);
-   
-    
     }
+
 }

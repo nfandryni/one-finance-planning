@@ -15,48 +15,46 @@
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                 <div class="col-md-12" style=" display:flex">
                     <div class="col-md-3" style=" ">
-                        @foreach ($pengajuan_kebutuhan as $s)
-                            <div class="form-group">
-                                <h5 style="font-weight:bold;">Nama Kegiatan</h5>
+                        <div class="form-group">
+                            <h5 style="font-weight:bold;">Nama Kegiatan</h5>
 
-                            </div>
-                            <div class="form-group">
-                                <h5 style="font-weight:bold;">Status</h5>
+                        </div>
+                        <div class="form-group">
+                            <h5 style="font-weight:bold;">Status</h5>
 
-                            </div>
-                            <div class="form-group">
-                                <h5 style="font-weight:bold;">Waktu</h5>
+                        </div>
+                        <div class="form-group">
+                            <h5 style="font-weight:bold;">Waktu</h5>
 
-                            </div>
-                            <div class="form-group">
-                                <h5 style="font-weight:bold;">Tujuan</h5>
+                        </div>
+                        <div class="form-group">
+                            <h5 style="font-weight:bold;">Tujuan</h5>
 
-                            </div>
-                            <div class="form-group">
-                                <h5 style="font-weight:bold;">List Kebutuhan</h5>
+                        </div>
+                        <div class="form-group">
+                            <h5 style="font-weight:bold;">List Kebutuhan</h5>
 
-                            </div>
+                        </div>
                     </div>
                     <div class="col-md-3" style=" ">
                         <div class="form-group">
-                            <h5>{{ $s->nama_kegiatan }}</h5>
+                            <h5>{{ $pengajuan_kebutuhan->nama_kegiatan }}</h5>
 
                         </div>
                         <div class="form-group">
-                            <h5>{{ $s->status }}</h5>
+                            <h5>{{ $pengajuan_kebutuhan->status }}</h5>
 
                         </div>
                         <div class="form-group">
-                            <h5>{{ $s->waktu }}</h5>
+                            <h5>{{ $pengajuan_kebutuhan->waktu }}</h5>
 
                         </div>
                         <div class="form-group">
-                            <h5>{{ $s->tujuan }}</h5>
+                            <h5>{{ $pengajuan_kebutuhan->tujuan }}</h5>
 
                         </div>
                     </div>
                 </div>
-                @endforeach
                 <div class="form-group">
                     <table class="table table-hover table-borderless table-striped DataTable">
                         <thead>
@@ -76,8 +74,9 @@
 
                             @foreach ($item_kebutuhan as $p)
                                 <tr>
-                                    <td>{{ $p->id_pengajuan_kebutuhan }}</td>
-                                    <td>{{ $p->id_gedung }}</td>
+
+                                    <td>{{ $pengajuan_kebutuhan->nama_kegiatan }}</td>
+                                    <td>{{ $p->nama_ruangan }}</td>
                                     <td>{{ $p->item_kebutuhan }}</td>
                                     <td>{{ $p->qty }}</td>
                                     <td>{{ $p->harga_satuan }}</td>
@@ -90,12 +89,14 @@
                                         @endif
                                     </td>
                                     <td>
-                                    <a href="/dashboard-pemohon/item-kebutuhan/edit/{{ $p->id_item_kebutuhan }}" <btn
-                                        class="btn btn-warning">Edit</btn>
-                                    </a>
-                                     {{-- <a>
-                                     <btn class="btn btn-danger" idItemKebutuhan="{{ $p->id_item_kebutuhan}}">Hapus</btn>
-                                    </a> --}}
+                                        <a href="/dashboard-pemohon/item-kebutuhan/edit/{{ $p->id_item_kebutuhan }}" <btn
+                                            class="btn btn-warning">Edit</btn>
+
+                                        </a>
+                                        <a>
+                                            <btn class="btn btn-danger btnHapus"
+                                                idItemKebutuhan="{{ $p->id_item_kebutuhan }}">Hapus</btn>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -119,6 +120,7 @@
         </div>
     @endsection
 
+    @section('footer')
     <script type="module">
         $('.DataTable tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
@@ -135,7 +137,7 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'item-kebutuhan/hapus',
+                        url: '/dashboard-pemohon/item-kebutuhan/hapus',
                         data: {
                             id_item_kebutuhan: idItemKebutuhan,
                             _token: "{{ csrf_token() }}"
@@ -153,4 +155,4 @@
             });
         });
     </script>
-
+@endsection

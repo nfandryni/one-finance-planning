@@ -16,6 +16,8 @@
                     <div class="card" style="border-radius: 1rem;">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="{{ url('../bglogin.png') }}" width="330"
+                                    style='margin-top:50px; margin-left:60px;' />
 
                             </div>
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -23,10 +25,9 @@
 
                                     <form method='POST' action='login'>
                                         <div class="d-flex align-items-center mb-3 pb-1">
-                                            <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                            <i class="fas fa-cubes fa-2x" style="color: #ff6219;"></i>
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                            <img src="{{ url('../LOGO.png') }}" style="margin-left:-30px" width="130"
-                                                height="130" alt="Responsive image">
+
                                             <span class="h1 fw-bold mb-0">One Finance Planning</span>
                                         </div>
 
@@ -36,13 +37,13 @@
                                         <div class="form-outline mb-4">
                                             <input type='text' name='username' id='username'
                                                 class="form-control form-control-lg" placeholder='Username' required>
-                                            <label class="form-label" for="username">Username</label>
+                                            {{-- <label class="form-label" for="username">Username</label> --}}
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <input type='password' name='password' id="password"
                                                 class='form-control form-control-lg' placeholder="Password" required>
-                                            <label class="form-label" for="password">Password</label>
+                                            {{-- <label class="form-label" for="password">Password</label> --}}
                                         </div>
 
                                         <div class="pt-1 mb-4 d-grid gap-2">

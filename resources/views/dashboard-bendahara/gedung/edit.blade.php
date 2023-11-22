@@ -1,4 +1,5 @@
 @extends('layout.layout')
+@section('gedung', 'active')
 @section('title', 'Edit Gedung ')
 @section('content')
     <div class="row px-3">
@@ -28,7 +29,7 @@
                             <P></P>
                             <div class="col-md-4">
                                 <a href="/dashboard-bendahara/gedung"><btn class="btn btn-dark">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-success">SIMPAN</button>
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
                                 
                             </div>
                             <p>

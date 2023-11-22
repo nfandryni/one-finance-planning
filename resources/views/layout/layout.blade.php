@@ -5,8 +5,7 @@
     <title>@yield('title')</title>
     @yield('header')
     <script src="https://kit.fontawesome.com/4be914391d.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -23,7 +22,12 @@
             color: #588157;
             background-color: #ffffff;
         }
+<<<<<<< HEAD
 
+=======
+        
+        .bdr{
+>>>>>>> 6a18b214d6e9f48ed522a63f22286691c47ea9ea
         border-radius: 6px;
         }
 
@@ -105,7 +109,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/dashboard-bendahara/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')">
+                        <a href="" class="nav-link @yield('pengajuan-kebutuhan')">
                             Konfirmasi Pengajuan
                         </a>
                     </li>
@@ -123,12 +127,6 @@
                     <li class="nav-item">
                         <a href="/dashboard-pemohon" class="nav-link @yield('dashboard-pemohon')" aria-current="page">
                             Dashboard
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="/dashboard-pemohon/gedung"class="nav-link @yield('gedung')" aria-current="page">
-                            Gedung
                         </a>
                     </li>
 

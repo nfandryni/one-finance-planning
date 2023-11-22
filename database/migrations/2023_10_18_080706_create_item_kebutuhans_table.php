@@ -33,9 +33,17 @@ return new class extends Migration
 
         DB::unprepared(
             "CREATE VIEW view_pengajuan_kebutuhan AS 
-            SELECT i.id_item_kebutuhan, p.id_pengajuan_kebutuhan, i.id_gedung, i.item_kebutuhan, i.qty, i.harga_satuan, 
-            i.satuan, i.spesifikasi, i.foto_barang_kebutuhan from item_kebutuhan AS i
+            SELECT i.id_item_kebutuhan, 
+                    p.id_pengajuan_kebutuhan,
+                    g.nama_gedung, g.nama_ruangan, i.item_kebutuhan, 
+                    i.qty, 
+                    i.harga_satuan,  
+                    i.satuan, 
+                    i.spesifikasi, 
+                    i.foto_barang_kebutuhan 
+            from item_kebutuhan AS i
             INNER JOIN pengajuan_kebutuhan AS p ON i.id_pengajuan_kebutuhan = p.id_pengajuan_kebutuhan
+            INNER JOIN gedung AS g ON i.id_gedung = g.id_gedung
             "
         );
 

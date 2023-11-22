@@ -2,73 +2,89 @@
 @section('perencanaan-keuangan', 'active')
 @section('title', 'Daftar Perencanaan Keuangan')
 @section('content')
-<br>
     <div class="row px-5">
-    <h2 class="fw-bold">Kelola Data Perencanaan Keuangan</h2>
-    <div class="card" style="height: 75px;">
-        <h4 class=" fw-bold p-3">Cetak Data Realisasi </h4>
-    </div>
-    <div class="col-md-12">
-                     <div class="row justify-content-md-center" style="align-items: center">
-                      
-                        <div class="col-sm-2">
-                        <div class="col" >
-                            <a href="perencanaan-keuangan/tambah">
-                                <btn class="btn btn-primary">Tambah Data</btn>
-                            </a>
 
-                        </div>
-                        </div>
+        <div class="col-md-12" style="margin-bottom:2vh">
+            <span class="h4" style="font-weight:bold;">Kelola Data Pengajuan Kebutuhan</span>
+        </div>
+        {{-- Menghitung jumlah pengajuan kebutuhan diambil dari stored function yang ada di migration --}}
+        {{-- <h3 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h3> --}}
+        <div class="col-md-12">
+            <div class="row justify-content-md-end" style="align-items: center">
+                <div class="col-sm-2">
+                    <div>
+                        <a href="perencanaan-keuangan/tambah">
+                            <btn class="btn btn-primary">Tambah Data</btn>
+                        </a>
                     </div>
-                    </div>
-                         </div>
-
-                        <table class="table table-borderless table-striped mt-2 DataTable">
-                            <thead> 
-                                <tr>
-                                    <th>Judul Perencanaan</th>
-                                    <th>Tujuan</th>
-                                    <th>Waktu</th>
-                                    <th>Total Dana Perencanaan</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                 @foreach ($perencanaan_keuangan as $p)
-                                    <tr>
-                                        <td>{{ $p->judul_perencanaan }}
-                                            @if(is_null($p->id_pengajuan_kebutuhan))
-                                            <p class='text-danger mt-1 fst-italic fs-6'>Catatan Pengajuan Kebutuhan belum Ditambahkan.</p>
-                                            @endif
-                                        </td>
-                                        <td>{{ $p->tujuan }}</td>  
-                                        <td>{{ $p->waktu }}</td>   
-                                        <td>{{ $p->total_dana_perencanaan }}</td>
-                                        <td>
-                                           <a  href='/dashboard-bendahara/perencanaan-keuangan/detail/{{$p->id_perencanaan_keuangan}}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
-                                            <btn class="btnHapus" style="cursor: pointer" idPerencanaanKeuangan="{{ $p->id_perencanaan_keuangan }}"><i class="fa-solid fa-trash"></i></btn>
-                                        </td>
-                                    </tr>
-                                @endforeach 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card-footer">
-
                 </div>
             </div>
         </div>
+        <p>
+        <table class="table table-hover table-borderless table-striped DataTable">
+            <thead>
+                <tr>
+                    <th>ID Pengajuan Kebutuhan</th>
+                    <th>ID Sumber Dana</th>
+                    <th>Judul Perencanaan</th>
+                    <th>Tujuan</th>
+                    <th>Waktu</th>
+                    <th>Total Dana Pembayaran</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($perencanaan_keuangan as $s)
+                    <tr>
+                        <td>{{ $s->id_pengajuan_kebutuhan }}</td>
+                        <td>{{ $s->id_sumber_dana }}</td>
+                        <td>{{ $s->judul_perencanaan }}</td>
+                        <td>{{ $s->tujuan }}</td>
+                        <td>{{ $s->waktu }}</td>
+                        <td>{{ $s->total_dana_pembayaran }}</td>
+                        {{-- <td>
+                                            @if ($s->file)
+                                                <img src="{{ url('foto') . '/' . $s->file }} "
+                                                    style="max-width: 250px; height: auto;" />
+                                            @endif
+                                        </td> --}}
+                        <td>
+                            <a href="item-perencanaan/tambah/{{ $s->id_item_perencanaan}}"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-circle-plus" style="margin: 0 10px; cursor:pointer"></i>
+                            </a>
+
+                            <a href="perencanaan-keuangan/edit/{{ $s->id_perencanaan_keuangan }}"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-pen "></i>
+                            </a>
+                            <a href="perencanaan-keuangan/detail/{{ $s->id_perencanaan_keuangan }}"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-circle-info" style="margin: 0 20px; cursor:pointer"></i>
+                            </a>
+
+                            <i class="fa-solid fa-trash btnHapus" style="cursor:pointer"
+                                idPerencanaanKeuangan="{{ $s->id_perencanaan_keuangan }}"></i>
+
+                            <a href="{{ url('/dashboard-pemohon/cetak') }}" style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-print "></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-
+    </div>
+    </div>
+    </div>
 @endsection
-
 
 @section('footer')
     <script type="module">
-        $('tbody').on('click', '.btnHapus', function(a) {
+        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
-            let idrealisasi = $(this).closest('.btnHapus').attr('idrealisasi');
+            let idPerencanaanKeuangan = $(this).closest('.btnHapus').attr('idPerencanaanKeuangan');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -81,9 +97,9 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'realisasi/hapus',
+                        url: 'perencanaan-keuangan/hapus',
                         data: {
-                            id_realisasi: idrealisasi,
+                            id_perencanaan_keuangan: idPerencanaanKeuangan,
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
@@ -99,8 +115,8 @@
             });
         });
         $(document).ready(function() {
-        $('.DataTable').DataTable({});
-    });
+            $('.DataTable').DataTable({});
+        });
     </script>
 
-@endsection 
+@endsection

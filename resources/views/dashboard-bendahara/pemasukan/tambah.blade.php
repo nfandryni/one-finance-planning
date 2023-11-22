@@ -1,9 +1,10 @@
 @extends('layout.layout')
+@section('pemasukan', 'active')
 @section('title', 'Tambah Pemasukan ')
 @section('content')
-<br>
     <div class="row px-5">
         <div class="col-md-12">
+          
                     <span class="h1">
                         Tambah Data Pemasukan
                     </span>
@@ -14,7 +15,7 @@
                                     <label>Sumber Dana</label>
                                     <br>
                                     <select class='form-select' name="id_sumber_dana">
-                                        @foreach($pemasukan as $p)
+                                        @foreach($sumberDana as $p)
                                         <option selected disabled hidden>Pilih Nama Sumber</option>
                                         <option value='{{$p->id_sumber_dana}}'>{{$p->nama_sumber}}</option>
                                         @endforeach
@@ -36,17 +37,17 @@
                                     <label>Foto</label>
                                     <input type="file" class="form-control" name="foto" required/>
                                 </div>
-                                <p></p>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-dark inline-block ">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-primary inline-block">SIMPAN</button>
-                                
-                            </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-dark">KEMBALI</btn></a>
+                                        <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                        
+                                    </div>
+                                </div>
                                 @csrf
-                        </div>
-                    </form>
+                            </form>
                 </div>
 
-        </div>
+    </div>
 @endsection
