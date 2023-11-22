@@ -5,7 +5,7 @@
     <div class="row px-5">
 
         <div class="col-md-12" style="margin-bottom:2vh">
-            <span class="h4" style="font-weight:bold;">Kelola Data Pengajuan Kebutuhan</span>
+            <span class="h4" style="font-weight:bold;">Kelola Data Perencanaan Keuangan </span>
         </div>
         {{-- Menghitung jumlah pengajuan kebutuhan diambil dari stored function yang ada di migration --}}
         {{-- <h3 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h3> --}}
@@ -13,7 +13,7 @@
             <div class="row justify-content-md-end" style="align-items: center">
                 <div class="col-sm-2">
                     <div>
-                        <a href="perencanaan-keuangan/tambah">
+                        <a href="/dashboard-bendahara/perencanaan-keuangan/tambah">
                             <btn class="btn btn-primary">Tambah Data</btn>
                         </a>
                     </div>
@@ -29,7 +29,7 @@
                     <th>Judul Perencanaan</th>
                     <th>Tujuan</th>
                     <th>Waktu</th>
-                    <th>Total Dana Pembayaran</th>
+                    <th>Total Perencanaan Keuangan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -41,7 +41,7 @@
                         <td>{{ $s->judul_perencanaan }}</td>
                         <td>{{ $s->tujuan }}</td>
                         <td>{{ $s->waktu }}</td>
-                        <td>{{ $s->total_dana_pembayaran }}</td>
+                        <td>{{ $s->total_dana_keuangan }}</td>
                         {{-- <td>
                                             @if ($s->file)
                                                 <img src="{{ url('foto') . '/' . $s->file }} "
