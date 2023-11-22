@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dana_anggaran', function (Blueprint $table) {
          $table->integer('id_dana_anggaran', true);
          $table->integer('id_sumber_dana', false)->index('id_sumber_dana');
-         $table->decimal('jumlah_dana', 10, 2)->nullable(false);
+         $table->integer('jumlah_dana', false)->nullable(false);
 
          $table->foreign('id_sumber_dana')->on('sumber_dana')->references('id_sumber_dana')->onDelete('cascade')->onUpdate('cascade');
         });

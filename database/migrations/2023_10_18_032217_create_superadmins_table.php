@@ -6,22 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('super_admin', function (Blueprint $table) {
             $table->integer('id_superadmin', true);
-            $table->integer('id_akun', false)->index('id_akun');
-            $table->string('email', 60)->nullable(false);
-            $table->string('jabatan', 60)->nullable(false);
-            $table->text('foto_profil')->nullable(false);
+            $table->integer('user_id', false)->index('user_id');
+            $table->string('nama', 225)->nullable(true);
+            $table->string('email', 60)->nullable(true);
+            $table->string('jabatan', 60)->nullable(true);
+            $table->text('foto_profil')->nullable(true);
 
             //foreign key dengan table akun 
             
-            $table->foreign('id_akun')->on('akun')
-                ->references('id_akun')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->on('akun')
+                ->references('user_id')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

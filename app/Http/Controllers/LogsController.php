@@ -12,6 +12,10 @@ class LogsController extends Controller
      */
     public function index(logs $logs)
     {
+        $data = [
+            'logs' => $logs->all()
+        ];
+        return view('dashboard-bendahara.logs.index', $data);
         //
         $data = [
             'logs'=> $logs->all()
@@ -62,31 +66,28 @@ class LogsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,logs $logs)
+    public function destroy(logs $logs, Request $request)
     {
-        //
-        {
-            //
-            $id_logs = $request->input('id_logs');
-    
-            // Hapus 
-            $aksi = $logs->where('id_logs', $id_logs)->delete();
-    
-            if ($aksi) {
-                // Pesan Berhasil
-                $pesan = [
-                    'success' => true,
-                    'pesan'   => 'Data Pengajuan Kebutuhan berhasil dihapus'
-                ];
-            } else {
-                // Pesan Gagal
-                $pesan = [
-                    'success' => false,
-                    'pesan'   => 'Data gagal dihapus'
-                ];
-            }
-    
-            return response()->json($pesan);
+
+        // Hapus 
+        $aksi = $logs->where('id_logs', $id_logs)->delete();
+
+        if ($aksi) {
+            // Pesan Berhasil
+            $pesan = [
+                'success' => true,
+                'pesan'   => 'Data logs berhasil dihapus'
+            ];
+        } else {
+            // Pesan Gagal
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Data gagal dihapus'
+            ];
         }
+
+        return response()->json($pesan);
+   
+    
     }
 }

@@ -1,13 +1,10 @@
 <?php
 
-
 namespace Database\Seeders;
-
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
 
 class AkunBendaharaSeeder extends Seeder
 {
@@ -16,9 +13,10 @@ class AkunBendaharaSeeder extends Seeder
      */
     public function run(): void
     {
+
         DB::table('bendahara_sekolah')->insert([
             [
-                'id_akun' => '1',
+                'user_id' => '1',
                 'email' => 'bendahara@gmail.com',
                 'jabatan' => 'Administrasi',
                 'foto_profil' => 'Ak023asdfop3dsdwd',

@@ -8,6 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .nav-link {
             color: #ffffff
@@ -18,13 +20,11 @@
         }
 
         .nav-pills .nav-link.active {
-            color: #221d1d;
+            color: #588157;
             background-color: #ffffff;
-            font-weight: 700
         }
 
-        .bdr {
-            border-radius: 6px;
+        border-radius: 6px;
         }
 
         .table-striped>tbody>tr:nth-child(odd)>td,
@@ -43,77 +43,103 @@
 
 
 <body>
-
-    <div class="d-flex" style=" height: 100%;">
-        <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 250px;background-color:#588157;">
-            <div><a href="/"
-                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <img src="{{ url('assets/LOGO (2).png') }}" class="mx-auto d-flex " width="130" height="130"
-                        alt="Responsive image">
-                </a></div>
+    <div class="d-flex">
+        {{-- sidebar --}}
+        <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 210px;height:100vh;background-color:#588157">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+                <img src="/foto/ofp_logo.png" width="200" height="100" alt="Responsive image">
+            </div>
             <span class="border-bottom mb-3"></span>
             <ul class="nav nav-pills flex-column mb-auto">
+                @if (auth()->user()->role == 'superadmin')
+                    <li>
+                        <a href="/dashboard-superadmin" class="nav-link  @yield('dashboard')">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/kelola-akun" class="nav-link @yield('akun')">
+                            Kelola Akun
+                        </a>
+                    </li>
+                @elseif(auth()->user()->role == 'admin')
+                    <li>
+                        <a href="/dashboard-admin" class="nav-link  @yield('dashboard')">
+                            Dashboard
+                        </a>
+                    </li>
+                @elseif(auth()->user()->role == 'bendaharasekolah')
+                    <li>
+                        <a href="/dashboard-bendahara" class="nav-link @yield('dashboard')">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/pemasukan" class="nav-link @yield('pemasukan')">
+                            Dana Pemasukan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/pengeluaran" class="nav-link @yield('pengeluaran')">
+                            Dana Pengeluaran
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/gedung" class="nav-link">
+                            Kelola Data Master
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung')">
+                            Gedung
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')">
+                            Sumber Dana
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')">
+                            Jenis Pengeluaran
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')">
+                            Konfirmasi Pengajuan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/perencanaan-keuangan" class="nav-link @yield('perencanaan-keuangan')">
+                            Perencanaan Keuangan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-bendahara/realisasi" class="nav-link @yield('realisasi')">
+                            Realisasi
+                        </a>
+                    </li>
+                @elseif(auth()->user()->role == 'pemohon')
+                    <li class="nav-item">
+                        <a href="/dashboard-pemohon" class="nav-link @yield('dashboard-pemohon')" aria-current="page">
+                            Dashboard
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="/dashboard-pemohon" class="nav-link @yield('dashboard-pemohon')" aria-current="page">
-                        Dashboard
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="/dashboard-pemohon/gedung"class="nav-link @yield('gedung')" aria-current="page">
-                        Gedung
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="/dashboard-pemohon/gedung"class="nav-link @yield('gedung')" aria-current="page">
+                            Gedung
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="/dashboard-pemohon/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')"
-                        aria-current="page">
-                        Pengajuan Kebutuhan
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="/dashboard-pemohon/logs" class="nav-link @yield('logs')"
-                        aria-current="page">
-                        Log Activity
-                    </a>
-                </li>
-
-                {{-- 
-      <li class="nav-item">
-        <a href="/dashboard-bendahara/pengeluaran" class="nav-link @yield('pengeluaran')" aria-current="page">
-          Pengeluaran
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')" aria-current="page">
-          Jenis Pengeluaran
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')" aria-current="page">
-          Sumber Dana
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="/dashboard-bendahara/logs" class="nav-link @yield('logs')" aria-current="page">
-          Log Activity
-        </a>
-      </li> --}}
-
-                <li>
-                    <a href="/logout" class="nav-link @yield('logout')" aria-current="page">
-                        Logout
-                    </a>
-                </li>
-
+                    <li class="nav-item">
+                        <a href="/dashboard-pemohon/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')"
+                            aria-current="page">
+                            Pengajuan Kebutuhan
+                        </a>
+                    </li>
+                @endif
             </ul>
-
-
         </div>
 
         <div class="card" style="width: 1200;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
@@ -128,21 +154,48 @@
                         <div class="dropdown text-end">
                             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                                 data-bs-toggle="dropdown">
-                                <img src="/foto/pfp.jpg" alt="mdo" width="32" height="32"
-                                    class="rounded-circle">
+                                <img src='{{ $profile->foto_profil ? url('foto') . '/' . $profile->foto_profil : url('foto') . '/pfp.jpg' }}'
+                                    alt="pfp" width="32" height="32" class="rounded-circle">
+                                
                             </a>
                             <ul class="dropdown-menu ">
                                 <li>
                                     <div class="col-md-12 d-flex">
-                                        <div class="col-md-4 ms-2 me-2">
-                                            <img src='/foto/pfp.jpg' alt="/" width="50" height="50"
-                                                class="rounded-circle" />
+                                        <div class="col-md-3 ms-2 me-2">
+                                            <img src='{{ $profile->foto_profil ? url('foto') . '/' . $profile->foto_profil : url('foto') . '/pfp.jpg' }}'
+                                                alt="/" width="50" height="50" class="rounded-circle" />
                                         </div>
-                                        <div class="col-md-6 ms-2 me-2 ">
-                                            {{ Auth::user()->username }}
+                                        <div class="col-md-7 ms-2 me-2 ">
+                                            {{ $profile->nama }}
+                                            {{ $profile->email }}
+                                            {{-- {{ auth()->user()->role }} --}}
+                                          
                                         </div>
-                                    </div>
                                 </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                @if (auth()->user()->role == 'superadmin')
+                                    <li>
+                                        <a class="dropdown-item" href="dashboard-superadmin/riwayat">Riwayat Aktivitas
+                                        </a>
+                                    </li>
+                                @elseif(auth()->user()->role == 'admin')
+
+                                @elseif(auth()->user()->role == 'bendaharasekolah')
+                                    <li>
+                                        <a href="/dashboard-bendahara/logs" class="dropdown-item">
+                                            Log Activity
+                                        </a>
+                                    </li>
+                                @elseif(auth()->user()->role == 'pemohon')
+                                    <li>
+                                        <a href="/dashboard-pemohon/logs" class="dropdown-item">
+                                            Log Activity
+                                        </a>
+                                    </li>
+                                @endif
+
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -159,7 +212,6 @@
             </div>
         </div>
     </div>
-
 
 </body>
 <footer>

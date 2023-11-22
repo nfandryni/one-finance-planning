@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('akun', function (Blueprint $table) {
-            $table->integer('id_akun',true);
+            $table->integer('user_id',true);
             $table->string('username',60)->nullable(false);
             $table->text('password')->nullable(false);
             $table->enum('role',['superadmin', 'admin','bendaharasekolah', 'pemohon'])->nullable(false);

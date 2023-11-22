@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\perencanaan_keuangan;
+use App\Models\pengajuan_kebutuhan;
+use App\Models\sumber_dana;
 use Illuminate\Http\Request;
 
 class PerencanaanKeuanganController extends Controller
@@ -10,17 +12,27 @@ class PerencanaanKeuanganController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(perencanaan_keuangan $perencanaan_keuangan)
     {
-        //
-    }
+        $data = [
+            'perencanaan_keuangan' => $perencanaan_keuangan->all()
+        ];
+
+        return view('dashboard-bendahara.perencanaan-keuangan.index', $data);    }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create( perencanaan_keuangan $perencanaan_keuangan, pengajuan_kebutuhan $pengajuan_kebutuhan, sumber_dana $sumber_dana)
     {
-        //
+        $data = [
+            'perencanaan_keuangan' => $perencanaan_keuangan->all(),
+            'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all(),
+            'sumber_dana' => $sumber_dana->all(),
+
+        ];
+
+        return view('dashboard-bendahara.perencanaan-keuangan.tambah', $data);
     }
 
     /**

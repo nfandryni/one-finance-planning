@@ -10,6 +10,9 @@ class pemohon extends Model
     use HasFactory;
     protected $table = 'pemohon';
     protected $primaryKey = 'id_pemohon';
-    protected $fillable =['email', 'jabatan', 'kategori', 'foto_profil'];
+    protected $fillable =['user_id','nama','email', 'jabatan', 'kategori', 'foto_profil'];
     public $timestamps = false;
+
+    
+    
 }

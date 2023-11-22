@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AkunSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    
+    public function run()
     {
-
+        // ->insert merupakan eloquent orm
         DB::table('akun')->insert([
             [
                 'username' => 'bendahara',
@@ -31,7 +29,11 @@ class AkunSeeder extends Seeder
                 'password' => Hash::make('123'),
                 'role' => 'superadmin',
             ],
-            // <!-- // Tambahkan data pengguna lain jika diperlukan -->
+            [
+                'username' => 'admin',
+                'password' => Hash::make('123'),
+                'role' => 'admin',
+            ],
         ]);
     }
 }
