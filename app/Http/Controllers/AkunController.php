@@ -25,7 +25,16 @@ class AkunController extends Controller
         
     }
 
+    public function print(akun $akun)
+    {
+        $data = [
+            'akun' => $akun->all()
+        ];
 
+        $pdf = PDF::loadView('superadmin.kelola-akun.generate', $data);
+
+        return $pdf->download('document.pdf');
+    }
 
     public function create()
     {

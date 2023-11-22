@@ -10,7 +10,7 @@ class pemasukan extends Model
     use HasFactory;
     protected $table = 'pemasukan';
     protected $primaryKey = 'id_pemasukan';
-    protected $fillable = ['id_sumber_dana', 'id_bendahara', 'nama', 'nominal', 'waktu', 'file'];
+    protected $fillable = ['id_sumber_dana', 'id_bendahara', 'nama', 'nominal', 'waktu', 'foto'];
     public $timestamps = false;
     
     public function sumber_dana()

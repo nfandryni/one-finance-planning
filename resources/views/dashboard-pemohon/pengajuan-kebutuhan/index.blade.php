@@ -10,13 +10,7 @@
                          {{-- Menghitung jumlah pengajuan kebutuhan diambil dari stored function yang ada di migration --}}
                         <h3 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h3>
                         <div class="col-md-12">
-                                <div class="row justify-content-md-center" style="align-items: center">
-                                 <div class="col-6"></div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <input type="text" placeholder="Cari data..." class="form-control" name="data" />
-                                        </div>
-                                    </div>
+                                <div class="row justify-content-md-end" style="align-items: center">
                                     <div class="col-sm-2">
                                         <div>
                                          <a href="pengajuan-kebutuhan/tambah">
@@ -27,7 +21,6 @@
                                 </div>
                          </div>
                         <p>
-                            <hr>
                         <table class="table table-hover table-borderless table-striped DataTable">
                             <thead>
                                 <tr>
@@ -66,6 +59,11 @@
                                             </a>
                                             
                                             <i class="fa-solid fa-trash btnHapus" style="cursor:pointer" idPengajuanKebutuhan="{{ $s->id_pengajuan_kebutuhan}}"></i>
+
+                                            <a href="{{ url('/dashboard-pemohon/cetak') }}"
+                                            style="text-decoration: none; color:black">
+                                            <i class="fa-solid fa-print "></i>
+                                              </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -111,6 +109,9 @@
                 }
             });
         });
+          $(document).ready(function() {
+        $('.DataTable').DataTable({});
+    });
     </script>
 
 @endsection

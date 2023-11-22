@@ -23,7 +23,7 @@
                             <P></P>
                             <div class="col-md-4">
                                 <a href="/dashboard-bendahara/jenis-pengeluaran"><btn class="btn btn-dark">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-success">SIMPAN</button>
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
                                
                             </div>
                             <p>
@@ -32,14 +32,5 @@
                 </div>
 
 
-<<<<<<< HEAD
     </div>
 @endsection
-=======
-            </div>
-        </div>
-    </div>
-@endsection
-
-
->>>>>>> 4dddaa7276c8d5197cd3c1b6e9de097afbc44761

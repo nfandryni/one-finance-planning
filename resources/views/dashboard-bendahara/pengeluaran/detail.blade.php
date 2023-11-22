@@ -1,4 +1,5 @@
 @extends('layout.layout')
+@section('pengeluaran', 'active')
 @section('title', 'Detail Pemasukan')
 @section('content')
     <div class="row px-5">
@@ -49,7 +50,7 @@
                             </div>
                             <div class="col-md-3">
                                 :
-                                <img src='../../../../foto/{{ $p->file }}' width='200px'/>
+                                <img src='../../../../foto/{{ $p->foto }}' width='200px'/>
                             </div>
                         </div>
                     </div>
@@ -60,7 +61,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-4">
-                <a href="/dashboard-bendahara/pemasukan"><btn class="btn btn-dark">KEMBALI</btn></a>
+                <a href="/dashboard-bendahara/pengeluaran"><btn class="btn btn-dark">KEMBALI</btn></a>
             </div>
         </div>
     </div>

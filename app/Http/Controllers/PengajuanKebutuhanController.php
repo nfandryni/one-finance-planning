@@ -6,6 +6,7 @@ use App\Models\pengajuan_kebutuhan;
 use App\Models\gedung;
 use App\Models\item_kebutuhan;
 use Illuminate\Http\Request;
+use PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,7 @@ class PengajuanKebutuhanController extends Controller
     {
         //Stored Function
         $data = [
-           'totalList' => DB::select('SELECT total_pengajuan_kebutuhan() AS totalList')[0]->totalList,
+            'totalList' => DB::select('SELECT total_pengajuan_kebutuhan() AS totalList')[0]->totalList,
             'pengajuan_kebutuhan'=> $pengajuan_kebutuhan->all()
         ];
         return view('dashboard-pemohon.pengajuan-kebutuhan.index', $data);
@@ -48,8 +49,8 @@ class PengajuanKebutuhanController extends Controller
         );
 
         $user = Auth::user();
-        $id_akun = $user->id_akun;
-        $id_pemohon_array = DB::select("SELECT id_pemohon FROM pemohon WHERE id_akun = ? LIMIT 1", [$id_akun]);
+        $id_akun = $user->user_id;
+        $id_pemohon_array = DB::select("SELECT id_pemohon FROM pemohon WHERE user_id = ? LIMIT 1", [$id_akun]);
         $id_pemohon = $id_pemohon_array[0]->id_pemohon;
         $data['id_pemohon'] = $id_pemohon;  
         if($request->input('id_pengajuan_kebutuhan') !== null ){
@@ -79,12 +80,15 @@ class PengajuanKebutuhanController extends Controller
         /**
      * Display the specified resource.
      */
-    public function show(pengajuan_kebutuhan $pengajuan_kebutuhan, item_kebutuhan $item_kebutuhan, string $id)
+    public function show(pengajuan_kebutuhan $pengajuan_kebutuhan, item_kebutuhan $item_kebutuhan, string $id, gedung $gedung)
     {
         //  
         $data = [
-            'pengajuan_kebutuhan'=> $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id)->get(),
-            'item_kebutuhan'=> $item_kebutuhan->where('id_pengajuan_kebutuhan', $id)->get()      
+            'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan', $id)->first(),
+
+            'item_kebutuhan'=> DB::table('view_pengajuan_kebutuhan')
+            ->where('view_pengajuan_kebutuhan.id_pengajuan_kebutuhan', $id)
+            ->get(),
         ];
         return view('dashboard-pemohon.pengajuan-kebutuhan.detail', $data);  
       
@@ -101,6 +105,18 @@ class PengajuanKebutuhanController extends Controller
         ];
 
         return view('dashboard-pemohon.pengajuan-kebutuhan.edit', $data);
+    }
+
+    public function cetak(pengajuan_kebutuhan $pengajuan_kebutuhan)
+    {
+        $data = [
+            'pengajuan_kebutuhan'=>$pengajuan_kebutuhan->get(),
+
+        ];
+
+        $pdf = PDF::loadView('dashboard-pemohon.pengajuan-kebutuhan.cetak', $data);
+
+        return $pdf->download('Pengajuan Kebutuhan.pdf');
     }
 
     /**
@@ -123,9 +139,9 @@ class PengajuanKebutuhanController extends Controller
             $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data sumber dana berhasil di update');
+                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data berhasil di update');
             } else {
-                return back()->with('error', 'Data sumber dana gagal di update');
+                return back()->with('error', 'Data gagal di update');
             }
         }
     }

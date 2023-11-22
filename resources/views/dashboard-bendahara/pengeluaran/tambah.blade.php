@@ -37,7 +37,7 @@
                                 <div class='row'>
                                     <div class="col-md-4 mt-3" style="gap: 10px">
                                         <a href="/dashboard-bendahara/pengeluaran" <btn class="btn btn-dark">KEMBALI</btn></a>
-                                        <button type="submit" class="btn btn-success">SIMPAN</button>
+                                        <button type="submit" class="btn btn-primary">SIMPAN</button>
                                     </div>
                                     @csrf
                                 </div>

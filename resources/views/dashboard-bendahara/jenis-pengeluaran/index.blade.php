@@ -6,7 +6,7 @@
 <div class="row"><h2 class="fw-bold">Kelola Data Master - Jenis Pengeluaran</h2>
     <hr>
     <div class="col-md-12">
-                    <div class="row justify-content-md-center" style="align-items: center">
+                    <div class="row justify-content-md-end" style="align-items: center">
                       
                         <div class="col-sm-2">
                         <div class="col" >
@@ -30,22 +30,12 @@
                             <tbody>
                                 @foreach ($jenis_pengeluaran as $s)
                                     <tr>
-<<<<<<< HEAD
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->kategori }}</td>
                                         <td>
                                         <a class='text-black' href="/dashboard-bendahara/jenis-pengeluaran/edit/{{ $s->id_jenis_pengeluaran }}"> <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
                                            </i></a>
                                             <btn class="btnHapus" style="cursor: pointer;" idJenisPengeluaran="{{ $s->id_jenis_pengeluaran }}"><i class="fa-solid fa-trash"></i></btn>
-=======
-                                        <td>{{ $s->kategori }}</td>
-                                        
-                                        <td>
-                                            <a href="jenis-pengeluaran/edit/{{ $s->id_jenis_pengeluaran }}">
-                                                <btn class="btn btn-primary">EDIT</btn>
-                                            </a>
-                                            <btn class="btn btn-danger btnHapus" idJenisPengeluaran="{{ $s->id_jenis_pengeluaran }}">HAPUS</btn>
->>>>>>> 4dddaa7276c8d5197cd3c1b6e9de097afbc44761
                                         </td>
                                     </tr>
                                 @endforeach
@@ -59,14 +49,9 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
     
 @include('dashboard-bendahara.jenis-pengeluaran.tambah')
 @endsection
-=======
-@endsection
-
->>>>>>> 4dddaa7276c8d5197cd3c1b6e9de097afbc44761
 @section('footer')
     <script type="module">
         $('tbody').on('click', '.btnHapus', function(a) {
@@ -101,7 +86,6 @@
                 }
             });
         });
-<<<<<<< HEAD
         $(document).ready(function() {
         $('.DataTable').DataTable({
         });
@@ -109,8 +93,3 @@
     </script>
 
 @endsection
-=======
-    </script>
-
-@endsection
->>>>>>> 4dddaa7276c8d5197cd3c1b6e9de097afbc44761

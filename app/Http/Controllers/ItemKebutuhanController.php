@@ -141,9 +141,9 @@ class ItemKebutuhanController extends Controller
             $dataUpdate = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data sumber dana berhasil di update');
+                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data Item Kebutuhan berhasil di update');
             } else {
-                return back()->with('error', 'Data sumber dana gagal di update');
+                return back()->with('error', 'Data Item Kebutuhan gagal di update');
             }
         }
     }
@@ -151,7 +151,7 @@ class ItemKebutuhanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(item_kebutuhan $item_kebutuhan)
+    public function destroy(item_kebutuhan $item_kebutuhan, Request $request)
     {
         //
         $id_item_kebutuhan = $request->input('id_item_kebutuhan');

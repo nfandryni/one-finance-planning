@@ -10,8 +10,8 @@
             <form method="POST" action="simpan" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 gap-2"
-                        style="border: 1px solid black; display:flex; justify-content: space-between">
-                        <div class="col-md-6" style=" border: 1px solid black">
+                        style="display:flex; justify-content: space-between">
+                        <div class="col-md-6" style=" ">
                             <div class="form-group">
                                 <label>Pengajuan Kebutuhan</label>
                                 <select name="id_pengajuan_kebutuhan" class="form-control">
@@ -43,8 +43,8 @@
                                 <input type="text" class="form-control" name="qty" />
                             </div>
                         </div>
-                        {{-- <div class="col-md-1" style=" border: 1px solid black"></div> --}}
-                        <div class="col-md-6" style=" border: 1px solid black">
+                        {{-- <div class="col-md-1" style=" "></div> --}}
+                        <div class="col-md-6" style=" ">
                             <div class="form-group">
                                 <label>Harga Satuan</label>
                                 <input type="number" class="form-control" name="harga_satuan" />

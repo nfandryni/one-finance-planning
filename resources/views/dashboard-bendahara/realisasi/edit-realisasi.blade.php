@@ -21,7 +21,7 @@
                             <div class="col-md-5">
                                     <div class="form-group">
                                     <label>Pengeluaran</label>
-                                    <select name="id_pengeluaran" class="form-control">
+                                    <select disabled name="id_pengeluaran" class="form-control">
                                         @foreach ($pengeluaran as $s)
                                         <!-- @if(is_null($s)) -->
                                         <!-- <p>Tambahkan Data Pengeluaran!</p> -->
@@ -37,7 +37,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                @csrf
                                 
                             </div>
                             <div class="col-md-5">
@@ -46,7 +45,6 @@
                                     <input type="text" disabled class="form-control" name="tujuan"
                                         value="{{ $realisasi->tujuan }}" />
                                 </div>
-                                @csrf
                                 
                             </div>
                             <div class="col-md-5">
@@ -55,7 +53,6 @@
                                     <input type="text" disabled class="form-control" name="tujuan"
                                         value="{{ $realisasi->total_pembayaran }}" />
                                 </div>
-                                @csrf
                                 
                             </div>
                             <div class="col-md-5">
@@ -65,7 +62,6 @@
                                     <input type="date" disabled class="form-control" name="waktu"
                                         value="{{ $realisasi->waktu }}" />
                                 </div>
-                                @csrf
                                 
                             </div>
                         </div>
@@ -73,7 +69,7 @@
                             <p></p>
                             <div class="col-md-4">
                                 <a href="/dashboard-bendahara/realisasi/detail/{{$realisasi->id_realisasi}}"><btn class="btn btn-dark">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-success">SIMPAN</button>
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
                                 
                             </div>
                             <p>

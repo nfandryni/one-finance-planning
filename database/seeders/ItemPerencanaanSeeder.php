@@ -16,7 +16,7 @@ class ItemPerencanaanSeeder extends Seeder
         //
         DB::table('item_perencanaan')->insert([
             [
-                'id_perencanaan_keuangan' => '2',
+                'id_perencanaan_keuangan' => '1',
                 'id_realisasi' => '1',
                 'item_perencanaan' => 'Tang',
                 'qty' => 12,

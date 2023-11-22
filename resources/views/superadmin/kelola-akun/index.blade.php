@@ -50,8 +50,11 @@
                                             <i class="fa-solid fa-circle-info "></i>
                                         </a>
                                         <i class="fa-solid fa-trash btnHapus" userId="{{ $s->user_id }}"></i>
-
-                                        
+                                        <a href="{{ url('kelola-akun/generate') }}"
+                                            style="text-decoration: none; color:black">
+                                            <i class="fa-solid fa-print "></i>
+                                        </a>
+                                         
                                         @csrf
                                     </td>
                                 </tr>
@@ -62,7 +65,6 @@
             </div>
         </div>
     </div>
-    
 @include('superadmin.kelola-akun.tambah')
 @endsection
 
