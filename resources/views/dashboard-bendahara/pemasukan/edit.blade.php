@@ -21,8 +21,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Pemasukan</label>
-                                    <input type="text" class="form-control" name="nama"
-                                        value="{{ $pemasukan->nama }}" />
+                                    <input type="text" class="form-control" name="nama_pemasukan"
+                                        value="{{ $pemasukan->nama_pemasukan }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Nominal</label>

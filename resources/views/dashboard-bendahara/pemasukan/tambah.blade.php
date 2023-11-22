@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Pemasukan</label>
-                                    <input type="text" class="form-control" name="nama" required/>
+                                    <input type="text" class="form-control" name="nama_pemasukan" required/>
                                 </div>
                                 <div class="form-group">
                                     <label>Nominal</label>

@@ -35,10 +35,10 @@
                                  @foreach ($pemasukan as $s)
                                     <tr>
                                         <td>{{ $s->sumber_dana->nama_sumber }}</td>
-                                        <td>{{ $s->nama }}</td>
+                                        <td>{{ $s->nama_pemasukan }}</td>
                                         <td>{{ $s->nominal }}</td>
                                         <td>{{ $s->waktu }}</td>
-                                        <td>{{ $s->id_bendahara }}</td>         
+                                        <td>{{ $s->nama }}</td>         
                                         <td>
                                         <a class='text-black' href="/dashboard-bendahara/pemasukan/edit/{{ $s->id_pemasukan }}"><i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
                                             </i></a>

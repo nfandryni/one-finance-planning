@@ -23,6 +23,8 @@ class PemasukanController extends Controller
             'pemasukan'=>pemasukan::with(['sumber_dana', 'akun'])->get(),
             'jumlahDana'=>$totalDana
         ];
+
+        dd($data['pemasukan']);
         return view('dashboard-bendahara.pemasukan.index', $data);
     }
 
@@ -47,7 +49,7 @@ class PemasukanController extends Controller
         $data = $request->validate(
             [
                 'id_sumber_dana'    => ['required'],
-                'nama'    => ['required'],
+                'nama_pemasukan'    => ['required'],
                 'nominal'    => ['required'],
                 'waktu'    => ['required'],
                 'foto'    => ['required'],
@@ -117,7 +119,7 @@ class PemasukanController extends Controller
         $data = $request->validate(
             [
                 'id_sumber_dana'    => ['sometimes'],
-                'nama'    => ['sometimes'],
+                'nama_pemasukan'    => ['sometimes'],
                 'nominal'    => ['sometimes'],
                 'waktu'    => ['sometimes'],
                 'file'    => ['sometimes'],
