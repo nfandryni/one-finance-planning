@@ -35,10 +35,10 @@ return new class extends Migration
 
             
         });
-        DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
+        DB::unprepared('DROP VIEW IF EXISTS view_item_realisasi');
 
         DB::unprepared(
-            "CREATE VIEW view_realisasi AS 
+            "CREATE VIEW view_item_realisasi AS 
             SELECT i.id_item_perencanaan,
             p.id_perencanaan_keuangan, 
             r.id_realisasi, 

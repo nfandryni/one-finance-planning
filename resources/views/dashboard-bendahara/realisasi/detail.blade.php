@@ -17,12 +17,12 @@
             </div>
             <div>
                 <br />
-                <h3 class='fw-bold'>Realisasi</h3>
+                <h3 class='fw-bold mb-3'>Realisasi</h3>
                 <div class='row mb-2'>
                     <div class="col-md-2">
                         <label class='fw-bold'>Nama Realisasi</label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         : {{ $realisasi->judul_realisasi }}
                     </div>
                 </div>
@@ -30,10 +30,20 @@
                     <div class="col-md-2">
                         <label class='fw-bold'>Tujuan</label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-10">
                         : {{ $realisasi->tujuan }}
                     </div>
                 </div>
+                @if(isset($pengeluaran))
+                <div class='row mb-2'>
+                    <div class="col-md-2">
+                        <label class='fw-bold'>Nama Pengeluaran</label>
+                    </div>
+                    <div class="col-md-3">
+                        : {{ $pengeluaran->nama }}
+                    </div>
+                </div>
+                @endif
                 <div class='row mb-2'>
                     <div class="col-md-2">
                         <label class='fw-bold'>Waktu</label>

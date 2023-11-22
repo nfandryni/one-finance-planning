@@ -16,7 +16,7 @@ return new class extends Migration
          $table->integer('id_pemasukan', true);
          $table->integer('id_sumber_dana', false)->index('id_sumber_dana');
          $table->integer('id_bendahara', false)->index('id_bendahara');
-         $table->string('nama_pemasukan', 60)->nullable(false);
+         $table->string('nama', 60)->nullable(false);
          $table->integer('nominal', false)->nullable(false);
          $table->date('waktu')->nullable(false);
          $table->text('foto')->nullable(false);
@@ -41,7 +41,7 @@ return new class extends Migration
             CREATE TRIGGER tambah_pemasukan AFTER INSERT ON pemasukan FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('INSERT', CONCAT('Menambahkan Pemasukan baru dengan nama ', NEW.nama_pemasukan), NOW());
+                VALUES ('INSERT', CONCAT('Menambahkan Pemasukan baru dengan nama ', NEW.nama), NOW());
             END
         ");
         
@@ -49,7 +49,7 @@ return new class extends Migration
             CREATE TRIGGER update_pemasukan AFTER UPDATE ON pemasukan FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('UPDATE', CONCAT('Memperbarui Pemasukan dengan nama ', OLD.nama_pemasukan, ' dan ID Pemasukan ', OLD.id_pemasukan), NOW());
+                VALUES ('UPDATE', CONCAT('Memperbarui Pemasukan dengan nama ', OLD.nama, ' dan ID Pemasukan ', OLD.id_pemasukan), NOW());
             END
         ");
         
@@ -57,7 +57,7 @@ return new class extends Migration
             CREATE TRIGGER hapus_pemasukan AFTER DELETE ON pemasukan FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('DELETE', CONCAT('Menghapus Pemasukan dengan nama ', OLD.nama_pemasukan), NOW());
+                VALUES ('DELETE', CONCAT('Menghapus Pemasukan dengan nama ', OLD.nama), NOW());
             END
         ");
 

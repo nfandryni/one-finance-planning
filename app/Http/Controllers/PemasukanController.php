@@ -55,7 +55,7 @@ class PemasukanController extends Controller
         $data = $request->validate(
             [
                 'id_sumber_dana'    => ['required'],
-                'nama_pemasukan'    => ['required'],
+                'nama'    => ['required'],
                 'nominal'    => ['required'],
                 'waktu'    => ['required'],
                 'foto'    => ['required'],

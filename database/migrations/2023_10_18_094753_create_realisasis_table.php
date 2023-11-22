@@ -36,6 +36,23 @@ return new class extends Migration
             VALUES (NEW.id_perencanaan_keuangan, NEW.judul_perencanaan, NEW.tujuan, NEW.waktu, NEW.total_dana_perencanaan);
         END
     ");
+
+    DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
+
+    DB::unprepared(
+        "CREATE VIEW view_realisasi AS 
+        SELECT r.id_realisasi,
+        r.id_perencanaan_keuangan, 
+        k.nama, 
+        r.judul_realisasi, 
+        r.tujuan, 
+        r.waktu, 
+        r.total_pembayaran
+        FROM realisasi AS r
+        INNER JOIN perencanaan_keuangan AS p ON r.id_perencanaan_keuangan = p.id_perencanaan_keuangan
+        INNER JOIN pengeluaran AS k ON r.id_pengeluaran = k.id_pengeluaran
+        "
+    );        
     
     }
 

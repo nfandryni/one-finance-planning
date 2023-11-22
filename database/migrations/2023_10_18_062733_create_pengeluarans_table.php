@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('id_bendahara', false)->index('id_bendahara');
             $table->integer('id_sumber_dana', false)->index('id_sumber_dana');
             $table->integer('id_jenis_pengeluaran', false)->index('id_jenis_pengeluaran');
-            $table->string('nama_pengeluaran', 60)->nullable(false);
+            $table->string('nama', 60)->nullable(false);
             $table->integer('nominal', false)->nullable(false);
             $table->date('waktu')->nullable(false);
             $table->text('foto')->nullable(false);
@@ -53,7 +53,7 @@ return new class extends Migration
             CREATE TRIGGER tambah_pengeluaran AFTER INSERT ON pengeluaran FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('INSERT', CONCAT('Menambahkan Pengeluaran baru dengan nama ', NEW.nama_pengeluaran), NOW());
+                VALUES ('INSERT', CONCAT('Menambahkan Pengeluaran baru dengan nama ', NEW.nama), NOW());
             END
         ");
         
@@ -61,7 +61,7 @@ return new class extends Migration
             CREATE TRIGGER update_pengeluaran AFTER UPDATE ON pengeluaran FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('UPDATE', CONCAT('Memperbarui Pengeluaran dengan nama ', OLD.nama_pengeluaran, ' dan ID Pengeluaran ', OLD.id_pengeluaran), NOW());
+                VALUES ('UPDATE', CONCAT('Memperbarui Pengeluaran dengan nama ', OLD.nama, ' dan ID Pengeluaran ', OLD.id_pengeluaran), NOW());
             END
         ");
         
@@ -69,7 +69,7 @@ return new class extends Migration
             CREATE TRIGGER hapus_pengeluaran AFTER DELETE ON pengeluaran FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('DELETE', CONCAT('Menghapus Pengeluaran dengan nama ', OLD.nama_pengeluaran), NOW());
+                VALUES ('DELETE', CONCAT('Menghapus Pengeluaran dengan nama ', OLD.nama), NOW());
             END
         ");
         

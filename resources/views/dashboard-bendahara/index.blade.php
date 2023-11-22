@@ -10,19 +10,19 @@
 
     <div class="card" style='width:300px'>
         <div class="card-body rounded-5">
-   <h2 class='text-center mt-4 text-danger fw-bold '>Rp. 20.000.000 </h2>
+   <h2 class='text-center mt-4 text-danger fw-bold '>Rp. {{ $jumlahBOS ?? 0 }} </h2>
    <p class='text-center h-20'>Dana BOS</p>
   </div>
 </div>
 <div class="card" style='width:300px'>
   <div class="card-body rounded-5">
-<h2 class='text-center mt-4 text-danger fw-bold '>Rp. 35.000.000 </h2>
+<h2 class='text-center mt-4 text-danger fw-bold '>Rp. {{ $jumlahBOPD ?? 0 }} </h2>
    <p class='text-center h-20'>Dana BOPD</p>
   </div>
 </div>
 <div class="card" style='width:300px'>
   <div class="card-body rounded-5">
-<h2 class='text-center mt-4 text-danger fw-bold '>Rp. 560.000.000 </h2>
+<h2 class='text-center mt-4 text-danger fw-bold '>Rp. {{ $jumlahKomite ?? 0 }}</h2>
    <p class='text-center h-20'>Dana Komite</p>
 </div>
 </div>
@@ -30,7 +30,7 @@
 <div class='row gap-4 m-4'>
 <div class="card">
     <div class="card-body rounded-5">
-        <h2 class='text-danger mt-4 text-center fw-bold'>Rp. 615.000.000 </h2>
+        <h2 class='text-danger mt-4 text-center fw-bold'>Rp. {{ $jumlahDana ?? 0 }}</h2>
         <p class='text-center h-20'>Total Dana Anggaran </p>
     </div>
 </div>
