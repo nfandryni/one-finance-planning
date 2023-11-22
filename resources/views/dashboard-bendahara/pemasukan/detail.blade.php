@@ -10,11 +10,13 @@
                         Detail Data Pemasukan
                     </span>
                     <form method="POST" action="simpan" enctype="multipart/form-data">
+                                @foreach($pemasukan as $p)
                         <div class='mt-1'>
+                                <img src='../../../../foto/{{ $p->foto }}' width='400px'/>
+
                             <div class="row mb-2">
                                 <div class="col-md-2">
-                                @foreach($pemasukan as $p)
-                                <label class='fw-bold'>Nama Sumber</label>
+                                <label class='fw-bold'>Sumber Dana</label>
                             </div>
                             <div class="col-md-3">
                                 : {{$p->nama_sumber}}
@@ -25,7 +27,7 @@
                                 <label class='fw-bold'>Nama Pemasukan</label>
                             </div>
                             <div class="col-md-3">
-                                : {{$p->nama}}
+                                : {{$p->nama_pemasukan}}
                             </div>
                         </div>
                         <div class='row mb-2'>
@@ -46,11 +48,10 @@
                         </div>
                         <div class='row mb-2'>
                             <div class="col-md-2">
-                                <label class='fw-bold'>Foto </label>
+                                <label class='fw-bold'>Penanggung Jawab</label>
                             </div>
                             <div class="col-md-3">
-                                :
-                                <img src='../../../../foto/{{ $p->foto }}' width='200px'/>
+                               : {{$p->penanggung_jawab}}
                             </div>
                         </div>
                     </div>

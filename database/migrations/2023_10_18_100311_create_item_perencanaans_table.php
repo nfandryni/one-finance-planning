@@ -29,8 +29,7 @@ return new class extends Migration
 
             $table->foreign('id_item_kebutuhan')->on('item_kebutuhan')->references('id_item_kebutuhan')->onUpdate
             ('cascade')->onDelete('cascade');
-            $table->foreign('id_perencanaan_keuangan')->on('perencanaan_keuangan')->references('id_perencanaan_keuangan')->onUpdate
-            ('cascade')->onDelete('cascade');
+            $table->foreign('id_perencanaan_keuangan')->on('perencanaan_keuangan')->references('id_perencanaan_keuangan')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_realisasi')->on('realisasi')->references('id_realisasi')->onUpdate
             ('cascade')->onDelete('cascade');
 

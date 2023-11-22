@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\pengajuan_kebutuhan;
 
 class DashboardPemohonController extends Controller
 {
-    /**
+/**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(pengajuan_kebutuhan $pengajuan_kebutuhan)
     {
-        //
-        return view('dashboard-pemohon.index');
+        $data = [
+            'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all()
+        ];
+        return view('dashboard-pemohon.index', $data);
+
     }
 
     /**

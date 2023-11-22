@@ -14,7 +14,7 @@
                                 <div class="form-group">
                                     <label>Sumber Dana</label>
                                     <br>
-                                    <select class='form-select' name="id_sumber_dana">
+                                    <select required class='form-select' name="id_sumber_dana">
                                         @foreach($sumberDana as $p)
                                         <option selected disabled hidden>Pilih Nama Sumber</option>
                                         <option value='{{$p->id_sumber_dana}}'>{{$p->nama_sumber}}</option>
@@ -23,11 +23,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Pemasukan</label>
-                                    <input type="text" class="form-control" name="nama" required/>
+                                    <input type="text" class="form-control" placeholder='Nama Pemasukan' name="nama" required/>
                                 </div>
                                 <div class="form-group">
                                     <label>Nominal</label>
-                                    <input type="number" class="form-control" name="nominal" required/>
+                                    <input type="number" placeholder='Nominal' class="form-control" name="nominal" required/>
                                 </div>
                                 <div class="form-group">
                                     <label>Waktu</label>

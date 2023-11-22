@@ -10,7 +10,7 @@
                       
                         <div class="col-sm-2">
                             <div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahSumberDana">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahSumberDana" style='position:absolute; margin-top:20px;'>
                             Tambah Data
                             </button>
                             </div>

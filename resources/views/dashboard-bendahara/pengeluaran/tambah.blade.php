@@ -11,27 +11,27 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Sumber Dana</label>
-                                    <select class="form-select" name='id_sumber_dana'>
+                                    <select required class="form-select" name='id_sumber_dana'>
                                         @foreach ($sumber_dana as $s)
                                         <option selected hidden>Pilih Sumber Dana</option>
                                         <option value="{{$s->id_sumber_dana}}">{{$s->nama_sumber}}</option>
                                         @endforeach
                                     </select>
                                     <label>Jenis Pengeluaran</label>
-                                    <select class="form-select" name='id_jenis_pengeluaran'>
+                                    <select required class="form-select" name='id_jenis_pengeluaran'>
                                         @foreach ($jenis_pengeluaran as $s)
                                         <option selected hidden>Pilih Jenis Pengeluaran</option>
                                         <option value="{{$s->id_jenis_pengeluaran}}">{{$s->kategori}}</option>
                                         @endforeach
                                     </select>
                                     <label>Nama Pengeluaran</label>
-                                    <input type="text" class="form-control" name="nama" />
+                                    <input type="text" class="form-control" placeholder='Nama Pengeluaran' name="nama" required/>
                                     <label>Nominal</label>
-                                    <input type="text" class="form-control" name="nominal" />
+                                    <input type="text" class="form-control" placeholder='Nominal' name="nominal" required/>
                                     <label>Waktu</label>
-                                    <input type="date" class="form-control" name="waktu" />
+                                    <input type="date" class="form-control" name="waktu" required />
                                     <label>Foto</label>
-                                    <input type="file" class="form-control" name="foto" />
+                                    <input type="file" class="form-control" name="foto" required/>
                                 </div>      
                                 </div>
                                 <div class='row'>

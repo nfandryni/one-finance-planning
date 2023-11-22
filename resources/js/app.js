@@ -1,4 +1,5 @@
 import "./bootstrap";
+
 import jQuery from "jquery";
 window.$ = window.jQuery = jQuery;
 
@@ -7,3 +8,6 @@ window.DataTable = DataTable;
 
 import Swal from "sweetalert2";
 window.swal = Swal;
+
+import Chart from 'chart.js/auto';
+window.Chart = Chart;
