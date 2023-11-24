@@ -24,12 +24,12 @@
         <table class="table table-hover table-borderless table-striped DataTable">
             <thead>
                 <tr>
-                    <th>ID Pengajuan Kebutuhan</th>
-                    <th>ID Sumber Dana</th>
+                    <th>Pengajuan</th>
+                    <th>Sumber Dana</th>
                     <th>Judul Perencanaan</th>
                     <th>Tujuan</th>
                     <th>Waktu</th>
-                    <th>Total Perencanaan Keuangan</th>
+                    <th>Total Perencanaan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -41,18 +41,25 @@
                         <td>{{ $s->judul_perencanaan }}</td>
                         <td>{{ $s->tujuan }}</td>
                         <td>{{ $s->waktu }}</td>
-                        <td>{{ $s->total_dana_keuangan }}</td>
-                        {{-- <td>
-                                            @if ($s->file)
-                                                <img src="{{ url('foto') . '/' . $s->file }} "
-                                                    style="max-width: 250px; height: auto;" />
-                                            @endif
-                                        </td> --}}
+                        <td>{{ $s->total_dana_perencanaan }}</td>
                         <td>
-                            <a href="item-perencanaan/tambah/{{ $s->id_item_perencanaan}}"
+                            <a href="item-perencanaan/tambah/{{ $s->id_item_perencanaan }}"
                                 style="text-decoration: none; color:black">
                                 <i class="fa-solid fa-circle-plus" style="margin: 0 10px; cursor:pointer"></i>
                             </a>
+                            <a href="perencanaan-keuangan/edit/{{ $s->id_perencanaan_keuangan }}"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-pen "></i>
+                            </a>
+                            <a href="perencanaan-keuangan/detail/{{ $s->id_perencanaan_keuangan }}"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-circle-info" style="margin: 0 20px; cursor:pointer"></i>
+                            </a>
+
+                            <i class="fa-solid fa-trash btnHapus" style="cursor:pointer"
+                                idPerencanaanKeuangan="{{ $s->id_perencanaan_keuangan }}"></i>
+                        </td>
+                        {{-- <td class="row">
 
                             <a href="perencanaan-keuangan/edit/{{ $s->id_perencanaan_keuangan }}"
                                 style="text-decoration: none; color:black">
@@ -69,7 +76,7 @@
                             <a href="{{ url('/dashboard-pemohon/cetak') }}" style="text-decoration: none; color:black">
                                 <i class="fa-solid fa-print "></i>
                             </a>
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>
@@ -97,7 +104,7 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'perencanaan-keuangan/hapus',
+                        url: '/dashboard-bendahara/perencanaan-keuangan/hapus',
                         data: {
                             id_perencanaan_keuangan: idPerencanaanKeuangan,
                             _token: "{{ csrf_token() }}"

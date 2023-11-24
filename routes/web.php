@@ -16,6 +16,7 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\RealisasiController;
 use App\Http\Controllers\SumberDanaController;
 use App\Http\Controllers\ItemKebutuhanController;
+use App\Http\Controllers\ItemPerencanaanController;
 use App\Http\Controllers\PerencanaanKeuanganController;
 use Illuminate\Support\Facades\Route;
 
@@ -130,14 +131,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/perencanaan-keuangan', [PerencanaanKeuanganController::class, 'index']);
         Route::get('/perencanaan-keuangan/tambah', [PerencanaanKeuanganController::class, 'create']);
         Route::post('/perencanaan-keuangan/simpan', [PerencanaanKeuanganController::class, 'store']);
-        Route::get('/perencanaan-keuangan/edit-perencanaan-keuangan/{id}', [PerencanaanKeuanganController::class, 'edit_perencanaan-keuangan']);
-        Route::post('/perencanaan-keuangan/edit-perencanaan-keuangan/simpan', [PerencanaanKeuanganController::class, 'update_perencanaan-keuangan']);
-        Route::get('/perencanaan-keuangan/edit-item/{id}', [PerencanaanKeuanganController::class, 'edit_item']);
-        Route::post('/perencanaan-keuangan/edit-item/{id}', [PerencanaanKeuanganController::class, 'edit_item']);
+        Route::get('/perencanaan-keuangan/edit/{id}', [PerencanaanKeuanganController::class, 'edit']);
+        Route::post('/perencanaan-keuangan/edit/simpan', [PerencanaanKeuanganController::class, 'update']);
         Route::get('/perencanaan-keuangan/detail/{id}', [PerencanaanKeuanganController::class, 'show']);
         Route::delete('/perencanaan-keuangan/hapus', [PerencanaanKeuanganController::class, 'destroy']);
    
+        Route::get('/item-perencanaan', [ItemPerencanaanController::class, 'index']);
+        Route::get('/item-perencanaan/tambah', [ItemPerencanaanController::class, 'create']);
+        Route::post('/item-perencanaan/tambah/simpan', [ItemPerencanaanController::class, 'store']);
+        Route::get('/item-perencanaan/edit/{id}', [ItemPerencanaanController::class, 'edit']);
+        Route::post('/item-perencanaan/edit/simpan', [ItemPerencanaanController::class, 'update']);
+        Route::delete('/item-perencanaan/hapus', [ItemPerencanaanController::class, 'destroy']);
     });
+
     Route::prefix('dashboard-pemohon')->group(function () {
         Route::get('/', [DashboardPemohonController::class, 'index']);
         Route::get('/pengajuan-kebutuhan', [PengajuanKebutuhanController::class, 'index']);
