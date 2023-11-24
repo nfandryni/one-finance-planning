@@ -10,16 +10,16 @@
                 <form method="POST" action="kelola-akun/simpan" enctype="multipart/form-data">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Masukkan Username..."
+                            <input type="text" required class="form-control" placeholder="Masukkan Username..."
                                 name="username" />
                         </div>
                         <div class="form-group mt-3">
-                            <input type="password" placeholder="Masukkan Password..." class="form-control"
+                            <input type="password" required placeholder="Masukkan Password..." class="form-control"
                                 name="password" />
                         </div>
                         <div class="form-group mt-3">
-                            <select class="form-select" name="role">
-                                <option selected hidden>Role</option>
+                            <select required class="form-select" name="role">
+                                <option selected value='' hidden>Role</option>
                                 <option value="superadmin">Super Admin</option>
                                 <option value="admin">Admin</option>
                                 <option value="bendaharasekolah">Bendahara Sekolah </option>

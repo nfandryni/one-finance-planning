@@ -2,8 +2,8 @@
 @section('title', 'Riwayat Aktivitas')
 @section('content')
      <h1 class="fs-2 fw-bold mt-3">Riwayat Aktivitas</h1>
-
-    <table class="table table-hover table-bordered ">
+<hr>
+    <table class="table table-hover table-bordered DataTable">
         <thead>
             <tr>
                 <th>Aksi</th>
@@ -60,6 +60,9 @@
                     });
                 }
             });
+            });
+            $(document).ready(function() {
+        $('.DataTable').DataTable({});
         });
     </script>
 

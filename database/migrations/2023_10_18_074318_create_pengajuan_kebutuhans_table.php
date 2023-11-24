@@ -41,8 +41,7 @@ return new class extends Migration
          CREATE PROCEDURE tambah_pengajuan_kebutuhan( 
             IN id_pemohon INT(11),
             IN nama_kegiatan VARCHAR(255),
-            IN tujuan TEXT,
-            IN status VARCHAR(255),
+            IN tujuan VARCHAR(255),
             IN waktu DATE
             )
          BEGIN
@@ -60,17 +59,15 @@ return new class extends Migration
             id_pemohon,
             nama_kegiatan,
             tujuan,
-            status,
             waktu
          ) VALUES (
             id_pemohon,
             nama_kegiatan,
             tujuan,
-            status,
             waktu
          );
  
-         IF pesan_error != "00000" THEN ROLLBACK TO satu;
+         IF pesan_error != "000" THEN ROLLBACK TO satu;
          END IF;
          COMMIT;
          END;

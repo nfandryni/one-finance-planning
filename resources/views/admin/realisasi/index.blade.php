@@ -4,14 +4,12 @@
 @section('content')
 <br>
     <div class="">
-    <h2 class="fw-bold">Kelola Data Realisasi</h2>
+    <h2 class="fw-bold"> Data Realisasi</h2>
     {{-- <div class="card" style="height: 75px;">
         <h4 class=" fw-bold p-3">Cetak Data Realisasi </h4>
     </div> --}}
     <div class="col-md-12 ">
-                    <div class="row justify-content-md-center" style="align-items: center">
-                       
-                    </div>
+                   
                     </div>
                          </div>
 
@@ -21,7 +19,7 @@
                                     <th>Nama Realisasi</th>
                                     <th>Waktu</th>
                                     <th>Total Pembayaran</th>
-                                    <th>Aksi</th>
+                      
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,10 +32,7 @@
                                         </td>
                                         <td>{{ $s->waktu }}</td>    
                                         <td>{{ $s->total_pembayaran }}</td>
-                                        <td>
-                                           <a  href='/dashboard-bendahara/realisasi/detail/{{ $s->id_realisasi }}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
-                                            <btn class="btnHapus" style="cursor: pointer" idRealisasi="{{ $s->id_realisasi }}"><i class="fa-solid fa-trash"></i></btn>
-                                        </td>
+                                        
                                     </tr>
                                 @endforeach 
                             </tbody>
@@ -58,7 +53,7 @@
     <script type="module">
         $('.DataTable tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
-            let idRealisasi = $(this).closest('.btnHapus').attr('idRealisasi');
+            let idPengajuanKebutuhan = $(this).closest('.btnHapus').attr('idPengajuanKebutuhan');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -71,9 +66,9 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'realisasi/hapus',
+                        url: 'pengajuan-kebutuhan/hapus',
                         data: {
-                            id_realisasi: idRealisasi,
+                            id_pengajuan_kebutuhan: idPengajuanKebutuhan,
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
@@ -89,8 +84,8 @@
             });
         });
         $(document).ready(function() {
-        $('.DataTable').DataTable({});
-    });
+            $('.DataTable').DataTable({});
+        });
     </script>
 
-@endsection 
+@endsection

@@ -8,7 +8,7 @@
     <h4 class="fw-bold ms-2">  {{ Auth::user()->username }} !</h4> 
     </div>
 
-    <h5>Selamat datang, disini anda bisa membuat akun, melihat dan mengedit akun yang ada disini.</h5>
+    <h5>Selamat datang di One Finance Planning. Disini anda bisa melihat dana pemasukan, pengeluaran, perencanaan keuangan, realisasi kebutuhan, dan menkonfirmasi pengajuan kebutuhan.</h5>
     
 
 

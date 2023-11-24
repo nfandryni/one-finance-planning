@@ -34,7 +34,7 @@ return new class extends Migration
         SAVEPOINT satu;
         INSERT INTO jenis_pengeluaran(kategori) VALUES (kategori);
 
-        IF pesan_error != "00000" THEN ROLLBACK TO satu;
+        IF pesan_error != "000" THEN ROLLBACK TO satu;
         END IF;
         COMMIT;
         END;

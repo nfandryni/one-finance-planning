@@ -22,7 +22,15 @@ class PengajuanKebutuhanController extends Controller
             'totalList' => DB::select('SELECT total_pengajuan_kebutuhan() AS totalList')[0]->totalList,
             'pengajuan_kebutuhan'=> $pengajuan_kebutuhan->all()
         ];
-        return view('dashboard-pemohon.pengajuan-kebutuhan.index', $data);
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'pemohon') {
+            return view('dashboard-pemohon.pengajuan-kebutuhan.index', $data);
+        }
+        elseif($role == 'admin') {
+            return view('admin.konfirmasi.index', $data);
+        }
+      
     }
 
     /**
@@ -65,10 +73,11 @@ class PengajuanKebutuhanController extends Controller
         }
         else{
             //Proses Insert
-            if($data):
-              
+            // dd($data);
+        if (DB::statement("CALL tambah_pengajuan_kebutuhan(?, ?, ?, ?)", ([$data['id_pemohon'], $data['nama_kegiatan'], $data['tujuan'], $data['waktu']]))):
+            
             //Simpan jika data terisi semua
-                $pengajuan_kebutuhan->create($data);
+                // $pengajuan_kebutuhan->create($data);
                 return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan baru berhasil ditambah');
             else:
             //Kembali ke form tambah data

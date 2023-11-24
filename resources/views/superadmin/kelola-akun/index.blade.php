@@ -17,10 +17,7 @@
                         <div>
                             <btn class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#tambahAkun">Tambah Akun</btn>
                         </div>
-                        <a target="_blank" href="kelola-akun/generate" style="text-decoration: none; color:black">
-                            <btn class="btn btn-warning ">Cetak</btn>
 
-                        </a>
                     </div>
                 </div>
             </div>
@@ -44,7 +41,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $s->username }}</td>
                                     <td class="text-capitalize">{{ $s->role }}</td>
-                                    <td>
+                                    <td >
                                         <a href="kelola-akun/edit/{{ $s->user_id }}"
                                             style="text-decoration: none; color:black">
                                             <i class="fa-solid fa-pen "></i>
@@ -53,9 +50,14 @@
                                             style="text-decoration: none; color:black">
                                             <i class="fa-solid fa-circle-info  "></i>
                                         </a>
+                                        <a target="_blank" href="kelola-akun/generate/{{ $s->user_id }}"
+                                            style="text-decoration: none; color:black">
+                                            <i class="fa-solid fa-print  "></i>
+
+                                        </a>
                                         <i class="fa-solid fa-trash btnHapus btn-danger" userId="{{ $s->user_id }}"></i>
 
-
+                                        
                                         @csrf
                                     </td>
                                 </tr>

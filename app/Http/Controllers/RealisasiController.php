@@ -20,8 +20,14 @@ class RealisasiController extends Controller
         $data = [
             'realisasi' => $realisasi->all()
         ];
-
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
         return view('dashboard-bendahara.realisasi.index', $data);
+        }
+        elseif($role == 'admin') {
+            return view('admin.realisasi.index', $data);
+        }
     }
 
     /**
@@ -165,11 +171,20 @@ class RealisasiController extends Controller
         $id_realisasi = $request->input('id_realisasi');
         $data = realisasi::find($id_realisasi)->delete();
 
-        if (!$data) {
-            return response()->json(['success' => false, 'pesan' => 'Data tidak ditemukan'], 404);
+        if ($data) {
+            // Pesan Berhasil
+            $pesan = [
+                'success' => true,
+                'pesan'   => 'Data Pemasukan berhasil dihapus'
+            ];
+        } else {
+            // Pesan Gagal
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Data gagal dihapus'
+            ];
         }
 
-     
-        return response()->json(['success' => false, 'pesan' => 'Data gagal dihapus']);
+        return response()->json($pesan);
     }
 }

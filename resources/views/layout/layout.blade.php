@@ -5,9 +5,10 @@
     <title>@yield('title')</title>
     @yield('header')
     <script src="https://kit.fontawesome.com/4be914391d.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
     </script>
-    
+
     <style>
         .nav-link {
             color: #ffffff
@@ -22,9 +23,9 @@
             background-color: #ffffff;
             font-weight: 700
         }
-        
-        .bdr{
-        border-radius: 6px;
+
+        .bdr {
+            border-radius: 6px;
         }
 
         .table-striped>tbody>tr:nth-child(odd)>td,
@@ -70,17 +71,17 @@
                     </li>
                     <li>
                         <a href="/pemasukan" class="nav-link  @yield('pemasukan')">
-                            Dana Pemasukan
+                            Pemasukan
                         </a>
                     </li>
                     <li>
                         <a href="/pengeluaran" class="nav-link  @yield('pengeluaran')">
-                            Dana Pengeluaran
+                            Pengeluaran
                         </a>
                     </li>
                     <li>
-                        <a href="" class="nav-link  @yield('')">
-                            Pengajuan Kebutuhan
+                        <a href="/konfirmasi-pengajuan" class="nav-link  @yield('konfirmasi')">
+                            Konfirmasi Pengajuan
                         </a>
                     </li>
                     <li>
@@ -89,8 +90,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="nav-link  @yield('')">
-                            Realisasi Kebutuhan
+                        <a href="/realisasi" class="nav-link  @yield('realisasi')">
+                            Realisasi
                         </a>
                     </li>
                 @elseif(auth()->user()->role == 'bendaharasekolah')
@@ -130,7 +131,7 @@
                         </a>
                     </li>
                     <li>
-                        <a  class="nav-link @yield('pengajuan-kebutuhan')">
+                        <a class="nav-link @yield('pengajuan-kebutuhan')">
                             Konfirmasi Pengajuan
                         </a>
                     </li>
@@ -175,7 +176,7 @@
                                 data-bs-toggle="dropdown">
                                 <img src='{{ $profile->foto_profil ? url('foto') . '/' . $profile->foto_profil : url('foto') . '/pfp.jpg' }}'
                                     alt="pfp" width="32" height="32" class="rounded-circle">
-                                
+
                             </a>
                             <ul class="dropdown-menu ">
                                 <li>
@@ -188,7 +189,7 @@
                                             {{ $profile->nama }}
                                             {{ $profile->email }}
                                             {{-- {{ auth()->user()->role }} --}}
-                                          
+
                                         </div>
                                 </li>
                                 <li>
@@ -200,7 +201,11 @@
                                         </a>
                                     </li>
                                 @elseif(auth()->user()->role == 'admin')
-
+                                    <li>
+                                        <a href="/dashboard-pemohon/logs" class="dropdown-item">
+                                         Riwayat Aktivitas
+                                        </a>
+                                    </li>
                                 @elseif(auth()->user()->role == 'bendaharasekolah')
                                     <li>
                                         <a href="/dashboard-bendahara/logs" class="dropdown-item">

@@ -25,15 +25,36 @@ class AkunController extends Controller
         
     }
 
-    public function print(akun $akun)
+    public function print(string $id, Request $request, akun $akun)
     {
-        $data = [
-            'akun' => $akun->all()
-        ];
+        $akun = Akun::find($id);
+        if ($akun) {
+            $data = [];
+    
+            if ($akun->role == 'superadmin') {
+                $data['datas'] = DB::table('v_SuperAdmin')->select('nama', 'role', 'email', 'jabatan', 'foto_profil', 'user_id', 'id_superadmin')->where('user_id', $id)->first();
+            } elseif ($akun->role == 'admin') {
+                $data['datas'] = DB::table('v_admin')->select('nama', 'role', 'email', 'jabatan', 'foto_profil', 'user_id', 'id_admin')->where('user_id', $id)->first();
+            } elseif ($akun->role == 'bendaharasekolah') {
+                $data['datas'] = DB::table('v_bendahara')->select('nama', 'role', 'email', 'jabatan', 'foto_profil', 'user_id', 'id_bendahara')->where('user_id', $id)->first();
+            } elseif ($akun->role == 'pemohon') {
+                $data['datas'] = DB::table('v_pemohon')->select('nama', 'role', 'email', 'jabatan', 'kategori', 'foto_profil', 'user_id', 'id_pemohon')->where('user_id', $id)->first();
+            } else {
+                return back()->with('error', 'terjadi kesalahan');
+            }
+    
+            if (empty($data['datas'])) {
+                return back()->with('error', 'Data not found');
+            }
+    
+            $pdf = PDF::loadView('superadmin.kelola-akun.generate', compact('data'));
+            return $pdf->stream();
 
-        $pdf = PDF::loadView('superadmin.kelola-akun.generate', $data);
+        } else {
+            return back()->with('error', 'terjadi kesalahan');
+        }
 
-        return $pdf->stream();
+
     }
 
     public function create()
@@ -52,16 +73,25 @@ class AkunController extends Controller
             ]
         );
 
-      
-        //Proses Insert
-        if ($data) {
-            $data['password'] = Hash::make($data['password']);
+        
 
-            try{
-                DB::statement('CALL createProfileAcc (?,?,?)',[$data['username'], $data['password'], $data['role']]);
-                return redirect('kelola-akun')->with('success', 'Data akun berhasil dibuat ');
-            }catch (Exception $e){
-                return back()->with('error', 'Data akun gagal dibuat');
+        //Proses Insert
+        if (isset($data['username']) && isset($data['password']) && isset($data['role'])) {
+
+            //Proses Validasi apakah username udah diambil blm
+            $check = $akun->where('username', $data['username'])->first();
+            if (!isset($check->username)) {
+                $data['password'] = Hash::make($data['password']);
+
+                try {
+                    DB::statement('CALL createProfileAcc (?,?,?)',[$data['username'], $data['password'], $data['role']]);
+                    return redirect('kelola-akun')->with('success', 'Data akun berhasil dibuat ');
+                } catch (Exception $e){
+                    return back()->with('error','Data akun gagal dibuat. Semua kolom harus diisi.');
+                } 
+                
+            } else {
+                return back()->with('error', 'Username telah diambil');
             }
            
         } else {

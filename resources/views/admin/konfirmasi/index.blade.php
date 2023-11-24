@@ -1,11 +1,11 @@
 @extends('layout.layout')
-@section('pengajuan-kebutuhan', 'active')
+@section('konfirmasi', 'active')
 @section('title', 'Daftar Pengajuan Kebutuhan')
 @section('content')
     <div class="row ">
 
         <div class="col-md-12" style="margin-bottom:2vh">
-            <span class="h4" style="font-weight:bold;">Kelola Data Pengajuan Kebutuhan</span>
+            <span class="h4" style="font-weight:bold;">Konfirmasi Pengajuan Kebutuhan</span>
         </div>
         {{-- Menghitung jumlah pengajuan kebutuhan diambil dari stored function yang ada di migration --}}
         <h3 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h3>
@@ -14,17 +14,7 @@
             Cetak Data
         </a>
         <hr>
-        <div class="col-md-12">
-            <div class="row justify-content-md-end" style="align-items: center">
-                <div class="col-sm-2">
-                    <div class="col-sm">
-                        <a href="/dashboard-pemohon/pengajuan-kebutuhan/tambah">
-                            <btn class="btn btn-primary" style='position:absolute; margin-top:20px;'>Tambah Data</btn>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <p>
         <table class="table table-hover table-borderless table-striped DataTable">
             <thead>

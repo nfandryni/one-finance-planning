@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [AkunController::class, 'edit']);
             Route::post('edit/simpan', [AkunController::class, 'update']);
             Route::delete('hapus', [AkunController::class, 'destroy']);
-            Route::get('/generate', [AkunController::class, 'print']);
+            Route::get('/generate/{id}', [AkunController::class, 'print']);
         });
       
     });
@@ -71,7 +71,13 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('/pengeluaran')->group(function () {
             Route::get('/', [PengeluaranController::class, 'index']);
-       });
+        });
+        Route::prefix('/realisasi')->group(function () {
+            Route::get('/', [RealisasiController::class, 'index']);
+        });
+        Route::prefix('/konfirmasi-pengajuan')->group(function () {
+            Route::get('/', [PengajuanKebutuhanController::class, 'index']);
+        });
        
     });
   

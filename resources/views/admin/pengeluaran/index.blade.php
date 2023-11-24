@@ -2,46 +2,47 @@
 @section('pengeluaran', 'active')
 @section('title', 'Daftar Pengeluaran')
 @section('content')
-<br>
-<div class="row">
-    <h2 class="fw-bold">Kelola Data Pengeluaran</h2>
-    <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
-    <div class="col-md-12">
-                    
-                    </div>
-                         </div>
+    <br>
+    <div class="row">
+        <h2 class="fw-bold"> Data Pengeluaran</h2>
+        <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
+        <a href="" style='position:absolute; width:120px; right:30px;'
+            class='btn btn-warning mt-4'>
+            Cetak Data
+        </a>
+    </div>
+    <hr>
+    <table class="table table-borderless table-striped mt-2 DataTable">
+        <thead>
+            <tr>
+                <th>Sumber Dana</th>
+                <th>Nama Pengeluaran</th>
+                <th>Jenis Pengeluaran</th>
+                <th>Nominal</th>
+                <th>Waktu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($pengeluaran as $s)
+                <tr>
+                    <td>{{ $s->nama_sumber }}</td>
+                    <td>{{ $s->nama_pengeluaran }}</td>
+                    <td>{{ $s->kategori }}</td>
+                    <td>{{ $s->nominal }}</td>
+                    <td>{{ $s->waktu }}</td>
 
-                        <table class="table table-borderless table-striped mt-2 DataTable">
-                            <thead>
-                                <tr>
-                                    <th>Sumber Dana</th>
-                                    <th>Nama Pengeluaran</th>
-                                    <th>Jenis Pengeluaran</th>
-                                    <th>Nominal</th>
-                                    <th>Waktu</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pengeluaran as $s)
-                                    <tr>
-                                        <td>{{ $s->sumber_dana->nama_sumber }}</td>
-                                        <td>{{ $s->nama }}</td>
-                                        <td>{{ $s->jenis_pengeluaran->kategori }}</td>
-                                        <td>{{ $s->nominal }}</td>
-                                        <td>{{ $s->waktu }}</td>
-                                        
-                                        
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card-footer">
 
-                </div>
-            </div>
-        </div>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+    </div>
+    </div>
+    <div class="card-footer">
+
+    </div>
+    </div>
+    </div>
     </div>
 @endsection
 
@@ -80,8 +81,8 @@
             });
         });
         $(document).ready(function() {
-        $('.DataTable').DataTable({});
-    });
+            $('.DataTable').DataTable({});
+        });
     </script>
 
 @endsection
