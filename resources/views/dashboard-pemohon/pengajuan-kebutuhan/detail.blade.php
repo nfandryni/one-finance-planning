@@ -6,13 +6,21 @@
 
         <div class="col-md-12" style="margin-bottom:2vh">
             <span class="h4" style="font-weight:bold;">Detail Pengajuan Kebutuhan</span>
-        </div>
-
-
-        <div class="card">
-            <div class="card-body">
-                {{-- <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
+            
+            
+            <div class="card">
+                <div class="card-body">
+                    <div id='Ajukan'>
+                        @if($pengajuan_kebutuhan->status == 'Terkirim' 
+                        || $pengajuan_kebutuhan->status == 'Ditolak' 
+                        || $pengajuan_kebutuhan->status == 'Difilterisasi' 
+                        || $pengajuan_kebutuhan->status == 'Dikonfirmasi'
+                        || $item_kebutuhan->isEmpty())
+                        <button disabled idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' class='btn btnAjukan btn-secondary fw-bold' style='letter-spacing:1px; cursor:default; position:absolute; right:40px; top:20px;'><i class="fa-solid fa-paper-plane"></i> Ajukan</button>
+                        @else
+                        <button idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' class='btn btnAjukan btn-success fw-bold' style='letter-spacing:1px; position:absolute; right:40px; top:20px;'><i class="fa-solid fa-paper-plane"></i> Ajukan</button>
+                        @endif
+                      </div>
                 <div class="col-md-12" style=" display:flex">
                     <div class="col-md-3" style=" ">
                         <div class="form-group">
@@ -59,29 +67,30 @@
                     <table class="table table-hover table-borderless table-striped DataTable">
                         <thead>
                             <tr>
-                                <th>Pengajuan Kebutuhan</th>
                                 <th>Ruangan</th>
                                 <th>Item Kebutuhan</th>
                                 <th>QTY</th>
                                 <th>Harga Satuan</th>
                                 <th>Satuan</th>
                                 <th>Spesifikasi</th>
+                                <th>Status</th>
                                 <th>Foto</th>
+                                @if($pengajuan_kebutuhan->status == 'Draf')    
                                 <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
 
                             @foreach ($item_kebutuhan as $p)
                                 <tr>
-
-                                    <td>{{ $pengajuan_kebutuhan->nama_kegiatan }}</td>
                                     <td>{{ $p->nama_ruangan }}</td>
                                     <td>{{ $p->item_kebutuhan }}</td>
                                     <td>{{ $p->qty }}</td>
                                     <td>{{ $p->harga_satuan }}</td>
                                     <td>{{ $p->satuan }}</td>
                                     <td>{{ $p->spesifikasi }}</td>
+                                    <td>{{ $p->status }}</td>
                                     <td>
                                         @if ($p->foto_barang_kebutuhan)
                                             <img src="{{ url('foto') . '/' . $p->foto_barang_kebutuhan }} "
@@ -89,6 +98,7 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if($pengajuan_kebutuhan->status == 'Draf')    
                                         <a href="/dashboard-pemohon/item-kebutuhan/edit/{{ $p->id_item_kebutuhan }}" <btn
                                             class="btn btn-warning">Edit</btn>
 
@@ -97,6 +107,7 @@
                                             <btn class="btn btn-danger btnHapus"
                                                 idItemKebutuhan="{{ $p->id_item_kebutuhan }}">Hapus</btn>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -122,37 +133,38 @@
 
     @section('footer')
     <script type="module">
-        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
+        $('#Ajukan').on('click', '.btnAjukan', function(a) {
             a.preventDefault();
-            let idItemKebutuhan = $(this).closest('.btnHapus').attr('idItemKebutuhan');
+            let idPengajuanKebutuhan = $(this).closest('.btnAjukan').attr('idPengajuanKebutuhan');
             swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+                title: "Anda ingin Mengajukan Kebutuhan ini?",
+                text: 'Pengajuan akan dikirim kepada Bendahara Sekolah',
                 showCancelButton: true,
-                confirmButtonText: 'Setuju',
+                confirmButtonText: 'Ajukan',
                 cancelButtonText: `Batal`,
-                confirmButtonColor: 'red'
-
+                confirmButtonColor: 'green',
+                icon: 'question'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    //Ajax Delete
                     $.ajax({
-                        type: 'DELETE',
-                        url: '/dashboard-pemohon/item-kebutuhan/hapus',
-                        data: {
-                            id_item_kebutuhan: idItemKebutuhan,
+                        type: 'POST',
+                        url: '/dashboard-pemohon/pengajuan-kebutuhan/ajukan/'+idPengajuanKebutuhan,
+                        data: { 
+                            id_pengajuan_kebutuhan: idPengajuanKebutuhan,
+                            status: 'Terkirim',
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
                             if (data.success) {
-                                swal.fire('Berhasil di hapus!', '', 'success').then(function() {
-                                    //Refresh Halaman
-                                    location.reload();
+                                swal.fire('Pengajuan kebutuhan Berhasil Diajukan!', '', 'success').then(function() {
+                                location.reload();
                                 });
                             }
                         }
+                    
                     });
-                }
-            });
+        }});
         });
     </script>
-@endsection
+
+@endsection 

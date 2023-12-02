@@ -18,6 +18,7 @@ return new class extends Migration
 
          $table->foreign('id_sumber_dana')->on('sumber_dana')->references('id_sumber_dana')->onDelete('cascade')->onUpdate('cascade');
         });
+
     }
 
     /**

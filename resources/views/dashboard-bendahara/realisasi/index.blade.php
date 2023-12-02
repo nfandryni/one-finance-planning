@@ -36,7 +36,7 @@
                                         <td>{{ $s->waktu }}</td>    
                                         <td>{{ $s->total_pembayaran }}</td>
                                         <td>
-                                        <a class='text-black' href=""> <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
+                                        <a class='text-black' href="/dashboard-bendahara/realisasi/edit-realisasi/{{$s->id_realisasi}}"> <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
                                            </i></a>
                                            <a  href=''><i class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
                                             <btn class="btnHapus" style="cursor: pointer" idRealisasi="{{ $s->id_realisasi }}"><i class="fa-solid fa-trash"></i></btn>

@@ -33,6 +33,8 @@ class GedungController extends Controller
      */
     public function store(Request $request, gedung $gedung)
     {
+
+        $nama_ruangan = $request->input('nama_ruangan');
         $data = $request->validate(
             [
                 'nama_gedung'    => ['required'],
@@ -40,13 +42,13 @@ class GedungController extends Controller
             ]
         );
 
-        //Proses Insert
-        if (DB::statement("CALL tambah_gedung(?, ?)", ([$data['nama_gedung'], $data['nama_ruangan']]))) {
-            // Simpan jika data terisi semua
-            // $gedung->create($data);
+        $exist = DB::table('gedung')
+        ->where('nama_ruangan', '=', $nama_ruangan)
+        ->get();
+
+        if($exist->isEmpty() && DB::statement("CALL tambah_gedung(?, ?)", ([$data['nama_gedung'], $data['nama_ruangan']]))) {
             return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung baru berhasil ditambah');
         } else {
-            // Kembali ke form tambah data
             return back()->with('error', 'Data Gedung gagal ditambahkan');
         }
     }

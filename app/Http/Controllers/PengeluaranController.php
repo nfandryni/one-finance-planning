@@ -89,7 +89,7 @@ class PengeluaranController extends Controller
         {
             //
             $data = [
-                'pengeluaran'=>DB::table('view_pengeluaran')->get(),
+                'pengeluaran'=>DB::table('view_pengeluaran')->where('id_pengeluaran', $id)->get(),
             ];
             return view('dashboard-bendahara.pengeluaran.detail', $data);
         }

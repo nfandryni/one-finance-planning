@@ -24,46 +24,65 @@
                         <table class="table table-hover table-borderless table-striped DataTable">
                             <thead>
                                 <tr>
-                                    <th>Pemohon</th>
-                                    <th>Nama Kegiatan</th>
                                     <th>Status</th>
+                                    <th>Nama Kegiatan</th>
+                                    <th>Pemohon</th>
                                     <th>Waktu</th>
-                                    <th>Tujuan</th>
+                                    @if(isset($pemohon))
+                                    @if($pemohon->user_id == Auth::user()->user_id)
                                     <th>Aksi</th>
+                                    @endif
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($pengajuan_kebutuhan as $s)
-                                    <tr>
-                                        <td>{{ $s->id_pemohon }}</td>
-                                        <td>{{ $s->nama_kegiatan }}</td>
+                                <tr>
+                                    @if($s->status == 'Ditolak')
+                                        <td>{{ $s->status }}
+                                            <p class='text-danger small fst-italic'>Terhapus otomatis sebulan kemudian.</p>
+                                        </td>
+                                        @else
                                         <td>{{ $s->status }}</td>
+                                        @endif
+                                        <td>{{ $s->nama_kegiatan }}</td>
+                                        @if($s->user_id == Auth::user()->user_id)
+                                        <td>{{ $s->nama }} (Anda)</td>
+                                        @else
+                                        <td>{{ $s->nama }} </td>
+                                        @endif
                                         <td>{{ $s->waktu }}</td>
-                                        <td>{{ $s->tujuan }}</td>
                                         {{-- <td>
                                             @if ($s->file)
-                                                <img src="{{ url('foto') . '/' . $s->file }} "
-                                                    style="max-width: 250px; height: auto;" />
+                                            <img src="{{ url('foto') . '/' . $s->file }} "
+                                            style="max-width: 250px; height: auto;" />
                                             @endif
                                         </td> --}}
                                         <td>
-                                        <a href="item-kebutuhan/tambah/{{ $s->id_item_kebutuhan}}"  style="text-decoration: none; color:black">
-                                            <i class="fa-solid fa-circle-plus" style="margin: 0 10px; cursor:pointer"></i>
-                                        </a>
-                                       
+                                            @if($s->user_id == Auth::user()->user_id)
+                                            @if($s->status == 'Draf')
+                                            <a href="item-kebutuhan/tambah/{{ $s->id_pengajuan_kebutuhan}}"  style="text-decoration: none; color:black">
+                                                <i class="fa-solid fa-circle-plus" style="margin: 0 2px; cursor:pointer"></i>
+                                            </a>
+                                            
                                             <a href="pengajuan-kebutuhan/edit/{{ $s->id_pengajuan_kebutuhan}}"  style="text-decoration: none; color:black">
                                                 <i class="fa-solid fa-pen "></i>
                                             </a>
+                                            @endif
                                             <a href="pengajuan-kebutuhan/detail/{{ $s->id_pengajuan_kebutuhan}}"  style="text-decoration: none; color:black">
-                                                 <i class="fa-solid fa-circle-info" style="margin: 0 20px; cursor:pointer"></i>
+                                                 <i class="fa-solid fa-circle-info" style="margin: 0 2px; cursor:pointer"></i>
+                                                </a>
+                                            @if($s->status == 'Draf')
+                                                
+                                                <i class="fa-solid fa-trash btnHapus" style="cursor:pointer" idPengajuanKebutuhan="{{ $s->id_pengajuan_kebutuhan}}"></i>
+                                                @endif
+                                                <a href="{{ url('/dashboard-pemohon/cetak') }}"
+                                                style="text-decoration: none; color:black">
+                                                <i class="fa-solid fa-print "></i>
                                             </a>
-                                            
-                                            <i class="fa-solid fa-trash btnHapus" style="cursor:pointer" idPengajuanKebutuhan="{{ $s->id_pengajuan_kebutuhan}}"></i>
-
-                                            <a href="{{ url('/dashboard-pemohon/cetak') }}"
-                                            style="text-decoration: none; color:black">
-                                            <i class="fa-solid fa-print "></i>
-                                              </a>
+                                            @else
+                                            <p>Tidak ada Akses</p>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

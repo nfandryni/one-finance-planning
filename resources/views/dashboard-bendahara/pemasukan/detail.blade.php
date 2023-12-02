@@ -12,7 +12,7 @@
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                                 @foreach($pemasukan as $p)
                         <div class='mt-1'>
-                                <img src='../../../../foto/{{ $p->foto }}' width='400px'/>
+                                <img src='../../../../foto/{{ $p->foto }}' width='300px'/>
 
                             <div class="row mb-2">
                                 <div class="col-md-2">

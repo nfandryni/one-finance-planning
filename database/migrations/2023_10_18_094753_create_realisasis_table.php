@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('judul_realisasi', 60)->nullable(false);
             $table->string('tujuan', 225)->nullable(false);
             $table->date('waktu')->nullable(false);
-            $table->integer('total_pembayaran', false)->nullable(false);
+            $table->decimal('total_pembayaran', 10, 0)->nullable(false);
            
 
             $table->foreign('id_perencanaan_keuangan')->on('perencanaan_keuangan')->references('id_perencanaan_keuangan')->onUpdate
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('id_pengeluaran')->on('pengeluaran')->references('id_pengeluaran')->onUpdate
             ('cascade')->onDelete('cascade');
         });
-
+        DB::unprepared('DROP TRIGGER IF EXISTS tambah_realisasi');
         DB::unprepared("
         CREATE TRIGGER tambah_realisasi AFTER INSERT ON perencanaan_keuangan FOR EACH ROW
         BEGIN

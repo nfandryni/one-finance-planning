@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('id_sumber_dana', false)->index('id_sumber_dana');
             $table->integer('id_jenis_pengeluaran', false)->index('id_jenis_pengeluaran');
             $table->string('nama', 60)->nullable(false);
-            $table->integer('nominal', false)->nullable(false);
+            $table->decimal('nominal', 10, 0)->nullable(false);
             $table->date('waktu')->nullable(false);
             $table->text('foto')->nullable(false);
 
@@ -30,9 +30,9 @@ return new class extends Migration
         // Stored Function => digunakan untuk menghitung jumlah pengeluaran
         DB::unprepared('DROP FUNCTION IF EXISTS total_pengeluaran');
         DB::unprepared('
-        CREATE FUNCTION total_pengeluaran() RETURNS INT
+        CREATE FUNCTION total_pengeluaran() RETURNS decimal(10,0)
         BEGIN
-        DECLARE total INT;
+        DECLARE total DECIMAL(10,0);
         SELECT SUM(nominal) INTO total from pengeluaran;
         RETURN total;
         END
@@ -53,7 +53,7 @@ return new class extends Migration
             CREATE TRIGGER tambah_pengeluaran AFTER INSERT ON pengeluaran FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('INSERT', CONCAT('Menambahkan Pengeluaran baru dengan nama ', NEW.nama), NOW());
+                VALUES ('INSERT', CONCAT('Menambahkan Pengeluaran baru dengan nama ', NEW.nama, ' dan nominal sebesar ', NEW.nominal), NOW());
             END
         ");
         

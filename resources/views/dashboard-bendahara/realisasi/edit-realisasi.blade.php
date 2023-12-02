@@ -13,7 +13,7 @@
                                     <input type="hidden" name="id_perencanaan_keuangan" value="{{ $realisasi->id_perencanaan_keuangan }}" />
                                 <div class="form-group">
                                     <label>Nama Realisasi</label>
-                                    <input type="text"  class="form-control" name="judul_realisasi"
+                                    <input readonly style='background-color: #EAEAEA' type="text"  class="form-control" name="judul_realisasi"
                                         value="{{ $realisasi->judul_realisasi }}" />
                                 </div>
                                 @csrf
@@ -43,7 +43,7 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Tujuan</label>
-                                    <input type="text" class="form-control" name="tujuan"
+                                    <input readonly style='background-color: #EAEAEA' type="text" class="form-control" name="tujuan"
                                         value="{{ $realisasi->tujuan }}" />
                                 </div>
                                 

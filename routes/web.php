@@ -5,8 +5,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardAdmin;
 use App\Http\Controllers\PengajuanKebutuhanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardBendaharaController;
 use App\Http\Controllers\DashboardPemohonController;
+use App\Http\Controllers\DashboardBendaharaController;
+use App\Http\Controllers\KonfirmasiPengajuanController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogsController;
@@ -87,6 +88,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/realisasi/detail/{id}', [RealisasiController::class, 'show']);
         Route::delete('/realisasi/hapus', [RealisasiController::class, 'destroy']);
 
+        Route::get('/realisasi/edit-item/{id}', [KonfirmasiPengajuanController::class, 'edit_item']);
+        Route::post('/realisasi/edit-item/simpan', [KonfirmasiPengajuanController::class, 'update_realisasi']);
+        Route::get('/realisasi/detail/{id}', [KonfirmasiPengajuanController::class, 'show']);
+        Route::delete('/realisasi/hapus', [KonfirmasiPengajuanController::class, 'destroy']);
+
         Route::get('/gedung', [GedungController::class, 'index']);
         Route::post('/gedung/tambah/simpan', [GedungController::class, 'store']);
         Route::get('/gedung/edit/{id}', [GedungController::class, 'edit']);
@@ -118,8 +124,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengeluaran/print', [PengeluaranController::class, 'print']);
 
         Route::get('/logs', [LogsController::class, 'index']);
-
-
+        Route::get('/konfirmasi-pengajuan', [KonfirmasiPengajuanController::class, 'index']);
+        Route::get('/konfirmasi-pengajuan/detail/{id}', [KonfirmasiPengajuanController::class, 'show']);
+        Route::post('/konfirmasi-pengajuan/tolak-item/{id}', [KonfirmasiPengajuanController::class, 'update']);
+        Route::post('/konfirmasi-pengajuan/konfirmasi/{id}', [KonfirmasiPengajuanController::class, 'filter']);
+        Route::post('/konfirmasi-pengajuan/tolak-pengajuan/{id}', [KonfirmasiPengajuanController::class, 'reject']);
+        Route::get('/konfirmasi-pengajuan/edit-item/{id}', [KonfirmasiPengajuanController::class, 'edit_item']);
+        Route::post('/konfirmasi-pengajuan/edit-item/simpan', [KonfirmasiPengajuanController::class, 'update_item']);
+        Route::get('/konfirmasi-pengajuan/print', [KonfirmasiPengajuanController::class, 'print']);
+        
         Route::get('/jenis-pengeluaran', [JenisPengeluaranController::class, 'index']);
         Route::get('/jenis-pengeluaran/tambah', [JenisPengeluaranController::class, 'create']);
         Route::post('/jenis-pengeluaran/simpan', [JenisPengeluaranController::class, 'store']);
@@ -128,7 +141,11 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/jenis-pengeluaran/hapus', [JenisPengeluaranController::class, 'destroy']);
    
     });
-    Route::prefix('dashboard-pemohon')->group(function () {
+
+    Route::prefix('dashboard-pemohon')->middleware(['akses:pemohon'])->group(function () {
+        Route::get('/logs', [LogsController::class, 'index']);
+        Route::delete('/logs/hapus', [LogsController::class, 'destroy']);
+
         Route::get('/', [DashboardPemohonController::class, 'index']);
         Route::get('/pengajuan-kebutuhan', [PengajuanKebutuhanController::class, 'index']);
         Route::get('/pengajuan-kebutuhan/tambah', [PengajuanKebutuhanController::class, 'create']);
@@ -136,35 +153,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengajuan-kebutuhan/detail/{id}', [PengajuanKebutuhanController::class, 'show']);
         Route::get('/pengajuan-kebutuhan/edit/{id}', [PengajuanKebutuhanController::class, 'edit']);
         Route::post('/pengajuan-kebutuhan/edit/simpan', [PengajuanKebutuhanController::class, 'update']);
+        Route::post('/pengajuan-kebutuhan/ajukan/{id}', [PengajuanKebutuhanController::class, 'send']);
         Route::delete('/pengajuan-kebutuhan/hapus', [PengajuanKebutuhanController::class, 'destroy']);
         Route::get('/cetak', [PengajuanKebutuhanController::class, 'cetak']);
-    });
-    
 
-    Route::prefix('dashboard-pemohon')->middleware(['akses:pemohon'])->group(function () {
-        Route::get('/logs', [LogsController::class, 'index']);
-        Route::delete('/logs/hapus', [LogsController::class, 'destroy']);
-    });
-    Route::prefix('dashboard-pemohon')->group(function () {
-        Route::get('/', [DashboardPemohonController::class, 'index']);
-        Route::get('/gedung', [GedungController::class, 'index']);
-        Route::get('/gedung/tambah', [GedungController::class, 'create']);
-        Route::post('/gedung/simpan', [GedungController::class, 'store']);
-        Route::get('/gedung/edit/{id}', [GedungController::class, 'edit']);
-        Route::post('/gedung/edit/simpan', [GedungController::class, 'update']);
-        Route::delete('/gedung/hapus', [GedungController::class, 'destroy']);
-    });
-
-    Route::prefix('dashboard-pemohon')->group(function () {
         Route::get('/', [DashboardPemohonController::class, 'index']);
         Route::get('/item-kebutuhan', [ItemKebutuhanController::class, 'index']);
-        Route::get('/item-kebutuhan/tambah', [ItemKebutuhanController::class, 'create']);
-        Route::post('/item-kebutuhan/tambah/simpan', [ItemKebutuhanController::class, 'store']);
+        Route::get('/item-kebutuhan/tambah/{id}', [ItemKebutuhanController::class, 'create']);
+        Route::post('/item-kebutuhan/simpan', [ItemKebutuhanController::class, 'store']);
         Route::get('/item-kebutuhan/edit/{id}', [ItemKebutuhanController::class, 'edit']);
         Route::post('/item-kebutuhan/edit/simpan', [ItemKebutuhanController::class, 'update']);
         Route::delete('/item-kebutuhan/hapus', [ItemKebutuhanController::class, 'destroy']);
     });
-
+ 
 Route::get('/logout', [LoginController::class, 'logout']);
 
 });

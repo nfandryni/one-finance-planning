@@ -120,7 +120,7 @@ class PemasukanController extends Controller
 
         $pdf = PDF::loadView('dashboard-bendahara.pemasukan.print', $data);
 
-        return $pdf->download('pemasukan.pdf');
+        return $pdf->stream();
     }
 
     /**
