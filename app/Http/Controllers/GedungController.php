@@ -39,7 +39,6 @@ class GedungController extends Controller
                 'nama_ruangan'    => ['required'],
             ]
         );
-
         //Proses Insert
         if (DB::statement("CALL tambah_gedung(?, ?)", ([$data['nama_gedung'], $data['nama_ruangan']]))) {
             // Simpan jika data terisi semua
@@ -50,7 +49,6 @@ class GedungController extends Controller
             return back()->with('error', 'Data Gedung gagal ditambahkan');
         }
     }
-
     /**
      * Display the specified resource.
      */
@@ -70,9 +68,6 @@ class GedungController extends Controller
         return view('dashboard-bendahara.gedung.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, gedung $gedung)
     {
         $data = $request->validate(
@@ -83,7 +78,6 @@ class GedungController extends Controller
             );
 
         $id_gedung = $request->input('id_gedung');
-
         if ($id_gedung !== null) {
             $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
 
@@ -112,7 +106,6 @@ class GedungController extends Controller
                 'pesan'   => 'Data Gedung berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'

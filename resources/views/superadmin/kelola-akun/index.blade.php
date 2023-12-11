@@ -17,7 +17,6 @@
                         <div>
                             <btn class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#tambahAkun">Tambah Akun</btn>
                         </div>
-
                     </div>
                 </div>
             </div>

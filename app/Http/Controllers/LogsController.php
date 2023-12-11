@@ -12,6 +12,10 @@ class LogsController extends Controller
      */
     public function index(logs $logs)
     {
+        $data = [
+            'logs' => $logs->all()
+        ];
+        return view('dashboard-bendahara.logs.index', $data);
         //
         $data = [
             'logs'=> $logs->all()

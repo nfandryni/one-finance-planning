@@ -74,9 +74,11 @@
         </div>
 
         <div class="col-md-12 " style="justify-content:start">
+           <a href="/dashboard-pemohon/realisasi">
             <button type="submit" class="btn" style="width:100%; background-Color:#588157; color:#fff">
                 Lihat Halaman Realisasi
             </button>
+            </a>
         </div>
     </div>
 @endsection

@@ -45,7 +45,7 @@ class JenisPengeluaranController extends Controller
         //Proses Insert
         if (DB::statement("CALL tambah_jenis_pengeluaran(?)", ([$data['kategori']]))) {
             // Simpan jika data terisi semua
-            $jenis_pengeluaran->create($data);
+            // $jenis_pengeluaran->create($data);
             return redirect('dashboard-bendahara/jenis-pengeluaran')->with('success', 'Data jenis pengeluaran baru berhasil ditambah');
         } else {
             // Kembali ke form tambah data

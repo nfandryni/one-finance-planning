@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\pengajuan_kebutuhan;
+use Illuminate\Http\Request;
+
 
 class DashboardPemohonController extends Controller
 {
@@ -16,7 +17,6 @@ class DashboardPemohonController extends Controller
             'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all()
         ];
         return view('dashboard-pemohon.index', $data);
-
     }
 
     /**

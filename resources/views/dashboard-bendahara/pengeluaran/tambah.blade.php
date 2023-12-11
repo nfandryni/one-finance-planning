@@ -33,7 +33,6 @@
                                     <label>Foto</label>
                                     <input type="file" class="form-control" name="foto" required/>
                                 </div>      
-                                </div>
                                 <div class='row'>
                                     <div class="col-md-4 mt-3" style="gap: 10px">
                                         <a href="/dashboard-bendahara/pengeluaran" <btn class="btn btn-dark">KEMBALI</btn></a>

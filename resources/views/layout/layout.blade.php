@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous">
     </script>
-
     <style>
         .nav-link {
             color: #ffffff
@@ -23,6 +22,7 @@
             background-color: #ffffff;
             font-weight: 700
         }
+
 
         .bdr {
             border-radius: 6px;
@@ -136,7 +136,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link @yield('perencanaan-keuangan')">
+                        <a href="/dashboard-bendahara/perencanaan-keuangan" class="nav-link @yield('perencanaan-keuangan')">
                             Perencanaan Keuangan
                         </a>
                     </li>
@@ -156,6 +156,11 @@
                         <a href="/dashboard-pemohon/pengajuan-kebutuhan" class="nav-link @yield('pengajuan-kebutuhan')"
                             aria-current="page">
                             Pengajuan Kebutuhan
+                        </a>
+                    </li>
+                     <li>
+                        <a href="/dashboard-pemohon/realisasi" class="nav-link  @yield('realisasi')">
+                            Realisasi
                         </a>
                     </li>
                 @endif

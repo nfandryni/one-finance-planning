@@ -28,6 +28,9 @@ class RealisasiController extends Controller
         elseif($role == 'admin') {
             return view('admin.realisasi.index', $data);
         }
+        elseif($role == 'pemohon') {
+            return view('dashboard-pemohon.realisasi.index', $data);
+        }
     }
 
     /**

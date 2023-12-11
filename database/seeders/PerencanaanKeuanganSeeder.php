@@ -16,6 +16,7 @@ class PerencanaanKeuanganSeeder extends Seeder
         //
         DB::table('perencanaan_keuangan')->insert([
             [
+                'id_pengajuan_kebutuhan' => '1',
                 'id_sumber_dana' => '1',
                 'judul_perencanaan' => 'Perbaikan Gedung',
                 'tujuan' => 'Implementasi dari Program Kerja Kepala Sekolah',
