@@ -14,12 +14,18 @@
                                 <div class="form-group">
                                     <label>Sumber Dana</label>
                                     <br>
+                                    @if($sumberDana->isEmpty())
+                                    <a href='/dashboard-bendahara/sumber-dana' class="btn btn-primary btn-sm">
+                                    Tambah Data
+                                    </a>
+                                    @else
                                     <select required class='form-select' name="id_sumber_dana">
                                         @foreach($sumberDana as $p)
                                         <option selected disabled hidden>Pilih Nama Sumber</option>
                                         <option value='{{$p->id_sumber_dana}}'>{{$p->nama_sumber}}</option>
                                         @endforeach
                                     </select>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Pemasukan</label>

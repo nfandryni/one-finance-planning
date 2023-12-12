@@ -54,7 +54,9 @@ return new class extends Migration
         DECLARE pemasukan DECIMAL(10,0) DEFAULT 0;
         DECLARE pengeluaran DECIMAL(10,0) DEFAULT 0;
 
-        BEGIN
+        BEGIN   
+        DECLARE CONTINUE HANDLER FOR NOT FOUND
+        SET total = 0;
         SELECT SUM(nominal) into pemasukan from view_pemasukan where nama_sumber = nama_sum;
         SELECT SUM(nominal) into pengeluaran from view_pengeluaran where nama_sumber = nama_sum;
         IF pengeluaran IS NULL THEN 
@@ -72,12 +74,12 @@ return new class extends Migration
       
         DB::unprepared('DROP FUNCTION IF EXISTS total_dana_anggaran');
         DB::unprepared('
-        CREATE FUNCTION total_dana_anggaran() RETURNS INT
+        CREATE FUNCTION total_dana_anggaran() RETURNS decimal(10,0)
         BEGIN
 
-        DECLARE total INT DEFAULT 0;
-        DECLARE pemasukan INT DEFAULT 0;
-        DECLARE pengeluaran INT DEFAULT 0;
+        DECLARE total DECIMAL(10,0) DEFAULT 0;
+        DECLARE pemasukan DECIMAL(10,0) DEFAULT 0;
+        DECLARE pengeluaran DECIMAL(10,0) DEFAULT 0;
 
         BEGIN
         DECLARE CONTINUE HANDLER FOR NOT FOUND

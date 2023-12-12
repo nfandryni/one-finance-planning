@@ -128,7 +128,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link @yield('perencanaan-keuangan')">
+                        <a href='/dashboard-bendahara/perencanaan-keuangan' class="nav-link @yield('perencanaan-keuangan')">
                             Perencanaan Keuangan
                         </a>
                     </li>

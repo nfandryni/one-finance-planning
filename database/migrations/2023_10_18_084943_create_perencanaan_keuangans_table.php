@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('judul_perencanaan', 60)->nullable(false);
             $table->string('tujuan', 225)->nullable(false);
             $table->date('waktu')->nullable(false);
-            $table->decimal('total_dana_perencanaan', 10, 0)->nullable(false);
+            $table->decimal('total_dana_perencanaan', 10, 0)->nullable(true);
            
 
             $table->foreign('id_pengajuan_kebutuhan')->on('pengajuan_kebutuhan')->references('id_pengajuan_kebutuhan')->onUpdate

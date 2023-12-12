@@ -28,11 +28,7 @@
                                     <th>Nama Kegiatan</th>
                                     <th>Pemohon</th>
                                     <th>Waktu</th>
-                                    @if(isset($pemohon))
-                                    @if($pemohon->user_id == Auth::user()->user_id)
                                     <th>Aksi</th>
-                                    @endif
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody>

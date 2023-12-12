@@ -28,15 +28,6 @@ return new class extends Migration
             $table->foreign('id_pengeluaran')->on('pengeluaran')->references('id_pengeluaran')->onUpdate
             ('cascade')->onDelete('cascade');
         });
-        DB::unprepared('DROP TRIGGER IF EXISTS tambah_realisasi');
-        DB::unprepared("
-        CREATE TRIGGER tambah_realisasi AFTER INSERT ON perencanaan_keuangan FOR EACH ROW
-        BEGIN
-            INSERT INTO realisasi(id_perencanaan_keuangan, judul_realisasi, tujuan, waktu, total_pembayaran)
-            VALUES (NEW.id_perencanaan_keuangan, NEW.judul_perencanaan, NEW.tujuan, NEW.waktu, NEW.total_dana_perencanaan);
-        END
-    ");
-
     DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
 
     DB::unprepared(

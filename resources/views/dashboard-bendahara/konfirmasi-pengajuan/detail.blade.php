@@ -38,6 +38,14 @@
                 </div>
                 <div class='row mb-2'>
                     <div class="col-md-3">
+                        <label class='fw-bold'>Status</label>
+                    </div>
+                    <div class="col-md-3">
+                        : {{ $pengajuan_kebutuhan->status }}
+                    </div>
+                </div>
+                <div class='row mb-2'>
+                    <div class="col-md-3">
                         <label class='fw-bold'>Waktu</label>
                     </div>
                     <div class="col-md-3">

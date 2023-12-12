@@ -11,7 +11,7 @@
     <div class="card" style='width:300px'>
         <div class="card-body rounded-5">
         <h2 class='text-center mt-4 text-danger fw-bold'>
-    <!-- Rp. {{ DB::select("SELECT total_dana_sumberDana(?)", [$s->nama_sumber ]) ?? 0 }} -->
+    Rp. {{ $totalpSumberDana }}
 </h2>
    <p class='text-center h-20'>Dana {{$s->nama_sumber}}</p>
   </div>

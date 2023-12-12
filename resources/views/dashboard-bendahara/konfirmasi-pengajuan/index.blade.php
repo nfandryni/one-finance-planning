@@ -83,7 +83,7 @@
                                         <td>{{ $s->nama }}
                                         </td>
                                         <td>{{ $s->nama_kegiatan }}</td>    
-                                        <td>{{ $s->waktu }}</td>    
+                                        <td>{{ $s->waktu }}</td> 
                                         <td>{{ $s->status }}</td>    
                                         <td>
                                            @if($s->status == 'Difilterisasi' || $s->status == 'Dikonfirmasi')

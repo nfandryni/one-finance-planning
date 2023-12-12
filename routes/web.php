@@ -17,7 +17,9 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\RealisasiController;
 use App\Http\Controllers\SumberDanaController;
 use App\Http\Controllers\ItemKebutuhanController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemPerencanaanController;
+use App\Http\Controllers\PerencanaanKeuanganController;
+use Illuminate\Support\Facades\Route;   
 
 /*
 |--------------------------------------------------------------------------
@@ -139,6 +141,21 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/jenis-pengeluaran/edit/{id}', [JenisPengeluaranController::class, 'edit']);
         Route::post('/jenis-pengeluaran/edit/simpan', [JenisPengeluaranController::class, 'update']);
         Route::delete('/jenis-pengeluaran/hapus', [JenisPengeluaranController::class, 'destroy']);
+        
+        Route::get('/perencanaan-keuangan', [PerencanaanKeuanganController::class, 'index']);
+        Route::get('/perencanaan-keuangan/tambah', [PerencanaanKeuanganController::class, 'create']);
+        Route::post('/perencanaan-keuangan/simpan', [PerencanaanKeuanganController::class, 'store']);
+        Route::get('/perencanaan-keuangan/edit/{id}', [PerencanaanKeuanganController::class, 'edit']);
+        Route::post('/perencanaan-keuangan/edit/simpan', [PerencanaanKeuanganController::class, 'update']);
+        Route::get('/perencanaan-keuangan/detail/{id}', [PerencanaanKeuanganController::class, 'show']);
+        Route::delete('/perencanaan-keuangan/hapus', [PerencanaanKeuanganController::class, 'destroy']);
+   
+        Route::get('/item-perencanaan', [ItemPerencanaanController::class, 'index']);
+        Route::get('/item-perencanaan/tambah/{id}', [ItemPerencanaanController::class, 'create']);
+        Route::post('/item-perencanaan/tambah/simpan', [ItemPerencanaanController::class, 'store']);
+        Route::get('/item-perencanaan/edit/{id}', [ItemPerencanaanController::class, 'edit']);
+        Route::post('/item-perencanaan/edit/simpan', [ItemPerencanaanController::class, 'update']);
+        Route::delete('/item-perencanaan/hapus', [ItemPerencanaanController::class, 'destroy']);
    
     });
 
