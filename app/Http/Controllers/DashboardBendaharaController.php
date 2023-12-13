@@ -20,13 +20,12 @@
                     $nama_sumber = $s->nama_sumber;
                     $result = DB::select('SELECT total_dana_sumberDana(?) AS total', [$nama_sumber])[0]->total;
                     
-                    $totalResults[$nama_sumber] = $result;
+                    $totalResults[$nama_sumber] = $result ?? '0';
                 }
             }
-            $totalResultsString = implode(', ', $totalResults);
             $data = [
-                'totalpSumberDana' => $totalResultsString ?? '0',
-              'jumlahDana' =>  DB::select('SELECT total_dana_anggaran() AS totalDana')[0]->totalDana,
+                'totalpSumberDana' => $totalResults,
+                'jumlahDana' =>  DB::select('SELECT total_dana_anggaran() AS totalDana')[0]->totalDana,
                 'sumber_dana'=> sumber_dana::all(),
                 'pemasukan'=>DB::table('view_pemasukan')->get(),
             ];

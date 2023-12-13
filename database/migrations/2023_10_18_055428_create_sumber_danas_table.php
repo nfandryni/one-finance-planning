@@ -46,8 +46,7 @@ return new class extends Migration
         
         DB::unprepared('DROP FUNCTION IF EXISTS total_dana_sumberDana');
         DB::unprepared('
-        CREATE FUNCTION total_dana_sumberDana(nama_sum VARCHAR(255)) 
-        RETURNS decimal(10,0)
+        CREATE FUNCTION total_dana_sumberDana(nama_sum VARCHAR(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci) RETURNS DECIMAL(10,0)
         BEGIN
 
         DECLARE total DECIMAL(10,0) DEFAULT 0;

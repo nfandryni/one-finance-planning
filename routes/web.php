@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
     });
   
     Route::prefix('dashboard-bendahara')->middleware(['akses:bendaharasekolah'])->group(function () {
+        Route::get('/chart-data', [DashboardBendaharaController::class, 'index']);
         Route::get('/', [DashboardBendaharaController::class, 'index']);
         Route::get('/realisasi', [RealisasiController::class, 'index']);
         Route::get('/realisasi/tambah', [RealisasiController::class, 'create']);

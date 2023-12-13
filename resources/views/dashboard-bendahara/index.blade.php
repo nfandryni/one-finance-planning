@@ -11,26 +11,12 @@
     <div class="card" style='width:300px'>
         <div class="card-body rounded-5">
         <h2 class='text-center mt-4 text-danger fw-bold'>
-    Rp. {{ $totalpSumberDana }}
+    Rp. {{ $totalpSumberDana[$s->nama_sumber] }}
 </h2>
    <p class='text-center h-20'>Dana {{$s->nama_sumber}}</p>
   </div>
   </div>
   @endforeach
-<!--
-<div class="card" style='width:300px'>
-  <div class="card-body rounded-5">
-<h2 class='text-center mt-4 text-danger fw-bold '>Rp. {{ $jumlahBOPD ?? 0 }} </h2>
-   <p class='text-center h-20'>Dana BOPD</p>
-  </div>
-</div>
-<div class="card" style='width:300px'>
-  <div class="card-body rounded-5">
-<h2 class='text-center mt-4 text-danger fw-bold '>Rp. {{ $jumlahKomite ?? 0 }}</h2>
-   <p class='text-center h-20'>Dana Komite</p>
-</div>
-</div>
-</div> -->
 <div class='row gap-4'>
 <div class="card">
     <div class="card-body rounded-5">
@@ -39,10 +25,8 @@
     </div>
 </div>
 </div> 
-
-<!-- <div>
     <canvas id='BarChart'></canvas>
-</div> -->
+</div> 
 <div class='row'>
     <p>Lihat di <a href='/dashboard-bendahara/pemasukan'>Dana Pemasukan</a></p>
     <table class="table table-borderless table-striped">
@@ -70,5 +54,25 @@
                 </tbody>
             </table>
         </div>  
+        <script>
+        fetch('chart-data')
+            .then(response => response.json())
+            .then(data => {
+                var ctx = document.getElementById('BarChart').getContext('2d');
+                var BarChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Chart Data',
+                            data: data.values,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    }
+                });
+            });
+    </script>
         @endsection
        
