@@ -14,7 +14,7 @@
                                     <select name="id_sumber_dana" class="form-control">
                                         @foreach ($sumber_dana as $s)
                                             <option value="{{ $s->id_sumber_dana }}"
-                                                {{ $s->id_sumber_dana == $s->id_sumber_dana ? 'selected' : '' }}>
+                                                {{ $pengeluaran->id_sumber_dana == $s->id_sumber_dana ? 'selected' : '' }}>
                                                 {{ $s->nama_sumber }}
                                             </option>
                                         @endforeach

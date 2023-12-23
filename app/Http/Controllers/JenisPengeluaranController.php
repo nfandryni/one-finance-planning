@@ -47,7 +47,6 @@ class JenisPengeluaranController extends Controller
         ->get();
 
         if($exist->isEmpty() && DB::statement("CALL tambah_jenis_pengeluaran(?)", ([$data['kategori']]))) {
-            $jenis_pengeluaran->create($data);
             return redirect('dashboard-bendahara/jenis-pengeluaran')->with('success', 'Data jenis pengeluaran baru berhasil ditambah');
         } else {
             return back()->with('error', 'Data jenis pengeluaran gagal ditambahkan');
@@ -86,8 +85,13 @@ class JenisPengeluaranController extends Controller
         ]);
 
         $id_jenis_pengeluaran = $request->input('id_jenis_pengeluaran');
+        $kategori = $request->input('kategori');
 
-        if ($id_jenis_pengeluaran !== null) {
+        $exist = DB::table('jenis_pengeluaran')
+        ->where('kategori', '=', $kategori)
+        ->get();
+
+        if ($exist->isEmpty() && $id_jenis_pengeluaran !== null) {
             $dataUpdate = $jenis_pengeluaran->where('id_jenis_pengeluaran', $id_jenis_pengeluaran)->update($data);
 
             if ($dataUpdate) {
@@ -95,7 +99,11 @@ class JenisPengeluaranController extends Controller
             } else {
                 return back()->with('error', 'Data jenis pengeluaran gagal di update');
             }
-        }}
+        }
+        else {
+            return back()->with('error', 'Kategori telah ada!');
+        }
+    }
     // }}
 
     /**

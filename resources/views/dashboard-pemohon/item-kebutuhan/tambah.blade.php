@@ -14,7 +14,7 @@
                         <div class="col-md-6" style=" ">
                             <div class="form-group">
                                 <label>Nama Pengajuan</label>
-                                <input type="text" class="form-control" style='background-color: #EAEAEA;' value='{{$pengajuan_kebutuhan->nama_kegiatan}}' />
+                                <input type="text" readonly class="form-control" style='background-color: #EAEAEA;' value='{{$pengajuan_kebutuhan->nama_kegiatan}}' />
                                 <input type="text" hidden name='id_pengajuan_kebutuhan' value='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' />
 
                             </div>

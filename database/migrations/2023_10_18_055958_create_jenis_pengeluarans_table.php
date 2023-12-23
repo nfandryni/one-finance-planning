@@ -17,10 +17,10 @@ return new class extends Migration
          $table->string('kategori', 225)->nulllable(false);
         });
 
-        // Stored Procedur dan Commit Rollback
+        // STORED PROCEDURE & COMMIT ROLLBACK
         DB::unprepared('DROP PROCEDURE IF EXISTS tambah_jenis_pengeluaran');
         DB::unprepared('
-        CREATE PROCEDURE tambah_jenis_pengeluaran( IN kategori VARCHAR(255))
+        CREATE PROCEDURE tambah_jenis_pengeluaran(IN kategori VARCHAR(255))
         BEGIN
         DECLARE pesan_error CHAR(5) DEFAULT "000";
         DECLARE CONTINUE HANDLER FOR SQLEXCEPTION, SQLWARNING
@@ -34,12 +34,13 @@ return new class extends Migration
         SAVEPOINT satu;
         INSERT INTO jenis_pengeluaran(kategori) VALUES (kategori);
 
-        IF pesan_error != "00000" THEN ROLLBACK TO satu;
+        IF pesan_error != "000" THEN ROLLBACK TO satu;
         END IF;
         COMMIT;
         END;
         '); 
 
+        // TRIGGER
         DB::unprepared('DROP TRIGGER IF EXISTS tambah_jenis_pengeluaran');
         DB::unprepared("
         CREATE TRIGGER tambah_jenis_pengeluaran AFTER INSERT ON jenis_pengeluaran FOR EACH ROW
@@ -54,7 +55,7 @@ return new class extends Migration
         CREATE TRIGGER update_jenis_pengeluaran AFTER UPDATE ON jenis_pengeluaran FOR EACH ROW
         BEGIN
         INSERT INTO logs(aksi, aktivitas, waktu)
-        VALUES ('UPDATE', CONCAT('Memperbarui Jenis Pengeluaran dengan data lama: ', OLD.kategori), NOW());
+        VALUES ('UPDATE', CONCAT('Memperbarui Jenis Pengeluaran dari ', OLD.kategori, ' menjadi ', NEW.kategori), NOW());
             END
         ");
         

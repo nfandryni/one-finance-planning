@@ -94,7 +94,7 @@
                                     <td>
                                         @if ($p->foto_barang_kebutuhan)
                                             <img src="{{ url('foto') . '/' . $p->foto_barang_kebutuhan }} "
-                                                style="max-width: 150px; height: auto;" />
+                                                style="width: 150px; height: auto;" />
                                         @endif
                                     </td>
                                     <td>
@@ -164,6 +164,41 @@
                     
                     });
         }});
+        });
+    </script>
+
+<script type="module">
+        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
+            a.preventDefault();
+            let idItemKebutuhan = $(this).closest('.btnHapus').attr('idItemKebutuhan');
+            swal.fire({
+                title: "Apakah anda ingin menghapus data ini?",
+                showCancelButton: true,
+                confirmButtonText: 'Setuju',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'red'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax Delete
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/dashboard-pemohon/item-kebutuhan/hapus',
+                        data: {
+                            id_item_kebutuhan: idItemKebutuhan,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                swal.fire('Berhasil di hapus!', '', 'success').then(function() {
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            });
         });
     </script>
 

@@ -7,6 +7,7 @@ use App\Models\perencanaan_keuangan;
 use App\Models\realisasi;
 use App\Models\pengeluaran;
 use Illuminate\Http\Request;
+use PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,14 @@ class RealisasiController extends Controller
             'realisasi' => $realisasi->all()
         ];
 
-        return view('dashboard-bendahara.realisasi.index', $data);
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            return view('dashboard-bendahara.realisasi.index', $data);
+        }
+        elseif($role == 'pemohon') {
+            return view('dashboard-pemohon.realisasi.index', $data);
+        }
     }
 
     /**
@@ -50,16 +58,6 @@ class RealisasiController extends Controller
             'total_pembayaran' => 'required',
         ]);
 
-        // $user = Auth::user();
-        // $data['id_user'] = $user->id_user;
-
-        // if ($request->hasFile('file')) {
-        //     $foto_file = $request->file('file');
-        //     $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
-        //     $foto_file->move(public_path('foto'), $foto_nama);
-        //     $data['file'] = $foto_nama;
-        // }
-
         if ($realisasi->create($data)) {
             return redirect('/dashboard-bendahara/realisasi')->with('success', 'Data realisasi baru berhasil ditambah');
         }
@@ -67,6 +65,44 @@ class RealisasiController extends Controller
         return back()->with('error', 'Data surat gagal ditambahkan');
     }
 
+    public function print(realisasi $realisasi)
+    {
+        $data = [
+            'realisasi' => $realisasi->all()
+        ];
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            $pdf = PDF::loadView('dashboard-bendahara.realisasi.print', $data);
+        }
+        elseif($role == 'pemohon') {
+            $pdf = PDF::loadView('dashboard-pemohon.realisasi.print', $data);
+        }
+
+        return $pdf->stream();
+    }
+    public function print_item(realisasi $realisasi, pengeluaran $pengeluaran, String $id)
+    {
+        $data = [
+            'realisasi'=> realisasi::where('id_realisasi', $id)->first(),
+            'pengeluaran' => $pengeluaran::all(),
+            'item_perencanaan'=> DB::table('item_perencanaan')
+            ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
+            ->join('pengeluaran', 'item_perencanaan.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
+            ->where('item_perencanaan.id_perencanaan_keuangan', $id)
+            ->get(),
+        ];
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            $pdf = PDF::loadView('dashboard-bendahara.realisasi.print-item', $data);
+        }
+        elseif($role == 'pemohon') {
+            $pdf = PDF::loadView('dashboard-pemohon.realisasi.print-item', $data);
+        }
+
+        return $pdf->stream();
+    }
 
 
     /**
@@ -74,19 +110,24 @@ class RealisasiController extends Controller
      */
     public function show(string $id, pengeluaran $pengeluaran)
     {
-        //
         $data = [
-            'pengeluaran' => $pengeluaran ? $pengeluaran->get() : null,
-            'realisasi' => is_null($pengeluaran)
-             ? realisasi::where('id_realisasi', $id)->first()
-            : DB::table('view_realisasi')->where('view_realisasi.id_realisasi', $id)->first(),
-            'item_realisasi' => is_null($pengeluaran)
-            ? null
-            : DB::table('view_item_realisasi')->where('view_item_realisasi.id_realisasi', $id)->get()
+            'realisasi'=> realisasi::where('id_realisasi', $id)->first(),
+            'pengeluaran' => $pengeluaran::all(),
+            'item_perencanaan'=> DB::table('item_perencanaan')
+            ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
+            ->join('pengeluaran', 'item_perencanaan.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
+            ->where('item_perencanaan.id_realisasi', $id)
+            ->get(),
         ];
-        
-        // dd($data);
-        return view('dashboard-bendahara.realisasi.detail', $data);
+
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            return view('dashboard-bendahara.realisasi.detail', $data);
+        }
+        elseif($role == 'pemohon') {
+            return view('dashboard-pemohon.realisasi.detail', $data);
+        }
     }
 
     /**
@@ -172,16 +213,13 @@ class RealisasiController extends Controller
     public function destroy(realisasi $realisasi, Request $request)
     {
         $id_realisasi = $request->input('id_realisasi');
-        $data = realisasi::find($id_realisasi)->delete();
-
-        if ($data) {
-            // Pesan Berhasil
+        $aksi = $realisasi->where('id_realisasi', $id_realisasi)->delete();
+        if ($aksi) {
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data Pemasukan berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'

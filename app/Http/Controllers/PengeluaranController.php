@@ -102,8 +102,8 @@ class PengeluaranController extends Controller
             ];
     
             $pdf = PDF::loadView('dashboard-bendahara.pengeluaran.print', $data);
-    
-            return $pdf->download('pengeluaran.pdf');
+
+          return $pdf->stream();
         }
     /**
      * Display the specified resource.

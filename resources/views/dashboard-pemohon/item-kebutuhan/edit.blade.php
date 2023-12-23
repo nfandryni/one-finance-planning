@@ -12,30 +12,26 @@
                         style=" display:flex; justify-content: space-between">
                         <div class="col-md-6" style=" ">
                             <div class="form-group">
-                                @foreach ($pengajuan_kebutuhan as $s)
-                                    <input type="hidden" name="id_item_kebutuhan"
-                                        value="{{ $s->id_pengajuan_kebutuhan }}" />
-                                    <label>Pengajuan Kebutuhan</label>
-                                    <select name="id_pengajuan_kebutuhan" class="form-control">
-                                        <option value="{{ $s->id_pengajuan_kebutuhan }}"
-                                            {{ $s->id_pengajuan_kebutuhan == $s->id_pengajuan_kebutuhan ? 'selected' : '' }}>
+                                <label>Pengajuan Kebutuhan</label>
+                                <select name="id_pengajuan_kebutuhan" class="form-control">
+                                    @foreach ($pengajuan_kebutuhan as $s)
+                                    <option value="{{ $s->id_pengajuan_kebutuhan }}"
+                                            {{ $item_kebutuhan->id_pengajuan_kebutuhan == $s->id_pengajuan_kebutuhan ? 'selected' : '' }}>
                                             {{ $s->nama_kegiatan }}
                                         </option>
+                                        @endforeach
                                     </select>
-                                @endforeach
                             </div>
                             <div class="form-group">
-                                @foreach ($gedung as $g)
-                                    <input type="hidden" name="id_item_kebutuhan"
-                                        value="{{ $g->id_gedung }}" />
-                                    <label>Ruangan</label>
-                                    <select name="id_gedung" class="form-control">
+                                <label>Ruangan</label>
+                                <select name="id_gedung" class="form-control">
+                                        @foreach ($gedung as $g)
                                         <option value="{{ $g->id_gedung }}"
-                                            {{ $g->id_gedung == $g->id_gedung ? 'selected' : '' }}>
+                                            {{ $item_kebutuhan->id_gedung == $g->id_gedung ? 'selected' : '' }}>
                                             {{ $g->nama_ruangan }}
                                         </option>
+                                        @endforeach
                                     </select>
-                                @endforeach
                             </div>
 
                             <input type="hidden" name="id_item_kebutuhan" value="{{ $item_kebutuhan->id_item_kebutuhan }}" />
@@ -107,7 +103,7 @@
                             </div>
                             <div class="form-group">
                                 <label>QTY</label>
-                                <input type="text" class="form-control" name="qty" />
+                                <input type="number" class="form-control" name="qty" />
                             </div>
                             <div class="form-group">
                                 <label>Harga Satuan</label>

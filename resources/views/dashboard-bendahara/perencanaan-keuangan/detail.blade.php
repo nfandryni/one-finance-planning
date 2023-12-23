@@ -2,84 +2,80 @@
 @section('perencanaan-keuangan', 'active')
 @section('title', 'Daftar Perencanaan Keuangan')
 @section('content')
-    <div class="row px-5">
 
-        <div class="col-md-12" style="margin-bottom:2vh">
-            <span class="h4" style="font-weight:bold;">Detail Perencanaan Keuangan</span>
+<div style='margin-left:15px; margin-right:15px;'>
+        <div class="row justify-content-md-center" style="align-items: center">
+        <br/>
+       <a class='text-black mt-2' href='/dashboard-bendahara/perencanaan-keuangan'><i class="fa-solid fa-arrow-left fa-xl "></i></a> 
         </div>
+        <div>
+<div class="row justify-content-md-end" style="align-items: center">
 
-
-        <div class="card">
-            <div class="col-md-12" style=" display:flex; padding:3vh">
-                    <div class="col-md-3" style=" ">
-                        <div class="form-group">
-                            <h5 style="font-weight:bold;">Nama Perencanaan</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5 style="font-weight:bold;">Sumber Dana</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5 style="font-weight:bold;">Judul Perencanaan</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5 style="font-weight:bold;">Tujuan</h5>
-
-                        </div>
-                         <div class="form-group">
-                            <h5 style="font-weight:bold;">Waktu</h5>
-
-                        </div>
-                         <div class="form-group">
-                            <h5 style="font-weight:bold;">Total Dana</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5 style="font-weight:bold;">List Perencanaan</h5>
-
-                        </div>
-                    </div>
-                    <div class="col-md-5" style=" ">
-                        <div class="form-group">
-                            <h5>{{ $perencanaan_keuangan->judul_perencanaan }}</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5>{{ $perencanaan_keuangan->nama_sumber }}</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5>{{ $perencanaan_keuangan->judul_perencanaan }}</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5>{{ $perencanaan_keuangan->tujuan }}</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5>{{ $perencanaan_keuangan->waktu }}</h5>
-
-                        </div>
-                        <div class="form-group">
-                            <h5>{{ $perencanaan_keuangan->total_dana_perencanaan }}</h5>
-
-                        </div>
-                    </div>
+        <a target='_blank' href="{{ url('/dashboard-bendahara/perencanaan-keuangan/print-item/'. $perencanaan_keuangan->id_perencanaan_keuangan ) }}" style='position:absolute; width:130px; right:40px; top:110px;' class='btn btn-warning'>
+<i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+    </a>
+</div>
+            <br />
+            <h3 class='fw-bold mb-3'>Detail Perencanaan Keuangan</h3>
+            <div class='row mb-2'>
+                <div class="col-md-3">
+                    <label class='fw-bold'>Nama Perencanaan</label>
                 </div>
-                <div class="form-group">
+                <div class="col-md-6">
+                    : {{ $perencanaan_keuangan->judul_perencanaan }}
+                </div>
+            </div>
+            <div class='row mb-2'>
+                <div class="col-md-3">
+                    <label class='fw-bold'>Sumber Dana</label>
+                </div>
+                <div class="col-md-6">
+                    : {{ $perencanaan_keuangan->nama_sumber }}
+                </div>
+            </div>
+            <div class='row mb-2'>
+                <div class="col-md-3">
+                    <label class='fw-bold'>Tujuan</label>
+                </div>
+                <div class="col-md-9">
+                    : {{ $perencanaan_keuangan->tujuan }}
+                </div>
+            </div>
+            <div class='row mb-2'>
+                <div class="col-md-3">
+                    <label class='fw-bold'>Waktu</label>
+                </div>
+                <div class="col-md-3">
+                    : {{ $perencanaan_keuangan->waktu }}
+                </div>
+            </div>
+            @if(isset($perencanaan_keuangan->total_dana_perencanaan))
+            <div class='row mb-2'>
+                <div class="col-md-3">
+                    <label class='fw-bold'>Total Dana Perencanaan</label>
+                </div>
+                <div class="col-md-3">
+                    : {{ $perencanaan_keuangan->total_dana_perencanaan  ?? 0}}
+                </div>
+            </div>
+            @endif
+        </div>
+        <hr />
+        <div>
+        <h4 class='fw-bold mb-3'>Item Perencanaan</h4> 
                     <table class="table table-hover table-borderless table-striped DataTable">
                         <thead>
                             <tr>
                                 <th>Ruangan</th>
-                                <th>Item Kebutuhan</th>
+                                <th>Item</th>
                                 <th>QTY</th>
                                 <th>Harga Satuan</th>
                                 <th>Satuan</th>
                                 <th>Spesifikasi</th>
+                                <th>Status</th>
+                                <th>Rencana Realisasi</th>
                                 <th>Foto</th>
-                                @if(!isset($s->id_pengajuan_kebutuhan))
+                                @if(!isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                                 <th>Aksi</th>
                                 @endif
                             </tr>
@@ -94,37 +90,76 @@
                                     <td>{{ $p->harga_satuan }}</td>
                                     <td>{{ $p->satuan }}</td>
                                     <td>{{ $p->spesifikasi }}</td>
+                                    <td>{{ $p->status }}</td>
+                                    <td>{{ $p->bulan_rencana_realisasi }}</td>
                                     <td>
                                         @if ($p->foto_barang_perencanaan)
-                                            <img src="{{ url('foto') . '/' . $p->foto_barang_perencanaan }} "
-                                                style="max-width: 150px; height: auto;" />
+                                        <img src="{{ url('foto') . '/' . $p->foto_barang_perencanaan }} "
+                                        style="max-width: 150px; height: auto;" />
                                         @endif
                                     </td>
-                                @if(!isset($s->id_pengajuan_kebutuhan))
+                                    @if(!isset($s->id_pengajuan_kebutuhan))
                                     <td>
-                                        <a href="/dashboard-bendahara/item-perencanaan/edit/{{ $p->id_item_perencanaan }}" <btn
-                                            class="btn btn-warning">Edit</btn>
-
+                                        @if($p->status == 'Terbeli')
+                                       <button disabled class="btn btn-secondary m-1"><i class="fa-solid fa-pen" style="cursor: pointer;">
+                                           </i></button>
+                                            <button disabled class="btn btn-secondary m-1"><i class="fa-solid fa-xmark"></i></button>
+                                        @else
+                                        <a class='btn btn-primary' style='margin:2px' href="/dashboard-bendahara/item-perencanaan/edit/{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-pen" style="cursor: pointer;">
+                                           </i>
                                         </a>
-                                        <a>
                                             <btn class="btn btn-danger btnHapus"
-                                                idItemPerencanaan="{{ $p->id_item_perencanaan }}">Hapus</btn>
-                                        </a>
+                                                idItemPerencanaan="{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-xmark"></i></btn>
                                     </td>
+                                    @endif
                                     @endif
                                 </tr>
                             @endforeach
 
                         </tbody>
                     </table>
-                    <div class="col-md-12 mt-3 d-flex " style="gap: 10px; justify-content:end">
-                        <a href="/dashboard-bendahara/perencanaan-keuangan" <btn class="btn btn-dark">KEMBALI</btn></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endsection
+    </div>
+</div>
 
+@endsection
+
+
+    @section('footer')
+    <script type="module">
+        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
+            a.preventDefault();
+            let idItemPerencanaan = $(this).closest('.btnHapus').attr('idItemPerencanaan');
+            swal.fire({
+                title: "Apakah Anda ingin menghapus data ini?",
+                showCancelButton: true,
+                confirmButtonText: 'Setuju',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'red'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax Delete
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/dashboard-bendahara/item-perencanaan/hapus',
+                        data: {
+                            id_item_perencanaan: idItemPerencanaan,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                swal.fire('Berhasil di hapus!', '', 'success').then(function() {
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+@endsection
     @section('footer')
     <script type="module">
         $('.DataTable tbody').on('click', '.btnHapus', function(a) {

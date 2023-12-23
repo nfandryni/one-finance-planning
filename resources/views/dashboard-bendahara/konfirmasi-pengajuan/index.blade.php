@@ -2,7 +2,6 @@
 @section('konfirmasi-pengajuan', 'active')
 @section('title', 'Konfirmasi Pengajuan')
 @section('content')
-<br>
     <div class="">
     <h2 class="fw-bold">Konfirmasi Pengajuan Kebutuhan</h2>
     @if(!$pengajuan_kebutuhan->isEmpty())

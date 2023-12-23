@@ -18,9 +18,10 @@ return new class extends Migration
          $table->string('nama_ruangan', 60)->nullable(false);
         });
 
+        // STORED PROCEDURE & COMMIT ROLLBACK 
         DB::unprepared('DROP PROCEDURE IF EXISTS tambah_gedung');
         DB::unprepared('
-        CREATE PROCEDURE tambah_gedung( IN gedung VARCHAR(255), IN ruangan VARCHAR(255))
+        CREATE PROCEDURE tambah_gedung( IN gedung VARCHAR(255), IN ruangan VARCHAR(255) )
         BEGIN
         DECLARE pesan_error CHAR(5) DEFAULT "000";
         DECLARE CONTINUE HANDLER FOR SQLEXCEPTION, SQLWARNING
@@ -41,6 +42,7 @@ return new class extends Migration
         END;
         '); 
        
+        // TRIGGER
         DB::unprepared('DROP TRIGGER IF EXISTS tambah_gedung');
         DB::unprepared("
         CREATE TRIGGER tambah_gedung AFTER INSERT ON gedung FOR EACH ROW
@@ -55,7 +57,7 @@ return new class extends Migration
         CREATE TRIGGER update_gedung AFTER UPDATE ON gedung FOR EACH ROW
         BEGIN
         INSERT INTO logs(aksi, aktivitas, waktu)
-        VALUES ('UPDATE', CONCAT('Memperbarui Gedung dengan data lama: ', OLD.nama_gedung, ', ', OLD.nama_ruangan), NOW());
+        VALUES ('UPDATE', CONCAT('Memperbarui Gedung dari ', OLD.nama_gedung, ' dan ', OLD.nama_ruangan, ' menjadi ', NEW.nama_gedung, ' dan ', NEW.nama_ruangan), NOW());
             END
         ");
         

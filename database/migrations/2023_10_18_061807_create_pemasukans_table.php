@@ -26,8 +26,8 @@ return new class extends Migration
 
         });
 
+        // VIEW
         DB::unprepared('DROP VIEW IF EXISTS view_pemasukan');
-
         DB::unprepared(
             "CREATE VIEW view_pemasukan AS 
             SELECT p.id_pemasukan, s.nama_sumber, b.nama as penanggung_jawab, p.nama as nama_pemasukan, p.nominal, p.waktu, p.foto from pemasukan AS p
@@ -36,7 +36,7 @@ return new class extends Migration
             "
         );
         
-        
+        // TRIGGER
         DB::unprepared('DROP TRIGGER IF EXISTS tambah_pemasukan');
         DB::unprepared("
         CREATE TRIGGER tambah_pemasukan AFTER INSERT ON pemasukan FOR EACH ROW
@@ -64,6 +64,7 @@ return new class extends Migration
             END
         ");
 
+        // STORED FUNCTION
         DB::unprepared('DROP FUNCTION IF EXISTS total_pemasukan');
         DB::unprepared('
         CREATE FUNCTION total_pemasukan() RETURNS DECIMAL(10,0)

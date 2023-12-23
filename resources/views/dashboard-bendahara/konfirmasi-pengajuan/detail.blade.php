@@ -3,17 +3,16 @@
 @section('title', 'Detail Pengajuan Kebutuhan')
 @section('content')
 
-    <div class="row px-5">
+<div style='margin-left:15px; margin-right:15px;'>
 
-        <div class="col-md-12">
             <div class="row justify-content-md-center" style="align-items: center">
             <br/>
            <a class='text-black mt-2' href='/dashboard-bendahara/konfirmasi-pengajuan'><i class="fa-solid fa-arrow-left fa-xl "></i></a> 
                 <div id='Konfirmasi'>
-                    @if($pengajuan_kebutuhan->status == 'Difilterisasi')
-                     <button disabled class='btn btn-secondary btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:90px;'><i class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
+                    @if($pengajuan_kebutuhan->status == 'Difilterisasi' || $pengajuan_kebutuhan->status == 'Dikonfirmasi' || $pengajuan_kebutuhan->status == 'Ditolak')
+                     <button disabled class='btn btn-secondary btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
                      @else
-                     <button class='btn btn-success btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:90px;'><i class="fa-solid fa-circle-check"></i> Konfirmasi</button>
+                     <button class='btn btn-success btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Konfirmasi</button>
                      @endif
                 </div>
             </div>
@@ -67,7 +66,7 @@
             <div>
             <h4 class='fw-bold mb-3'>Item Kebutuhan</h4> 
             @if(!isset($pengajuan_kebutuhan->total_dana_kebutuhan))
-            <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end' style='position: relative; width: 12%; margin-left:790px; border-radius: 5px;margin-top:3px;'>{{ $totalDanaKebutuhan ?? 0 }} </p></h6> 
+            <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end' style='position: relative; width: 15%; margin-left:823px; border-radius: 5px;margin-top:3px;'>{{ $totalDanaKebutuhan ?? 0 }} </p></h6> 
             @endif
             <table class="table table-hover table-borderless table-striped DataTable">
                         <thead>
@@ -113,7 +112,6 @@
                         </tbody>
                     </table>
             </div>
-        </div>
     </div>
 
 @endsection
@@ -139,6 +137,7 @@
                         url: '/dashboard-bendahara/konfirmasi-pengajuan/tolak-item/'+idItemKebutuhan,
                         data: { 
                             id_item_kebutuhan: idItemKebutuhan,
+                            id_pengajuan_kebutuhan: {{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}},
                             status: 'Ditolak',
                             _token: "{{ csrf_token() }}"
                         },
@@ -146,6 +145,10 @@
                             if (data.success) {
                                 swal.fire('Item kebutuhan berhasil ditolak!', '', 'success').then(function() {
                                 location.reload();
+                                });
+                            } else {
+                                swal.fire('Item kebutuhan berhasil ditolak!', '', 'success').then(function() {
+                                    window.location.href = '/dashboard-bendahara/konfirmasi-pengajuan';
                                 });
                             }
                         }

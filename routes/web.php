@@ -90,12 +90,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/realisasi/edit-item/simpan', [RealisasiController::class, 'update_item']);
         Route::get('/realisasi/detail/{id}', [RealisasiController::class, 'show']);
         Route::delete('/realisasi/hapus', [RealisasiController::class, 'destroy']);
-
-        Route::get('/realisasi/edit-item/{id}', [KonfirmasiPengajuanController::class, 'edit_item']);
-        Route::post('/realisasi/edit-item/simpan', [KonfirmasiPengajuanController::class, 'update_realisasi']);
-        Route::get('/realisasi/detail/{id}', [KonfirmasiPengajuanController::class, 'show']);
-        Route::delete('/realisasi/hapus', [KonfirmasiPengajuanController::class, 'destroy']);
-
+        Route::get('/realisasi/print', [RealisasiController::class, 'print']);
+        Route::get('/realisasi/print-item/{id}', [RealisasiController::class, 'print_item']);
+        
         Route::get('/gedung', [GedungController::class, 'index']);
         Route::post('/gedung/tambah/simpan', [GedungController::class, 'store']);
         Route::get('/gedung/edit/{id}', [GedungController::class, 'edit']);
@@ -125,7 +122,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/pengeluaran/edit/simpan', [PengeluaranController::class, 'update']);
         Route::delete('/pengeluaran/hapus', [PengeluaranController::class, 'destroy']);
         Route::get('/pengeluaran/print', [PengeluaranController::class, 'print']);
-
+        
         Route::get('/logs', [LogsController::class, 'index']);
         Route::get('/konfirmasi-pengajuan', [KonfirmasiPengajuanController::class, 'index']);
         Route::get('/konfirmasi-pengajuan/detail/{id}', [KonfirmasiPengajuanController::class, 'show']);
@@ -150,7 +147,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/perencanaan-keuangan/edit/simpan', [PerencanaanKeuanganController::class, 'update']);
         Route::get('/perencanaan-keuangan/detail/{id}', [PerencanaanKeuanganController::class, 'show']);
         Route::delete('/perencanaan-keuangan/hapus', [PerencanaanKeuanganController::class, 'destroy']);
-   
+        Route::get('/perencanaan-keuangan/print', [PerencanaanKeuanganController::class, 'print']);
+        Route::get('/perencanaan-keuangan/print-item/{id}', [PerencanaanKeuanganController::class, 'print_item']);
+        
         Route::get('/item-perencanaan', [ItemPerencanaanController::class, 'index']);
         Route::get('/item-perencanaan/tambah/{id}', [ItemPerencanaanController::class, 'create']);
         Route::post('/item-perencanaan/tambah/simpan', [ItemPerencanaanController::class, 'store']);
@@ -159,7 +158,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/item-perencanaan/hapus', [ItemPerencanaanController::class, 'destroy']);
    
     });
-
+    
     Route::prefix('dashboard-pemohon')->middleware(['akses:pemohon'])->group(function () {
         Route::get('/logs', [LogsController::class, 'index']);
         Route::delete('/logs/hapus', [LogsController::class, 'destroy']);
@@ -182,6 +181,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/item-kebutuhan/edit/{id}', [ItemKebutuhanController::class, 'edit']);
         Route::post('/item-kebutuhan/edit/simpan', [ItemKebutuhanController::class, 'update']);
         Route::delete('/item-kebutuhan/hapus', [ItemKebutuhanController::class, 'destroy']);
+
+        Route::get('/realisasi', [RealisasiController::class, 'index']);
+        Route::get('/realisasi/detail/{id}', [RealisasiController::class, 'show']);
+        Route::get('/realisasi/print', [RealisasiController::class, 'print']);
     });
  
 Route::get('/logout', [LoginController::class, 'logout']);

@@ -6,8 +6,8 @@
                                     <th>Nama Pemohon</th>
                                     <th>Nama Kegiatan</th>
                                     <th>Waktu</th>
+                                    <th>Tujuan</th>
                                     <th>Status</th>
-                                    <th>Total Dana</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -17,10 +17,9 @@
                                         </td>
                                         <td>{{ $s->nama_kegiatan }}</td>    
                                         <td>{{ $s->waktu }}</td>    
+                                        <td>{{ $s->tujuan }}</td>    
                                         <td>{{ $s->status }}</td>    
-                                        <td>{{ $s->total_dana_kebutuhan }}</td>    
                                     </tr>
-                                    @endif
                                 @endforeach 
                             </tbody>
                         </table>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_pemohon', false)->index('id_pemohon');
             $table->string('nama_kegiatan', 60)->nullable(false);
             $table->string('tujuan', 225)->nullable(false);
-            $table->enum('status', ['Draf', 'Terkirim', 'Difilterisasi', 'DiKonfirmasi', 'Ditolak'])->default('Draf')->nullable(false);
+            $table->enum('status', ['Draf', 'Terkirim', 'Difilterisasi', 'Dikonfirmasi', 'Ditolak'])->default('Draf')->nullable(false);
             $table->date('waktu')->nullable(false);
             $table->datetime('kedaluwarsa')->nullable(true);
             $table->decimal('total_dana_kebutuhan', 10, 0)->nullable(true);
@@ -25,6 +25,7 @@ return new class extends Migration
             ('cascade')->onDelete('cascade');
         });
 
+        // EVENT
         DB::unprepared('DROP EVENT IF EXISTS event_kedaluwarsa_pengajuanKebutuhan');
         DB::unprepared("
         CREATE EVENT event_kedaluwarsa_pengajuanKebutuhan
@@ -37,6 +38,7 @@ return new class extends Migration
         END;        
         ");
 
+        // TRIGGER
         DB::unprepared('DROP TRIGGER IF EXISTS setKedaluwarsaPengajuan');
         DB::unprepared("
         CREATE TRIGGER setKedaluwarsaPengajuan
@@ -49,7 +51,7 @@ return new class extends Migration
         END;
         ");
 
-
+        // STORED FUNCTION
         DB::unprepared('DROP FUNCTION IF EXISTS total_pengajuan_kebutuhan');
         DB::unprepared('
         CREATE FUNCTION total_pengajuan_kebutuhan() RETURNS INT
@@ -60,8 +62,8 @@ return new class extends Migration
         END
         '); 
 
+        // VIEW
         DB::unprepared('DROP VIEW IF EXISTS view_pengajuan_pemohon');
-
         DB::unprepared(
             "CREATE VIEW view_pengajuan_pemohon AS 
             SELECT  p.id_pengajuan_kebutuhan,
@@ -77,13 +79,13 @@ return new class extends Migration
             "
         );
 
+        // STORED PROCEDURE
          DB::unprepared('DROP PROCEDURE IF EXISTS tambah_pengajuan_kebutuhan');
          DB::unprepared('
          CREATE PROCEDURE tambah_pengajuan_kebutuhan( 
             IN id_pemohon INT(11),
             IN nama_kegiatan VARCHAR(255),
             IN tujuan TEXT,
-            IN status VARCHAR(255),
             IN waktu DATE
             )
          BEGIN
@@ -101,22 +103,21 @@ return new class extends Migration
             id_pemohon,
             nama_kegiatan,
             tujuan,
-            status,
             waktu
          ) VALUES (
             id_pemohon,
             nama_kegiatan,
             tujuan,
-            status,
             waktu
          );
  
-         IF pesan_error != "00000" THEN ROLLBACK TO satu;
+         IF pesan_error != "000" THEN ROLLBACK TO satu;
          END IF;
          COMMIT;
          END;
          ');
 
+        // TRIGGER
         DB::unprepared("
         CREATE TRIGGER tambah_pengajuan_kebutuhan AFTER INSERT ON pengajuan_kebutuhan FOR EACH ROW
         BEGIN

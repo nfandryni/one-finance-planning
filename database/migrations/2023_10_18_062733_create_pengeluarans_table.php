@@ -38,8 +38,8 @@ return new class extends Migration
         END
         '); 
 
+        //VIEW 
         DB::unprepared('DROP VIEW IF EXISTS view_pengeluaran');
-
         DB::unprepared(
             "CREATE VIEW view_pengeluaran AS 
             SELECT p.id_pengeluaran, s.nama_sumber, b.nama as penanggung_jawab, p.nama as nama_pengeluaran, j.kategori, p.nominal, p.waktu, p.foto from pengeluaran AS p
@@ -49,6 +49,7 @@ return new class extends Migration
             "
         );
 
+        // TRIGGER
         DB::unprepared("
             CREATE TRIGGER tambah_pengeluaran AFTER INSERT ON pengeluaran FOR EACH ROW
             BEGIN

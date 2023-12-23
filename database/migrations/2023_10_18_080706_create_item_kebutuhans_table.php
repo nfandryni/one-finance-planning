@@ -31,6 +31,7 @@ return new class extends Migration
 
         });
 
+        // EVENT
         DB::unprepared('DROP EVENT IF EXISTS event_kedaluwarsa_itemKebutuhan');
         DB::unprepared("
         CREATE EVENT event_kedaluwarsa_itemKebutuhan
@@ -55,6 +56,9 @@ return new class extends Migration
         END;
         ");
 
+        DB::statement('SET GLOBAL event_scheduler = "ON"');
+
+        // VIEW
         DB::unprepared('DROP VIEW IF EXISTS view_pengajuan_kebutuhan');
         DB::unprepared(
             "CREATE VIEW view_pengajuan_kebutuhan AS 
@@ -73,6 +77,7 @@ return new class extends Migration
             "
         );
 
+        // VIEW
         DB::unprepared('DROP VIEW IF EXISTS view_item_diterima');
         DB::unprepared(
             "CREATE VIEW view_item_diterima AS 
@@ -87,7 +92,7 @@ return new class extends Migration
             "
         );
 
-          
+        // STORED FUNCTION
         DB::unprepared('DROP FUNCTION IF EXISTS total_dana_kebutuhan');
         DB::unprepared('
         CREATE FUNCTION total_dana_kebutuhan(p_id_pengajuan_kebutuhan INT) RETURNS DECIMAL(10,0)
@@ -98,6 +103,7 @@ return new class extends Migration
         END
         '); 
 
+        // TRIGGER
         DB::unprepared('DROP TRIGGER IF EXISTS setStatusItem');
         DB::unprepared("
         CREATE TRIGGER setStatusItem AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
@@ -106,7 +112,42 @@ return new class extends Migration
         UPDATE item_kebutuhan set status = 'Diterima' where id_pengajuan_kebutuhan = NEW.id_pengajuan_kebutuhan;
         END IF;
         END
+        ");
+
+        DB::unprepared('DROP TRIGGER IF EXISTS emptyItem_DeletePengajuan');
+        DB::unprepared("
+        CREATE TRIGGER emptyItem_DeletePengajuan AFTER UPDATE ON item_kebutuhan FOR EACH ROW
+        BEGIN
+        DECLARE list INT;
+        SELECT COUNT(*) into list FROM item_kebutuhan where id_pengajuan_kebutuhan = NEW.id_pengajuan_kebutuhan AND (status = '-' OR status = 'Diterima');
+        if list = 0 THEN
+        UPDATE pengajuan_kebutuhan set status = 'Ditolak' where id_pengajuan_kebutuhan = NEW.id_pengajuan_kebutuhan;
+        END IF;
+        END
+        ");
+
+        DB::unprepared("
+        CREATE TRIGGER tambah_item_kebutuhan AFTER INSERT ON item_kebutuhan FOR EACH ROW
+        BEGIN
+            INSERT INTO logs(aksi, aktivitas, waktu)
+            VALUES ('INSERT', CONCAT('Menambahkan Item Kebutuhan baru dengan item ', NEW.item_kebutuhan), NOW());
+        END
+        ");
         
+        DB::unprepared("
+            CREATE TRIGGER update_item_kebutuhan AFTER UPDATE ON item_kebutuhan FOR EACH ROW
+            BEGIN
+                INSERT INTO logs(aksi, aktivitas, waktu)
+                VALUES ('UPDATE', CONCAT('Memperbarui Item Kebutuhan dengan item ', OLD.item_kebutuhan, ' dan ID Item Kebutuhan ', OLD.id_item_kebutuhan), NOW());
+            END
+        ");
+        
+        DB::unprepared("
+            CREATE TRIGGER hapus_item_kebutuhan AFTER DELETE ON item_kebutuhan FOR EACH ROW
+            BEGIN
+                INSERT INTO logs(aksi, aktivitas, waktu)
+                VALUES ('DELETE', CONCAT('Menghapus Item Kebutuhan dengan item ', OLD.item_kebutuhan), NOW());
+            END
         ");
 
     }
@@ -117,5 +158,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('item_kebutuhan');
+        DB::statement('SET GLOBAL event_scheduler = "OFF"');
     }
 };

@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<h2 class='text-center m-2'>Catatan Pemasukan</h2>
-<table class="table table-striped">
+<h2 class='text-center m-2'>Pemasukan</h2>
+<table class="table table-borderless table-striped mt-2 DataTable">
     <thead>
         <tr>
             <th scope='col'>No</th>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\item_perencanaan;
 use App\Models\perencanaan_keuangan;
 use App\Models\gedung;
+use App\Models\pengeluaran;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ItemPerencanaanController extends Controller
@@ -99,7 +101,8 @@ class ItemPerencanaanController extends Controller
         $data = [
             'item_perencanaan' => $item_perencanaan::where('id_item_perencanaan', $id)->first(),
             'perencanaan_keuangan' => $perencanaan_keuangan->all(),
-            'gedung' => $gedung->all()
+            'gedung' => $gedung->all(),
+            'pengeluaran' => pengeluaran::all()
         ];
         return view('dashboard-bendahara.item-perencanaan.edit', $data);
     }
@@ -112,6 +115,9 @@ class ItemPerencanaanController extends Controller
         //
         $id_item_perencanaan = $request->input('id_item_perencanaan');
         $id_perencanaan_keuangan = $request->input('id_perencanaan_keuangan');
+        
+        $status = $request->input('status');
+        if($status == 'Belum Dibeli') {
         $data = $request->validate(
             [
                 'id_gedung' => ['required'],
@@ -120,26 +126,57 @@ class ItemPerencanaanController extends Controller
                 'harga_satuan' => ['required'],
                 'satuan' => ['required'],
                 'spesifikasi' => ['required'],
+                'id_pengeluaran' => ['sometimes'],
+                'status' => ['required'],
                 'bulan_rencana_realisasi' => ['required'],
                 'foto_barang_perencanaan' => 'sometimes|file',
+                'foto_realisasi' => 'sometimes|file',
             ]
         );
+    } elseif($status == 'Terbeli') {
+            $data = $request->validate(
+                [
+                    'id_gedung' => ['required'],
+                    'item_perencanaan' => ['required'],
+                    'qty'    => ['required'],
+                    'harga_satuan' => ['required'],
+                    'satuan' => ['required'],
+                    'spesifikasi' => ['required'],
+                    'id_pengeluaran' => ['required'],
+                    'status' => ['required'],
+                    'bulan_rencana_realisasi' => ['required'],
+                    'foto_barang_perencanaan' => 'sometimes|file',
+                    'foto_realisasi' => 'sometimes|file',
+                ]
+            );
+        }
 
         if ($request->hasFile('foto_barang_perencanaan')) {
             $foto_file = $request->file('foto_barang_perencanaan');
             $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
             $foto_file->move(public_path('foto'), $foto_nama);
             $data['foto_barang_perencanaan'] = $foto_nama;
-
-            $data['foto_barang_perencanaan'] = $foto_nama;
         }
-        // Process Update
+        if ($request->hasFile('foto_realisasi')) {
+            $foto_file = $request->file('foto_realisasi');
+            $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
+            $foto_file->move(public_path('foto'), $foto_nama);
+            $data['foto_realisasi'] = $foto_nama;
+        }
         $dataUpdate = $item_perencanaan->where('id_item_perencanaan', $id_item_perencanaan)->update($data);
 
         if ($dataUpdate) {
-            return redirect('dashboard-bendahara/perencanaan-keuangan/detail/' . $id_perencanaan_keuangan)->with('success', 'Data Item Perencanaan berhasil di update');
+            if($data['status'] == 'Terbeli') {
+                $idRealisasi = DB::table('realisasi')
+                ->select('id_realisasi')
+                ->where('id_perencanaan_keuangan', '=', $id_perencanaan_keuangan)
+                ->first();
+                $dataUpdate = $item_perencanaan->where('id_item_perencanaan', $id_item_perencanaan)->update(['id_realisasi' => $idRealisasi->id_realisasi]);
+            }
+
+                return redirect('dashboard-bendahara/perencanaan-keuangan/detail/' . $id_perencanaan_keuangan)->with('success', 'Data Item Perencanaan berhasil di update');
         } else {
-            return back()->with('error', 'Data Item Perancanaan gagal di update');
+            return back()->with('error', 'Data Item Perencanaan gagal di update');
         }
     }
 

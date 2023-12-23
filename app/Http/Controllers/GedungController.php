@@ -85,8 +85,13 @@ class GedungController extends Controller
             );
 
         $id_gedung = $request->input('id_gedung');
+        $nama_ruangan = $request->input('nama_ruangan');
 
-        if ($id_gedung !== null) {
+        $exist = DB::table('gedung')
+        ->where('nama_ruangan', '=', $nama_ruangan)
+        ->get();
+
+        if ($exist->isEmpty() && $id_gedung !== null) {
             $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
 
             if ($dataUpdate) {
@@ -94,6 +99,9 @@ class GedungController extends Controller
             } else {
                 return back()->with('error', 'Data Gedung gagal diupdate');
             }
+        }
+        else {
+            return back()->with('error', 'Ruangan telah ada!');
         }
     }
 

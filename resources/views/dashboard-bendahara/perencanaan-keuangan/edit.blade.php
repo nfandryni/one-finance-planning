@@ -22,17 +22,14 @@
                             <input type="text" class="form-control" required name="tujuan" value="{{ $perencanaan_keuangan->tujuan }}"/>
                         </div>
                         <div class="form-group">
-                             @foreach ($sumber_dana as $s)
-                                 <input type="hidden" name="id_item_kebutuhan"
-                                     value="{{ $s->id_sumber_dana }}" />
                                  <label>Sumber Dana</label>
-                                 <select name="id_sumber_dana" class="form-control">
-                                     <option value="{{ $s->id_sumber_dana }}"
-                                         {{ $s->id_sumber_dana == $perencanaan_keuangan->id_sumber_dana ? 'selected' : '' }}>
-                                         {{ $s->nama_sumber }}
-                                     </option>
-                                 </select>
-                             @endforeach
+                                 <select class='form-select' name="id_sumber_dana">
+                                    @foreach($sumber_dana as $s)
+                                            <option value="{{ $s->id_sumber_dana }}"
+                                                {{ $perencanaan_keuangan->id_sumber_dana == $s->id_sumber_dana ? 'selected' : '' }}>
+                                                {{ $s->nama_sumber }}</option>
+                                    @endforeach
+                                    </select>
                          </div>
                           <div class="col-md-12 mt-3 d-flex " style="gap: 10px; justify-content:start"  required>
                            <a href="/dashboard-bendahara/perencanaan-keuangan" class="btn btn-dark">KEMBALI</a>
