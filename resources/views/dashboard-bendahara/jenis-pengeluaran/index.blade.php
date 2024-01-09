@@ -3,16 +3,12 @@
 @section('title', 'Daftar Jenis Pengeluaran')
 @section('content')
 <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <span class="h1">
-                        Jenis Pengeluaran
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div class="row" >
+<div class="row"><h2 class="fw-bold">Kelola Data Master - Jenis Pengeluaran</h2>
+    <hr>
+    <div class="col-md-12">
+                    <div class="row justify-content-md-end" style="align-items: center">
+                      
+                        <div class="col-sm-2">
                         <div class="col" >
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" style='position:absolute; margin-top:20px;' data-bs-target="#tambahJenisPengeluaran">
                             Tambah Data

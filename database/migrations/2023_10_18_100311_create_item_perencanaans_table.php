@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('id_realisasi', false)->index('id_realisasi')->nullable(true);
             $table->string('item_perencanaan', 60)->nullable(false);
             $table->integer('qty')->nullable(false);
-            $table->integer('harga_satuan', false)->nullable(false);
+            $table->decimal('harga_satuan', 10, 0)->nullable(false);
             $table->string('satuan', 20)->nullable(false);
             $table->string('spesifikasi', 225)->nullable(false);
             $table->date('bulan_rencana_realisasi')->nullable(false);
@@ -35,10 +35,10 @@ return new class extends Migration
 
             
         });
-        DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
+        DB::unprepared('DROP VIEW IF EXISTS view_item_realisasi');
 
         DB::unprepared(
-            "CREATE VIEW view_realisasi AS 
+            "CREATE VIEW view_item_realisasi AS 
             SELECT i.id_item_perencanaan,
             p.id_perencanaan_keuangan, 
             r.id_realisasi, 

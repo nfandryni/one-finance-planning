@@ -20,6 +20,6 @@ class pemasukan extends Model
     public function akun()
     {
         
-        return $this->belongsTo(akun::class, 'user_id');
+        return $this->belongsTo(bendahara_sekolah::class, 'id_bendahara');
     }
 }

@@ -46,7 +46,7 @@
 <body>
     <div class="d-flex">
         {{-- sidebar --}}
-        <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 210px;height:100vh;background-color:#588157">
+        <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 230px;height:100vh;background-color:#588157">
             <div class="d-flex align-items-center justify-content-center mb-2">
                 <img src="/foto/ofp_logo.png" width="200" height="100" alt="Responsive image">
             </div>
@@ -80,12 +80,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/konfirmasi-pengajuan" class="nav-link  @yield('konfirmasi')">
+                        <a href="/konfirmasi-pengajuan" class="nav-link  @yield('konfirmasi-pengajuan')">
                             Konfirmasi Pengajuan
                         </a>
                     </li>
                     <li>
-                        <a href="" class="nav-link  @yield('')">
+                        <a href="/perencanaan-keuangan" class="nav-link  @yield('perencanaan-keuangan')">
                             Perencanaan Keuangan
                         </a>
                     </li>
@@ -111,27 +111,20 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/dashboard-bendahara/gedung" class="nav-link">
-                            Kelola Data Master
-                        </a>
+                        <button class="nav-link btn btn-toggle border-0 text-white collapsed" data-bs-toggle="collapse" data-bs-target="#datamaster-collapse">
+                        Kelola Data Master <i class="fa-solid fa-chevron-down" style='margin-left: 1px;'></i> 
+                        </button>
+                        <div class="collapse" id="datamaster-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal small">
+                            <li><a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung') text-decoration-none ">Gedung</a></li>
+                            <li><a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana') text-decoration-none ">Sumber Dana</a></li>
+                            <li><a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran') text-decoration-none">Jenis Pengeluaran</a></li>
+                        </ul>
+                        </div>
                     </li>
+
                     <li>
-                        <a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung')">
-                            Gedung
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')">
-                            Sumber Dana
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')">
-                            Jenis Pengeluaran
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link @yield('pengajuan-kebutuhan')">
+                        <a href='/dashboard-bendahara/konfirmasi-pengajuan' class="nav-link @yield('konfirmasi-pengajuan')">
                             Konfirmasi Pengajuan
                         </a>
                     </li>
@@ -167,7 +160,7 @@
             </ul>
         </div>
 
-        <div class="card" style="width: 1200;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
+        <div class="card" style="width: 100vw;background-color: #F2F2F2; max-height:100vh;overflow-y:auto">
             {{-- nav disini --}}
             <header class="p-2 mb-3 border-bottom bg-light">
                 <div class="container">
@@ -207,7 +200,7 @@
                                     </li>
                                 @elseif(auth()->user()->role == 'admin')
                                     <li>
-                                        <a href="/dashboard-pemohon/logs" class="dropdown-item">
+                                        <a href="/dashboard-admin/riwayat" class="dropdown-item">
                                          Riwayat Aktivitas
                                         </a>
                                     </li>

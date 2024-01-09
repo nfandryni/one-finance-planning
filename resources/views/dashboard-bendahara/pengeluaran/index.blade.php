@@ -6,10 +6,15 @@
     <div class="row">
         <h2 class="fw-bold">Kelola Data Pengeluaran</h2>
         <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
-        <a href="{{ url('/dashboard-bendahara/pengeluaran/print') }}" style='position:absolute; width:120px; right:30px;'
-            class='btn btn-warning mt-4'>
-            Cetak Data
+        @if(!$pengeluaran->isEmpty())
+    <a target='_blank' href="{{ url('/dashboard-bendahara/pengeluaran/print') }}" style='position:absolute; width:130px; right:30px;' class='btn btn-warning'>
+    <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
         </a>
+        @else
+        <button disabled style='position:absolute; width:130px; right:30px;' class='btn btn-secondary'>
+        <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+            </button>
+        @endif
         <hr />
         <div class="col-md-12">
             <div class="row justify-content-md-end" style="align-items: center">

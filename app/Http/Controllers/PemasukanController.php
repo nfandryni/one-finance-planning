@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class PemasukanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {   
         $totalDana =  DB::select('SELECT total_pemasukan() AS totalDana')[0]->totalDana;
@@ -34,9 +32,7 @@ class PemasukanController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create(pemasukan $pemasukan, sumber_dana $sumber_dana, bendahara_sekolah $bendahara)
     {
         $sumberDana = sumber_dana::all();
@@ -47,9 +43,7 @@ class PemasukanController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request, pemasukan $pemasukan)
     {
         $data = $request->validate(
@@ -85,21 +79,25 @@ class PemasukanController extends Controller
         //Proses Insert
     }
 
-    /**
-     * Display the specified resource.
-     */
+   
     public function show(string $id)
     {
         //
         $data = [
             'pemasukan'=>DB::table('view_pemasukan')->get(),
         ];
-        return view('dashboard-bendahara.pemasukan.detail', $data);
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            return view('dashboard-bendahara.pemasukan.detail', $data);
+
+        }
+        elseif($role == 'admin') {
+            return view('admin.pemasukan.detail', $data);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+   
     public function edit(string $id, Request $request, pemasukan $pemasukan, sumber_dana $sumber_dana, bendahara_sekolah $bendahara)
     {
         $data = [
@@ -117,10 +115,17 @@ class PemasukanController extends Controller
             'pemasukan'=>DB::table('view_pemasukan')->get(),
 
         ];
-
-        $pdf = PDF::loadView('dashboard-bendahara.pemasukan.print', $data);
-
-        return $pdf->download('pemasukan.pdf');
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            $pdf = PDF::loadView('dashboard-bendahara.pemasukan.print', $data);
+        return $pdf->stream();
+        }
+        elseif($role == 'admin') {
+            $pdf = PDF::loadView('admin.pemasukan.print', $data);
+            return $pdf->stream();
+        }
+        
     }
 
     /**
@@ -133,7 +138,7 @@ class PemasukanController extends Controller
         $data = $request->validate(
             [
                 'id_sumber_dana'    => ['sometimes'],
-                'nama'    => ['sometimes'],
+                'nama_pemasukan'    => ['sometimes'],
                 'nominal'    => ['sometimes'],
                 'waktu'    => ['sometimes'],
                 'foto'    => ['sometimes'],

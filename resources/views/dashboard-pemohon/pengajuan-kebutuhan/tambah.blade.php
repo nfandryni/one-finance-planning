@@ -17,10 +17,6 @@
                                 <input type="text" class="form-control" name="nama_kegiatan" />
                             </div>
                             <div class="form-group">
-                                <label>Waktu</label>
-                                <input type="date" class="form-control" name="waktu" />
-                            </div>
-                            <div class="form-group">
                                 <label>Tujuan</label>
                                 <input type="text" class="form-control" name="tujuan" />
                                 @csrf

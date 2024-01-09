@@ -8,6 +8,7 @@
     {{-- <div class="card" style="height: 75px;">
         <h4 class=" fw-bold p-3">Cetak Data Realisasi </h4>
     </div> --}}
+    <hr/>
     <div class="col-md-12 ">
                     <div class="row justify-content-md-center" style="align-items: center">
                        
@@ -35,7 +36,9 @@
                                         <td>{{ $s->waktu }}</td>    
                                         <td>{{ $s->total_pembayaran }}</td>
                                         <td>
-                                           <a  href='/dashboard-bendahara/realisasi/detail/{{ $s->id_realisasi }}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
+                                        <a class='text-black' href="/dashboard-bendahara/realisasi/edit-realisasi/{{$s->id_realisasi}}"> <i class="fa-solid fa-pen" style="cursor: pointer; margin:2px">
+                                           </i></a>
+                                           <a  href=''><i class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
                                             <btn class="btnHapus" style="cursor: pointer" idRealisasi="{{ $s->id_realisasi }}"><i class="fa-solid fa-trash"></i></btn>
                                         </td>
                                     </tr>
@@ -44,9 +47,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="card-footer">
-
-                </div>
+                
             </div>
         </div>
     </div>

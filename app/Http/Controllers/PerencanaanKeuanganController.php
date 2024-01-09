@@ -7,6 +7,7 @@ use App\Models\pengajuan_kebutuhan;
 use App\Models\sumber_dana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class PerencanaanKeuanganController extends Controller
 {
@@ -19,7 +20,15 @@ class PerencanaanKeuanganController extends Controller
             'perencanaan_keuangan' => $perencanaan_keuangan->all()
         ];
 
-        return view('dashboard-bendahara.perencanaan-keuangan.index', $data);    }
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            return view('dashboard-bendahara.perencanaan-keuangan.index', $data);
+        }
+        elseif($role == 'admin') {
+            return view('admin.perencanaan.index', $data);
+        }
+    }  
 
     /**
      * Show the form for creating a new resource.
@@ -158,5 +167,23 @@ class PerencanaanKeuanganController extends Controller
     
             return response()->json($pesan);
         }
+    }
+
+    public function print()
+    {
+        $data = [
+        ];
+
+       
+            $pdf = PDF::loadView('admin.perencanaan.print');
+
+            return $pdf->stream();
+        
+    }
+    public function detail ()
+    {
+        
+        return view('admin.perencanaan.detail');
+        
     }
 }

@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-8">
         <div class="form-group ">
-          <input type="text" placeholder="Masukkan Nama" class="form-control" name="nama" value="{{ $data->nama }}" />
+          <input type="text" required placeholder="Masukkan Nama" class="form-control" name="nama" value="{{ $data->nama }}" />
           <input type="hidden" placeholder="Masukkan Nama" class="form-control" name="user_id" value="{{ $data->user_id }}" />
         </div>
         <div class="form-group mt-3 ">

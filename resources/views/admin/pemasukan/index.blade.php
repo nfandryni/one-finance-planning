@@ -6,10 +6,15 @@
     <div class="row">
         <h2 class="fw-bold"> Data Pemasukan</h2>
         <h3 class="card-title"> Jumlah Pemasukan: {{ $jumlahDana ?? 0 }}</h3><br><br>
-        <a href="{{ url('/dashboard-bendahara/pemasukan/print') }}" style='position:absolute; width:120px; right:30px;'
-            class='btn btn-warning mt-4'>
-            Cetak Data
+        @if(!$pemasukan->isEmpty())
+    <a target='_blank' href="{{ url('/pemasukan/print') }}" style='position:absolute; width:130px; right:30px;' class='btn btn-warning'>
+    <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
         </a>
+        @else
+        <button disabled style='position:absolute; width:130px; right:30px;' class='btn btn-secondary'>
+        <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+            </button>
+        @endif
        
         <div class="col-md-12">
  <hr>
@@ -20,6 +25,7 @@
                         <th>Nama Pemasukan</th>
                         <th>Nominal (Rupiah)</th>
                         <th>Waktu</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +35,15 @@
                             <td>{{ $s->nama_pemasukan }}</td>
                             <td>{{ $s->nominal }}</td>
                             <td>{{ $s->waktu }}</td>
+                             <td>
+                            
+                            <a href="pemasukan/detail/{{ $s->id_pemasukan }}"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-circle-info" style="margin: 0 20px; cursor:pointer"></i>
+                            </a>
+
+                           
+                        </td>
 
                         </tr>
                     @endforeach

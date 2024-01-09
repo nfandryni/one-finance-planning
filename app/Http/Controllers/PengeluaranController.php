@@ -89,9 +89,18 @@ class PengeluaranController extends Controller
         {
             //
             $data = [
-                'pengeluaran'=>DB::table('view_pengeluaran')->get(),
+                'pengeluaran'=>DB::table('view_pengeluaran')->where('id_pengeluaran', $id)->get(),
             ];
-            return view('dashboard-bendahara.pengeluaran.detail', $data);
+
+            $user = Auth::user();
+            $role = $user->role;
+            if($role == 'bendaharasekolah') {
+                return view('dashboard-bendahara.pengeluaran.detail', $data);
+
+            }
+            elseif($role == 'admin') {
+                return view('admin.pengeluaran.detail', $data);
+            }
         }
 
         public function print(pengeluaran $pengeluaran)
@@ -100,10 +109,19 @@ class PengeluaranController extends Controller
                 'pengeluaran'=>DB::table('view_pengeluaran')->get(),
     
             ];
+            $user = Auth::user();
+            $role = $user->role;
+            if($role == 'bendaharasekolah') {
+                $pdf = PDF::loadView('dashboard-bendahara.pengeluaran.print', $data);
     
-            $pdf = PDF::loadView('dashboard-bendahara.pengeluaran.print', $data);
+            return $pdf->stream('pengeluaran.pdf');
+            }
+            elseif($role == 'admin') {
+                $pdf = PDF::loadView('admin.pengeluaran.print', $data);
     
-            return $pdf->download('pengeluaran.pdf');
+                return $pdf->stream('pengeluaran.pdf');
+            }
+           
         }
     /**
      * Display the specified resource.

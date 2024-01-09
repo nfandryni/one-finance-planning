@@ -3,8 +3,17 @@
 @section('title', 'Daftar Realisasi')
 @section('content')
 <br>
-    <div class="">
-    <h2 class="fw-bold"> Data Realisasi</h2>
+    <div class="row">
+    <div class="row">
+            <h2 class="fw-bold"> Data Perencanaan Keuangan</h2>
+
+            <a target='_blank' href="{{ url('/realisasi/print') }}" style='position:absolute; width:130px; right:30px;'
+                class='btn btn-warning'>
+                <i class="fa-solid fa-print fa-lg"></i> Cetak Data
+            </a>
+
+        </div>
+        <hr>
     {{-- <div class="card" style="height: 75px;">
         <h4 class=" fw-bold p-3">Cetak Data Realisasi </h4>
     </div> --}}
@@ -19,6 +28,7 @@
                                     <th>Nama Realisasi</th>
                                     <th>Waktu</th>
                                     <th>Total Pembayaran</th>
+                                    <th>Aksi</th>
                       
                                 </tr>
                             </thead>
@@ -27,12 +37,20 @@
                                     <tr>
                                         <td>{{ $s->judul_realisasi }}
                                             @if(is_null($s->id_pengeluaran))
-                                            <p class='text-danger mt-1 fst-italic fs-6'>Catatan Pengeluaran belum Ditambahkan.</p>
+                                            {{-- <p class='text-danger mt-1 fst-italic fs-6'>Catatan Pengeluaran belum Ditambahkan.</p> --}}
                                             @endif
                                         </td>
                                         <td>{{ $s->waktu }}</td>    
                                         <td>{{ $s->total_pembayaran }}</td>
-                                        
+                                        <td>
+                            
+                            <a href="realisasi/detail"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-circle-info" style="margin: 0 20px; cursor:pointer"></i>
+                            </a>
+
+                           
+                        </td>
                                     </tr>
                                 @endforeach 
                             </tbody>
@@ -45,7 +63,7 @@
             </div>
         </div>
     </div>
-
+    </div>
 @endsection
 
 

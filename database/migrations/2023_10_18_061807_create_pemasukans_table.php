@@ -17,7 +17,7 @@ return new class extends Migration
          $table->integer('id_sumber_dana', false)->index('id_sumber_dana');
          $table->integer('id_bendahara', false)->index('id_bendahara');
          $table->string('nama', 60)->nullable(false);
-         $table->integer('nominal', false)->nullable(false);
+         $table->decimal('nominal', 10, 0)->nullable(false);
          $table->date('waktu')->nullable(false);
          $table->text('foto')->nullable(false);
 
@@ -35,27 +35,30 @@ return new class extends Migration
             INNER JOIN bendahara_sekolah AS b ON p.id_bendahara = b.id_bendahara
             "
         );
-
-
+        
+        
+        DB::unprepared('DROP TRIGGER IF EXISTS tambah_pemasukan');
         DB::unprepared("
-            CREATE TRIGGER tambah_pemasukan AFTER INSERT ON pemasukan FOR EACH ROW
-            BEGIN
-                INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('INSERT', CONCAT('Menambahkan Pemasukan baru dengan nama ', NEW.nama), NOW());
-            END
+        CREATE TRIGGER tambah_pemasukan AFTER INSERT ON pemasukan FOR EACH ROW
+        BEGIN
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('INSERT', CONCAT('Menambahkan Pemasukan baru dengan nama ', NEW.nama, ' dan nominal sebesar ', NEW.nominal), NOW());
+        END
         ");
         
+        DB::unprepared('DROP TRIGGER IF EXISTS update_pemasukan');
         DB::unprepared("
-            CREATE TRIGGER update_pemasukan AFTER UPDATE ON pemasukan FOR EACH ROW
-            BEGIN
-                INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('UPDATE', CONCAT('Memperbarui Pemasukan dengan nama ', OLD.nama, ' dan ID Pemasukan ', OLD.id_pemasukan), NOW());
-            END
+        CREATE TRIGGER update_pemasukan AFTER UPDATE ON pemasukan FOR EACH ROW
+        BEGIN
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('UPDATE', CONCAT('Memperbarui Pemasukan dengan nama ', OLD.nama, ' dan ID Pemasukan ', OLD.id_pemasukan), NOW());
+        END
         ");
         
+        DB::unprepared('DROP TRIGGER IF EXISTS hapus_pemasukan');
         DB::unprepared("
-            CREATE TRIGGER hapus_pemasukan AFTER DELETE ON pemasukan FOR EACH ROW
-            BEGIN
+        CREATE TRIGGER hapus_pemasukan AFTER DELETE ON pemasukan FOR EACH ROW
+        BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
                 VALUES ('DELETE', CONCAT('Menghapus Pemasukan dengan nama ', OLD.nama), NOW());
             END
@@ -63,9 +66,9 @@ return new class extends Migration
 
         DB::unprepared('DROP FUNCTION IF EXISTS total_pemasukan');
         DB::unprepared('
-        CREATE FUNCTION total_pemasukan() RETURNS INT
+        CREATE FUNCTION total_pemasukan() RETURNS DECIMAL(10,0)
         BEGIN
-        DECLARE total INT;
+        DECLARE total DECIMAL(10,0);
         SELECT SUM(nominal) INTO total from pemasukan;
         RETURN total;
         END
@@ -79,8 +82,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('pemasukan');
-        DB::unprepared('DROP TRIGGER IF EXISTS tambah_pemasukan');
-        DB::unprepared('DROP TRIGGER IF EXISTS update_pemasukan');
-        DB::unprepared('DROP TRIGGER IF EXISTS delete_pemasukan');
     }
 };

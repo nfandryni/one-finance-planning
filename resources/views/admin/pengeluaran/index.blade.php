@@ -6,10 +6,16 @@
     <div class="row">
         <h2 class="fw-bold"> Data Pengeluaran</h2>
         <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
-        <a href="" style='position:absolute; width:120px; right:30px;'
-            class='btn btn-warning mt-4'>
-            Cetak Data
-        </a>
+        @if (!$pengeluaran->isEmpty())
+            <a target='_blank' href="{{ url('/pengeluaran/print') }}" style='position:absolute; width:130px; right:30px;'
+                class='btn btn-warning'>
+                <i class="fa-solid fa-print fa-lg"></i> Cetak Data
+            </a>
+        @else
+            <button disabled style='position:absolute; width:130px; right:30px;' class='btn btn-secondary'>
+                <i class="fa-solid fa-print fa-lg"></i> Cetak Data
+            </button>
+        @endif
     </div>
     <hr>
     <table class="table table-borderless table-striped mt-2 DataTable">
@@ -20,6 +26,7 @@
                 <th>Jenis Pengeluaran</th>
                 <th>Nominal</th>
                 <th>Waktu</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +37,11 @@
                     <td>{{ $s->kategori }}</td>
                     <td>{{ $s->nominal }}</td>
                     <td>{{ $s->waktu }}</td>
-
+                    <td>
+                    <a href="pengeluaran/detail/{{ $s->id_pengeluaran }}"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-circle-info" style="margin: 0 20px; cursor:pointer"></i>
+                            </a></td>
 
                 </tr>
             @endforeach

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PengajuanKebutuhanController extends Controller
 {
@@ -18,9 +19,14 @@ class PengajuanKebutuhanController extends Controller
     public function index(Pengajuan_Kebutuhan $pengajuan_kebutuhan)
     {
         //Stored Function
+
+        $user = Auth::user()->user_id;
         $data = [
             'totalList' => DB::select('SELECT total_pengajuan_kebutuhan() AS totalList')[0]->totalList,
-            'pengajuan_kebutuhan'=> $pengajuan_kebutuhan->all()
+            'pengajuan_kebutuhan'=> DB::table('view_pengajuan_pemohon')->get(),
+            'pemohon'=>DB::table('view_pengajuan_pemohon')
+            ->where('view_pengajuan_pemohon.user_id', $user)
+            ->first()
         ];
         $user = Auth::user();
         $role = $user->role;
@@ -51,10 +57,11 @@ class PengajuanKebutuhanController extends Controller
         $data = $request->validate(
             [
                 'nama_kegiatan' => ['required'],
-                'waktu'    => ['required'],
                 'tujuan' => ['required'],
             ]
         );
+            
+        $data['waktu'] = Carbon::now();
 
         $user = Auth::user();
         $id_akun = $user->user_id;
@@ -94,7 +101,6 @@ class PengajuanKebutuhanController extends Controller
         //  
         $data = [
             'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan', $id)->first(),
-
             'item_kebutuhan'=> DB::table('view_pengajuan_kebutuhan')
             ->where('view_pengajuan_kebutuhan.id_pengajuan_kebutuhan', $id)
             ->get(),
@@ -102,6 +108,29 @@ class PengajuanKebutuhanController extends Controller
         return view('dashboard-pemohon.pengajuan-kebutuhan.detail', $data);  
       
     }
+
+    public function send(Request $request, pengajuan_kebutuhan $pengajuan_kebutuhan)
+    {
+        $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
+        $status = $request->input('status');
+
+        $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update(['status' => $status]);
+        if ($dataUpdate) {
+                $pesan = [
+                    'success' => true,
+                    'pesan' => 'Pengajuan Kebutuhan berhasil dikirim!'
+                ];
+                return response()->json($pesan);
+            } else {
+                $pesan = [
+                    'success' => false,
+                    'message' => 'Pengajuan Kebutuhan gagal dikirim.',
+                ];
+                return response()->json($pesan);
+            }
+        
+         
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -137,10 +166,10 @@ class PengajuanKebutuhanController extends Controller
         $data = $request->validate([
 
             'nama_kegiatan' => ['required'],
-            'waktu'    => ['required'],
             'tujuan' => ['required'],
         ]);
 
+        $data['waktu'] = Carbon::now();
         $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
 
         if ($id_pengajuan_kebutuhan !== null) {
