@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\jenis_realisasi;
 use App\Models\perencanaan_keuangan;
 use App\Models\realisasi;
+use App\Models\pengeluaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -101,11 +102,14 @@ class RealisasiController extends Controller
 
     public function edit_item(string $id, realisasi $realisasi)
     {
-        $realisasiData = realisasi::where('id_realisasi', $id)->first();
+       $data = [
+        'item' => DB::table('item_perencanaan')
+        ->join('realisasi', 'item_perencanaan.id_realisasi', '=', 'realisasi.id_realisasi')
+        ->where('item_perencanaan.id_realisasi', '=', $id)
+        ->get()
+       ];
 
-        return view('dashboard-bendahara.realisasi.edit-realisasi', [
-            'realisasi' => $realisasiData,
-        ]);
+        return view('dashboard-bendahara.realisasi.edit-realisasi', $data);
     }
 
     /**
@@ -116,9 +120,11 @@ class RealisasiController extends Controller
         $id_realisasi = $request->input('id_realisasi');
 
         $data = $request->validate([
+            'id_perencanaan_keuangan' => 'sometimes',
             'judul_realisasi' => 'sometimes',
             'tujuan' => 'sometimes',
-            'waktu' => 'sometimes|file',
+            'id_pengeluaran' => 'required',
+            'waktu' => 'sometimes',
             'total_pembayaran' => 'sometimes',
         ]);
 
@@ -127,10 +133,10 @@ class RealisasiController extends Controller
             $dataUpdate = $realisasi->where('id_realisasi', $id_realisasi)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-bendahara/realisasi')->with('success', 'Data realisasi berhasil diupdate');
+                return redirect('dashboard-bendahara/realisasi')->with('success', 'Data Realisasi berhasil diupdate');
             }
 
-            return back()->with('error', 'Data jenis realisasi gagal diupdate');
+            return back()->with('error', 'Data Realisasi gagal diupdate');
         }
     }
 
@@ -165,11 +171,20 @@ class RealisasiController extends Controller
         $id_realisasi = $request->input('id_realisasi');
         $data = realisasi::find($id_realisasi)->delete();
 
-        if (!$data) {
-            return response()->json(['success' => false, 'pesan' => 'Data tidak ditemukan'], 404);
+        if ($data) {
+            // Pesan Berhasil
+            $pesan = [
+                'success' => true,
+                'pesan'   => 'Data Pemasukan berhasil dihapus'
+            ];
+        } else {
+            // Pesan Gagal
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Data gagal dihapus'
+            ];
         }
 
-     
-        return response()->json(['success' => false, 'pesan' => 'Data gagal dihapus']);
+        return response()->json($pesan);
     }
 }

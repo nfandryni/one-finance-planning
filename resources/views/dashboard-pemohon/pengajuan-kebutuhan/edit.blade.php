@@ -17,10 +17,6 @@
                                         <input type="text" class="form-control" value="{{ $pengajuan_kebutuhan->nama_kegiatan }}" name='nama_kegiatan'/>
                                     </div>
                                     <div class="form-group">
-                                        <label>Waktu</label>
-                                        <input type="date" class="form-control" value="{{ $pengajuan_kebutuhan->waktu }}" name='waktu'/>
-                                    </div>
-                                    <div class="form-group">
                                         <label>Tujuan</label>
                                         <input type="text" class="form-control" value="{{ $pengajuan_kebutuhan->tujuan }}" name='tujuan'/>
                                     </div>

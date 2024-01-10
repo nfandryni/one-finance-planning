@@ -120,7 +120,7 @@ class PemasukanController extends Controller
 
         $pdf = PDF::loadView('dashboard-bendahara.pemasukan.print', $data);
 
-        return $pdf->download('pemasukan.pdf');
+        return $pdf->stream();
     }
 
     /**
@@ -133,7 +133,7 @@ class PemasukanController extends Controller
         $data = $request->validate(
             [
                 'id_sumber_dana'    => ['sometimes'],
-                'nama'    => ['sometimes'],
+                'nama_pemasukan'    => ['sometimes'],
                 'nominal'    => ['sometimes'],
                 'waktu'    => ['sometimes'],
                 'foto'    => ['sometimes'],

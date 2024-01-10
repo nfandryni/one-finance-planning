@@ -16,15 +16,40 @@ return new class extends Migration
             $table->integer('id_pemohon', false)->index('id_pemohon');
             $table->string('nama_kegiatan', 60)->nullable(false);
             $table->string('tujuan', 225)->nullable(false);
-            $table->string('status', 25)->default('Draf')->nullable(false);
+            $table->enum('status', ['Draf', 'Terkirim', 'Difilterisasi', 'DiKonfirmasi', 'Ditolak'])->default('Draf')->nullable(false);
             $table->date('waktu')->nullable(false);
-            $table->integer('total_dana_kebutuhan', false)->nullable(true);
-
+            $table->datetime('kedaluwarsa')->nullable(true);
+            $table->decimal('total_dana_kebutuhan', 10, 0)->nullable(true);
+   
             $table->foreign('id_pemohon')->on('pemohon')->references('id_pemohon')->onUpdate
             ('cascade')->onDelete('cascade');
         });
 
-        // Stored Function => digunakan untuk menghitung jumlah Pengajuan Kebutuhan
+        DB::unprepared('DROP EVENT IF EXISTS event_kedaluwarsa_pengajuanKebutuhan');
+        DB::unprepared("
+        CREATE EVENT event_kedaluwarsa_pengajuanKebutuhan
+        ON SCHEDULE EVERY 1 DAY
+        ON COMPLETION PRESERVE
+        DO
+        BEGIN
+          DELETE FROM pengajuan_kebutuhan
+          WHERE status = 'Ditolak' AND kedaluwarsa IS NOT NULL AND kedaluwarsa <= NOW();
+        END;        
+        ");
+
+        DB::unprepared('DROP TRIGGER IF EXISTS setKedaluwarsaPengajuan');
+        DB::unprepared("
+        CREATE TRIGGER setKedaluwarsaPengajuan
+        BEFORE UPDATE ON pengajuan_kebutuhan
+        FOR EACH ROW
+        BEGIN
+            IF NEW.status = 'Ditolak' THEN
+                SET NEW.kedaluwarsa = DATE_ADD(NOW(), INTERVAL 1 MONTH);
+            END IF;
+        END;
+        ");
+
+
         DB::unprepared('DROP FUNCTION IF EXISTS total_pengajuan_kebutuhan');
         DB::unprepared('
         CREATE FUNCTION total_pengajuan_kebutuhan() RETURNS INT
@@ -35,7 +60,23 @@ return new class extends Migration
         END
         '); 
 
-         // Stored Procedur dan Commit Rollback
+        DB::unprepared('DROP VIEW IF EXISTS view_pengajuan_pemohon');
+
+        DB::unprepared(
+            "CREATE VIEW view_pengajuan_pemohon AS 
+            SELECT  p.id_pengajuan_kebutuhan,
+                    m.nama, 
+                    m.user_id,
+                    p.nama_kegiatan, 
+                    p.tujuan,
+                    p.status,
+                    p.waktu,
+                    p.total_dana_kebutuhan
+            from pengajuan_kebutuhan AS p
+            INNER JOIN pemohon AS m ON p.id_pemohon = m.id_pemohon
+            "
+        );
+
          DB::unprepared('DROP PROCEDURE IF EXISTS tambah_pengajuan_kebutuhan');
          DB::unprepared('
          CREATE PROCEDURE tambah_pengajuan_kebutuhan( 

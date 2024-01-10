@@ -20,11 +20,11 @@ class ItemKebutuhanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(pengajuan_kebutuhan $pengajuan_kebutuhan, gedung $gedung)
+    public function create(String $id, pengajuan_kebutuhan $pengajuan_kebutuhan, gedung $gedung)
     {
         //
         $data = [
-            'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all(),
+            'pengajuan_kebutuhan' => $pengajuan_kebutuhan::where('id_pengajuan_kebutuhan', $id)->first(),
             'gedung' => $gedung->all()
         ];
         return view('dashboard-pemohon.item-kebutuhan.tambah', $data);

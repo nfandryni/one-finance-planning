@@ -48,7 +48,7 @@
 <body>
     <div class="d-flex">
         {{-- sidebar --}}
-        <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 210px;height:100vh;background-color:#588157">
+        <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 230px;height:100vh;background-color:#588157">
             <div class="d-flex align-items-center justify-content-center mb-2">
                 <img src="/foto/ofp_logo.png" width="200" height="100" alt="Responsive image">
             </div>
@@ -113,32 +113,25 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/dashboard-bendahara/gedung" class="nav-link">
-                            Kelola Data Master
-                        </a>
+                        <button class="nav-link btn btn-toggle border-0 text-white collapsed" data-bs-toggle="collapse" data-bs-target="#datamaster-collapse">
+                        Kelola Data Master <i class="fa-solid fa-chevron-down" style='margin-left: 1px;'></i> 
+                        </button>
+                        <div class="collapse" id="datamaster-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal small">
+                            <li><a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung') text-decoration-none ">Gedung</a></li>
+                            <li><a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana') text-decoration-none ">Sumber Dana</a></li>
+                            <li><a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran') text-decoration-none">Jenis Pengeluaran</a></li>
+                        </ul>
+                        </div>
                     </li>
+
                     <li>
-                        <a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung')">
-                            Gedung
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana')">
-                            Sumber Dana
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/dashboard-bendahara/jenis-pengeluaran" class="nav-link @yield('jenis-pengeluaran')">
-                            Jenis Pengeluaran
-                        </a>
-                    </li>
-                    <li>
-                        <a  class="nav-link @yield('pengajuan-kebutuhan')">
+                        <a href='/dashboard-bendahara/konfirmasi-pengajuan' class="nav-link @yield('konfirmasi-pengajuan')">
                             Konfirmasi Pengajuan
                         </a>
                     </li>
                     <li>
-                        <a href="/dashboard-bendahara/perencanaan-keuangan" class="nav-link @yield('perencanaan-keuangan')">
+                        <a href='/dashboard-bendahara/perencanaan-keuangan' class="nav-link @yield('perencanaan-keuangan')">
                             Perencanaan Keuangan
                         </a>
                     </li>

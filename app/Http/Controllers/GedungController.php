@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\gedung;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,6 +34,8 @@ class GedungController extends Controller
      */
     public function store(Request $request, gedung $gedung)
     {
+
+        $nama_ruangan = $request->input('nama_ruangan');
         $data = $request->validate(
             [
                 'nama_gedung'    => ['required'],
@@ -45,7 +48,6 @@ class GedungController extends Controller
             // $gedung->create($data);
             return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung baru berhasil ditambah');
         } else {
-            // Kembali ke form tambah data
             return back()->with('error', 'Data Gedung gagal ditambahkan');
         }
     }

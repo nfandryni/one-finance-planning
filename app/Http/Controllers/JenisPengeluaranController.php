@@ -36,19 +36,20 @@ class JenisPengeluaranController extends Controller
     public function store(Request $request, jenis_pengeluaran $jenis_pengeluaran)
     {
         //
+        $kategori = $request->input('kategori');
         $data = $request->validate(
             [
                 'kategori'=> ['required'],
             ]
         );
+        $exist = DB::table('jenis_pengeluaran')
+        ->where('kategori', '=', $kategori)
+        ->get();
 
-        //Proses Insert
-        if (DB::statement("CALL tambah_jenis_pengeluaran(?)", ([$data['kategori']]))) {
-            // Simpan jika data terisi semua
+        if($exist->isEmpty() && DB::statement("CALL tambah_jenis_pengeluaran(?)", ([$data['kategori']]))) {
             $jenis_pengeluaran->create($data);
             return redirect('dashboard-bendahara/jenis-pengeluaran')->with('success', 'Data jenis pengeluaran baru berhasil ditambah');
         } else {
-            // Kembali ke form tambah data
             return back()->with('error', 'Data jenis pengeluaran gagal ditambahkan');
         }
     }
@@ -87,15 +88,6 @@ class JenisPengeluaranController extends Controller
         $id_jenis_pengeluaran = $request->input('id_jenis_pengeluaran');
 
         if ($id_jenis_pengeluaran !== null) {
-            // Process Update
-            // DB::beginTransaction();
-            // try {
-            // $dataUpdate = $jenis_pengeluaran->where('id_jenis_pengeluaran', $id_jenis_pengeluaran)->update($data);
-            //     DB::commit();
-            //     return redirect('dashboard-bendahara/jenis-pengeluaran')->with('success', 'Data jenis pengeluaran berhasil diupdate');
-            // } catch(Exception $e) {
-            //     DB::rollback();
-            //     dd($e->getMessage());
             $dataUpdate = $jenis_pengeluaran->where('id_jenis_pengeluaran', $id_jenis_pengeluaran)->update($data);
 
             if ($dataUpdate) {

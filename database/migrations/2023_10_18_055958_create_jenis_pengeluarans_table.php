@@ -40,6 +40,33 @@ return new class extends Migration
         END;
         '); 
 
+        DB::unprepared('DROP TRIGGER IF EXISTS tambah_jenis_pengeluaran');
+        DB::unprepared("
+        CREATE TRIGGER tambah_jenis_pengeluaran AFTER INSERT ON jenis_pengeluaran FOR EACH ROW
+        BEGIN
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('INSERT', CONCAT('Menambahkan Jenis Pengeluaran baru dengan nama ', NEW.kategori), NOW());
+            END
+        ");
+
+        DB::unprepared('DROP TRIGGER IF EXISTS update_jenis_pengeluaran');
+        DB::unprepared("
+        CREATE TRIGGER update_jenis_pengeluaran AFTER UPDATE ON jenis_pengeluaran FOR EACH ROW
+        BEGIN
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('UPDATE', CONCAT('Memperbarui Jenis Pengeluaran dengan data lama: ', OLD.kategori), NOW());
+            END
+        ");
+        
+        DB::unprepared('DROP TRIGGER IF EXISTS hapus_jenis_pengeluaran');
+        DB::unprepared("
+        CREATE TRIGGER hapus_jenis_pengeluaran AFTER DELETE ON jenis_pengeluaran FOR EACH ROW
+        BEGIN
+                INSERT INTO logs(aksi, aktivitas, waktu)
+                VALUES ('DELETE', CONCAT('Menghapus Jenis Pengeluaran dengan nama ', OLD.kategori), NOW());
+            END
+        ");
+
     }
 
     /**

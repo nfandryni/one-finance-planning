@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\sumber_dana;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SumberDanaController extends Controller
@@ -33,22 +34,26 @@ class SumberDanaController extends Controller
      */
     public function store(Request $request, sumber_dana $sumber_dana)
     {
+
+        $nama_sumber = $request->input('nama_sumber');
         $data = $request->validate(
             [
                 'nama_sumber'    => ['required'],
             ]
         );
 
-        //Proses Insert
-        if ($data) {
-            // Simpan jika data terisi semua
+        $exist = DB::table('sumber_dana')
+        ->where('nama_sumber', '=', $nama_sumber)
+        ->get();
+
+        if($exist->isEmpty()) {
             $sumber_dana->create($data);
             return redirect('dashboard-bendahara/sumber-dana')->with('success', 'Data Sumber Dana baru berhasil ditambah');
         } else {
-            // Kembali ke form tambah data
             return back()->with('error', 'Data Sumber Dana gagal ditambahkan');
         }
     }
+
 
     /**
      * Display the specified resource.

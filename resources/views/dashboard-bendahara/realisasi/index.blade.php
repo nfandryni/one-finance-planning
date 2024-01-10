@@ -8,6 +8,7 @@
     {{-- <div class="card" style="height: 75px;">
         <h4 class=" fw-bold p-3">Cetak Data Realisasi </h4>
     </div> --}}
+    <hr/>
     <div class="col-md-12 ">
                     <div class="row justify-content-md-center" style="align-items: center">
                        
@@ -44,9 +45,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="card-footer">
-
-                </div>
+                
             </div>
         </div>
     </div>
@@ -56,9 +55,9 @@
 
 @section('footer')
     <script type="module">
-        $('DataTable tbody').on('click', '.btnHapus', function(a) {
+        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
-            let idrealisasi = $(this).closest('.btnHapus').attr('idrealisasi');
+            let idRealisasi = $(this).closest('.btnHapus').attr('idRealisasi');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -73,7 +72,7 @@
                         type: 'DELETE',
                         url: 'realisasi/hapus',
                         data: {
-                            id_realisasi: idrealisasi,
+                            id_realisasi: idRealisasi,
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {

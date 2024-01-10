@@ -41,18 +41,32 @@ return new class extends Migration
         END;
         '); 
        
+        DB::unprepared('DROP TRIGGER IF EXISTS tambah_gedung');
+        DB::unprepared("
+        CREATE TRIGGER tambah_gedung AFTER INSERT ON gedung FOR EACH ROW
+        BEGIN
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('INSERT', CONCAT('Menambahkan Gedung baru dengan nama ', NEW.nama_gedung, ' dan ruangan dengan nama ', NEW.nama_ruangan), NOW());
+            END
+        ");
 
-        // DB::unprepared('DROP PROCEDURE IF EXISTS rollback');
-
-        // DB::unprepared('
-        // CREATE PROCEDURE ROLLBACK()
-        // BEGIN
-      
-        // START TRANSACTION;
-        // DELETE * FROM gedung WHERE nama_gedung = gedung AND nama_ruangan = ruangan;
-        // ROLLBACK;
-        // END;
-        // ');
+        DB::unprepared('DROP TRIGGER IF EXISTS update_gedung');
+        DB::unprepared("
+        CREATE TRIGGER update_gedung AFTER UPDATE ON gedung FOR EACH ROW
+        BEGIN
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('UPDATE', CONCAT('Memperbarui Gedung dengan data lama: ', OLD.nama_gedung, ', ', OLD.nama_ruangan), NOW());
+            END
+        ");
+        
+        DB::unprepared('DROP TRIGGER IF EXISTS hapus_gedung');
+        DB::unprepared("
+        CREATE TRIGGER hapus_gedung AFTER DELETE ON gedung FOR EACH ROW
+        BEGIN
+                INSERT INTO logs(aksi, aktivitas, waktu)
+                VALUES ('DELETE', CONCAT('Menghapus Gedung dengan nama ', OLD.nama_gedung), NOW());
+            END
+        ");
     }
 
     /**
