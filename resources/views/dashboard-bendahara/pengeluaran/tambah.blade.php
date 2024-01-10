@@ -18,12 +18,23 @@
                                         @endforeach
                                     </select>
                                     <label>Jenis Pengeluaran</label>
+<<<<<<< HEAD
+=======
+                                    @if($jenis_pengeluaran->isEmpty())
+                                    <br/>
+                                    <a href='/dashboard-bendahara/jenis-pengeluaran' class="btn btn-primary btn-sm">
+                                    Tambah Data
+                                    </a>
+                                    <br/>
+                                    @else
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                                     <select required class="form-select" name='id_jenis_pengeluaran'>
                                         @foreach ($jenis_pengeluaran as $s)
                                         <option selected hidden>Pilih Jenis Pengeluaran</option>
                                         <option value="{{$s->id_jenis_pengeluaran}}">{{$s->kategori}}</option>
                                         @endforeach
                                     </select>
+                                    @endif
                                     <label>Nama Pengeluaran</label>
                                     <input type="text" class="form-control" placeholder='Nama Pengeluaran' name="nama" required/>
                                     <label>Nominal</label>

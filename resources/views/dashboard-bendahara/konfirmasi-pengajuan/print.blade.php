@@ -6,8 +6,13 @@
                                     <th>Nama Pemohon</th>
                                     <th>Nama Kegiatan</th>
                                     <th>Waktu</th>
+<<<<<<< HEAD
                                     <th>Status</th>
                                     <th>Total Dana</th>
+=======
+                                    <th>Tujuan</th>
+                                    <th>Status</th>
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                                 </tr>
                             </thead>
                             <tbody>
@@ -17,10 +22,16 @@
                                         </td>
                                         <td>{{ $s->nama_kegiatan }}</td>    
                                         <td>{{ $s->waktu }}</td>    
+<<<<<<< HEAD
                                         <td>{{ $s->status }}</td>    
                                         <td>{{ $s->total_dana_kebutuhan }}</td>    
                                     </tr>
                                     @endif
+=======
+                                        <td>{{ $s->tujuan }}</td>    
+                                        <td>{{ $s->status }}</td>    
+                                    </tr>
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                                 @endforeach 
                             </tbody>
                         </table>

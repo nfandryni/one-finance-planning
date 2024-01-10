@@ -87,8 +87,13 @@ class SumberDanaController extends Controller
             );
 
         $id_sumber_dana = $request->input('id_sumber_dana');
+        $nama_sumber = $request->input('nama_sumber');
 
-        if ($id_sumber_dana !== null) {
+        $exist = DB::table('sumber_dana')
+        ->where('nama_sumber', '=', $nama_sumber)
+        ->get();
+
+        if ($exist->isEmpty() && $id_sumber_dana !== null) {
             // Process Update
             $dataUpdate = $sumber_dana->where('id_sumber_dana', $id_sumber_dana)->update($data);
 
@@ -97,6 +102,9 @@ class SumberDanaController extends Controller
             } else {
                 return back()->with('error', 'Data Sumber Dana gagal di update');
             }
+        } 
+        else {
+            return back()->with('error', 'Nama Sumber telah ada!');
         }
     }
 

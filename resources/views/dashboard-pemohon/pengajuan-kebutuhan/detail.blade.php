@@ -94,7 +94,7 @@
                                     <td>
                                         @if ($p->foto_barang_kebutuhan)
                                             <img src="{{ url('foto') . '/' . $p->foto_barang_kebutuhan }} "
-                                                style="max-width: 150px; height: auto;" />
+                                                style="width: 150px; height: auto;" />
                                         @endif
                                     </td>
                                     <td>
@@ -134,6 +134,8 @@
     @section('footer')
     <script type="module">
         $('#Ajukan').on('click', '.btnAjukan', function(a) {
+<<<<<<< HEAD
+=======
             a.preventDefault();
             let idPengajuanKebutuhan = $(this).closest('.btnAjukan').attr('idPengajuanKebutuhan');
             swal.fire({
@@ -167,4 +169,44 @@
         });
     </script>
 
+<script type="module">
+        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
+            a.preventDefault();
+            let idPengajuanKebutuhan = $(this).closest('.btnAjukan').attr('idPengajuanKebutuhan');
+            swal.fire({
+                title: "Anda ingin Mengajukan Kebutuhan ini?",
+                text: 'Pengajuan akan dikirim kepada Bendahara Sekolah',
+                showCancelButton: true,
+                confirmButtonText: 'Ajukan',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'green',
+                icon: 'question'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/dashboard-pemohon/pengajuan-kebutuhan/ajukan/'+idPengajuanKebutuhan,
+                        data: { 
+                            id_pengajuan_kebutuhan: idPengajuanKebutuhan,
+                            status: 'Terkirim',
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                swal.fire('Pengajuan kebutuhan Berhasil Diajukan!', '', 'success').then(function() {
+                                location.reload();
+                                });
+                            }
+                        }
+                    
+                    });
+        }});
+        });
+    </script>
+
+<<<<<<< HEAD
 @endsection 
+=======
+@endsection 
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f

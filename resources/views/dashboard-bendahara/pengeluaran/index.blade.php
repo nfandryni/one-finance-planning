@@ -2,6 +2,7 @@
 @section('pengeluaran', 'active')
 @section('title', 'Daftar Pengeluaran')
 @section('content')
+<<<<<<< HEAD
     <br>
     <div class="row">
         <h2 class="fw-bold">Kelola Data Pengeluaran</h2>
@@ -10,6 +11,20 @@
             class='btn btn-warning mt-4'>
             Cetak Data
         </a>
+=======
+    <div class="row">
+        <h2 class="fw-bold">Kelola Data Pengeluaran</h2>
+        <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>
+        @if(!$pengeluaran->isEmpty())
+    <a target='_blank' href="{{ url('/dashboard-bendahara/pengeluaran/print') }}" style='position:absolute; width:130px; right:30px;' class='btn btn-warning'>
+    <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+        </a>
+        @else
+        <button disabled style='position:absolute; width:130px; right:30px;' class='btn btn-secondary'>
+        <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+            </button>
+        @endif
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
         <hr />
         <div class="col-md-12">
             <div class="row justify-content-md-end" style="align-items: center">

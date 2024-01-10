@@ -17,6 +17,11 @@
                                     <label>Nama Item</label>
                                     <input readonly style='background-color: #EAEAEA' type="text"  class="form-control" name="item_kebutuhan" value="{{ $item_kebutuhan->item_kebutuhan }}" />
                                 </div>
+<<<<<<< HEAD
+=======
+                                <input type="hidden" name="id_pengajuan_kebutuhan" value="{{ $item_kebutuhan->id_pengajuan_kebutuhan }}">
+
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                                 @csrf
                                
                                     <div class="form-group">

@@ -17,6 +17,7 @@ class KonfirmasiPengajuanController extends Controller
         $data = [
             'pengajuan_kebutuhan' => DB::table('pengajuan_kebutuhan')
             ->join('pemohon', 'pengajuan_kebutuhan.id_pemohon', '=', 'pemohon.id_pemohon')
+            ->whereIn('pengajuan_kebutuhan.status', ['Difilterisasi', 'Dikonfirmasi', 'Terkirim'])
             ->get()
         ];
 
@@ -68,14 +69,15 @@ class KonfirmasiPengajuanController extends Controller
                 'spesifikasi' => ['required'],
             ]
         );
-        $id_item_kebutuhan  = $request->input('id_item_kebutuhan');
+        $id_pengajuan_kebutuhan  = $request->input('id_pengajuan_kebutuhan');
        
         if($request->input('id_item_kebutuhan') !== null ){
             //Proses Update
             $dataUpdate = item_kebutuhan::where('id_item_kebutuhan',$request->input('id_item_kebutuhan'))
                             ->update($data);
             if($dataUpdate){
-                return redirect('/dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_item_kebutuhan)->with('success','Data Item Kebutuhan berhasil di update');
+                return redirect('dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_pengajuan_kebutuhan)->with('success', 'Data Item Kebutuhan berhasil di update');
+
             }else{
                 return back()->with('error','Data Item Kebutuhan gagal di update');
             }
@@ -88,6 +90,7 @@ class KonfirmasiPengajuanController extends Controller
         $data = [
             'pengajuan_kebutuhan' => DB::table('pengajuan_kebutuhan')
             ->join('pemohon', 'pengajuan_kebutuhan.id_pemohon', '=', 'pemohon.id_pemohon')
+            ->whereIn('pengajuan_kebutuhan.status', ['Difilterisasi', 'Dikonfirmasi', 'Terkirim'])
             ->get()
         ];
 
@@ -116,8 +119,6 @@ class KonfirmasiPengajuanController extends Controller
                 ];
                 return response()->json($pesan);
             }
-        
-         
         }
     
     public function reject(Request $request, pengajuan_kebutuhan $pengajuan_kebutuhan)
@@ -144,16 +145,26 @@ class KonfirmasiPengajuanController extends Controller
     public function update(Request $request, item_kebutuhan $item_kebutuhan)
     {
         $id_item_kebutuhan = $request->input('id_item_kebutuhan');
+        $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
         $status = $request->input('status');
 
         $dataUpdate = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->update(['status' => $status]);
-        if ($dataUpdate) {
+        $cekStatus = DB::select("SELECT COUNT(*) as count FROM item_kebutuhan WHERE id_pengajuan_kebutuhan = ? AND status = '-' ", [$id_pengajuan_kebutuhan]);
+        if($dataUpdate && $cekStatus[0]->count == 0) {
+            dd($cekStatus);
+            $pesan = [
+                'success' => false,
+                'pesan' => 'Item Kebutuhan telah Ditolak!'
+            ];
+            return response()->json($pesan);
+            } else if($dataUpdate && $cekStatus[0]->count >= 1){
                 $pesan = [
                     'success' => true,
                     'pesan' => 'Item Kebutuhan telah Ditolak!'
                 ];
                 return response()->json($pesan);
-            } else {
+            }
+          else {
                 $pesan = [
                     'success' => false,
                     'message' => 'Item Kebutuhan gagal ditolak.',

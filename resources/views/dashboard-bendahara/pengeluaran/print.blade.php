@@ -1,7 +1,13 @@
+<<<<<<< HEAD
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <h2 class='text-center m-2'>Catatan Pengeluaran</h2>
   <table class="table table-striped">
+=======
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<h2 class='text-center m-2'>Pengeluaran</h2>
+<table class="table table-borderless table-striped mt-2 DataTable">
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
       <thead>
           <tr>
               <th scope='col'>No</th>

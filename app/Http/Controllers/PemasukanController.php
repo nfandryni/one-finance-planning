@@ -92,7 +92,7 @@ class PemasukanController extends Controller
     {
         //
         $data = [
-            'pemasukan'=>DB::table('view_pemasukan')->get(),
+            'pemasukan'=>DB::table('view_pemasukan')->where('id_pemasukan', $id)->get(),
         ];
         return view('dashboard-bendahara.pemasukan.detail', $data);
     }

@@ -9,10 +9,14 @@
                     <span class="h1 m">
                         Detail Data Pengeluaran
                     </span>
-                    <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class='mt-1'>
                                 @foreach($pengeluaran as $p)
+<<<<<<< HEAD
                                 <img src='../../../../foto/{{ $p->foto }}' width='400px'/>
+=======
+                                <img src='../../../../foto/{{ $p->foto }}' width='300px'/>
+                                <br/>   
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                             <div class="row mb-2">
                                 <div class="col-md-2">
                                 <label class='fw-bold'>Sumber Dana</label>
@@ -21,11 +25,28 @@
                                 : {{$p->nama_sumber}}
                         </div>
                         </div>
+<<<<<<< HEAD
                         <div class='row mb-2'>
                             <div class="col-md-2">
                                 <label class='fw-bold'>Nama Pengeluaran</label>
                             </div>
                             <div class="col-md-3">
+=======
+                        <div class='mt-1'>
+                            <div class="row mb-2">
+                                <div class="col-md-2">
+                                <label class='fw-bold'>Jenis Pengeluaran</label>
+                            </div>
+                            <div class="col-md-3">
+                                : {{$p->kategori}}
+                        </div>
+                        </div>
+                        <div class='row mb-2'>
+                            <div class="col-md-2">
+                                <label class='fw-bold'>Nama Pengeluaran</label>
+                            </div>
+                            <div class="col-md-3">
+>>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                                 : {{$p->nama_pengeluaran}}
                             </div>
                         </div>
@@ -64,7 +85,6 @@
                     </div>
                     </div>
                 </div>
-            </form>
             
         </div>
         <div class="row mt-2">

@@ -16,8 +16,6 @@ class SumberDanaSeeder extends Seeder
      */
     public function run(): void
     {
-
-
         DB::table('sumber_dana')->insert([
             [
                 'nama_sumber' => 'BPOD'
