@@ -134,8 +134,6 @@
     @section('footer')
     <script type="module">
         $('#Ajukan').on('click', '.btnAjukan', function(a) {
-<<<<<<< HEAD
-=======
             a.preventDefault();
             let idPengajuanKebutuhan = $(this).closest('.btnAjukan').attr('idPengajuanKebutuhan');
             swal.fire({
@@ -171,7 +169,6 @@
 
 <script type="module">
         $('.DataTable tbody').on('click', '.btnHapus', function(a) {
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
             a.preventDefault();
             let idPengajuanKebutuhan = $(this).closest('.btnAjukan').attr('idPengajuanKebutuhan');
             swal.fire({
@@ -205,8 +202,4 @@
         });
     </script>
 
-<<<<<<< HEAD
 @endsection 
-=======
-@endsection 
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f

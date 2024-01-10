@@ -39,8 +39,6 @@
                                     <th>Pemohon</th>
                                     <th>Waktu</th>
                                     <th>Aksi</th>
-                                    @endif
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,7 +129,7 @@
                     });
                 }
             });
-        );
+        });
           $(document).ready(function() {
         $('.DataTable').DataTable({});
     });

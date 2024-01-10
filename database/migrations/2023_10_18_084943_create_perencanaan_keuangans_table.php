@@ -29,6 +29,7 @@ return new class extends Migration
 
         DB::unprepared('DROP TRIGGER IF EXISTS tambah_perencanaan_keuangan');
         DB::unprepared("
+        CREATE TRIGGER tambah_perencanaan_keuangan AFTER INSERT ON perencanaan_keuangan FOR EACH ROW
     BEGIN
         INSERT INTO logs(aksi, aktivitas, waktu)
         VALUES ('INSERT', CONCAT('Menambahkan Perencanaan Keuangan baru dengan nama_kegiatan ', NEW.judul_perencanaan), NOW());

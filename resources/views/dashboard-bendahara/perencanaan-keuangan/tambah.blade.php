@@ -14,51 +14,16 @@
                     <div class="col-md-6" style=" ">
                         <div class="form-group">
                             <label>Nama Perencanaan</label>
-<<<<<<< HEAD
-                            <input type="text" class="form-control" required name="judul_perencanaan" />
-                        </div>
-                        <div class="form-group">
-                            <label>Tujuan</label>
-                            <input type="text" class="form-control" required name="tujuan" />
-=======
                             <input type="text" class="form-control" required name="judul_perencanaan" placeholder='Nama Perencanaan' />
                         </div>
                         <div class="form-group">
                             <label>Tujuan</label>
                             <input type="text" class="form-control" required name="tujuan" placeholder='Tujuan' />
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                         </div>
                         <div class="form-group">
                             <label>Waktu</label>
                             <input type="date" class="form-control" required name="waktu" />
                         </div>
-<<<<<<< HEAD
-                          <div class="col-md-12 mt-3 d-flex " style="gap: 10px; justify-content:start"  required>
-                           <a href="/dashboard-bendahara/perencanaan-keuangan" class="btn btn-dark">KEMBALI</a>
-                            <button type="submit" class="btn btn-primary">SIMPAN</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6" style=" ">
-                        <div class="form-group">
-                        <div class="form-group">
-                            <label>Pengajuan Kebutuhan</label>
-                            <input type="text" class="form-control" required name="id_pengajuan_kebutuhan" />
-                        </div>
-                            <label>Sumber Dana</label>
-                            <select name="id_sumber_dana" class="form-control">
-                                @foreach ($sumber_dana as $s)
-                                    <option selected hidden>Pilih Sumber Dana</option>
-                                    <option value="{{ $s->id_sumber_dana }}">
-                                        {{ $s->nama_sumber }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Total</label>
-                            <input type="number" class="form-control" required name="total_dana_perencanaan" />
-                        </div>
-=======
                         <div class="form-group">
                                     <label>Sumber Dana</label>
                                     <br>
@@ -79,7 +44,6 @@
                            <a href="/dashboard-bendahara/perencanaan-keuangan" class="btn btn-dark">KEMBALI</a>
                             <button type="submit" class="btn btn-primary">SIMPAN</button>
                         </div>
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                         @csrf
                     </div>
                 </div>
@@ -126,8 +90,4 @@
     </div>
     </div>
     </div>
-<<<<<<< HEAD
 @endsection
-=======
-@endsection
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f

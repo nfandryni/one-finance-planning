@@ -3,11 +3,7 @@
 @section('title', 'Dashboard')
 @section('content')
     <div>
-<<<<<<< HEAD
-        <a style="font-weight: bold; font-size:24px">Halo, Selamat Datang di One Finance Planning App sebagai Pengajuan!
-=======
         <a style="font-weight: bold; font-size:24px">Halo, Selamat Datang di One Finance Planning App sebagai {{Auth::user()->username}}!
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
         </a><br>
         <a style="font-size:20px">Disini anda dapat mengelola kebutuhan, melihat data realisasi dan mencetak
             dokumen.</a><br><br>
@@ -51,11 +47,7 @@
         </div>
         <div class="col-md-12 " style="justify-content:start">
             <a href="/dashboard-pemohon/pengajuan-kebutuhan">
-<<<<<<< HEAD
-                <button type="submit" class="btn" style="width:100%; background-Color:#588157; color:#fff">
-=======
                 <button type="button" class="btn" style="width:100%; background-Color:#588157; color:#fff">
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                     Lihat Halaman Pengajuan Kebutuhan
                 </button>
             </a>
@@ -92,14 +84,6 @@
         </div>
 
         <div class="col-md-12 " style="justify-content:start">
-<<<<<<< HEAD
-            <button type="submit" class="btn" style="width:100%; background-Color:#588157; color:#fff">
-                Lihat Halaman Realisasi
-            </button>
-        </div>
-    </div>
-@endsection
-=======
         <a href="/dashboard-pemohon/realisasi">
                 <button type="button" class="btn" style="width:100%; background-Color:#588157; color:#fff">
                     Lihat Halaman Realisasi
@@ -109,4 +93,3 @@
     </div>
     <br/>
 @endsection
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f

@@ -5,9 +5,12 @@
 
     class DashboardBendaharaController extends Controller
     {
-        public function index(sumber_dana $sumber_dana)
+        //
+     public function index(sumber_dana $sumber_dana)
         {
-            // dd($sumber_dana);
+            $sumber_danas = DB::table('sumber_dana')
+            ->limit(3)
+            ->get();
             $totalResults = [];
             if(is_null($sumber_danas)) {
                 $totalResults['Sumber Dana'] = '0';

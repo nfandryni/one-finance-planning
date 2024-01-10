@@ -2,10 +2,6 @@
 @section('konfirmasi-pengajuan', 'active')
 @section('title', 'Konfirmasi Pengajuan')
 @section('content')
-<<<<<<< HEAD
-<br>
-=======
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
     <div class="">
     <h2 class="fw-bold">Konfirmasi Pengajuan Kebutuhan</h2>
     @if(!$pengajuan_kebutuhan->isEmpty())
@@ -86,11 +82,7 @@
                                         <td>{{ $s->nama }}
                                         </td>
                                         <td>{{ $s->nama_kegiatan }}</td>    
-<<<<<<< HEAD
-                                        <td>{{ $s->waktu }}</td>    
-=======
                                         <td>{{ $s->waktu }}</td> 
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                                         <td>{{ $s->status }}</td>    
                                         <td>
                                            @if($s->status == 'Difilterisasi' || $s->status == 'Dikonfirmasi')
