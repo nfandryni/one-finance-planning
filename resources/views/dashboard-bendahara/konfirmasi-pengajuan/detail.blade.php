@@ -137,7 +137,7 @@
                         url: '/dashboard-bendahara/konfirmasi-pengajuan/tolak-item/'+idItemKebutuhan,
                         data: { 
                             id_item_kebutuhan: idItemKebutuhan,
-                            id_pengajuan_kebutuhan: {{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}},
+                            id_pengajuan_kebutuhan: {{ $pengajuan_kebutuhan->id_pengajuan_kebutuhan }},
                             status: 'Ditolak',
                             _token: "{{ csrf_token() }}"
                         },
