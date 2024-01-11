@@ -1,5 +1,6 @@
 @extends('layout.layout')
 @section('perencanaan-keuangan', 'active')
+@section('title', 'Edit Perencanaan Keuangan')
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -20,6 +21,10 @@
                         <div class="form-group">
                             <label>Tujuan</label>
                             <input type="text" class="form-control" required name="tujuan" value="{{ $perencanaan_keuangan->tujuan }}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu</label>
+                            <input type="date" class="form-control" required name="waktu" value="{{ $perencanaan_keuangan->waktu }}"/>
                         </div>
                         <div class="form-group">
                                  <label>Sumber Dana</label>

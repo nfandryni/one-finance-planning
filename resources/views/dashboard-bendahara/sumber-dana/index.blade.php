@@ -58,7 +58,7 @@
             a.preventDefault();
             let idSumberDana = $(this).closest('.btnHapus').attr('idSumberDana');
             swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+                title: "Apakah Anda ingin menghapus data ini?",
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,
@@ -66,7 +66,6 @@
 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
                         url: '/dashboard-bendahara/sumber-dana/hapus',
@@ -77,7 +76,6 @@
                         success: function(data) {
                             if (data.success) {
                                 swal.fire('Berhasil di hapus!', '', 'success').then(function() {
-                                    //Refresh Halaman
                                     location.reload();
                                 });
                             }

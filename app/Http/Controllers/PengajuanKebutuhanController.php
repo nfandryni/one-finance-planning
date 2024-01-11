@@ -69,7 +69,6 @@ class PengajuanKebutuhanController extends Controller
         ->exists();
 
         if($request->input('id_pengajuan_kebutuhan') !== null){
-            //Proses Update
             $dataUpdate = Pengajuan_Kebutuhan::where('id_pengajuan_kebutuhan',$request->input('id_pengajuan_kebutuhan'))
                             ->update($data);
             if($dataUpdate && !$exist){
@@ -171,7 +170,6 @@ class PengajuanKebutuhanController extends Controller
         $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
 
         if ($id_pengajuan_kebutuhan !== null) {
-            // Process Update
             $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update($data);
 
             if ($dataUpdate) {
@@ -190,17 +188,14 @@ class PengajuanKebutuhanController extends Controller
         //
         $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
 
-        // Hapus 
         $aksi = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->delete();
 
         if ($aksi) {
-            // Pesan Berhasil
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'

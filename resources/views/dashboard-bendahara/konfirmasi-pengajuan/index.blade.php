@@ -13,15 +13,15 @@
         <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
             </button>
         @endif
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalKeterangan">
-<i class="fa-solid fa-circle-info"></i> Penjelasan Status
-</button>
-
-<div class="modal fade" id="modalKeterangan" tabindex="-1" aria-labelledby="modalPenjelasanKeterangan" aria-hidden="true">
+    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalKeterangan">
+        <i class="fa-solid fa-circle-info"></i> Penjelasan Status
+    </button>
+    
+    <div class="modal fade" id="modalKeterangan" tabindex="-1" aria-labelledby="modalPenjelasanKeterangan" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5 fw-bold" id="modalPenjelasanKeterangan">Keterangan Status Pengajuan</h1>
+          <h1 class="modal-title fs-5 fw-bold" id="modalPenjelasanKeterangan">Keterangan Status Pengajuan</h1>
       </div>
       <div class="modal-body">
       <ul>
@@ -29,8 +29,8 @@
               <li>
                   <b>Terkirim</b>
                   <p> <b>Pemohon mengirimkan</b> pengajuan kebutuhan kepada Bendahara Sekolah untuk dimintai konfirmasinya.</p>
-              </li>
-          </div>
+                </li>
+            </div>
             <div>
                 <li>
                     <b>Difilterisasi</b>
@@ -52,21 +52,21 @@
         </ul>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Mengerti</button>
-      </div>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Mengerti</button>
+        </div>
     </div>
-  </div>
 </div>
-    <hr/>
-    <div class="col-md-12 ">
+</div>
+<hr/>
+<div class="col-md-12 ">
                     <div class="row justify-content-md-center" style="align-items: center">
-                       
+                        
                     </div>
                     </div>
                          </div>
 
-                        <table class="table table-borderless table-striped mt-2 DataTable">
-                            <thead> 
+                         <table class="table table-borderless table-striped mt-2 DataTable">
+                             <thead> 
                                 <tr>
                                     <th>Nama Pemohon</th>
                                     <th>Nama Kegiatan</th>

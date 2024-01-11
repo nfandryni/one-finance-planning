@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('perencanaan-keuangan', 'active')
-@section('title', 'Daftar Perencanaan Keuangan')
+@section('title', 'Tambah Item Perencanaan')
 @section('content')
     <div class="row">
         <div class="col-md-12" style="margin-bottom:2vh">

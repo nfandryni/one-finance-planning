@@ -50,9 +50,10 @@ class PerencanaanKeuanganController extends Controller
             'perencanaan_keuangan'=> perencanaan_keuangan::where('id_perencanaan_keuangan', $id)
             ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
             ->first(),
-            
-            'item_perencanaan'=> DB::table('view_perencanaan_keuangan')
-            ->where('view_perencanaan_keuangan.id_perencanaan_keuangan', $id)
+
+            'item_perencanaan'=> DB::table('item_perencanaan')
+            ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
+            ->where('item_perencanaan.id_perencanaan_keuangan', $id)
             ->get(),
         ];
         $user = Auth::user();
@@ -116,8 +117,9 @@ class PerencanaanKeuanganController extends Controller
             ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
             ->first(),
             
-            'item_perencanaan'=> DB::table('view_perencanaan_keuangan')
-            ->where('view_perencanaan_keuangan.id_perencanaan_keuangan', $id)
+            'item_perencanaan'=> DB::table('item_perencanaan')
+            ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
+            ->where('item_perencanaan.id_perencanaan_keuangan', $id)
             ->get(),
         ];
         return view('dashboard-bendahara.perencanaan-keuangan.detail', $data);  
@@ -151,6 +153,7 @@ class PerencanaanKeuanganController extends Controller
                 'id_sumber_dana'=> ['required'],
                 'judul_perencanaan'=> ['required'],
                 'tujuan'=> ['required'],
+                'waktu'=> ['required'],
             ]
         );
         $id_perencanaan_keuangan = $request->input('id_perencanaan_keuangan');

@@ -61,7 +61,6 @@ class ItemPerencanaanController extends Controller
         }
         if($request->input('id_item_perencanaan') !== null ){
             
-            //Proses Update
             $dataUpdate = item_perencanaan::where('id_item_perencanaan',$request->input('id_item_perencanaan'))
                             ->update($data);
             if($dataUpdate){
@@ -71,14 +70,11 @@ class ItemPerencanaanController extends Controller
             }
         }
         else{
-            //Proses Insert
             if($data):
               
-            //Simpan jika data terisi semua
                 $item_perencanaan->create($data);
                 return redirect('/dashboard-bendahara/perencanaan-keuangan')->with('success','Data Item Perencanaan Berhasil di Tambah');
             else:
-            //Kembali ke form tambah data
                 return back()->with('error','Data Item Gagal di Tambahkan');
             endif;
         }
@@ -189,17 +185,14 @@ class ItemPerencanaanController extends Controller
         //
         $id_item_perencanaan = $request->input('id_item_perencanaan');
 
-        // Hapus 
         $aksi = $item_perencanaan->where('id_item_perencanaan', $id_item_perencanaan)->delete();
 
         if ($aksi) {
-            // Pesan Berhasil
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'
