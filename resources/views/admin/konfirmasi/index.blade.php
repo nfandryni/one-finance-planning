@@ -97,7 +97,7 @@
                                         style="color: #000000; margin-top:10px;"></i></a>
                             @endif
                             @if ($s->status == 'Terkirim')
-                                <a href='/dashboard-bendahara/konfirmasi-pengajuan/detail/{{ $s->id_pengajuan_kebutuhan }}'><i
+                                <a href='/konfirmasi-pengajuan/detail/{{ $s->id_pengajuan_kebutuhan }}'><i
                                         class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
                                 <btn class="btnHapus" style="cursor: pointer"
                                     idPengajuanKebutuhan="{{ $s->id_pengajuan_kebutuhan }}"><i

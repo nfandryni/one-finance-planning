@@ -14,11 +14,16 @@
                             idPengajuanKebutuhan='{{ $pengajuan_kebutuhan->id_pengajuan_kebutuhan }}'
                             style='letter-spacing:1px; position:absolute; right:90px;'><i
                                 class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
-                    @else
+                    @elseif($pengajuan_kebutuhan->status == 'Difilterisasi')
                         <button class='btn btn-success btnKonfirmasi fw-bold'
                             idPengajuanKebutuhan='{{ $pengajuan_kebutuhan->id_pengajuan_kebutuhan }}'
                             style='letter-spacing:1px; position:absolute; right:90px;'><i
                                 class="fa-solid fa-circle-check"></i> Konfirmasi</button>
+                                @else 
+                                <button disabled class='btn btn-secondary btnKonfirmasi fw-bold'
+                            idPengajuanKebutuhan='{{ $pengajuan_kebutuhan->id_pengajuan_kebutuhan }}'
+                            style='letter-spacing:1px; position:absolute; right:90px;'><i
+                                class="fa-solid fa-circle-check"></i>  Dikonfirmasi</button>
                     @endif
                 </div>
             </div>

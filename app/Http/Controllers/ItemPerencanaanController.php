@@ -94,10 +94,15 @@ class ItemPerencanaanController extends Controller
     public function edit(string $id,item_perencanaan $item_perencanaan, perencanaan_keuangan $perencanaan_keuangan, gedung $gedung)
     {
         //
+
+        $id_perencanaan_keuangan = $item_perencanaan::where('id_item_perencanaan', $id)
+        ->select('id_perencanaan_keuangan')
+        ->first();
         $data = [
-            'item_perencanaan' => $item_perencanaan::where('id_item_perencanaan', $id)->first(),
-            'perencanaan_keuangan' => $perencanaan_keuangan->all(),
-            'gedung' => $gedung->all(),
+            'item_perencanaan' => $item_perencanaan::where('id_item_perencanaan', $id)
+            ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
+            ->first(),
+            'perencanaan_keuangan' => $perencanaan_keuangan::where('id_perencanaan_keuangan', $id_perencanaan_keuangan->id_perencanaan_keuangan)->first(),
             'pengeluaran' => pengeluaran::all()
         ];
         return view('dashboard-bendahara.item-perencanaan.edit', $data);

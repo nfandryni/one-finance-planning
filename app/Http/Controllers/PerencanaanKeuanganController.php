@@ -25,8 +25,16 @@ class PerencanaanKeuanganController extends Controller
             ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
             ->get(),
         ];
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            return view('dashboard-bendahara.perencanaan-keuangan.index', $data);    
 
-        return view('dashboard-bendahara.perencanaan-keuangan.index', $data);    
+        }
+        elseif($role == 'admin') {
+            return view('admin.perencanaan.index', $data);    
+
+        }
     }
 
     /**
@@ -63,6 +71,9 @@ class PerencanaanKeuanganController extends Controller
         }
         elseif($role == 'pemohon') {
             $pdf = PDF::loadView('dashboard-pemohon.perencanaan-keuangan.print-item', $data);
+        }
+        elseif($role == 'admin') {
+            $pdf = PDF::loadView('admin.perencanaan.print-item', $data);
         }
 
         return $pdf->stream();
@@ -106,7 +117,16 @@ class PerencanaanKeuanganController extends Controller
             'perencanaan_keuangan' => $perencanaan_keuangan->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
             ->get()
         ];
-        $pdf = PDF::loadView('dashboard-bendahara.perencanaan-keuangan.print', $data);
+        $pdf = 
+        
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            PDF::loadView('dashboard-bendahara.perencanaan-keuangan.print', $data);
+        }
+        elseif($role == 'admin') {
+            PDF::loadView('admin.perencanaan.print', $data);
+        }
 
         return $pdf->stream();
     }
@@ -122,8 +142,16 @@ class PerencanaanKeuanganController extends Controller
             ->where('item_perencanaan.id_perencanaan_keuangan', $id)
             ->get(),
         ];
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            return view('dashboard-bendahara.perencanaan-keuangan.detail', $data);  
 
-        return view('dashboard-bendahara.perencanaan-keuangan.detail', $data);  
+
+        }
+        elseif($role == 'admin') {
+            return view('admin.perencanaan.detail', $data);
+        }
     }
 
     /**

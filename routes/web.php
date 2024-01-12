@@ -82,8 +82,9 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('/realisasi')->group(function () {
             Route::get('/', [RealisasiController::class, 'index']);
-            Route::get('/detail', [RealisasiController::class, 'detail']);
+            Route::get('/detail/{id}', [RealisasiController::class, 'show']);
             Route::get('/print', [RealisasiController::class, 'print']);
+            Route::get('/print-item/{id}', [RealisasiController::class, 'print_item']);
 
         });
 
@@ -92,12 +93,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/detail/{id}', [KonfirmasiPengajuanController::class, 'show']);
             Route::post('/konfirmasi/{id}', [KonfirmasiPengajuanController::class, 'konfirmasi']);
             Route::get('/print', [KonfirmasiPengajuanController::class, 'print']);
+            
         });
 
         Route::prefix('/perencanaan-keuangan')->group(function () {
             Route::get('/', [PerencanaanKeuanganController::class, 'index']);
-            Route::get('/detail', [PerencanaanKeuanganController::class, 'detail']);
+            Route::get('/detail/{id}', [PerencanaanKeuanganController::class, 'show']);
             Route::get('/print', [PerencanaanKeuanganController::class, 'print']);
+            Route::get('/print-item/{id}', [PerencanaanKeuanganController::class, 'print_item']);
        });
        
     });
@@ -215,12 +218,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/realisasi', [RealisasiController::class, 'index']);
         Route::get('/realisasi/detail/{id}', [RealisasiController::class, 'show']);
         Route::get('/realisasi/print', [RealisasiController::class, 'print']);
+        Route::get('/realisasi/print-item/{id}', [RealisasiController::class, 'print_item']);
     });
 
-    Route::prefix('dashboard-pemohon')->group(function ()  {
-        Route::get('/', [DashboardPemohonController::class, 'index']);
-        Route::get('/realisasi', [RealisasiController::class, 'index']);
-    });
 
 Route::get('/logout', [LoginController::class, 'logout']);
 

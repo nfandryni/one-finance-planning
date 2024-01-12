@@ -9,7 +9,7 @@
             <br/>
            <a class='text-black mt-2' href='/dashboard-bendahara/konfirmasi-pengajuan'><i class="fa-solid fa-arrow-left fa-xl "></i></a> 
                 <div id='Konfirmasi'>
-                    @if($pengajuan_kebutuhan->status == 'Difilterisasi' || $pengajuan_kebutuhan->status == 'Dikonfirmasi' || $pengajuan_kebutuhan->status == 'Ditolak')
+                    @if($pengajuan_kebutuhan->status == 'Difilterisasi' || $pengajuan_kebutuhan->status == 'DiKonfirmasi' || $pengajuan_kebutuhan->status == 'Ditolak')
                      <button disabled class='btn btn-secondary btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
                      @else
                      <button class='btn btn-success fw-bold' data-bs-toggle="modal" data-bs-target="#konfirmasiPengajuan" style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Konfirmasi</button>
@@ -134,7 +134,7 @@
                                 <th>Spesifikasi</th>
                                 <th>Foto</th>
                             @if($pengajuan_kebutuhan->status == 'Terkirim')
-                                <th>Aksi</th>
+                                <th>Aksi</th>        
                                 @endif
                             </tr>
                         </thead>

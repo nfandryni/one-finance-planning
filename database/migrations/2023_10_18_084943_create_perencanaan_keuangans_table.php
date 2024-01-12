@@ -53,6 +53,16 @@ return new class extends Migration
         END
     ");
 
+    DB::unprepared('
+    CREATE TRIGGER tambah_item_afterKonfirmasi AFTER INSERT ON perencanaan_keuangan FOR EACH ROW
+    BEGIN
+    INSERT INTO item_perencanaan (id_item_kebutuhan, id_gedung, item_perencanaan, qty, harga_satuan, satuan, spesifikasi, bulan_rencana_realisasi, foto_barang_perencanaan)
+        SELECT ik.id_item_kebutuhan, ik.id_gedung, ik.item_kebutuhan, ik.qty, ik.harga_satuan, ik.satuan, ik.spesifikasi, ik.bulan_rencana_realisasi, ik.foto_barang_kebutuhan
+        FROM item_kebutuhan ik where id_pengajuan_kebutuhan = NEW.id_pengajuan_kebutuhan limit 1;
+       
+    END
+    
+    ');
    
     }
 

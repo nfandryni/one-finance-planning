@@ -79,7 +79,9 @@ class RealisasiController extends Controller {
         elseif($role == 'pemohon') {
             $pdf = PDF::loadView('dashboard-pemohon.realisasi.print', $data);
         }
-
+        elseif($role == 'admin') {
+            $pdf = PDF::loadView('admin.realisasi.print', $data);
+        }
         return $pdf->stream();
     }
     public function print_item(realisasi $realisasi, pengeluaran $pengeluaran, String $id)
@@ -90,7 +92,7 @@ class RealisasiController extends Controller {
             'item_perencanaan'=> DB::table('item_perencanaan')
             ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
             ->join('pengeluaran', 'item_perencanaan.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
-            ->where('item_perencanaan.id_perencanaan_keuangan', $id)
+            ->where('item_perencanaan.id_realisasi', $id)
             ->get(),
         ];
         $user = Auth::user();
@@ -101,7 +103,9 @@ class RealisasiController extends Controller {
         elseif($role == 'pemohon') {
             $pdf = PDF::loadView('dashboard-pemohon.realisasi.print-item', $data);
         }
-
+        elseif($role == 'admin') {
+            $pdf = PDF::loadView('admin.realisasi.print-item', $data);
+        }
         return $pdf->stream();
     }
 
@@ -128,6 +132,9 @@ class RealisasiController extends Controller {
         }
         elseif($role == 'pemohon') {
             return view('dashboard-pemohon.realisasi.detail', $data);
+        }
+        elseif($role == 'admin') {
+            return view('admin.realisasi.detail', $data);
         }
     }
 

@@ -19,10 +19,10 @@
         </div>
     </div>
 
-    <div class="col-md-12 d-flex gap-1">
+    {{-- <div class="col-md-12 d-flex gap-1">
         <div class="col-md-6 " style="border:1px solid black">jadshask</div>
         <div class="col-md-6 " style="border:1px solid black">dkjdsai</div>
-    </div>
+    </div> --}}
 
 @endsection
 

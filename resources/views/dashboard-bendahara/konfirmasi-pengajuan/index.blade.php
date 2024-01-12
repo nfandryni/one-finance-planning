@@ -77,7 +77,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($pengajuan_kebutuhan as $s)
-                                @if($s->status == 'Terkirim' || $s->status == 'Difilterisasi' || $s->status == 'Dikonfirmasi')
+                               
                                     <tr>
                                         <td>{{ $s->nama }}
                                         </td>
@@ -85,7 +85,7 @@
                                         <td>{{ $s->waktu }}</td> 
                                         <td>{{ $s->status }}</td>    
                                         <td>
-                                           @if($s->status == 'Difilterisasi' || $s->status == 'Dikonfirmasi')
+                                           @if($s->status == 'Difilterisasi' || $s->status == 'DiKonfirmasi')
                                            <a  href='/dashboard-bendahara/konfirmasi-pengajuan/detail/{{$s->id_pengajuan_kebutuhan}}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000; margin-top:10px;"></i></a>
                                            @endif
                                            @if($s->status == 'Terkirim')
@@ -94,7 +94,6 @@
                                             @endif
                                         </td>
                                     </tr>
-                                    @endif
                                 @endforeach 
                             </tbody>
                         </table>

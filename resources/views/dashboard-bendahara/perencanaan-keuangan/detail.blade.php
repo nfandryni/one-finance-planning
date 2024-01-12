@@ -80,9 +80,7 @@
                                 <th>Status</th>
                                 <th>Rencana Realisasi</th>
                                 <th>Foto</th>
-                                @if(!isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                                 <th>Aksi</th>
-                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -103,7 +101,6 @@
                                         style="max-width: 150px; height: auto;" />
                                         @endif
                                     </td>
-                                    @if(!isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                                     <td>
                                         @if($p->status == 'Terbeli')
                                        <button disabled class="btn btn-secondary" style='margin:2px' ><i class="fa-solid fa-pen" style="cursor: pointer;">
@@ -113,6 +110,7 @@
                                         <a class='btn btn-primary' style='margin:2px' href="/dashboard-bendahara/item-perencanaan/edit/{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-pen" style="cursor: pointer;">
                                            </i>
                                         </a>
+                                    @if(!isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                                             <btn class="btn btn-danger btnHapus"
                                                 idItemPerencanaan="{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-trash"></i></btn>
                                     </td>

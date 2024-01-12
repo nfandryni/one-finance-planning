@@ -161,9 +161,9 @@ return new class extends Migration
         DECLARE pengajuan_id INT ;
         DECLARE judul VARCHAR(60);
         DECLARE tujuan_perencanaan VARCHAR(255);
-        DECLARE waktu_perencanaan DATE ;
+        DECLARE waktu_perencanaan DATE;
         DECLARE total DECIMAL(10,0);
-         
+        DECLARE sumber_id INT;
 
         IF NEW.status = "DiKonfirmasi" THEN 
         SET pengajuan_id = NEW.id_pengajuan_kebutuhan;
@@ -171,11 +171,51 @@ return new class extends Migration
         SET tujuan_perencanaan = NEW.tujuan;
         SET waktu_perencanaan = NEW.waktu;
         SET total = NEW.total_dana_kebutuhan;
+        SET sumber_id = NEW.id_sumber_dana;
 
-        INSERT INTO perencanaan_keuangan(judul_perencanaan,tujuan,waktu, total_dana_perencanaan) VALUES (judul , tujuan_perencanaan , waktu_perencanaan, total); 
+
+        INSERT INTO perencanaan_keuangan(id_sumber_dana, judul_perencanaan, tujuan, waktu, total_dana_perencanaan) VALUES (sumber_id,judul , tujuan_perencanaan , waktu_perencanaan, total); 
         END IF;
         END
 ');
+
+
+// DB::unprepared('
+// CREATE TRIGGER cekItemPerencanaan AFTER INSERT ON item_perencanaan FOR EACH ROW
+// BEGIN
+//     INSERT INTO item_perencanaan (
+//         id_item_kebutuhan,
+//         id_perencanaan_keuangan,
+//         id_gedung,
+//         item_perencanaan,
+//         qty,
+//         harga_satuan,
+//         satuan,
+//         spesifikasi,
+//         bulan_rencana_realisasi,
+//         foto_barang_perencanaan
+//     )
+//     SELECT
+//         ik.id_item_kebutuhan,
+//         item_perencanaan.id_perencanaan_keuangan,
+//         ik.id_gedung,
+//         ik.item_kebutuhan,
+//         ik.qty,
+//         ik.harga_satuan,
+//         ik.satuan,
+//         ik.spesifikasi,
+//         ik.bulan_rencana_realisasi,
+//         ik.foto_barang_kebutuhan	 
+//     FROM item_kebutuhan ik
+//     WHERE id_pengajuan_kebutuhan = (select id_pengajuan_kebutuhan from perencanaan_keuangan where id_perencanaan_keuangan  = NEW.id_perencanaan_keuangan)
+//         AND ik.id_item_kebutuhan NOT IN (
+//             SELECT id_item_kebutuhan
+//             FROM item_perencanaan
+//             WHERE id_perencanaan_keuangan = NEW.id_perencanaan_keuangan
+//         );
+// END
+
+// ')
     }
 
 

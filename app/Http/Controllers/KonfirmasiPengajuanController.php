@@ -19,10 +19,9 @@ class KonfirmasiPengajuanController extends Controller
         $data = [
             'pengajuan_kebutuhan' => DB::table('pengajuan_kebutuhan')
             ->join('pemohon', 'pengajuan_kebutuhan.id_pemohon', '=', 'pemohon.id_pemohon')
-            ->whereIn('pengajuan_kebutuhan.status', ['Difilterisasi', 'Dikonfirmasi', 'Terkirim'])
+            ->whereIn('pengajuan_kebutuhan.status', ['Difilterisasi', 'DiKonfirmasi', 'Terkirim'])
             ->get()
         ];
-
         $user = Auth::user();
         $role = $user->role;
         if($role == 'bendaharasekolah') {
@@ -36,7 +35,6 @@ class KonfirmasiPengajuanController extends Controller
 
     public function show(string $id)
     {
-        //
         $data = [
             'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan', $id)->first(),
             
@@ -165,8 +163,8 @@ class KonfirmasiPengajuanController extends Controller
         public function konfirmasi(Request $request, pengajuan_kebutuhan $pengajuan_kebutuhan)
         {
             $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
-            $status = $request->input('status');
-    
+            $status = $request->input('status');            
+            
             $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update(['status' => $status]);
             if ($dataUpdate) {
                     $pesan = [
