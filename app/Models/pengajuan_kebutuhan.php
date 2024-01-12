@@ -15,6 +15,7 @@ class pengajuan_kebutuhan extends Model
     'nama_kegiatan', 
     'tujuan', 
     'status', 
-    'waktu'];
+    'waktu',
+    'total_dana_kebutuhan'];
     public $timestamps = false;
 }

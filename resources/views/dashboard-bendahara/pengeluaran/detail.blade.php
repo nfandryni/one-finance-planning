@@ -9,10 +9,10 @@
                     <span class="h1 m">
                         Detail Data Pengeluaran
                     </span>
-                    <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class='mt-1'>
                                 @foreach($pengeluaran as $p)
-                                <img src='../../../../foto/{{ $p->foto }}' width='400px'/>
+                                <img src='../../../../foto/{{ $p->foto }}' width='300px'/>
+                                <br/>   
                             <div class="row mb-2">
                                 <div class="col-md-2">
                                 <label class='fw-bold'>Sumber Dana</label>
@@ -73,7 +73,6 @@
                     </div>
                     </div>
                 </div>
-            </form>
             
         </div>
         <div class="row mt-2">

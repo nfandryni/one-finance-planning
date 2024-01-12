@@ -112,9 +112,9 @@
                     </li>
                     <li>
                         <button class="nav-link btn btn-toggle border-0 text-white collapsed" data-bs-toggle="collapse" data-bs-target="#datamaster-collapse">
-                        Kelola Data Master <i class="fa-solid fa-chevron-down" style='margin-left: 1px;'></i> 
+                        Kelola Data Master <i class="fa-solid fa-chevron-down" id='buka-tutup' style='margin-left: 1px;'></i> 
                         </button>
-                        <div class="collapse" id="datamaster-collapse">
+                        <div class="collapse @if(Request::is('dashboard-bendahara/gedung', 'dashboard-bendahara/sumber-dana', 'dashboard-bendahara/jenis-pengeluaran')) show @endif"" id="datamaster-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal small">
                             <li><a href="/dashboard-bendahara/gedung" class="nav-link @yield('gedung') text-decoration-none ">Gedung</a></li>
                             <li><a href="/dashboard-bendahara/sumber-dana" class="nav-link @yield('sumber-dana') text-decoration-none ">Sumber Dana</a></li>
@@ -129,7 +129,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/dashboard-bendahara/perencanaan-keuangan" class="nav-link @yield('perencanaan-keuangan')">
+                        <a href='/dashboard-bendahara/perencanaan-keuangan' class="nav-link @yield('perencanaan-keuangan')">
                             Perencanaan Keuangan
                         </a>
                     </li>
@@ -151,8 +151,8 @@
                             Pengajuan Kebutuhan
                         </a>
                     </li>
-                     <li>
-                        <a href="/dashboard-pemohon/realisasi" class="nav-link  @yield('realisasi')">
+                    <li>
+                        <a href="/dashboard-pemohon/realisasi" class="nav-link @yield('realisasi')">
                             Realisasi
                         </a>
                     </li>

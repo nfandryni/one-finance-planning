@@ -31,20 +31,20 @@ class LoginController extends Controller
             session_start();
             session(['username' => $user->username]);
             if($user->role == 'admin') {
-                return redirect()->to('/dashboard-admin');
+                return redirect('/dashboard-admin');
             } elseif($user->role == 'superadmin') {
-                return redirect()->to('/dashboard-superadmin');
+                return redirect('/dashboard-superadmin')->with('success', 'Anda berhasil Login!');
             } elseif($user->role == 'bendaharasekolah') {
-                return redirect()->to('/dashboard-bendahara');
+                return redirect('/dashboard-bendahara')->with('success', 'Anda berhasil Login!');
             } elseif($user->role == 'pemohon'){
-                return redirect()->to('/dashboard-pemohon');
+                return redirect('/dashboard-pemohon')->with('success', 'Anda berhasil Login!');
             }   
             else{
-                return redirect()->to('/');
+                return redirect('/login')->with('error', 'Pastikan Username & Password Anda telah sesuai!');
             }
         }
         else{
-            return redirect('/login');
+            return redirect('/login')->with('error', 'Pastikan Username & Password Anda telah sesuai!');
         }
     }
     public function logout(){

@@ -12,40 +12,55 @@
                     <div class="col-md-12 gap-2" style="display:flex; justify-content: space-between">
                         <div class="col-md-6" style=" ">
                          <div class="form-group">
-                                <label>ID Perencanaan</label>
-                                <input type="text" class="form-control" name="id_perencanaan_keuangan" />
+                                <label>Nama Perencanaan</label>
+                                <input type="text" readonly class="form-control" style='background-color: #EAEAEA;' value='{{$perencanaan_keuangan->judul_perencanaan}}' />
+                                <input type="text" hidden name='id_perencanaan_keuangan' value='{{$perencanaan_keuangan->id_perencanaan_keuangan}}' />
                                 
                             </div>
                             <div class="form-group">
                                 <label>Nama Item</label>
-                                <input type="text" class="form-control" name="item_perencanaan" />
+                                <input type="text" class="form-control" name="item_perencanaan" placeholder='Nama Item'/>
                                 
                             </div>
                             <div class="form-group">
                                 <label>QTY</label>
-                                <input type="number" class="form-control" name="qty" />
+                                <input type="number" class="form-control" name="qty" placeholder='Quantity' />
                             </div>
                             <div class="form-group">
                                 <label>Harga Satuan</label>
-                                <input type="number" class="form-control" name="harga_satuan" />
+                                <input type="number" class="form-control" name="harga_satuan" placeholder='Harga Satuan' />
                             </div>
-                           
+                            <div class="form-group">
+                                    <label>Ruangan</label>
+                                    <br>
+                                    @if($gedung->isEmpty())
+                                    <a href='/dashboard-bendahara/gedung' class="btn btn-primary btn-sm">
+                                    Tambah Data
+                                    </a>
+                                    @else
+                                    <select required class='form-select' name="id_gedung">
+                                        @foreach($gedung as $p)
+                                        <option selected disabled hidden>Pilih Nama Ruangan</option>
+                                        <option value='{{$p->id_gedung}}'>{{$p->nama_ruangan}}</option>
+                                        @endforeach
+                                    </select>
+                                    @endif
+                                </div>
                              
                         </div>
-                        {{-- <div class="col-md-1" style=" "></div> --}}
                         <div class="col-md-6" style=" ">
 
                             <div class="form-group">
                                 <label> Spesifikasi </label>
-                                <input type="text" class="form-control" name="spesifikasi" />
+                                <input type="text" class="form-control" name="spesifikasi" placeholder='Spesifikasi'/>
                             </div>
                              <div class="form-group">
                                 <label> Satuan </label>
-                                <input type="text" class="form-control" name="satuan" />
+                                <input type="text" class="form-control" name="satuan" placeholder='Satuan'/>
                             </div>
                             <div class="form-group">
-                                <label> Bulan </label>
-                                <input type="date" class="form-control" name="bulan_rencana_realisasi" />
+                                <label> Bulan Realisasi</label>
+                                <input type="month" class="form-control" name="bulan_rencana_realisasi" />
                             </div>
                             <div class="form-group">
                                 <label>Foto Barang Perencanaan</label>

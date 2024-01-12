@@ -5,22 +5,32 @@
                     <div class="row ">
                         
                         <div class="col-md-12" style="margin-bottom:2vh">
-                            <span class="h4" style="font-weight:bold;">Kelola Data Pengajuan Kebutuhan</span>
+                            <div class="row">
+                                <h2 class="fw-bold">Kelola Data Pengajuan Kebutuhan</h2>
+                                <h5 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h5>
+        @if(!$pengajuan_kebutuhan->isEmpty())
+    <a target='_blank' href="{{ url('/dashboard-pemohon/cetak') }}" style='position:absolute; width:130px; right:30px;' class='btn btn-warning'>
+    <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+        </a>
+        @else
+        <button disabled style='position:absolute; width:130px; right:30px;' class='btn btn-secondary'>
+        <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+            </button>
+        @endif
+        <hr>
                         </div>
-                         {{-- Menghitung jumlah pengajuan kebutuhan diambil dari stored function yang ada di migration --}}
-                        <h3 class="card-title"> Jumlah Pengajuan Kebutuhan: {{ $totalList ?? 0 }}</h3>
+                        
                         <div class="col-md-12">
-                                <div class="row justify-content-md-end" style="align-items: center">
-                                    <div class="col-sm-2">
-                                        <div>
-                                         <a href="pengajuan-kebutuhan/tambah">
-                                            <btn class="btn btn-primary">Tambah Data</btn>
-                                        </a>
-                                        </div>
-                                    </div>
-                                </div>
-                         </div>
-                        <p>
+            <div class="row justify-content-md-end" style="align-items: center">
+                <div class="col-sm-2">
+                    <div class="col-sm">
+                        <a href="/dashboard-pemohon/pengajuan-kebutuhan/tambah">
+                            <btn class="btn btn-primary" style='position:absolute; margin-top:20px;'>Tambah Data</btn>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
                         <table class="table table-hover table-borderless table-striped DataTable">
                             <thead>
                                 <tr>
@@ -28,11 +38,7 @@
                                     <th>Nama Kegiatan</th>
                                     <th>Pemohon</th>
                                     <th>Waktu</th>
-                                    @if(isset($pemohon))
-                                    @if($pemohon->user_id == Auth::user()->user_id)
                                     <th>Aksi</th>
-                                    @endif
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,10 +82,6 @@
                                                 
                                                 <i class="fa-solid fa-trash btnHapus" style="cursor:pointer" idPengajuanKebutuhan="{{ $s->id_pengajuan_kebutuhan}}"></i>
                                                 @endif
-                                                <a href="{{ url('/dashboard-pemohon/cetak') }}"
-                                                style="text-decoration: none; color:black">
-                                                <i class="fa-solid fa-print "></i>
-                                            </a>
                                             @else
                                             <p>Tidak ada Akses</p>
                                             @endif

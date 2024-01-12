@@ -17,6 +17,8 @@
                                     <label>Nama Item</label>
                                     <input readonly style='background-color: #EAEAEA' type="text"  class="form-control" name="item_kebutuhan" value="{{ $item_kebutuhan->item_kebutuhan }}" />
                                 </div>
+                                <input type="hidden" name="id_pengajuan_kebutuhan" value="{{ $item_kebutuhan->id_pengajuan_kebutuhan }}">
+
                                 @csrf
                                
                                     <div class="form-group">

@@ -84,7 +84,7 @@ class PemasukanController extends Controller
     {
         //
         $data = [
-            'pemasukan'=>DB::table('view_pemasukan')->get(),
+            'pemasukan'=>DB::table('view_pemasukan')->where('id_pemasukan', $id)->get(),
         ];
         $user = Auth::user();
         $role = $user->role;
@@ -138,7 +138,7 @@ class PemasukanController extends Controller
         $data = $request->validate(
             [
                 'id_sumber_dana'    => ['sometimes'],
-                'nama_pemasukan'    => ['sometimes'],
+                'nama'    => ['sometimes'],
                 'nominal'    => ['sometimes'],
                 'waktu'    => ['sometimes'],
                 'foto'    => ['sometimes'],

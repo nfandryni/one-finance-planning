@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\perencanaan_keuangan;
 use App\Models\pengajuan_kebutuhan;
+use App\Models\item_perencanaan;
 use App\Models\sumber_dana;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use PDF;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PerencanaanKeuanganController extends Controller
 {
@@ -16,19 +19,15 @@ class PerencanaanKeuanganController extends Controller
      */
     public function index(Request $request, perencanaan_keuangan $perencanaan_keuangan)
     {
+       
         $data = [
-            'perencanaan_keuangan' => $perencanaan_keuangan->all()
+            'perencanaan_keuangan' => $perencanaan_keuangan
+            ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
+            ->get(),
         ];
 
-        $user = Auth::user();
-        $role = $user->role;
-        if($role == 'bendaharasekolah') {
-            return view('dashboard-bendahara.perencanaan-keuangan.index', $data);
-        }
-        elseif($role == 'admin') {
-            return view('admin.perencanaan.index', $data);
-        }
-    }  
+        return view('dashboard-bendahara.perencanaan-keuangan.index', $data);    
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -44,6 +43,29 @@ class PerencanaanKeuanganController extends Controller
 
         return view('dashboard-bendahara.perencanaan-keuangan.tambah', $data);
     }
+    public function print_item(String $id)
+    {
+        $data = [
+            'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan'),
+            'perencanaan_keuangan'=> perencanaan_keuangan::where('id_perencanaan_keuangan', $id)
+            ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
+            ->first(),
+            
+            'item_perencanaan'=> DB::table('view_perencanaan_keuangan')
+            ->where('view_perencanaan_keuangan.id_perencanaan_keuangan', $id)
+            ->get(),
+        ];
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'bendaharasekolah') {
+            $pdf = PDF::loadView('dashboard-bendahara.perencanaan-keuangan.print-item', $data);
+        }
+        elseif($role == 'pemohon') {
+            $pdf = PDF::loadView('dashboard-pemohon.perencanaan-keuangan.print-item', $data);
+        }
+
+        return $pdf->stream();
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -53,24 +75,23 @@ class PerencanaanKeuanganController extends Controller
         //
         $data = $request->validate(
             [
-                'id_pengajuan_kebutuhan'=> ['required'],
                 'id_sumber_dana'=> ['required'],
                 'judul_perencanaan'=> ['required'],
                 'tujuan'=> ['required'],
                 'waktu'=> ['required'],
-                'total_dana_perencanaan'=> ['required'],
             ]
         );
 
-       //Proses Insert
-       if ($data) {
-       
-        // Simpan jika data terisi semua
+        $exist = DB::table('perencanaan_keuangan')
+        ->where('judul_perencanaan', '=', $data['judul_perencanaan'])
+        ->where('tujuan', '=', $data['tujuan'])
+        ->where('waktu', '=', $data['waktu'])
+        ->exists();
+
+       if ($data && !$exist) {
         $perencanaan_keuangan->create($data);
-        // dd($data);
         return redirect('dashboard-bendahara/perencanaan-keuangan')->with('success', 'Data Perencanaan Keuangan baru berhasil ditambah');
     } else {
-        // Kembali ke form tambah data
         return back()->with('error', 'Data Perencanaan Keuangan gagal ditambahkan');
     }
     }
@@ -78,12 +99,23 @@ class PerencanaanKeuanganController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(perencanaan_keuangan $perencanaan_keuangan,item_perencanaan $item_perencanaan, string $id,)
+    public function print(perencanaan_keuangan $perencanaan_keuangan)
     {
-        //
         $data = [
-            'perencanaan_keuangan'=> perencanaan_keuangan::where('id_perencanaan_keuangan', $id)->first(),
+            'perencanaan_keuangan' => $perencanaan_keuangan->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
+            ->get()
+        ];
+        $pdf = PDF::loadView('dashboard-bendahara.perencanaan-keuangan.print', $data);
 
+        return $pdf->stream();
+    }
+     public function show(perencanaan_keuangan $perencanaan_keuangan,item_perencanaan $item_perencanaan,pengajuan_kebutuhan $pengajuan_kebutuhan, string $id) {    
+        $data = [
+            'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan'),
+            'perencanaan_keuangan'=> perencanaan_keuangan::where('id_perencanaan_keuangan', $id)
+            ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
+            ->first(),
+            
             'item_perencanaan'=> DB::table('view_perencanaan_keuangan')
             ->where('view_perencanaan_keuangan.id_perencanaan_keuangan', $id)
             ->get(),
@@ -96,13 +128,12 @@ class PerencanaanKeuanganController extends Controller
      */
     public function edit( string $id, perencanaan_keuangan $perencanaan_keuangan, pengajuan_kebutuhan $pengajuan_kebutuhan, sumber_dana $sumber_dana)
     {
-        //
-        
+
         $data = [
-            'perencanaan_keuangan' => $perencanaan_keuangan::where('id_perencanaan_keuangan', $id)->first(),
+            'perencanaan_keuangan' => $perencanaan_keuangan::where('id_perencanaan_keuangan', $id)
+            ->first(),
             'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all(),
             'sumber_dana' => $sumber_dana->all(),
-
         ];
 
         return view('dashboard-bendahara.perencanaan-keuangan.edit', $data);
@@ -116,18 +147,15 @@ class PerencanaanKeuanganController extends Controller
         //
         $data = $request->validate(
             [
-                'id_pengajuan_kebutuhan'=> ['required'],
+                'id_pengajuan_kebutuhan'=> ['sometimes'],
                 'id_sumber_dana'=> ['required'],
                 'judul_perencanaan'=> ['required'],
                 'tujuan'=> ['required'],
-                'waktu'=> ['required'],
-                'total_dana_perencanaan'=> ['required'],
             ]
         );
         $id_perencanaan_keuangan = $request->input('id_perencanaan_keuangan');
 
         if ($id_perencanaan_keuangan !== null) {
-            // Process Update
             $dataUpdate = $perencanaan_keuangan->where('id_perencanaan_keuangan', $id_perencanaan_keuangan)->update($data);
 
             if ($dataUpdate) {
@@ -143,47 +171,30 @@ class PerencanaanKeuanganController extends Controller
      */
     public function destroy(perencanaan_keuangan $perencanaan_keuangan, Request $request)
     {
-        //
-        {
-            //
-            $id_perencanaan_keuangan = $request->input('id_perencanaan_keuangan');
-    
-            // Hapus 
+
+        $id_perencanaan_keuangan = $request->input('id_perencanaan_keuangan');
+        $cekStatus = DB::select("SELECT COUNT(*) as count FROM item_perencanaan WHERE id_perencanaan_keuangan = ? AND status = 'Terbeli'", [$id_perencanaan_keuangan]);
+        if($cekStatus[0]->count >= 1) {
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Perencanaan ini Telah menjadi Realisasi!'
+            ];
+        }
+        else {
             $aksi = $perencanaan_keuangan->where('id_perencanaan_keuangan', $id_perencanaan_keuangan)->delete();
-    
             if ($aksi) {
-                // Pesan Berhasil
                 $pesan = [
                     'success' => true,
                     'pesan'   => 'Data berhasil dihapus'
                 ];
             } else {
-                // Pesan Gagal
                 $pesan = [
                     'success' => false,
                     'pesan'   => 'Data gagal dihapus'
                 ];
             }
+        }
     
             return response()->json($pesan);
-        }
-    }
-
-    public function print()
-    {
-        $data = [
-        ];
-
-       
-            $pdf = PDF::loadView('admin.perencanaan.print');
-
-            return $pdf->stream();
-        
-    }
-    public function detail ()
-    {
-        
-        return view('admin.perencanaan.detail');
-        
     }
 }

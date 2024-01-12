@@ -6,8 +6,12 @@
   <title>Tambah Data</title>
 </head>
 <body>
-  
-  <div class="modal fade" id="tambahJenisPengeluaran" tabindex="-1" aria-labelledby="tambahJenisPengeluaranLabel" aria-hidden="true">
+  <script>
+    function reset() {
+      document.getElementById('kategori').value = '';
+    }
+    </script>
+<div class="modal fade" id="tambahJenisPengeluaran" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog w-75 modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -19,7 +23,7 @@
               <div class="col-md-8">
                   <div class="form-group mx-2">
                       <label>Jenis Pengeluaran</label>
-                      <input type="text" class="form-control mb-3" name="kategori" required />
+                      <input type="text" class="form-control mb-3" id='kategori' name="kategori" required />
                   </div>
                             
                   @csrf
@@ -27,7 +31,7 @@
       </div>
                         <br/>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-secondary" onClick='reset()' data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Tambah Data</button>
       </form>
         </div>

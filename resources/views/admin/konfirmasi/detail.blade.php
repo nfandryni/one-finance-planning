@@ -3,18 +3,23 @@
 @section('title', 'Detail Pengajuan Kebutuhan')
 @section('content')
 
-    <div class="row px-5">
-
-        <div class="col-md-12">
-            <div class="row justify-content-md-center" style="align-items: center">
-            <br/>
-           <a class='text-black mt-2' href='/konfirmasi-pengajuan'><i class="fa-solid fa-arrow-left fa-xl "></i></a> 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row justify-content-md-ceer" style="align-items: center">
+          <br />
+                <a class='text-black mt-2' href='/konfirmasi-pengajuan'><i class="fa-solid fa-arrow-left fa-xl "></i></a>
                 <div id='Konfirmasi'>
-                    @if($pengajuan_kebutuhan->status == 'DiKonfirmasi')
-                     <button disabled class='btn btn-secondary btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:90px;'><i class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
-                     @else
-                     <button class='btn btn-success btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:90px;'><i class="fa-solid fa-circle-check"></i> Konfirmasi</button>
-                     @endif
+                    @if ($pengajuan_kebutuhan->status == 'DiKonfirmasi')
+                        <button disabled class='btn btn-secondary btnKonfirmasi fw-bold'
+                            idPengajuanKebutuhan='{{ $pengajuan_kebutuhan->id_pengajuan_kebutuhan }}'
+                            style='letter-spacing:1px; position:absolute; right:90px;'><i
+                                class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
+                    @else
+                        <button class='btn btn-success btnKonfirmasi fw-bold'
+                            idPengajuanKebutuhan='{{ $pengajuan_kebutuhan->id_pengajuan_kebutuhan }}'
+                            style='letter-spacing:1px; position:absolute; right:90px;'><i
+                                class="fa-solid fa-circle-check"></i> Konfirmasi</button>
+                    @endif
                 </div>
             </div>
             <div>
@@ -44,56 +49,60 @@
                         : {{ $pengajuan_kebutuhan->waktu }}
                     </div>
                 </div>
-                @if(isset($pengajuan_kebutuhan->total_dana_kebutuhan))
-                <div class='row mb-2'>
-                    <div class="col-md-3">
-                        <label class='fw-bold'>Total Pembayaran</label>
+                @if (isset($pengajuan_kebutuhan->total_dana_kebutuhan))
+                    <div class='row mb-2'>
+                        <div class="col-md-3">
+                            <label class='fw-bold'>Total Pembayaran</label>
+                        </div>
+                        <div class="col-md-3">
+                            : {{ $pengajuan_kebutuhan->total_dana_kebutuhan }}
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        : {{ $pengajuan_kebutuhan->total_dana_kebutuhan }}
-                    </div>
-                </div>
                 @endif
             </div>
             <hr />
             <div>
-            <h4 class='fw-bold mb-3'>Item Kebutuhan</h4> 
-            @if(!isset($pengajuan_kebutuhan->total_dana_kebutuhan))
-            <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end' style='position: relative; width: 12%; margin-left:790px; border-radius: 5px;margin-top:3px;'>{{ $totalDanaKebutuhan ?? 0 }} </p></h6> 
-            @endif
-            <table class="table table-hover table-borderless table-striped DataTable">
-                        <thead>
+                <h4 class='fw-bold mb-3'>Item Kebutuhan</h4>
+                @if (!isset($pengajuan_kebutuhan->total_dana_kebutuhan))
+                    <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang
+                        Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end'
+                            style='position: relative; width: 12%; margin-left:790px; border-radius: 5px;margin-top:3px;'>
+                            {{ $totalDanaKebutuhan ?? 0 }} </p>
+                    </h6>
+                @endif
+                <table class="table table-hover table-borderless table-striped DataTable">
+                    <thead>
+                        <tr>
+                            <th>Ruangan</th>
+                            <th>Item Kebutuhan</th>
+                            <th>Qty</th>
+                            <th>Harga Satuan</th>
+                            <th>Satuan</th>
+                            <th>Spesifikasi</th>
+                            <th>Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($item_kebutuhan as $p)
                             <tr>
-                                <th>Ruangan</th>
-                                <th>Item Kebutuhan</th>
-                                <th>Qty</th>
-                                <th>Harga Satuan</th>
-                                <th>Satuan</th>
-                                <th>Spesifikasi</th>
-                                <th>Foto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($item_kebutuhan as $p)
-                                <tr>
-                                    <td>{{ $p->nama_ruangan }}</td>
-                                    <td>{{ $p->item_kebutuhan }}</td>
-                                    <td>{{ $p->qty }}</td>
-                                    <td>{{ $p->harga_satuan }}</td>
-                                    <td>{{ $p->satuan }}</td>
-                                    <td>{{ $p->spesifikasi }}</td>
-                                    <td>
-                                        @if ($p->foto_barang_kebutuhan)
-                                            <img src="{{ url('foto') . '/' . $p->foto_barang_kebutuhan }} "
-                                                style="max-width: 150px; height: auto;" />
-                                        @endif
-                                    </td>
-            
-                                </tr>
-                            @endforeach
+                                <td>{{ $p->nama_ruangan }}</td>
+                                <td>{{ $p->item_kebutuhan }}</td>
+                                <td>{{ $p->qty }}</td>
+                                <td>{{ $p->harga_satuan }}</td>
+                                <td>{{ $p->satuan }}</td>
+                                <td>{{ $p->spesifikasi }}</td>
+                                <td>
+                                    @if ($p->foto_barang_kebutuhan)
+                                        <img src="{{ url('foto') . '/' . $p->foto_barang_kebutuhan }} "
+                                            style="max-width: 150px; height: auto;" />
+                                    @endif
+                                </td>
 
-                        </tbody>
-                    </table>
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -118,17 +127,19 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: 'POST',
-                        url: '/dashboard-bendahara/konfirmasi-pengajuan/tolak-item/'+idItemKebutuhan,
-                        data: { 
+                        url: '/dashboard-bendahara/konfirmasi-pengajuan/tolak-item/' +
+                            idItemKebutuhan,
+                        data: {
                             id_item_kebutuhan: idItemKebutuhan,
                             status: 'Ditolak',
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
                             if (data.success) {
-                                swal.fire('Item kebutuhan berhasil ditolak!', '', 'success').then(function() {
-                                location.reload();
-                                });
+                                swal.fire('Item kebutuhan berhasil ditolak!', '', 'success')
+                                    .then(function() {
+                                        location.reload();
+                                    });
                             }
                         }
                     });
@@ -136,7 +147,7 @@
             });
         });
     </script>
-      <script type="module">
+    <script type="module">
         $('#Konfirmasi').on('click', '.btnKonfirmasi', function(a) {
             a.preventDefault();
             let idPengajuanKebutuhan = $(this).closest('.btnKonfirmasi').attr('idPengajuanKebutuhan');
@@ -152,16 +163,17 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: 'POST',
-                        url: '/konfirmasi-pengajuan/konfirmasi/'+idPengajuanKebutuhan,
-                        data: { 
+                        url: '/konfirmasi-pengajuan/konfirmasi/' + idPengajuanKebutuhan,
+                        data: {
                             id_pengajuan_kebutuhan: idPengajuanKebutuhan,
                             status: 'DiKonfirmasi',
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
                             if (data.success) {
-                                swal.fire('Pengajuan Kebutuhan berhasil dikonfirmasi!', 'Pengajuan Kebutuhan ','success').then(function() {
-                                location.reload();
+                                swal.fire('Pengajuan Kebutuhan berhasil dikonfirmasi!',
+                                    'Pengajuan Kebutuhan ', 'success').then(function() {
+                                    location.reload();
                                 });
                             }
                         }
@@ -171,4 +183,4 @@
         });
     </script>
 
-@endsection 
+@endsection

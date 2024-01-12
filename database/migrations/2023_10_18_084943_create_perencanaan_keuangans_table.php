@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('judul_perencanaan', 60)->nullable(false);
             $table->string('tujuan', 225)->nullable(false);
             $table->date('waktu')->nullable(false);
-            $table->decimal('total_dana_perencanaan', 10, 0)->nullable(false);
+            $table->decimal('total_dana_perencanaan', 10, 0)->nullable(true);
            
 
             $table->foreign('id_pengajuan_kebutuhan')->on('pengajuan_kebutuhan')->references('id_pengajuan_kebutuhan')->onUpdate
@@ -27,29 +27,35 @@ return new class extends Migration
             ('cascade')->onDelete('cascade');
         });
 
-        DB::unprepared('DROP TRIGGER IF EXISTS tambah_perencanaan_keuangan');
-        DB::unprepared("
-        CREATE TRIGGER tambah_perencanaan_keuangan AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
-        BEGIN
-        if NEW.status = 'Terkonfirmasi' THEN
-            INSERT INTO perencanaan_keuangan(judul_perencanaan, tujuan, waktu, total_dana_perencanaan)
-            VALUES (NEW.nama_kegiatan, NEW.tujuan, NEW.waktu, NEW.total_dana_kebutuhan);
-        END IF;
-        END
-
+    // TRIGGER
+    DB::unprepared("
+    CREATE TRIGGER tambah_perencanaan_keuangan AFTER INSERT ON perencanaan_keuangan FOR EACH ROW
+    BEGIN
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('INSERT', CONCAT('Menambahkan Perencanaan Keuangan baru dengan nama_kegiatan ', NEW.judul_perencanaan), NOW());
+    END
     ");
-    //     DB::unprepared("
-    //     CREATE TRIGGER tambahkan_totalDanaKebutuhan AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
-    //     BEGIN
-    //     DECLARE dana_kebutuhan DECIMAL(10,0)
-    //     SELECT harga_satuan into dana_kebutuhan from view_item_diterima
-    //     if NEW.status = 'Difilterisasi' THEN
-    //         UPDATE pengajuan_kebutuhan set total_dana_kebutuhan = ;
-    //     END IF;
-    //     END
+    
+    DB::unprepared("
+        CREATE TRIGGER update_perencanaan_keuangan AFTER UPDATE ON perencanaan_keuangan FOR EACH ROW
+        BEGIN
+            INSERT INTO logs(aksi, aktivitas, waktu)
+            VALUES ('UPDATE', CONCAT('Memperbarui Perencanaan Keuangan dengan nama_kegiatan ', OLD.judul_perencanaan, ' dan ID Perencanaan Keuangan', OLD.id_perencanaan_keuangan), NOW());
+        END
+    ");
+    
+    DB::unprepared("
+        CREATE TRIGGER hapus_perencanaan_keuangan AFTER DELETE ON perencanaan_keuangan FOR EACH ROW
+        BEGIN
+            INSERT INTO logs(aksi, aktivitas, waktu)
+            VALUES ('DELETE', CONCAT('Menghapus Perencanaan Keuangan dengan nama_kegiatan ', OLD.judul_perencanaan), NOW());
+        END
+    ");
 
-    // ");
+   
     }
+
+    
 
     /**
      * Reverse the migrations.

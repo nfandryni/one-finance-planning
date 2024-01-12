@@ -6,8 +6,12 @@
   <title>Tambah Data</title>
 </head>
 <body>
-  
-  <div class="modal fade" id="tambahSumberDana" tabindex="-1" aria-labelledby="tambahSumberDanaLabel" aria-hidden="true">
+<script>
+  function reset() {
+    document.getElementById('nama_sumber').value = '';
+  }
+</script>
+<div class="modal fade" id="tambahSumberDana" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog w-75 modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -19,14 +23,14 @@
               <div class="col-md-8">
                   <div class="form-group mx-2">
                       <label>Nama Sumber Dana</label>
-                      <input type="text" class="form-control mb-3" name="nama_sumber" required />
+                      <input type="text" class="form-control mb-3" id='nama_sumber' name="nama_sumber" required />
                   </div>
                             
                   @csrf
       </div>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+      <button type="button" class="btn btn-secondary" onClick='reset()' data-bs-dismiss="modal">Batal</button>
       <button type="submit" class="btn btn-primary">Tambah Data</button>
       </form>
         </div>

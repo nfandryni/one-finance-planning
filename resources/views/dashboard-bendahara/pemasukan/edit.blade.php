@@ -17,7 +17,7 @@
                                     <select class='form-select' name="id_sumber_dana">
                                       @foreach ($sumber_dana as $s)
                                             <option value="{{ $s->id_sumber_dana }}"
-                                                {{ $s->id_sumber_dana == $s->id_sumber_dana ? 'selected' : '' }}>
+                                                {{ $pemasukan->id_sumber_dana == $s->id_sumber_dana ? 'selected' : '' }}>
                                                 {{ $s->nama_sumber }}
                                             </option>
                                         @endforeach
@@ -25,8 +25,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Pemasukan</label>
-                                    <input type="text" class="form-control" name="nama_pemasukan"
-                                        value="{{ $pemasukan->nama_pemasukan }}" />
+                                    <input type="text" class="form-control" name="nama"
+                                        value="{{ $pemasukan->nama }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Nominal</label>

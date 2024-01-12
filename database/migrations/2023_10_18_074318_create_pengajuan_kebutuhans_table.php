@@ -25,6 +25,7 @@ return new class extends Migration
             ('cascade')->onDelete('cascade');
         });
 
+        // EVENT
         DB::unprepared('DROP EVENT IF EXISTS event_kedaluwarsa_pengajuanKebutuhan');
         DB::unprepared("
         CREATE EVENT event_kedaluwarsa_pengajuanKebutuhan
@@ -37,6 +38,7 @@ return new class extends Migration
         END;        
         ");
 
+        // TRIGGER
         DB::unprepared('DROP TRIGGER IF EXISTS setKedaluwarsaPengajuan');
         DB::unprepared("
         CREATE TRIGGER setKedaluwarsaPengajuan
@@ -49,7 +51,7 @@ return new class extends Migration
         END;
         ");
 
-
+        // STORED FUNCTION
         DB::unprepared('DROP FUNCTION IF EXISTS total_pengajuan_kebutuhan');
         DB::unprepared('
         CREATE FUNCTION total_pengajuan_kebutuhan() RETURNS INT
@@ -60,8 +62,8 @@ return new class extends Migration
         END
         '); 
 
+        // VIEW
         DB::unprepared('DROP VIEW IF EXISTS view_pengajuan_pemohon');
-
         DB::unprepared(
             "CREATE VIEW view_pengajuan_pemohon AS 
             SELECT  p.id_pengajuan_kebutuhan,
@@ -77,12 +79,13 @@ return new class extends Migration
             "
         );
 
+        // STORED PROCEDURE
          DB::unprepared('DROP PROCEDURE IF EXISTS tambah_pengajuan_kebutuhan');
          DB::unprepared('
          CREATE PROCEDURE tambah_pengajuan_kebutuhan( 
             IN id_pemohon INT(11),
             IN nama_kegiatan VARCHAR(255),
-            IN tujuan VARCHAR(255),
+            IN tujuan TEXT,
             IN waktu DATE
             )
          BEGIN
@@ -114,6 +117,7 @@ return new class extends Migration
          END;
          ');
 
+        // TRIGGER
         DB::unprepared("
         CREATE TRIGGER tambah_pengajuan_kebutuhan AFTER INSERT ON pengajuan_kebutuhan FOR EACH ROW
         BEGIN
@@ -145,6 +149,29 @@ return new class extends Migration
                 VALUES ('UPDATE', CONCAT('Mengkonfirmasi Pengajuan Kebutuhan dengan nama_kegiatan ', OLD.nama_kegiatan, ' dan ID Pengajuan Kebutuhan ', OLD.id_pengajuan_kebutuhan), NOW());
             END
         ");
+
+         //trgAfterKonfirmasi
+    DB::unprepared('
+    CREATE TRIGGER trgAfterKonfirmasi AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
+    BEGIN 
+        DECLARE pengajuan_id INT ;
+        DECLARE judul VARCHAR(60);
+        DECLARE tujuan_perencanaan VARCHAR(255);
+        DECLARE waktu_perencanaan DATE ;
+        DECLARE total DECIMAL(10,0);
+         
+
+        IF NEW.status = "DiKonfirmasi" THEN 
+        SET pengajuan_id = NEW.id_pengajuan_kebutuhan;
+        SET judul = NEW.nama_kegiatan;
+        SET tujuan_perencanaan = NEW.tujuan;
+        SET waktu_perencanaan = NEW.waktu;
+        SET total = NEW.total_dana_kebutuhan;
+
+        INSERT INTO perencanaan_keuangan(judul_perencanaan,tujuan,waktu, total_dana_perencanaan) VALUES (judul , tujuan_perencanaan , waktu_perencanaan, total); 
+        END IF;
+        END
+');
     }
 
 

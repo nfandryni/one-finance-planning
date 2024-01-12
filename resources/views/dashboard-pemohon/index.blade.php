@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 @section('content')
     <div>
-        <a style="font-weight: bold; font-size:24px">Halo, Selamat Datang di One Finance Planning App sebagai Pengajuan!
+        <a style="font-weight: bold; font-size:24px">Halo, Selamat Datang di One Finance Planning App sebagai {{Auth::user()->username}}!
         </a><br>
         <a style="font-size:20px">Disini anda dapat mengelola kebutuhan, melihat data realisasi dan mencetak
             dokumen.</a><br><br>
@@ -47,7 +47,7 @@
         </div>
         <div class="col-md-12 " style="justify-content:start">
             <a href="/dashboard-pemohon/pengajuan-kebutuhan">
-                <button type="submit" class="btn" style="width:100%; background-Color:#588157; color:#fff">
+                <button type="button" class="btn" style="width:100%; background-Color:#588157; color:#fff">
                     Lihat Halaman Pengajuan Kebutuhan
                 </button>
             </a>
@@ -64,9 +64,19 @@
                                     <th>Judul</th>
                                     <th>Waktu</th>
                                     <th>Total Dana</th>
-                                    <th>Aksi</th>
+                                    <th>Tujuan</th>
                                 </tr>
                             </thead>
+                            @foreach ($realisasi as $p)
+                                <tbody>
+                                    <tr>
+                                        <td>{{ $p->judul_realisasi }}</td>
+                                        <td>{{ $p->waktu }}</td>
+                                        <td>{{ $p->total_pembayaran }}</td>
+                                        <td>{{ $p->tujuan }}</td>
+                                    </tr>
+                                </tbody>
+                            @endforeach
                         </table>
                     </div>
                 </div>
@@ -74,11 +84,12 @@
         </div>
 
         <div class="col-md-12 " style="justify-content:start">
-           <a href="/dashboard-pemohon/realisasi">
-            <button type="submit" class="btn" style="width:100%; background-Color:#588157; color:#fff">
-                Lihat Halaman Realisasi
-            </button>
+        <a href="/dashboard-pemohon/realisasi">
+                <button type="button" class="btn" style="width:100%; background-Color:#588157; color:#fff">
+                    Lihat Halaman Realisasi
+                </button>
             </a>
         </div>
     </div>
+    <br/>
 @endsection

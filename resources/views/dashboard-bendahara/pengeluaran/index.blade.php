@@ -2,7 +2,6 @@
 @section('pengeluaran', 'active')
 @section('title', 'Daftar Pengeluaran')
 @section('content')
-    <br>
     <div class="row">
         <h2 class="fw-bold">Kelola Data Pengeluaran</h2>
         <h3 class="card-title"> Jumlah Pengeluaran: {{ $jumlahDana ?? 0 }}</h3>

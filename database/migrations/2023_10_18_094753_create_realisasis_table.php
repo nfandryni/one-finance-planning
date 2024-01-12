@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('realisasi', function (Blueprint $table) {
             $table->integer('id_realisasi', true);
-            $table->integer('id_perencanaan_keuangan', false)->nullable(true)->index('id_perencanaan_keuangan');
-            $table->integer('id_pengeluaran', false)->index('id_pengeluaran')->nullable(true);
+            $table->integer('id_perencanaan_keuangan', false)->index('id_perencanaan_keuangan');
             $table->string('judul_realisasi', 60)->nullable(false);
             $table->string('tujuan', 225)->nullable(false);
             $table->date('waktu')->nullable(false);
@@ -25,34 +24,47 @@ return new class extends Migration
 
             $table->foreign('id_perencanaan_keuangan')->on('perencanaan_keuangan')->references('id_perencanaan_keuangan')->onUpdate
             ('cascade')->onDelete('cascade');
-            $table->foreign('id_pengeluaran')->on('pengeluaran')->references('id_pengeluaran')->onUpdate
-            ('cascade')->onDelete('cascade');
         });
-        DB::unprepared('DROP TRIGGER IF EXISTS tambah_realisasi');
-        DB::unprepared("
-        CREATE TRIGGER tambah_realisasi AFTER INSERT ON perencanaan_keuangan FOR EACH ROW
-        BEGIN
-            INSERT INTO realisasi(id_perencanaan_keuangan, judul_realisasi, tujuan, waktu, total_pembayaran)
-            VALUES (NEW.id_perencanaan_keuangan, NEW.judul_perencanaan, NEW.tujuan, NEW.waktu, NEW.total_dana_perencanaan);
-        END
-    ");
-
+    
+    // VIEW
     DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
-
     DB::unprepared(
         "CREATE VIEW view_realisasi AS 
         SELECT r.id_realisasi,
         r.id_perencanaan_keuangan, 
-        k.nama, 
         r.judul_realisasi, 
         r.tujuan, 
         r.waktu, 
         r.total_pembayaran
         FROM realisasi AS r
         INNER JOIN perencanaan_keuangan AS p ON r.id_perencanaan_keuangan = p.id_perencanaan_keuangan
-        INNER JOIN pengeluaran AS k ON r.id_pengeluaran = k.id_pengeluaran
         "
     );        
+
+    // TRIGGER
+    DB::unprepared("
+    CREATE TRIGGER tambah_realisasi_trigger AFTER INSERT ON realisasi FOR EACH ROW
+    BEGIN
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('INSERT', CONCAT('Menambahkan Realisasi baru dengan nama_kegiatan ', NEW.judul_realisasi), NOW());
+    END
+    ");
+    
+    DB::unprepared("
+        CREATE TRIGGER update_realisasi_trigger AFTER UPDATE ON realisasi FOR EACH ROW
+        BEGIN
+            INSERT INTO logs(aksi, aktivitas, waktu)
+            VALUES ('UPDATE', CONCAT('Memperbarui Realisasi dengan nama_kegiatan ', OLD.judul_realisasi, ' dan ID Realisasi ', OLD.id_realisasi), NOW());
+        END
+    ");
+    
+    DB::unprepared("
+        CREATE TRIGGER hapus_realisasi_trigger AFTER DELETE ON realisasi FOR EACH ROW
+        BEGIN
+            INSERT INTO logs(aksi, aktivitas, waktu)
+            VALUES ('DELETE', CONCAT('Menghapus Realisasi dengan nama_kegiatan ', OLD.judul_realisasi), NOW());
+        END
+    ");
     
     }
 

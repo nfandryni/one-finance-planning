@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_sumber', 25)->nullable(false);
         });
 
-        
+        // TRIGGER
         DB::unprepared('DROP TRIGGER IF EXISTS tambah_sumber_dana');
         DB::unprepared("
         CREATE TRIGGER tambah_sumber_dana AFTER INSERT ON sumber_dana FOR EACH ROW
@@ -31,7 +31,7 @@ return new class extends Migration
         CREATE TRIGGER update_sumber_dana AFTER UPDATE ON sumber_dana FOR EACH ROW
         BEGIN
         INSERT INTO logs(aksi, aktivitas, waktu)
-        VALUES ('UPDATE', CONCAT('Memperbarui Sumber Dana dengan data lama: ', OLD.nama_sumber), NOW());
+        VALUES ('UPDATE', CONCAT('Memperbarui Sumber Dana dari ', OLD.nama_sumber, ' menjadi ', NEW.nama_sumber), NOW());
             END
         ");
         
@@ -44,17 +44,19 @@ return new class extends Migration
             END
         ");
         
+        // STORED FUNCTION 
         DB::unprepared('DROP FUNCTION IF EXISTS total_dana_sumberDana');
         DB::unprepared('
-        CREATE FUNCTION total_dana_sumberDana(nama_sum VARCHAR(255)) 
-        RETURNS decimal(10,0)
+        CREATE FUNCTION total_dana_sumberDana(nama_sum VARCHAR(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci) RETURNS DECIMAL(10,0)
         BEGIN
 
         DECLARE total DECIMAL(10,0) DEFAULT 0;
         DECLARE pemasukan DECIMAL(10,0) DEFAULT 0;
         DECLARE pengeluaran DECIMAL(10,0) DEFAULT 0;
 
-        BEGIN
+        BEGIN   
+        DECLARE CONTINUE HANDLER FOR NOT FOUND
+        SET total = 0;
         SELECT SUM(nominal) into pemasukan from view_pemasukan where nama_sumber = nama_sum;
         SELECT SUM(nominal) into pengeluaran from view_pengeluaran where nama_sumber = nama_sum;
         IF pengeluaran IS NULL THEN 
@@ -72,12 +74,12 @@ return new class extends Migration
       
         DB::unprepared('DROP FUNCTION IF EXISTS total_dana_anggaran');
         DB::unprepared('
-        CREATE FUNCTION total_dana_anggaran() RETURNS INT
+        CREATE FUNCTION total_dana_anggaran() RETURNS decimal(10,0)
         BEGIN
 
-        DECLARE total INT DEFAULT 0;
-        DECLARE pemasukan INT DEFAULT 0;
-        DECLARE pengeluaran INT DEFAULT 0;
+        DECLARE total DECIMAL(10,0) DEFAULT 0;
+        DECLARE pemasukan DECIMAL(10,0) DEFAULT 0;
+        DECLARE pengeluaran DECIMAL(10,0) DEFAULT 0;
 
         BEGIN
         DECLARE CONTINUE HANDLER FOR NOT FOUND

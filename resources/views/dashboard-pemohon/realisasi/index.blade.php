@@ -5,9 +5,18 @@
 <br>
     <div class="">
     <h2 class="fw-bold">Kelola Data Realisasi</h2>
-    {{-- <div class="card" style="height: 75px;">
-        <h4 class=" fw-bold p-3">Cetak Data Realisasi </h4>
-    </div> --}}
+    <div class="row justify-content-md-end" style="align-items: center">
+            @if(!$realisasi->isEmpty())
+    <a target='_blank' href="{{ url('/dashboard-pemohon/realisasi/print') }}" style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-warning'>
+    <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+        </a>
+        @else
+        <button disabled style='position:absolute; width:130px; right:30px; top: 80px;' class='btn btn-secondary'>
+        <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+            </button>
+        @endif
+        <br/>
+        <hr>
     <div class="col-md-12 ">
                     <div class="row justify-content-md-center" style="align-items: center">
                        
@@ -28,15 +37,11 @@
                                  @foreach ($realisasi as $s)
                                     <tr>
                                         <td>{{ $s->judul_realisasi }}
-                                            @if(is_null($s->id_pengeluaran))
-                                            <p class='text-danger mt-1 fst-italic fs-6'>Catatan Pengeluaran belum Ditambahkan.</p>
-                                            @endif
                                         </td>
                                         <td>{{ $s->waktu }}</td>    
                                         <td>{{ $s->total_pembayaran }}</td>
                                         <td>
-                                           <a  href='/dashboard-bendahara/realisasi/detail/{{ $s->id_realisasi }}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000;"></i></a>
-                                            <btn class="btnHapus" style="cursor: pointer" idRealisasi="{{ $s->id_realisasi }}"><i class="fa-solid fa-trash"></i></btn>
+                                           <a  href='/dashboard-pemohon/realisasi/detail/{{ $s->id_realisasi  }}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000; margin-top:10px;"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach 
@@ -44,53 +49,16 @@
                         </table>
                     </div>
                 </div>
-                <div class="card-footer">
-
-                </div>
+                
             </div>
         </div>
     </div>
 
 @endsection
-
-
 @section('footer')
-    <script type="module">
-        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
-            a.preventDefault();
-            let idRealisasi = $(this).closest('.btnHapus').attr('idRealisasi');
-            swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
-                showCancelButton: true,
-                confirmButtonText: 'Setuju',
-                cancelButtonText: `Batal`,
-                confirmButtonColor: 'red'
-
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //Ajax Delete
-                    $.ajax({
-                        type: 'DELETE',
-                        url: 'realisasi/hapus',
-                        data: {
-                            id_realisasi: idRealisasi,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        success: function(data) {
-                            if (data.success) {
-                                swal.fire('Berhasil di hapus!', '', 'success').then(function() {
-                                    //Refresh Halaman
-                                    location.reload();
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-        });
-        $(document).ready(function() {
+<script type="module">
+$(document).ready(function() {
         $('.DataTable').DataTable({});
     });
     </script>
-
 @endsection 

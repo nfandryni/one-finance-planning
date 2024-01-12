@@ -22,7 +22,8 @@ class Pengeluaran extends Seeder
                 'id_jenis_pengeluaran' => 1,
                 'nama' => 'Realisasi Kebutuhan UKOM',
                 'nominal' => 10000000,00,
-                'waktu' => '2023-10-20 12:00:00',
+                'waktu' => '2023-10-20',
+                'foto' => 'unknown',
             ],
         ]);
     }

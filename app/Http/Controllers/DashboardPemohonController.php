@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\pengajuan_kebutuhan;
-use Illuminate\Http\Request;
-
+use App\Models\realisasi;
 
 class DashboardPemohonController extends Controller
 {
@@ -14,7 +13,8 @@ class DashboardPemohonController extends Controller
     public function index(pengajuan_kebutuhan $pengajuan_kebutuhan)
     {
         $data = [
-            'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all()
+            'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all(),
+            'realisasi' => realisasi::all()
         ];
         return view('dashboard-pemohon.index', $data);
     }

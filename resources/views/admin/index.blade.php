@@ -12,7 +12,7 @@
     
     <div class="col-md-12">
         <div class="shadow-sm mb-3 rounded d-flex justify-content-center flex-column align-items-center" style="background-color:#DDDDDD; height: 150">
-            <h1 >Jumlah Pemasukan </h1>
+            <h1 >Total Pemasukan </h1>
             <div class="d-flex align-items-center ">
                 <h3 style="align-items: center">Rp. {{ $jumlahDana ?? 0 }}</h3>
             </div>
