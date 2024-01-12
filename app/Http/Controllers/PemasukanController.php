@@ -69,14 +69,11 @@ class PemasukanController extends Controller
         }
 
         if ($data) {
-            // Simpan jika data terisi semua
             $pemasukan->create($data);
             return redirect('dashboard-bendahara/pemasukan')->with('success', 'Data Pemasukan baru berhasil ditambah');
         } else {
-            // Kembali ke form tambah data
             return back()->with('error', 'Data Pemasukan gagal ditambahkan');
         }
-        //Proses Insert
     }
 
    
@@ -175,17 +172,14 @@ class PemasukanController extends Controller
     {
         $id_pemasukan = $request->input('id_pemasukan');
 
-        // Hapus 
         $aksi = $pemasukan->where('id_pemasukan', $id_pemasukan)->delete();
 
         if ($aksi) {
-            // Pesan Berhasil
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data Pemasukan berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'

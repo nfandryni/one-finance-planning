@@ -1,7 +1,8 @@
 @extends('layout.layout')
 @section('perencanaan-keuangan', 'active')
+@section('title', 'Edit Perencanaan Keuangan')
 @section('content')
-    <div class="row">
+    <div class="row ">
         <div class="col-md-12">
                     <span class="h1">
                         Edit Data Perencanaan Keuangan
@@ -11,7 +12,7 @@
                     <form method="POST" action="simpan" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12 gap-2" style="display:flex; justify-content: space-between">
-                    <div class="col-md-6" style=" ">
+                    <div class="col-md-5">
                      <input type="hidden" name="id_perencanaan_keuangan" value="{{ $perencanaan_keuangan->id_perencanaan_keuangan }}" />
                         <div class="form-group">
                             <label>Nama Perencanaan</label>
@@ -20,6 +21,10 @@
                         <div class="form-group">
                             <label>Tujuan</label>
                             <input type="text" class="form-control" required name="tujuan" value="{{ $perencanaan_keuangan->tujuan }}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu</label>
+                            <input type="date" class="form-control" required name="waktu" value="{{ $perencanaan_keuangan->waktu }}"/>
                         </div>
                         <div class="form-group">
                                  <label>Sumber Dana</label>

@@ -4,7 +4,7 @@
     <thead>
         <tr>
             <th scope='col'>Nama Kegiatan</th>
-            <th scope='col'>Status</th>
+            <th scope='col'>Sumber Dana</th>
             <th scope='col'>Waktu</th>
             <th scope='col'>Tujuan</th>
         </tr>

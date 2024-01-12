@@ -114,17 +114,14 @@ class JenisPengeluaranController extends Controller
         //
         $id_jenis_pengeluaran = $request->input('id_jenis_pengeluaran');
 
-        // Hapus 
         $aksi = $jenis_pengeluaran->where('id_jenis_pengeluaran', $id_jenis_pengeluaran)->delete();
 
         if ($aksi) {
-            // Pesan Berhasil
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data jenis pengeluaran berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'

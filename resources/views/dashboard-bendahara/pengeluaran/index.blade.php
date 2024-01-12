@@ -81,7 +81,7 @@
             a.preventDefault();
             let idPengeluaran = $(this).closest('.btnHapus').attr('idPengeluaran');
             swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+                title: "Apakah Anda ingin menghapus data ini?",
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,
@@ -89,7 +89,6 @@
 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
                         url: '/dashboard-bendahara/pengeluaran/hapus',
@@ -100,7 +99,6 @@
                         success: function(data) {
                             if (data.success) {
                                 swal.fire('Berhasil di hapus!', '', 'success').then(function() {
-                                    //Refresh Halaman
                                     location.reload();
                                 });
                             }

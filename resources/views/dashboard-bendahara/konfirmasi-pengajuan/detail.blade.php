@@ -12,7 +12,62 @@
                     @if($pengajuan_kebutuhan->status == 'Difilterisasi' || $pengajuan_kebutuhan->status == 'Dikonfirmasi' || $pengajuan_kebutuhan->status == 'Ditolak')
                      <button disabled class='btn btn-secondary btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
                      @else
-                     <button class='btn btn-success btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Konfirmasi</button>
+                     <button class='btn btn-success fw-bold' data-bs-toggle="modal" data-bs-target="#konfirmasiPengajuan" style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Konfirmasi</button>
+                     <div class="modal fade" id="konfirmasiPengajuan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+            <h1 class="modal-title fs-4 pt-2 fw-bold" id="modalKonfirmasiPengajuan">Konfirmasi Data Pengajuan</h1>
+          </div>
+          <div class="modal-body">
+          <form method="POST" action="/dashboard-bendahara/konfirmasi-pengajuan/konfirmasi/{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-12">
+                <div class="form-group mx-2">
+                                    <label>Sumber Dana</label>
+                                    <br>
+                                    @if($sumber_dana->isEmpty())
+                                    <a href='/dashboard-bendahara/sumber-dana' class="btn btn-primary btn-sm">
+                                    Tambah Data
+                                    </a>
+                                    @else
+                                    <select required class='form-select' name="id_sumber_dana">
+                                        @foreach($sumber_dana as $p)
+                                        <option selected disabled hidden>Pilih Nama Sumber</option>
+                                        <option value='{{$p->id_sumber_dana}}'>{{$p->nama_sumber}}</option>
+                                        @endforeach
+                                    </select>
+                                    @endif
+                                </div>
+                    <div class="form-group mx-2 m-2">
+                        <label>Bulan Rencana Realisasi</label>
+                        <br/>
+                    @foreach ($item_kebutuhan as $p)
+                    <div class='row row-md-12'>
+                        <div class='col-md-6'>
+                            <p class='w-25'>{{$p->item_kebutuhan}}</p>
+                        </div>
+                        <div class='col-md-6'> 
+                            <input type="month" class="form-control inline-block relative"  name="bulan_rencana_realisasi[{{$p->id_item_kebutuhan}}]" required/>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <input type="hidden" name="id_pengajuan_kebutuhan" value='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' />
+                <input type="hidden" name="status" value='Difilterisasi' />
+                <input type="hidden" name="total_dana_kebutuhan" value='{{$totalDanaKebutuhan}}' />
+                    @csrf
+        </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onClick='reset()' data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-success">Konfirmasi Data</button>
+        </form>
+          </div>
+        </div>
+      </div>
+ 
                      @endif
                 </div>
             </div>
@@ -112,8 +167,11 @@
                         </tbody>
                     </table>
             </div>
-    </div>
+        </div>
 
+
+       
+    
 @endsection
 
 
@@ -137,7 +195,7 @@
                         url: '/dashboard-bendahara/konfirmasi-pengajuan/tolak-item/'+idItemKebutuhan,
                         data: { 
                             id_item_kebutuhan: idItemKebutuhan,
-                            id_pengajuan_kebutuhan: {{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}},
+                            id_pengajuan_kebutuhan: {{ $pengajuan_kebutuhan->id_pengajuan_kebutuhan }},
                             status: 'Ditolak',
                             _token: "{{ csrf_token() }}"
                         },
@@ -158,7 +216,7 @@
         });
     </script>
       <script type="module">
-        $('#Konfirmasi').on('click', '.btnKonfirmasi', function(a) {
+        $('#KonfirmasiPengajuan').on('click', '.btnKonfirmasi', function(a) {
             a.preventDefault();
             let idPengajuanKebutuhan = $(this).closest('.btnKonfirmasi').attr('idPengajuanKebutuhan');
             swal.fire({
@@ -177,6 +235,7 @@
                         data: { 
                             id_pengajuan_kebutuhan: idPengajuanKebutuhan,
                             status: 'Difilterisasi',
+                            bulan_rencana_realisasi: {{'Difilterisasi'}},
                             total_dana_kebutuhan: {{$totalDanaKebutuhan}},
                             _token: "{{ csrf_token() }}"
                         },

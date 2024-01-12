@@ -108,11 +108,9 @@ class GedungController extends Controller
     {
         $id_gedung = $request->input('id_gedung');
 
-        // Hapus 
         $aksi = $gedung->where('id_gedung', $id_gedung)->delete();
 
         if ($aksi) {
-            // Pesan Berhasil
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data Gedung berhasil dihapus'

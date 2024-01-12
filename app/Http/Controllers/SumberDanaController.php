@@ -115,17 +115,14 @@ class SumberDanaController extends Controller
     {
         $id_sumber_dana = $request->input('id_sumber_dana');
 
-        // Hapus 
         $aksi = sumber_dana::where('id_sumber_dana', $id_sumber_dana)->delete();
 
         if ($aksi) {
-            // Pesan Berhasil
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data Sumber Dana berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'

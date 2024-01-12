@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,6 +15,7 @@ return new class extends Migration
         Schema::create('pengajuan_kebutuhan', function (Blueprint $table) {
             $table->integer('id_pengajuan_kebutuhan', true);
             $table->integer('id_pemohon', false)->index('id_pemohon');
+            $table->integer('id_sumber_dana', false)->nullable(true)->index('id_sumber_dana');
             $table->string('nama_kegiatan', 60)->nullable(false);
             $table->string('tujuan', 225)->nullable(false);
             $table->enum('status', ['Draf', 'Terkirim', 'Difilterisasi', 'DiKonfirmasi', 'Ditolak'])->default('Draf')->nullable(false);
@@ -22,6 +24,8 @@ return new class extends Migration
             $table->decimal('total_dana_kebutuhan', 10, 0)->nullable(true);
    
             $table->foreign('id_pemohon')->on('pemohon')->references('id_pemohon')->onUpdate
+            ('cascade')->onDelete('cascade');
+            $table->foreign('id_sumber_dana')->on('sumber_dana')->references('id_sumber_dana')->onUpdate
             ('cascade')->onDelete('cascade');
         });
 

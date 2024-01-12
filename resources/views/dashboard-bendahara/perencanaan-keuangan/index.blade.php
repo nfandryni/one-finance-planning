@@ -13,7 +13,7 @@
     <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
         </a>
         @else
-        <button disabled style='position:absolute; width:130px; right:30px; top: 80px;' class='btn btn-secondary'>
+        <button disabled style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-secondary'>
         <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
             </button>
         @endif
@@ -34,7 +34,6 @@
                 <tr>
                     <th>Judul Perencanaan</th>
                     <th>Sumber Dana</th>
-                    <th>Tujuan</th>
                     <th>Waktu</th>
                     <th>Aksi</th>
                 </tr>
@@ -44,7 +43,6 @@
                     <tr>
                         <td>{{ $s->judul_perencanaan }}</td>
                         <td>{{ $s->nama_sumber }}</td>
-                        <td>{{ $s->tujuan }}</td>
                         <td>{{ $s->waktu }}</td>
                         <td>
                             @if(!isset($s->id_pengajuan_kebutuhan))
@@ -90,7 +88,6 @@
 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
                         url: '/dashboard-bendahara/perencanaan-keuangan/hapus',
@@ -101,13 +98,11 @@
                         success: function(data) {
                             if (data.success) {
                                 swal.fire('Berhasil di hapus!', '', 'success').then(function() {
-                                    //Refresh Halaman
                                     location.reload();
                                 });
                             }
                             else {
                                 swal.fire('Tidak dapat dihapus!', 'Perencanaan telah menjadi Realisasi!', 'error').then(function() {
-                                    //Refresh Halaman
                                     location.reload();
                                 });
                             }

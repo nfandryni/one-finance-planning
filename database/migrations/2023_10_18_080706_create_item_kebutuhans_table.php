@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->decimal('harga_satuan', 10, 0)->nullable(false);
             $table->string('satuan', 20)->nullable(false);
             $table->string('spesifikasi', 225)->nullable(false);
+            $table->string('bulan_rencana_realisasi', 50)->nullable(true);
             $table->enum('status', ['-', 'Ditolak', 'Diterima'])->default('-')->nullable(false);
             $table->datetime('kedaluwarsa')->nullable(true);
             $table->text('foto_barang_kebutuhan')->nullable(false);

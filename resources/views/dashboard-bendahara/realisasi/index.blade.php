@@ -9,7 +9,7 @@
     <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
         </a>
         @else
-        <button disabled style='position:absolute; width:130px; right:30px; top: 80px;' class='btn btn-secondary'>
+        <button disabled style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-secondary'>
         <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
             </button>
         @endif

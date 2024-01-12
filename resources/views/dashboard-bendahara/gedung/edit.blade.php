@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('gedung', 'active')
-@section('title', 'Edit Gedung ')
+@section('title', 'Edit Gedung')
 @section('content')
     <div class="row px-3">
         <div class="col-md-12">

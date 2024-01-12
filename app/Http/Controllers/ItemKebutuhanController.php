@@ -59,7 +59,6 @@ class ItemKebutuhanController extends Controller
 
        
         if($request->input('id_item_kebutuhan') !== null ){
-            //Proses Update
             $dataUpdate = item_kebutuhan::where('id_item_kebutuhan',$request->input('id_item_kebutuhan'))
                             ->update($data);
             if($dataUpdate){
@@ -69,15 +68,12 @@ class ItemKebutuhanController extends Controller
             }
         }
         else{
-            //Proses Insert
             if($data):
               
-            //Simpan jika data terisi semua
                 $item_kebutuhan->create($data);
                 return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Item Kebutuhan Berhasil di Tambah');
             else:
-            //Kembali ke form tambah data
-                return back()->with('error','Data Item Kebutuhan Gagal di Tambahkan');
+                return back()->with('error','Data Pengajuan Kebutuhan gagal ditambahkan');
             endif;
         }
     }
@@ -137,7 +133,6 @@ class ItemKebutuhanController extends Controller
 
                 $data['foto_barang_kebutuhan'] = $foto_nama;
             }
-            // Process Update
             $dataUpdate = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->update($data);
 
             if ($dataUpdate) {
@@ -156,17 +151,14 @@ class ItemKebutuhanController extends Controller
         //
         $id_item_kebutuhan = $request->input('id_item_kebutuhan');
 
-        // Hapus 
         $aksi = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->delete();
 
         if ($aksi) {
-            // Pesan Berhasil
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'

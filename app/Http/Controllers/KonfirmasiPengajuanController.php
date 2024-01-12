@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\pengajuan_kebutuhan;
 use App\Models\item_kebutuhan;
 use App\Models\gedung;
-use App\Models\logs;
+use App\Models\sumber_dana;
 use PDF;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +47,7 @@ class KonfirmasiPengajuanController extends Controller
                 ->orWhere('status', 'Diterima');
             })
             ->get(),
+            'sumber_dana'=>sumber_dana::all(),
             'totalDanaKebutuhan' => DB::select('SELECT total_dana_kebutuhan(?) AS totalDanaKebutuhan', [$id])[0]->totalDanaKebutuhan
         ];
         $user = Auth::user();
@@ -89,7 +90,6 @@ class KonfirmasiPengajuanController extends Controller
         $id_pengajuan_kebutuhan  = $request->input('id_pengajuan_kebutuhan');
        
         if($request->input('id_item_kebutuhan') !== null ){
-            //Proses Update
             $dataUpdate = item_kebutuhan::where('id_item_kebutuhan',$request->input('id_item_kebutuhan'))
                             ->update($data);
             if($dataUpdate){
@@ -137,21 +137,27 @@ class KonfirmasiPengajuanController extends Controller
     {
         $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
         $status = $request->input('status');
+        $id_sumber_dana = $request->input('id_sumber_dana');
         $total_dana_kebutuhan = $request->input('total_dana_kebutuhan');
-
-        $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update(['status' => $status, 'total_dana_kebutuhan'=> $total_dana_kebutuhan]);
+        $bulan_rencana_realisasi = $request->input('bulan_rencana_realisasi');
+        if (is_array($bulan_rencana_realisasi)) {
+            foreach ($bulan_rencana_realisasi as $id_item_kebutuhan => $bulan) {
+                $dataUpdate = item_kebutuhan::where('id_item_kebutuhan', $id_item_kebutuhan)
+                    ->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)
+                    ->update(['bulan_rencana_realisasi' => $bulan]);
+            }
+        } else {
+            $dataUpdate = item_kebutuhan::where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)
+                ->update(['bulan_rencana_realisasi' => $bulan_rencana_realisasi]);
+        }
+        
+    $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update(['status' => $status, 'total_dana_kebutuhan'=> $total_dana_kebutuhan, 'id_sumber_dana'=>$id_sumber_dana]);
         if ($dataUpdate) {
-                $pesan = [
-                    'success' => true,
-                    'pesan' => 'Pengajuan Kebutuhan berhasil dikonfirmasi!'
-                ];
-                return response()->json($pesan);
+            return redirect('dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_pengajuan_kebutuhan)->with('success', 'Berhasil dikonfirmasi!');
+
             } else {
-                $pesan = [
-                    'success' => false,
-                    'message' => 'Pengajuan Kebutuhan gagal dikonfirmasi.',
-                ];
-                return response()->json($pesan);
+                return redirect('dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_pengajuan_kebutuhan)->with('success', 'Gagal melakukan aksi!');
+
             }
         }
     

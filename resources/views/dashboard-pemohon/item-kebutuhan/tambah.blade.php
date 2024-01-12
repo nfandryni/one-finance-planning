@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('pengajuan-kebutuhan', 'active')
-@section('title', 'Daftar Pengajuan Kebutuhan')
+@section('title', 'Tambah Item Kebutuhan')
 @section('content')
     <div class="row">
         <div class="col-md-12" style="margin-bottom:2vh">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-group">
                                 <label>QTY</label>
-                                <input type="text" class="form-control" name="qty" />
+                                <input type="number" class="form-control" name="qty" />
                             </div>
                         </div>
                         {{-- <div class="col-md-1" style=" "></div> --}}

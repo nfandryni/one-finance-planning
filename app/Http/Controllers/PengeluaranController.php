@@ -169,7 +169,6 @@ class PengeluaranController extends Controller
                     $data['foto'] = $foto_nama;
                 }
 
-            // Process Update
             $dataUpdate = pengeluaran::where('id_pengeluaran', $pengeluaran)->update($data);
 
             if ($dataUpdate) {
@@ -187,18 +186,14 @@ class PengeluaranController extends Controller
     {
         //
         $id_pengeluaran = $request->input('id_pengeluaran');
-
-        // Hapus 
         $aksi = $pengeluaran->where('id_pengeluaran', $id_pengeluaran)->delete();
 
         if ($aksi) {
-            // Pesan Berhasil
             $pesan = [
                 'success' => true,
                 'pesan'   => 'Data pengeluaran berhasil dihapus'
             ];
         } else {
-            // Pesan Gagal
             $pesan = [
                 'success' => false,
                 'pesan'   => 'Data gagal dihapus'
