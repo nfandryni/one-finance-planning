@@ -80,9 +80,7 @@
                                 <th>Status</th>
                                 <th>Rencana Realisasi</th>
                                 <th>Foto</th>
-                                @if(!isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                                 <th>Aksi</th>
-                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -103,20 +101,26 @@
                                         style="max-width: 150px; height: auto;" />
                                         @endif
                                     </td>
-                                    @if(!isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                                     <td>
-                                        @if($p->status == 'Terbeli')
-                                       <button disabled class="btn btn-secondary" style='margin:2px' ><i class="fa-solid fa-pen" style="cursor: pointer;">
-                                           </i></button>
-                                            <button disabled class="btn btn-secondary" style='margin:2px' ><i class="fa-solid fa-xmark"></i></button>
-                                        @else
+                                        @if($p->status == 'Terbeli' && !isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
+                                        <button disabled class="btn btn-secondary" style='margin:2px' ><i class="fa-solid fa-pen" style="cursor: pointer;">
+                                        </i></button>
+                                        <button disabled class="btn btn-secondary" style='margin:2px' ><i class="fa-solid fa-xmark"></i></button>
+                                        
+                                
+                                    @endif
+                                    @if($p->status == 'Terbeli' && isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
+                                    <button disabled class="btn btn-secondary" style='margin:2px' ><i class="fa-solid fa-pen" style="cursor: pointer;">
+                                        
+                                    @endif
+                                    @if($p->status == 'Belum Dibeli' && isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                                         <a class='btn btn-primary' style='margin:2px' href="/dashboard-bendahara/item-perencanaan/edit/{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-pen" style="cursor: pointer;">
-                                           </i>
-                                        </a>
+                                        </i></a>
+                                    @endif
+                                    @if(!isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                                             <btn class="btn btn-danger btnHapus"
                                                 idItemPerencanaan="{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-trash"></i></btn>
                                     </td>
-                                    @endif
                                     @endif
                                 </tr>
                             @endforeach

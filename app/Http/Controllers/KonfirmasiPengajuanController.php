@@ -117,13 +117,16 @@ class KonfirmasiPengajuanController extends Controller
             $dataUpdate = item_kebutuhan::where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)
                 ->update(['bulan_rencana_realisasi' => $bulan_rencana_realisasi]);
         }
-        
-    $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update(['status' => $status, 'total_dana_kebutuhan'=> $total_dana_kebutuhan, 'id_sumber_dana'=>$id_sumber_dana]);
-        if ($dataUpdate) {
+
+        $dataUpdate = $pengajuan_kebutuhan
+        ->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)
+        ->update(['status' => $status, 'total_dana_kebutuhan'=> $total_dana_kebutuhan, 'id_sumber_dana'=>$id_sumber_dana]);
+
+            if ($dataUpdate) {
             return redirect('dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_pengajuan_kebutuhan)->with('success', 'Berhasil dikonfirmasi!');
 
             } else {
-                return redirect('dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_pengajuan_kebutuhan)->with('success', 'Gagal melakukan aksi!');
+                return redirect('dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_pengajuan_kebutuhan)->with('error', 'Gagal melakukan aksi!');
 
             }
         }

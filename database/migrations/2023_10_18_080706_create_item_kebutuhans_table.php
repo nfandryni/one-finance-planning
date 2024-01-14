@@ -111,7 +111,7 @@ return new class extends Migration
         CREATE TRIGGER setStatusItem AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
         BEGIN
         if NEW.status = 'Difilterisasi' THEN
-        UPDATE item_kebutuhan set status = 'Diterima' where id_pengajuan_kebutuhan = NEW.id_pengajuan_kebutuhan;
+        UPDATE item_kebutuhan set status = 'Diterima' where id_pengajuan_kebutuhan = NEW.id_pengajuan_kebutuhan AND status = '-';
         END IF;
         END
         ");

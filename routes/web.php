@@ -185,6 +185,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/realisasi', [RealisasiController::class, 'index']);
         Route::get('/realisasi/detail/{id}', [RealisasiController::class, 'show']);
         Route::get('/realisasi/print', [RealisasiController::class, 'print']);
+        Route::get('/realisasi/print-item/{id}', [RealisasiController::class, 'print_item']);
     });
  
 Route::get('/logout', [LoginController::class, 'logout']);

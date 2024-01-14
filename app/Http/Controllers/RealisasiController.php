@@ -89,7 +89,7 @@ class RealisasiController extends Controller
             'item_perencanaan'=> DB::table('item_perencanaan')
             ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
             ->join('pengeluaran', 'item_perencanaan.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
-            ->where('item_perencanaan.id_perencanaan_keuangan', $id)
+            ->where('item_perencanaan.id_realisasi', $id)
             ->get(),
         ];
         $user = Auth::user();

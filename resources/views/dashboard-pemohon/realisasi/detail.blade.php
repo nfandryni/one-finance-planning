@@ -11,6 +11,12 @@
            <a class='text-black mt-2' href='/dashboard-pemohon/realisasi'><i class="fa-solid fa-arrow-left fa-xl "></i></a> 
             </div>
             <div>
+                <div class="row justify-content-md-end" style="align-items: center">
+
+<a target='_blank' href="{{ url('/dashboard-pemohon/realisasi/print-item/'. $realisasi->id_realisasi ) }}" style='position:absolute; width:130px; right:40px; top:110px;' class='btn btn-warning'>
+<i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+</a>
+</div>
                 <br />
                 <h3 class='fw-bold mb-3'>Detail Realisasi</h3>
                 <div class='row mb-2'>
