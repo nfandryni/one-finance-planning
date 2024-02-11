@@ -165,7 +165,10 @@ class KonfirmasiPengajuanController extends Controller
             $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
             $status = $request->input('status');            
             
-            $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update(['status' => $status]);
+            $dataUpdate = 
+                    $pengajuan_kebutuhan->where(
+                        'id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)
+                        ->update(['status' => $status]);
             if ($dataUpdate) {
                     $pesan = [
                         'success' => true,
@@ -179,7 +182,6 @@ class KonfirmasiPengajuanController extends Controller
                     ];
                     return response()->json($pesan);
                 }
-            
              
             }
 

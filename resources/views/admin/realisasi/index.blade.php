@@ -2,17 +2,17 @@
 @section('realisasi', 'active')
 @section('title', 'Daftar Realisasi')
 @section('content')
-    <h2 class="fw-bold" style='position:relative; top:15px;'>Kelola Data Realisasi</h2>
+    <h2 class="fw-bold" style='position:relative; top:15px;'> Data Realisasi</h2>
     <div class="row justify-content-md-end" style="align-items: center">
-            @if(!$realisasi->isEmpty())
+            {{-- @if(!$realisasi->isEmpty()) --}}
     <a target='_blank' href="{{ url('/realisasi/print') }}" style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-warning'>
     <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
         </a>
-        @else
-        <button disabled style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-secondary'>
+        {{-- @else --}}
+        {{-- <button disabled style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-secondary'>
         <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
-            </button>
-        @endif
+            </button> --}}
+        {{-- @endif --}}
         <br/>
         <hr>
     <div class="col-md-12 ">
@@ -25,15 +25,14 @@
                         <table class="table table-borderless table-striped mt-2 DataTable">
                             <thead> 
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nama Realisasi</th>
+                                    <th>Judul Realisasi</th>
                                     <th>Waktu</th>
-                                    <th>Total Pembayaran</th>
+                                    <th>Total Dana</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                 @foreach ($realisasi as $s)
+                                 {{-- @foreach ($realisasi as $s)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->judul_realisasi }}</td>
@@ -43,7 +42,17 @@
                                            <a  href='/realisasi/detail/{{ $s->id_realisasi  }}'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000; margin-top:10px;"></i></a>
                                         </td>
                                     </tr>
-                                @endforeach 
+                                @endforeach  --}}
+                              
+                                    <tr>
+                                        <td>Perbaikan Fasilitas</td>
+                                        <td>2024-01-26</td>
+                                        <td>840000</td>    
+                                     
+                                        <td>
+                                           <a  href='/realisasi/detail/1'><i class="fa-solid fa-circle-info fa-lg" style="color: #000000; margin-top:10px;"></i></a>
+                                        </td>
+                                    </tr>
                             </tbody>
                         </table>
                     </div>

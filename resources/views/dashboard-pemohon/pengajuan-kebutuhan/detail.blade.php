@@ -20,7 +20,6 @@
                         @else
                         <button idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' class='btn btnAjukan btn-success fw-bold' style='letter-spacing:1px; position:absolute; right:40px; top:20px;'><i class="fa-solid fa-paper-plane"></i> Ajukan</button>
                         @endif
-                      </div>
                 <div class="col-md-12" style=" display:flex">
                     <div class="col-md-3" style=" ">
                         <div class="form-group">

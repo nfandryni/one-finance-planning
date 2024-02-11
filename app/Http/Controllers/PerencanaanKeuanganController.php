@@ -36,7 +36,22 @@ class PerencanaanKeuanganController extends Controller
 
         }
     }
+    public function detail(){
+    {
 
+       
+            return view('admin.perencanaan.detail');   
+
+        }
+    }
+
+    public function printay(){
+        {
+           
+            $pdf = PDF::loadView('admin.perencanaan.print');  
+    return $pdf ->stream();
+            }
+        }
     /**
      * Show the form for creating a new resource.
      */

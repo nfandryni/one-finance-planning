@@ -3,20 +3,23 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope='col'>Nama Kegiatan</th>
+            <th scope='col'>Judul Perencanaan</th>
             <th scope='col'>Sumber Dana</th>
             <th scope='col'>Waktu</th>
-            <th scope='col'>Tujuan</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($perencanaan_keuangan as $p)
+    <tr>
+    <td> Perbaikan Fasilitas </td>
+                        <td> BOS</td>
+                        <td> 2024-01-13</td></tr>
+        {{-- @foreach ($perencanaan_keuangan as $p)
             <tr>
                 <td>{{ $p->judul_perencanaan }}</td>
                 <td>{{ $p->nama_sumber }}</td>
                 <td>{{ $p->waktu }}</td>
                 <td>{{ $p->tujuan }}</td>
             </tr>
-        @endforeach
+        @endforeach --}}
     </tbody>
 </table>

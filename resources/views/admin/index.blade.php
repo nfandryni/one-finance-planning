@@ -11,10 +11,10 @@
     <h5>Selamat datang di One Finance Planning. Disini anda bisa melihat dana pemasukan, pengeluaran, perencanaan keuangan, realisasi kebutuhan, dan menkonfirmasi pengajuan kebutuhan.</h5>
     
     <div class="col-md-12">
-        <div class="shadow-sm mb-3 rounded d-flex justify-content-center flex-column align-items-center" style="background-color:#DDDDDD; height: 150">
-            <h1 >Total Pemasukan </h1>
+        <div class="shadow-sm mb-3 rounded d-flex justify-content-center flex-column align-items-center" style="background-color:#FFFFFF; height: 150; border:1px solid black">
+            <h1 class="fw-bold" style="color:#FF0000">Rp. {{ $jumlahDana ?? 0 }} </h1>
             <div class="d-flex align-items-center ">
-                <h3 style="align-items: center">Rp. {{ $jumlahDana ?? 0 }}</h3>
+                <h4 style="align-items: center; color: #6A6A6A">Total Anggaran</h4>
             </div>
         </div>
     </div>

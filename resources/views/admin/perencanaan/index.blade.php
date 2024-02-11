@@ -4,11 +4,11 @@
 @section('content')
     <div class="row">
 
-        <h2 class="fw-bold" style='position:relative; top:15px;'>Kelola Data Perencanaan Keuangan</h2>
+        <h2 class="fw-bold" style='position:relative; top:15px;'> Data Perencanaan Keuangan</h2>
 
         <div class="col-md-12">
             <div class="row justify-content-md-end" style="align-items: center">
-                @if (!$perencanaan_keuangan->isEmpty())
+                {{-- @if (!$perencanaan_keuangan->isEmpty())
                     <a target='_blank' href="{{ url('/perencanaan-keuangan/print') }}"
                         style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-warning'>
                         <i class="fa-solid fa-print fa-lg"></i> Cetak Data
@@ -18,7 +18,11 @@
                         class='btn btn-secondary'>
                         <i class="fa-solid fa-print fa-lg"></i> Cetak Data
                     </button>
-                @endif
+                @endif --}}
+                 <a target='_blank' href="{{ url('/perencanaan-keuangan/print') }}"
+                        style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-warning'>
+                        <i class="fa-solid fa-print fa-lg"></i> Cetak Data
+                    </a>
                 <br />
                 <hr>
             </div>
@@ -34,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($perencanaan_keuangan as $s)
+                {{-- @foreach ($perencanaan_keuangan as $s)
                     <tr>
                         <td>{{ $s->judul_perencanaan }}</td>
                         <td>{{ $s->nama_sumber }}</td>
@@ -47,7 +51,19 @@
                             </a>
                         </td>
                     </tr>
-                @endforeach
+                @endforeach --}}
+                <tr>
+                        <td> Perbaikan Fasilitas </td>
+                        <td> BOS</td>
+                        <td> 2024-01-26</td>
+                        <td>
+                            
+                            <a href="perencanaan-keuangan/detail/1"
+                                style="text-decoration: none; color:black">
+                                <i class="fa-solid fa-circle-info" style="margin: 0 2px; cursor:pointer"></i>
+                            </a>
+                        </td>
+                    </tr>
             </tbody>
         </table>
     </div>

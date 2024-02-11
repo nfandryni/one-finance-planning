@@ -38,6 +38,14 @@
                         : {{ $pengajuan_kebutuhan->nama_kegiatan }}
                     </div>
                 </div>
+                 <div class='row mb-2'>
+                    <div class="col-md-3">
+                        <label class='fw-bold'>Sumber Dana</label>
+                    </div>
+                    <div class="col-md-9">
+                        : BOS
+                    </div>
+                </div>
                 <div class='row mb-2'>
                     <div class="col-md-3">
                         <label class='fw-bold'>Tujuan</label>
@@ -71,7 +79,7 @@
                 @if (!isset($pengajuan_kebutuhan->total_dana_kebutuhan))
                     <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang
                         Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end'
-                            style='position: relative; width: 12%; margin-left:790px; border-radius: 5px;margin-top:3px;'>
+                            style='position: relative; width: 12%; margin-left:1100px; border-radius: 5px;margin-top:3px;'>
                             {{ $totalDanaKebutuhan ?? 0 }} </p>
                     </h6>
                 @endif
@@ -84,6 +92,7 @@
                             <th>Harga Satuan</th>
                             <th>Satuan</th>
                             <th>Spesifikasi</th>
+                            <th>Rencana Realisasi</th>
                             <th>Foto</th>
                         </tr>
                     </thead>
@@ -96,6 +105,7 @@
                                 <td>{{ $p->harga_satuan }}</td>
                                 <td>{{ $p->satuan }}</td>
                                 <td>{{ $p->spesifikasi }}</td>
+                                <td>2024-03</td>
                                 <td>
                                     @if ($p->foto_barang_kebutuhan)
                                         <img src="{{ url('foto') . '/' . $p->foto_barang_kebutuhan }} "
@@ -116,42 +126,7 @@
 
 
 @section('footer')
-    <script type="module">
-        $('.DataTable tbody').on('click', '.btnTolak', function(a) {
-            a.preventDefault();
-            let idItemKebutuhan = $(this).closest('.btnTolak').attr('idItemKebutuhan');
-            swal.fire({
-                title: "Anda ingin menolak item ini?",
-                text: 'Item tidak akan ditampilkan lagi',
-                showCancelButton: true,
-                confirmButtonText: 'Tolak',
-                cancelButtonText: `Batal`,
-                confirmButtonColor: 'red',
-                icon: 'warning'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/dashboard-bendahara/konfirmasi-pengajuan/tolak-item/' +
-                            idItemKebutuhan,
-                        data: {
-                            id_item_kebutuhan: idItemKebutuhan,
-                            status: 'Ditolak',
-                            _token: "{{ csrf_token() }}"
-                        },
-                        success: function(data) {
-                            if (data.success) {
-                                swal.fire('Item kebutuhan berhasil ditolak!', '', 'success')
-                                    .then(function() {
-                                        location.reload();
-                                    });
-                            }
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+    
     <script type="module">
         $('#Konfirmasi').on('click', '.btnKonfirmasi', function(a) {
             a.preventDefault();
@@ -177,7 +152,7 @@
                         success: function(data) {
                             if (data.success) {
                                 swal.fire('Pengajuan Kebutuhan berhasil dikonfirmasi!',
-                                    'Pengajuan Kebutuhan ', 'success').then(function() {
+                                    'Pengajuan berikut ini akan menjadi perencanaan keuangan.', 'success').then(function() {
                                     location.reload();
                                 });
                             }
