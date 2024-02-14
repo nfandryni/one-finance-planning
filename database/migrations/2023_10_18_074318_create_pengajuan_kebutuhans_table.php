@@ -155,29 +155,17 @@ return new class extends Migration
         ");
 
          //trgAfterKonfirmasi
-        DB::unprepared(
+         DB::unprepared(
             'CREATE TRIGGER trgAfterKonfirmasi AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
-            BEGIN 
-            DECLARE pengajuan_id INT ;
-            DECLARE judul VARCHAR(60);
-            DECLARE tujuan_perencanaan VARCHAR(255);
-            DECLARE waktu_perencanaan DATE;
-            DECLARE total DECIMAL(10,0);
-            DECLARE sumber_id INT;
-
-            IF NEW.status = "DiKonfirmasi" THEN 
-            SET pengajuan_id = OLD.id_pengajuan_kebutuhan;
-            SET judul = OLD.nama_kegiatan;
-            SET tujuan_perencanaan = OLD.tujuan;
-            SET waktu_perencanaan = OLD.waktu;
-            SET total = OLD.total_dana_kebutuhan;
-            SET sumber_id = OLD.id_sumber_dana;
-
-
-            INSERT INTO perencanaan_keuangan(id_sumber_dana, judul_perencanaan, tujuan, waktu, total_dana_perencanaan) VALUES (sumber_id,judul , tujuan_perencanaan , waktu_perencanaan, total); 
-            END IF;
-            END
-    ');
+            BEGIN
+                IF OLD.status <> NEW.status AND NEW.status = "DiKonfirmasi" THEN
+                    
+                    INSERT INTO perencanaan_keuangan (id_perencanaan_keuangan, id_pengajuan_kebutuhan, id_sumber_dana, judul_perencanaan, tujuan, waktu, total_dana_perencanaan)
+                    VALUES (1, NEW.id_pengajuan_kebutuhan, NEW.id_sumber_dana, CONCAT("Perencanaan for ", NEW.nama_kegiatan), NEW.tujuan, NEW.waktu, NEW.total_dana_kebutuhan);
+        
+                END IF;
+            END'
+        );
 
 
 // DB::unprepared('

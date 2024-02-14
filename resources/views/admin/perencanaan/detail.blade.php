@@ -6,15 +6,14 @@
     <div style='margin-left:15px; margin-right:15px;'>
         <div class="row justify-content-md-center" style="align-items: center">
             <br />
-            <a class='text-black mt-2' href='/perencanaan-keuangan'><i
-                    class="fa-solid fa-arrow-left fa-xl "></i></a>
+            <a class='text-black mt-2' href='/perencanaan-keuangan'><i class="fa-solid fa-arrow-left fa-xl "></i></a>
         </div>
-          <div class="row justify-content-md-end" style="align-items: center">
+        <div class="row justify-content-md-end" style="align-items: center">
 
-            <a target='_blank'  style='position:absolute; width:130px; right:40px; top:110px;' class='btn btn-warning'>
-    <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
-        </a>
-</div>
+            <a target='_blank' style='position:absolute; width:130px; right:40px; top:110px;' class='btn btn-warning'>
+                <i class="fa-solid fa-print fa-lg"></i> Cetak Data
+            </a>
+        </div>
         <div>
             <div class="row justify-content-md-end" style="align-items: center">
 
@@ -65,14 +64,14 @@
                 </div>
             </div>
             {{-- @if (isset($perencanaan_keuangan->total_dana_perencanaan)) --}}
-                <div class='row mb-2'>
-                    <div class="col-md-3">
-                        <label class='fw-bold'>Total Dana Perencanaan</label>
-                    </div>
-                    <div class="col-md-3">
-                        : 840000
-                    </div>
+            <div class='row mb-2'>
+                <div class="col-md-3">
+                    <label class='fw-bold'>Total Dana Perencanaan</label>
                 </div>
+                <div class="col-md-3">
+                    : 840000
+                </div>
+            </div>
             {{-- @endif --}}
         </div>
         <hr />
@@ -113,25 +112,24 @@
                           
                     </tr>
                     @endforeach --}}
-    <tr>
-                            <td>F4</td>
-                            <td>Kursi</td>
-                            <td>42</td>
-                            <td>20000</td>
-                            <td>Buah</td>
-                            <td>Terbuat dari kayu</td>
-                            <td>Belum Terbeli</td>
-                            <td>2024-03</td>
-                            <td>
-                                {{-- @if ($p->foto_barang_perencanaan)
+                    <tr>
+                        <td>F4</td>
+                        <td>Kursi</td>
+                        <td>42</td>
+                        <td>20000</td>
+                        <td>Buah</td>
+                        <td>Terbuat dari kayu</td>
+                        <td>Belum Terbeli</td>
+                        <td>2024-03</td>
+                        <td>
+                            {{-- @if ($p->foto_barang_perencanaan)
                                     <img src="{{ url('foto') . '/' . $p->foto_barang_perencanaan }} "
                                         style="max-width: 150px; height: auto;" />
                                 @endif --}}
 
-                                 <img src="/assets/download (6).jpg"
-                                        style="max-width: 150px; height: auto;" />
-                            </td>
-                          
+                            <img src="/assets/download (6).jpg" style="max-width: 150px; height: auto;" />
+                        </td>
+
                     </tr>
                 </tbody>
             </table>
