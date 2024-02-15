@@ -100,7 +100,8 @@ return new class extends Migration
         CREATE FUNCTION total_dana_kebutuhan(p_id_pengajuan_kebutuhan INT) RETURNS DECIMAL(10,0)
         BEGIN
         DECLARE total DECIMAL(10,0);
-        SELECT SUM(qty * harga_satuan) INTO total from view_item_diterima where id_pengajuan_kebutuhan = p_id_pengajuan_kebutuhan;
+        SELECT SUM(qty * harga_satuan) INTO total from view_item_diterima where 
+        id_pengajuan_kebutuhan = p_id_pengajuan_kebutuhan;
         RETURN total;
         END
         '); 

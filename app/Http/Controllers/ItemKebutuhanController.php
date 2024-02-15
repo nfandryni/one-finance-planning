@@ -12,11 +12,6 @@ class ItemKebutuhanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -57,17 +52,7 @@ class ItemKebutuhanController extends Controller
         }
 
 
-       
-        if($request->input('id_item_kebutuhan') !== null ){
-            $dataUpdate = item_kebutuhan::where('id_item_kebutuhan',$request->input('id_item_kebutuhan'))
-                            ->update($data);
-            if($dataUpdate){
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan berhasil di update');
-            }else{
-                return back()->with('error','Data Pengajuan Kebutuhan gagal di update');
-            }
-        }
-        else{
+    
             if($data):
               
                 $item_kebutuhan->create($data);
@@ -75,17 +60,12 @@ class ItemKebutuhanController extends Controller
             else:
                 return back()->with('error','Data Pengajuan Kebutuhan gagal ditambahkan');
             endif;
-        }
     }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(item_kebutuhan $item_kebutuhan)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

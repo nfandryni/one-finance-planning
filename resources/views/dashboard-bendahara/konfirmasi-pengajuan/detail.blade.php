@@ -121,7 +121,7 @@
             <div>
             <h4 class='fw-bold mb-3'>Item Kebutuhan</h4> 
             @if(!isset($pengajuan_kebutuhan->total_dana_kebutuhan))
-            <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end' style='position: relative; width: 15%; margin-left:823px; border-radius: 5px;margin-top:3px;'>{{ $totalDanaKebutuhan ?? 0 }} </p></h6> 
+            <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end' style='position: relative; width: 15%; margin-left:907px; border-radius: 5px;margin-top:3px;'>{{ $totalDanaKebutuhan ?? 0 }} </p></h6> 
             @endif
             <table class="table table-hover table-borderless table-striped DataTable">
                         <thead>
@@ -215,41 +215,6 @@
             });
         });
     </script>
-      <script type="module">
-        $('#KonfirmasiPengajuan').on('click', '.btnKonfirmasi', function(a) {
-            a.preventDefault();
-            let idPengajuanKebutuhan = $(this).closest('.btnKonfirmasi').attr('idPengajuanKebutuhan');
-            swal.fire({
-                title: "Menerima Pengajuan Kebutuhan ini?",
-                text: 'Pengajuan akan dikirim ke Admin untuk dikonfirmasi',
-                showCancelButton: true,
-                confirmButtonText: 'Terima',
-                cancelButtonText: `Batal`,
-                confirmButtonColor: 'green',
-                icon: 'warning'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/dashboard-bendahara/konfirmasi-pengajuan/konfirmasi/'+idPengajuanKebutuhan,
-                        data: { 
-                            id_pengajuan_kebutuhan: idPengajuanKebutuhan,
-                            status: 'Difilterisasi',
-                            bulan_rencana_realisasi: {{'Difilterisasi'}},
-                            total_dana_kebutuhan: {{$totalDanaKebutuhan}},
-                            _token: "{{ csrf_token() }}"
-                        },
-                        success: function(data) {
-                            if (data.success) {
-                                swal.fire('Pengajuan Kebutuhan berhasil dikonfirmasi!', 'Pengajuan telah dikirim ke Admin untuk konfirmasi lanjutan', 'success').then(function() {
-                                location.reload();
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+     
 
 @endsection 

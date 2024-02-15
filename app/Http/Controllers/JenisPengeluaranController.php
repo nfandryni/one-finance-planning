@@ -56,10 +56,6 @@ class JenisPengeluaranController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(jenis_pengeluaran $jenis_pengeluaran)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

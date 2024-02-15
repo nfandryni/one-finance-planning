@@ -61,9 +61,9 @@ class PerencanaanKeuanganController extends Controller
         if($role == 'bendaharasekolah') {
             $pdf = PDF::loadView('dashboard-bendahara.perencanaan-keuangan.print-item', $data);
         }
-        elseif($role == 'pemohon') {
-            $pdf = PDF::loadView('dashboard-pemohon.perencanaan-keuangan.print-item', $data);
-        }
+        // elseif($role == 'admin') {
+        //     $pdf = PDF::loadView('dashboard-pemohon.perencanaan-keuangan.print-item', $data);
+        // }
 
         return $pdf->stream();
     }

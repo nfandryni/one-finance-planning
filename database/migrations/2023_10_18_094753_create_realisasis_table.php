@@ -27,19 +27,19 @@ return new class extends Migration
         });
     
     // VIEW
-    DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
-    DB::unprepared(
-        "CREATE VIEW view_realisasi AS 
-        SELECT r.id_realisasi,
-        r.id_perencanaan_keuangan, 
-        r.judul_realisasi, 
-        r.tujuan, 
-        r.waktu, 
-        r.total_pembayaran
-        FROM realisasi AS r
-        INNER JOIN perencanaan_keuangan AS p ON r.id_perencanaan_keuangan = p.id_perencanaan_keuangan
-        "
-    );        
+    // DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
+    // DB::unprepared(
+    //     "CREATE VIEW view_realisasi AS 
+    //     SELECT r.id_realisasi,
+    //     r.id_perencanaan_keuangan, 
+    //     r.judul_realisasi, 
+    //     r.tujuan, 
+    //     r.waktu, 
+    //     r.total_pembayaran
+    //     FROM realisasi AS r
+    //     INNER JOIN perencanaan_keuangan AS p ON r.id_perencanaan_keuangan = p.id_perencanaan_keuangan
+    //     "
+    // );        
 
     // TRIGGER
     DB::unprepared("

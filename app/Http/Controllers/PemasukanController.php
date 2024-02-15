@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class PemasukanController extends Controller
 {
-    /**
+    /**s
      * Display a listing of the resource.
      */
     public function index()
@@ -44,7 +44,6 @@ class PemasukanController extends Controller
     
         // dd($sumberDana, $bendaharaSekolah);
         return view('dashboard-bendahara.pemasukan.tambah', compact('sumberDana', 'bendaharaSekolah'));
-
     }
 
     /**

@@ -14,11 +14,6 @@ class ItemPerencanaanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -59,34 +54,18 @@ class ItemPerencanaanController extends Controller
             $foto_file->move(public_path('foto'), $foto_nama);
             $data['foto_barang_perencanaan'] = $foto_nama;
         }
-        if($request->input('id_item_perencanaan') !== null ){
-            
-            $dataUpdate = item_perencanaan::where('id_item_perencanaan',$request->input('id_item_perencanaan'))
-                            ->update($data);
-            if($dataUpdate){
-                return redirect('/dashboard-bendahara/perencanaan_keuangan')->with('success','Data Perencanaan Keuangan Berhasil di update');
-            }else{
-                return back()->with('error','Data Perencanaan Keuangan Gagal di update');
-            }
-        }
-        else{
+     
             if($data):
-              
                 $item_perencanaan->create($data);
                 return redirect('/dashboard-bendahara/perencanaan-keuangan')->with('success','Data Item Perencanaan Berhasil di Tambah');
             else:
                 return back()->with('error','Data Item Gagal di Tambahkan');
             endif;
-        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(item_perencanaan $item_perencanaan)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -97,9 +76,10 @@ class ItemPerencanaanController extends Controller
         ->select('id_perencanaan_keuangan')
         ->first();
         $data = [
-            'item_perencanaan' => $item_perencanaan::where('id_item_perencanaan', $id)
-            ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
-            ->first(),
+            'item_perencanaan' => $item_perencanaan::where('id_item_perencanaan', $id)->first(),
+            'gedung' => gedung::all(),
+            // ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
+            // ->first(),
             'perencanaan_keuangan' => $perencanaan_keuangan::where('id_perencanaan_keuangan', $id_perencanaan_keuangan->id_perencanaan_keuangan)->first(),
             'pengeluaran' => pengeluaran::all()
         ];

@@ -68,16 +68,6 @@ class PengajuanKebutuhanController extends Controller
         ->where('id_pemohon', '=', $data['id_pemohon'])
         ->exists();
 
-        if($request->input('id_pengajuan_kebutuhan') !== null){
-            $dataUpdate = Pengajuan_Kebutuhan::where('id_pengajuan_kebutuhan',$request->input('id_pengajuan_kebutuhan'))
-                            ->update($data);
-            if($dataUpdate && !$exist){
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan Berhasil di Update');
-            }else{
-                return back()->with('error','Data Pengajuan Kebutuhan Gagal di Update');
-            }
-        }
-        else{
             if(!$exist) {
 
                 if (DB::statement("CALL tambah_pengajuan_kebutuhan(?, ?, ?, ?)", ([$data['id_pemohon'], $data['nama_kegiatan'], $data['tujuan'], $data['waktu']]))):
@@ -90,7 +80,6 @@ class PengajuanKebutuhanController extends Controller
                 return back()->with('error','Data Pengajuan Kebutuhan Telah Ada!');
 
             }
-    }
 }
 
         /**
