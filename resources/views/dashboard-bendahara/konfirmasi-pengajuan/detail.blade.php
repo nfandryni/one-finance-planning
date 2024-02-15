@@ -3,35 +3,20 @@
 @section('title', 'Detail Pengajuan Kebutuhan')
 @section('content')
 
-<<<<<<< HEAD
-    <div class="row px-5">
-
-        <div class="col-md-12">
-=======
 <div style='margin-left:15px; margin-right:15px;'>
 
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
             <div class="row justify-content-md-center" style="align-items: center">
             <br/>
            <a class='text-black mt-2' href='/dashboard-bendahara/konfirmasi-pengajuan'><i class="fa-solid fa-arrow-left fa-xl "></i></a> 
                 <div id='Konfirmasi'>
-<<<<<<< HEAD
                     @if($pengajuan_kebutuhan->status == 'Difilterisasi')
                      <button disabled class='btn btn-secondary btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:90px;'><i class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
                      @else
                      <button class='btn btn-success btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:90px;'><i class="fa-solid fa-circle-check"></i> Konfirmasi</button>
-=======
-                    @if($pengajuan_kebutuhan->status == 'Difilterisasi' || $pengajuan_kebutuhan->status == 'Dikonfirmasi' || $pengajuan_kebutuhan->status == 'Ditolak')
-                     <button disabled class='btn btn-secondary btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Telah Dikonfirmasi</button>
-                     @else
-                     <button class='btn btn-success btnKonfirmasi fw-bold' idPengajuanKebutuhan='{{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}}' style='letter-spacing:1px; position:absolute; right:50px;'><i class="fa-solid fa-circle-check"></i> Konfirmasi</button>
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
-                     @endif
                 </div>
             </div>
             <div>
                 <br />
-                <h3 class='fw-bold mb-3'>Detail Pengajuan Kebutuhan</h3>
                 <div class='row mb-2'>
                     <div class="col-md-3">
                         <label class='fw-bold'>Nama Pengajuan Kebutuhan</label>
@@ -50,8 +35,6 @@
                 </div>
                 <div class='row mb-2'>
                     <div class="col-md-3">
-<<<<<<< HEAD
-=======
                         <label class='fw-bold'>Status</label>
                     </div>
                     <div class="col-md-3">
@@ -60,7 +43,6 @@
                 </div>
                 <div class='row mb-2'>
                     <div class="col-md-3">
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                         <label class='fw-bold'>Waktu</label>
                     </div>
                     <div class="col-md-3">
@@ -82,11 +64,7 @@
             <div>
             <h4 class='fw-bold mb-3'>Item Kebutuhan</h4> 
             @if(!isset($pengajuan_kebutuhan->total_dana_kebutuhan))
-<<<<<<< HEAD
             <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end' style='position: relative; width: 12%; margin-left:790px; border-radius: 5px;margin-top:3px;'>{{ $totalDanaKebutuhan ?? 0 }} </p></h6> 
-=======
-            <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end' style='position: relative; width: 15%; margin-left:823px; border-radius: 5px;margin-top:3px;'>{{ $totalDanaKebutuhan ?? 0 }} </p></h6> 
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
             @endif
             <table class="table table-hover table-borderless table-striped DataTable">
                         <thead>
@@ -95,11 +73,7 @@
                                 <th>Item Kebutuhan</th>
                                 <th>Qty</th>
                                 <th>Harga Satuan</th>
-                                <th>Satuan</th>
-                                <th>Spesifikasi</th>
-                                <th>Foto</th>
                             @if($pengajuan_kebutuhan->status == 'Terkirim')
-                                <th>Aksi</th>
                                 @endif
                             </tr>
                         </thead>
@@ -132,10 +106,7 @@
                         </tbody>
                     </table>
             </div>
-<<<<<<< HEAD
         </div>
-=======
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
     </div>
 
 @endsection
@@ -145,10 +116,6 @@
     <script type="module">
         $('.DataTable tbody').on('click', '.btnTolak', function(a) {
             a.preventDefault();
-            let idItemKebutuhan = $(this).closest('.btnTolak').attr('idItemKebutuhan');
-            swal.fire({
-                title: "Anda ingin menolak item ini?",
-                text: 'Item tidak akan ditampilkan lagi',
                 showCancelButton: true,
                 confirmButtonText: 'Tolak',
                 cancelButtonText: `Batal`,
@@ -161,10 +128,7 @@
                         url: '/dashboard-bendahara/konfirmasi-pengajuan/tolak-item/'+idItemKebutuhan,
                         data: { 
                             id_item_kebutuhan: idItemKebutuhan,
-<<<<<<< HEAD
-=======
                             id_pengajuan_kebutuhan: {{$pengajuan_kebutuhan->id_pengajuan_kebutuhan}},
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                             status: 'Ditolak',
                             _token: "{{ csrf_token() }}"
                         },
@@ -173,13 +137,11 @@
                                 swal.fire('Item kebutuhan berhasil ditolak!', '', 'success').then(function() {
                                 location.reload();
                                 });
-<<<<<<< HEAD
-=======
+
                             } else {
                                 swal.fire('Item kebutuhan berhasil ditolak!', '', 'success').then(function() {
                                     window.location.href = '/dashboard-bendahara/konfirmasi-pengajuan';
                                 });
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                             }
                         }
                     });

@@ -1,12 +1,4 @@
 @extends('layout.layout')
-<<<<<<< HEAD
-@section('pengajuan-kebutuhan', 'active')
-@section('content')
-    <div class="row">
-        <div class="col-md-12" style="margin-bottom:2vh">
-            <span class="h2" style="font-weight:bold;">
-                Edit Item Kebutuhan
-=======
 @section('perencanaan-keuangan', 'active')
 @section('title', 'Edit Item Perencanaan')
 @section('content')
@@ -32,7 +24,6 @@
         <div class="col-md-12" style="margin-bottom:2vh">
             <span class="h2" style="font-weight:bold;">
                 Edit Item Perencanaan
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
             </span>
             <form method="POST" action="simpan" enctype="multipart/form-data">
                 <div class="row">
@@ -40,70 +31,6 @@
                         style=" display:flex; justify-content: space-between">
                         <div class="col-md-6" style=" ">
                             <div class="form-group">
-<<<<<<< HEAD
-                                @foreach ($pengajuan_kebutuhan as $s)
-                                    <input type="hidden" name="id_item_kebutuhan"
-                                        value="{{ $s->id_pengajuan_kebutuhan }}" />
-                                    <label>Pengajuan Kebutuhan</label>
-                                    <select name="id_pengajuan_kebutuhan" class="form-control">
-                                        <option value="{{ $s->id_pengajuan_kebutuhan }}"
-                                            {{ $s->id_pengajuan_kebutuhan == $s->id_pengajuan_kebutuhan ? 'selected' : '' }}>
-                                            {{ $s->nama_kegiatan }}
-                                        </option>
-                                    </select>
-                                @endforeach
-                            </div>
-                            <div class="form-group">
-                                @foreach ($gedung as $g)
-                                    <input type="hidden" name="id_item_kebutuhan"
-                                        value="{{ $g->id_gedung }}" />
-                                    <label>Ruangan</label>
-                                    <select name="id_gedung" class="form-control">
-                                        <option value="{{ $g->id_gedung }}"
-                                            {{ $g->id_gedung == $g->id_gedung ? 'selected' : '' }}>
-                                            {{ $g->nama_ruangan }}
-                                        </option>
-                                    </select>
-                                @endforeach
-                            </div>
-
-                            <input type="hidden" name="id_item_kebutuhan" value="{{ $item_kebutuhan->id_item_kebutuhan }}" />
-                            <div class="form-group">
-                                <label>Item Kebutuhan</label>
-                                <input type="text" class="form-control" value="{{ $item_kebutuhan->item_kebutuhan }}" name="item_kebutuhan" />
-                            </div>
-                            <div class="form-group">
-                                <label>QTY</label>
-                                <input type="text" class="form-control" value="{{ $item_kebutuhan->qty }}" name="qty" />
-                            </div>
-                        </div>
-                        {{-- <div class="col-md-1" style=" "></div> --}}
-                        <div class="col-md-6" style=" ">
-                            <div class="form-group">
-                                <label>Harga Satuan</label>
-                                <input type="number" class="form-control" value="{{ $item_kebutuhan->harga_satuan }}" name="harga_satuan" />
-                            </div>
-                            <div class="form-group">
-                                <label> Satuan </label>
-                                <input type="text" class="form-control" value="{{ $item_kebutuhan->satuan }}" name="satuan" />
-                            </div>
-                            <div class="form-group">
-                                <label> Spesifikasi </label>
-                                <input type="text" class="form-control" value="{{ $item_kebutuhan->spesifikasi }}" name="spesifikasi" />
-                            </div>
-                            <div class="form-group">
-                                <label>Foto Barang</label>
-                                <input type="file" class="form-control" value="{{ $item_kebutuhan->foto_barang_kebutuhan }}" name="foto_barang_kebutuhan" />
-                                <img src="{{ url('foto') . '/' . $item_kebutuhan->foto_barang_kebutuhan }}" width='200px'/>
-                                @csrf
-                            </div>
-                             
-                            <div class="col-md-12 mt-3 d-flex " style="gap: 10px; justify-content:end">
-                                <a href="/dashboard-pemohon/pengajuan-kebutuhan" <btn class="btn btn-dark">KEMBALI</btn></a>
-                                <button type="submit" class="btn btn-primary">SIMPAN</button>
-                            </div>
-                        </div>
-=======
                                 <label>Item Perencanaan</label>
                                 <input type="text" class="form-control" value="{{ $item_perencanaan->item_perencanaan }}" name="item_perencanaan" />
                             </div>
@@ -188,28 +115,18 @@
                                         <button type="submit" class="btn btn-primary">SIMPAN</button>
                                     </div>
                                 </div>
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                     </div>
                     {{-- </div>
             
                         <div class="col-md-5"  style="margin-bottom:2vh">
                            
                         <div class="form-group">
-<<<<<<< HEAD
-                                <label>Pengajuan Kebutuhan</label>
-                                <select name="id_pengajuan_kebutuhan" class="form-control">
-                                    @foreach ($pengajuan_kebutuhan as $p)
-                                    <option selected hidden>Pilih Pengajuan Kebutuhan</option>
-                                    <option value="{{ $p->id_pengajuan_kebutuhan }}">
-                                            {{ $p->nama_kegiatan }}
-=======
                                 <label>Perencanaan Keuangan</label>
                                 <select name="id_pengajuan_perencanaan" class="form-control">
                                     @foreach ($perencanaan_keuangan as $p)
                                     <option selected hidden>Pilih Perencanaan Keuangan</option>
                                     <option value="{{ $p->id_perencanaan_keuangan }}">
                                             {{ $p->judul_perencanaan }}
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                                         </option>
                                     @endforeach
                                 </select>
@@ -226,21 +143,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
-<<<<<<< HEAD
-                                <label>Item Kebutuhan</label>
-                                <input type="text" class="form-control" name="item_kebutuhan" />
-                            </div>
-                            <div class="form-group">
-                                <label>QTY</label>
-                                <input type="text" class="form-control" name="qty" />
-=======
                                 <label>Item Perencanaan</label>
                                 <input type="text" class="form-control" name="item_perencanaan" />
                             </div>
                             <div class="form-group">
                                 <label>QTY</label>
                                 <input type="number" class="form-control" name="qty" />
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                             </div>
                             <div class="form-group">
                                 <label>Harga Satuan</label>
@@ -256,22 +164,14 @@
                             </div>
                             <div class="form-group">
                                 <label>Foto Barang</label>
-<<<<<<< HEAD
-                                <input type="file" class="form-control" name="foto_barang_kebutuhan" />
-=======
                                 <input type="file" class="form-control" name="foto_barang_perencanaan" />
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                                 @csrf
                             </div>
 
                         </div>
                     </div>
                     <div class="col-md-12 mt-3 d-flex " style="gap: 10px; justify-content:start">
-<<<<<<< HEAD
-                        <a href="/dashboard-pemohon/pengajuan-kebutuhan" <btn class="btn btn-dark">KEMBALI</btn></a>
-=======
                         <a href="/dashboard-bendahara/perencanaan-keuangan/detail/{{ $item_perencanaan->id_perencanaan_keuangan}}"><btn class="btn btn-dark">KEMBALI</btn></a>
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f
                         <button type="submit" class="btn btn-primary">SIMPAN</button>
                     </div>
                     </form>
@@ -281,8 +181,4 @@
                 </div>
         </div>
     </div>
-<<<<<<< HEAD
 @endsection
-=======
-@endsection
->>>>>>> 82ebaee4c19cba6db945c4c1e87abae79a02c97f

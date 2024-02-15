@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\perencanaan_keuangan;
 use App\Models\pengajuan_kebutuhan;
-use App\Models\item_perencanaan;
-use App\Models\realisasi;
-use App\Models\pengeluaran;
 use App\Models\sumber_dana;
+use App\Models\pengeluaran;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+// use Carbon\Carbon;
 
 class PerencanaanKeuanganController extends Controller
 {
@@ -45,7 +43,7 @@ class PerencanaanKeuanganController extends Controller
 
         return view('dashboard-bendahara.perencanaan-keuangan.tambah', $data);
     }
-    public function print_item(String $id)
+    public function print_item(pengeluaran $pengeluaran, String $id)
     {
         $data = [
             'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan'),
@@ -53,10 +51,12 @@ class PerencanaanKeuanganController extends Controller
             ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
             ->first(),
             
-            'item_perencanaan'=> DB::table('view_perencanaan_keuangan')
-            ->where('view_perencanaan_keuangan.id_perencanaan_keuangan', $id)
+            'item_perencanaan'=> DB::table('item_perencanaan')
+            ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
+            ->where('item_perencanaan.id_perencanaan_keuangan', $id)
             ->get(),
         ];
+        
         $user = Auth::user();
         $role = $user->role;
         if($role == 'bendaharasekolah') {
@@ -111,22 +111,20 @@ class PerencanaanKeuanganController extends Controller
 
         return $pdf->stream();
     }
-    public function show(string $id)
-    {
+     public function show(pengeluaran $pengeluaran, String $id) {    
         $data = [
             'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan'),
             'perencanaan_keuangan'=> perencanaan_keuangan::where('id_perencanaan_keuangan', $id)
             ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
             ->first(),
-
+            
             'item_perencanaan'=> DB::table('item_perencanaan')
             ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
-            ->join('pengeluaran', 'item_perencanaan.id_pengeluaran', '=', 'pengeluaran.id_pengeluaran')
             ->where('item_perencanaan.id_perencanaan_keuangan', $id)
             ->get(),
         ];
 
-             return view('dashboard-bendahara.perencanaan-keuangan.detail', $data);  
+        return view('dashboard-bendahara.perencanaan-keuangan.detail', $data);  
     }
 
     /**

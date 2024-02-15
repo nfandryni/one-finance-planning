@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('perencanaan-keuangan', 'active')
-@section('title', 'Daftar Perencanaan Keuangan')
+@section('title', 'Detail Perencanaan Keuangan')
 @section('content')
 
 <div style='margin-left:15px; margin-right:15px;'>
@@ -11,11 +11,16 @@
         <div>
 <div class="row justify-content-md-end" style="align-items: center">
 
-        <a target='_blank' href="{{ url('/dashboard-bendahara/perencanaan-keuangan/print-item/'. $perencanaan_keuangan->id_perencanaan_keuangan ) }}" style='position:absolute; width:130px; right:40px; top:110px;' class='btn btn-warning'>
-<i class="fa-solid fa-print fa-lg"></i> Cetak Data 
-    </a>
+@if(!$item_perencanaan->isEmpty())
+    <a target='_blank' href="/dashboard-bendahara/perencanaan-keuangan/print-item/{{ $perencanaan_keuangan->id_perencanaan_keuangan}}" style='position:relative; width:130px; right:30px; top: -30px;' class='btn btn-warning'>
+    <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+        </a>
+        @else
+        <button disabled style='position:absolute; width:130px; right:30px; top: 80px;' class='btn btn-secondary'>
+        <i class="fa-solid fa-print fa-lg"></i> Cetak Data 
+            </button>
+        @endif
 </div>
-            <br />
             <h3 class='fw-bold mb-3'>Detail Perencanaan Keuangan</h3>
             <div class='row mb-2'>
                 <div class="col-md-3">
@@ -161,7 +166,7 @@
             a.preventDefault();
             let idItemPerencanaan = $(this).closest('.btnHapus').attr('idItemPerencanaan');
             swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+                title: "Apakah Anda ingin menghapus data ini?",
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,

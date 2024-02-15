@@ -155,6 +155,29 @@ class PengajuanKebutuhanController extends Controller
         return $pdf->stream();
     }
 
+    public function print_item(String $id)
+    {
+        $data = [
+            'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan', $id)->first(),
+            
+            'item_kebutuhan'=> DB::table('view_pengajuan_kebutuhan')
+            ->where('view_pengajuan_kebutuhan.id_pengajuan_kebutuhan', '=', $id)
+            ->where(function ($query) {
+                $query->where('status', '-')
+                ->orWhere('status', 'Diterima');
+            })
+            ->get(),
+        ];
+        
+        $user = Auth::user();
+        $role = $user->role;
+        if($role == 'pemohon') {
+            $pdf = PDF::loadView('dashboard-pemohon.pengajuan-kebutuhan.print-item', $data);
+        }
+
+        return $pdf->stream();
+    }
+
     /**
      * Update the specified resource in storage.
      */

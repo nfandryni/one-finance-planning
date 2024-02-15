@@ -79,7 +79,7 @@
             a.preventDefault();
             let idPemasukan = $(this).closest('.btnHapus').attr('idPemasukan');
             swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+                title: "Apakah Anda ingin menghapus data ini?",
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,

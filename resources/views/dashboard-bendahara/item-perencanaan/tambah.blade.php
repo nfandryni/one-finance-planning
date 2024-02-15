@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('perencanaan-keuangan', 'active')
-@section('title', 'Daftar Perencanaan Keuangan')
+@section('title', 'Tambah Item Perencanaan')
 @section('content')
     <div class="row">
         <div class="col-md-12" style="margin-bottom:2vh">
@@ -10,7 +10,7 @@
             <form method="POST" action="simpan" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 gap-2" style="display:flex; justify-content: space-between">
-                        <div class="col-md-6" style=" ">
+                        <div class="col-md-6">
                          <div class="form-group">
                                 <label>Nama Perencanaan</label>
                                 <input type="text" readonly class="form-control" style='background-color: #EAEAEA;' value='{{$perencanaan_keuangan->judul_perencanaan}}' />
