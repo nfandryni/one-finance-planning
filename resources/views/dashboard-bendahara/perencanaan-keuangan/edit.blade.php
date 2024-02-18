@@ -41,7 +41,7 @@
                             <button type="submit" class="btn btn-primary">SIMPAN</button>
                         </div>
                     </div>
-                    <div class="col-md-6" style=" ">
+                    <div class="col-md-6">
                         <div class="form-group">
                             @if(isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
                         <div class="form-group">
