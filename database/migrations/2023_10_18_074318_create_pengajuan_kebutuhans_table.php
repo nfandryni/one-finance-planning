@@ -134,7 +134,7 @@ return new class extends Migration
             CREATE TRIGGER update_pengajuan_kebutuhan AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('UPDATE', CONCAT('Memperbarui Pengajuan Kebutuhan dengan nama_kegiatan ', OLD.nama_kegiatan, ' dan ID Pengajuan Kebutuhan ', OLD.id_pengajuan_kebutuhan), NOW());
+                VALUES ('UPDATE', CONCAT('Memperbarui Pengajuan Kebutuhan dengan nama kegiatan: ', NEW.nama_kegiatan, ', tujuan: ', NEW.tujuan, ', tanggal: ', NEW.waktu, ', status: ', NEW.status), NOW());
             END
         ");
         

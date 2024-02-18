@@ -71,7 +71,9 @@ return new class extends Migration
                     i.harga_satuan,  
                     i.satuan, 
                     i.spesifikasi, 
+                    i.bulan_rencana_realisasi,
                     i.status, 
+                    i.kedaluwarsa,
                     i.foto_barang_kebutuhan 
             from item_kebutuhan AS i
             INNER JOIN pengajuan_kebutuhan AS p ON i.id_pengajuan_kebutuhan = p.id_pengajuan_kebutuhan
@@ -100,7 +102,8 @@ return new class extends Migration
         CREATE FUNCTION total_dana_kebutuhan(p_id_pengajuan_kebutuhan INT) RETURNS DECIMAL(10,0)
         BEGIN
         DECLARE total DECIMAL(10,0);
-        SELECT SUM(qty * harga_satuan) INTO total from view_item_diterima where id_pengajuan_kebutuhan = p_id_pengajuan_kebutuhan;
+        SELECT SUM(qty * harga_satuan) INTO total from view_item_diterima where 
+        id_pengajuan_kebutuhan = p_id_pengajuan_kebutuhan;
         RETURN total;
         END
         '); 

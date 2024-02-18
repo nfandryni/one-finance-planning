@@ -1,4 +1,5 @@
 @extends('layout.layout')
+@section('konfirmasi-pengajuan', 'active')
 @section('title', 'Edit Item Kebutuhan')
 @section('content')
     <div class="row px-3">
@@ -23,19 +24,19 @@
                                
                                     <div class="form-group">
                                     <label>Qty</label>
-                                    <input type="number" class="form-control" name="qty"
+                                    <input type="number" required class="form-control" name="qty"
                                         value="{{ $item_kebutuhan->qty }}" />
                                      </div>
                                 
                                 <div class="form-group">
                                     <label>Harga Satuan</label>
-                                    <input type="number" class="form-control" name="harga_satuan"
+                                    <input type="number" required class="form-control" name="harga_satuan"
                                         value="{{ $item_kebutuhan->harga_satuan }}" />
                                     </div>
                                     
                                 <div class="form-group">
                                     <label>Satuan</label>
-                                    <input type="text" class="form-control" name="satuan"
+                                    <input type="text" required class="form-control" name="satuan"
                                         value="{{ $item_kebutuhan->satuan }}" />
                                 </div>
                                 

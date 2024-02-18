@@ -2,7 +2,7 @@
 @section('pengeluaran', 'active')
 @section('title', 'Edit Pengeluaran')
 @section('content')
-    <div class="row px-5">
+    <div class="row px-3">
         <div class="col-md-12">
                     <span class="h1">
                         Edit Pengeluaran

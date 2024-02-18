@@ -28,6 +28,7 @@ class KonfirmasiPengajuanController extends Controller
     public function show(string $id)
     {
         //
+        $id_sumber_dana = DB::table('pengajuan_kebutuhan')->select('id_sumber_dana')->where('id_pengajuan_kebutuhan', $id)->first();
         $data = [
             'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan', $id)->first(),
             
@@ -38,7 +39,8 @@ class KonfirmasiPengajuanController extends Controller
                 ->orWhere('status', 'Diterima');
             })
             ->get(),
-            'sumber_dana'=>sumber_dana::all(),
+            'sumber_dana_pengajuan'=>sumber_dana::where('id_sumber_dana', $id_sumber_dana->id_sumber_dana)->select('nama_sumber')->first(),
+            'sumber_dana'=> sumber_dana::all(),
             'totalDanaKebutuhan' => DB::select('SELECT total_dana_kebutuhan(?) AS totalDanaKebutuhan', [$id])[0]->totalDanaKebutuhan
         ];
         return view('dashboard-bendahara.konfirmasi-pengajuan.detail', $data);  
@@ -77,10 +79,10 @@ class KonfirmasiPengajuanController extends Controller
             $dataUpdate = item_kebutuhan::where('id_item_kebutuhan',$request->input('id_item_kebutuhan'))
                             ->update($data);
             if($dataUpdate){
-                return redirect('dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_pengajuan_kebutuhan)->with('success', 'Data Item Kebutuhan berhasil di update');
+                return redirect('dashboard-bendahara/konfirmasi-pengajuan/detail/' . $id_pengajuan_kebutuhan)->with('success', 'Data Item Kebutuhan telah berhasil diperbarui!');
 
             }else{
-                return back()->with('error','Data Item Kebutuhan gagal di update');
+                return back()->with('error','Data Item Kebutuhan gagal diperbarui!');
             }
         }
 
@@ -146,7 +148,7 @@ class KonfirmasiPengajuanController extends Controller
             } else {
                 $pesan = [
                     'success' => false,
-                    'message' => 'Pengajuan Kebutuhan gagal ditolak.',
+                    'message' => 'Pengajuan Kebutuhan gagal ditolak!',
                 ];
                 return response()->json($pesan);
             }
@@ -161,23 +163,22 @@ class KonfirmasiPengajuanController extends Controller
         $dataUpdate = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->update(['status' => $status]);
         $cekStatus = DB::select("SELECT COUNT(*) as count FROM item_kebutuhan WHERE id_pengajuan_kebutuhan = ? AND status = '-' ", [$id_pengajuan_kebutuhan]);
         if($dataUpdate && $cekStatus[0]->count == 0) {
-            dd($cekStatus);
             $pesan = [
                 'success' => false,
-                'pesan' => 'Item Kebutuhan telah Ditolak!'
+                'pesan' => 'Item Kebutuhan telah ditolak!'
             ];
             return response()->json($pesan);
             } else if($dataUpdate && $cekStatus[0]->count >= 1){
                 $pesan = [
                     'success' => true,
-                    'pesan' => 'Item Kebutuhan telah Ditolak!'
+                    'pesan' => 'Item Kebutuhan telah ditolak!'
                 ];
                 return response()->json($pesan);
             }
           else {
                 $pesan = [
                     'success' => false,
-                    'message' => 'Item Kebutuhan gagal ditolak.',
+                    'message' => 'Item Kebutuhan gagal ditolak!',
                 ];
                 return response()->json($pesan);
             }

@@ -13,12 +13,12 @@
                                     <input type="hidden" name="id_gedung" value="{{ $gedung->id_gedung }}" />
                                 <div class="form-group">
                                     <label>Nama Gedung</label>
-                                    <input type="text" class="form-control" name="nama_gedung"
+                                    <input type="text" required class="form-control" name="nama_gedung"
                                         value="{{ $gedung->nama_gedung }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Ruangan</label>
-                                    <input type="text" class="form-control" name="nama_ruangan"
+                                    <input type="text" required class="form-control" name="nama_ruangan"
                                         value="{{ $gedung->nama_ruangan }}" />
                                 </div>
                                 @csrf

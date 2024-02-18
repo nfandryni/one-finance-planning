@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\pengajuan_kebutuhan;
 use App\Models\realisasi;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardPemohonController extends Controller
 {
@@ -13,8 +15,9 @@ class DashboardPemohonController extends Controller
      */
     public function index(pengajuan_kebutuhan $pengajuan_kebutuhan)
     {
+        $user = Auth::user()->user_id;
         $data = [
-            'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all(),
+            'pengajuan_kebutuhan'=> DB::table('view_pengajuan_pemohon')->get(),
             'realisasi' => realisasi::all()
         ];
         return view('dashboard-pemohon.index', $data);

@@ -1,5 +1,6 @@
 @extends('layout.layout')
 @section('pengajuan-kebutuhan', 'active')
+@section('title', 'Edit Pengajuan Kebutuhan')
 @section('content')
     <div class="row">
         <div class="col-md-12">

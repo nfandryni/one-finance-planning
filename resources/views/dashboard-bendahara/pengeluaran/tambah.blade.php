@@ -2,7 +2,7 @@
 @section('pengeluaran', 'active ')
 @section('title', 'Tambah Pengeluaran')
 @section('content')
-    <div class="row px-5">
+    <div class="row px-3">
         <div class="col-md-12">
                     <span class="h1">
                         Tambah Pengeluaran
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class='row'>
                                     <div class="col-md-4 mt-3" style="gap: 10px">
-                                        <a href="/dashboard-bendahara/pengeluaran" <btn class="btn btn-dark">KEMBALI</btn></a>
+                                        <a href="/dashboard-bendahara/pengeluaran"></a> <btn class="btn btn-dark">KEMBALI</btn></a>
                                         <button type="submit" class="btn btn-primary">SIMPAN</button>
                                     </div>
                                     @csrf

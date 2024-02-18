@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class PemasukanController extends Controller
 {
-    /**
+    /**s
      * Display a listing of the resource.
      */
     public function index()
@@ -44,7 +44,6 @@ class PemasukanController extends Controller
     
         // dd($sumberDana, $bendaharaSekolah);
         return view('dashboard-bendahara.pemasukan.tambah', compact('sumberDana', 'bendaharaSekolah'));
-
     }
 
     /**
@@ -76,9 +75,9 @@ class PemasukanController extends Controller
 
         if ($data) {
             $pemasukan->create($data);
-            return redirect('dashboard-bendahara/pemasukan')->with('success', 'Data Pemasukan baru berhasil ditambah');
+            return redirect('dashboard-bendahara/pemasukan')->with('success', 'Data Pemasukan telah berhasil ditambahkan!');
         } else {
-            return back()->with('error', 'Data Pemasukan gagal ditambahkan');
+            return back()->with('error', 'Data Pemasukan gagal ditambahkan!');
         }
     }
 
@@ -153,10 +152,10 @@ class PemasukanController extends Controller
             $dataUpdate = $pemasukan->where('id_pemasukan', $id_pemasukan)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-bendahara/pemasukan')->with('success', 'Data Pemasukan berhasil diupdate');
+                return redirect('dashboard-bendahara/pemasukan')->with('success', 'Data Pemasukan telah berhasil diperbarui!');
             }
 
-            return back()->with('error', 'Data Pemasukan gagal diupdate');
+            return back()->with('error', 'Data Pemasukan gagal diperbarui!');
         }
     }
 
@@ -172,12 +171,12 @@ class PemasukanController extends Controller
         if ($aksi) {
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data Pemasukan berhasil dihapus'
+                'pesan'   => 'Data Pemasukan telah berhasil dihapus!'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan'   => 'Data gagal dihapus'
+                'pesan'   => 'Data Pemasukan gagal dihapus!'
             ];
         }
 

@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-md-12 gap-2"
                         style="display:flex; justify-content: space-between">
-                        <div class="col-md-6" style=" ">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Pengajuan</label>
                                 <input type="text" readonly class="form-control" style='background-color: #EAEAEA;' value='{{$pengajuan_kebutuhan->nama_kegiatan}}' />
@@ -31,30 +31,29 @@
                             </div>
                             <div class="form-group">
                                 <label>Item Kebutuhan</label>
-                                <input type="text" class="form-control" name="item_kebutuhan" />
+                                <input type="text" required class="form-control" name="item_kebutuhan" placeholder="Item Kebutuhan" />
                             </div>
                             <div class="form-group">
                                 <label>QTY</label>
-                                <input type="number" class="form-control" name="qty" />
+                                <input type="number" required class="form-control" name="qty" placeholder="QTY" />
                             </div>
                         </div>
-                        {{-- <div class="col-md-1" style=" "></div> --}}
-                        <div class="col-md-6" style=" ">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Harga Satuan</label>
-                                <input type="number" class="form-control" name="harga_satuan" />
+                                <input type="number" required class="form-control" name="harga_satuan" placeholder="Harga Satuan" />
                             </div>
                             <div class="form-group">
                                 <label> Satuan </label>
-                                <input type="text" class="form-control" name="satuan" />
+                                <input type="text" required class="form-control" name="satuan" placeholder="Satuan"/>
                             </div>
                             <div class="form-group">
                                 <label> Spesifikasi </label>
-                                <input type="text" class="form-control" name="spesifikasi" />
+                                <input type="text" required class="form-control" name="spesifikasi" placeholder="Spesifikasi"/>
                             </div>
                             <div class="form-group">
                                 <label>Foto Barang</label>
-                                <input type="file" class="form-control" name="foto_barang_kebutuhan" />
+                                <input type="file" required class="form-control" name="foto_barang_kebutuhan" />
                                 @csrf
                             </div>
                             <div class="col-md-12 mt-3 d-flex " style="gap: 10px; justify-content:end">

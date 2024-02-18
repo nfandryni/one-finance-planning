@@ -47,19 +47,15 @@ class GedungController extends Controller
         ->get();
 
         if($exist->isEmpty() && DB::statement("CALL tambah_gedung(?, ?)", ([$data['nama_gedung'], $data['nama_ruangan']]))) {
-            return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung baru berhasil ditambah');
+            return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung telah berhasil ditambahkan!');
         } else {
-            return back()->with('error', 'Data Gedung gagal ditambahkan');
+            return back()->with('error', 'Data Gedung gagal ditambahkan!');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -95,9 +91,9 @@ class GedungController extends Controller
             $dataUpdate = $gedung->where('id_gedung', $id_gedung)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung berhasil diupdate');
+                return redirect('dashboard-bendahara/gedung')->with('success', 'Data Gedung telah berhasil diperbarui!');
             } else {
-                return back()->with('error', 'Data Gedung gagal diupdate');
+                return back()->with('error', 'Data Gedung gagal diperbarui!');
             }
         }
         else {
@@ -117,12 +113,12 @@ class GedungController extends Controller
         if ($aksi) {
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data Gedung berhasil dihapus'
+                'pesan'   => 'Data Gedung telah berhasil dihapus!'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan'   => 'Data gagal dihapus'
+                'pesan'   => 'Data gagal dihapus!'
             ];
         }
 

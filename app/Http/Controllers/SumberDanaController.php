@@ -48,9 +48,9 @@ class SumberDanaController extends Controller
 
         if($exist->isEmpty()) {
             $sumber_dana->create($data);
-            return redirect('dashboard-bendahara/sumber-dana')->with('success', 'Data Sumber Dana baru berhasil ditambah');
+            return redirect('dashboard-bendahara/sumber-dana')->with('success', 'Data Sumber Dana telah berhasil ditambahkan!');
         } else {
-            return back()->with('error', 'Data Sumber Dana gagal ditambahkan');
+            return back()->with('error', 'Data Sumber Dana gagal ditambahkan!');
         }
     }
 
@@ -58,11 +58,6 @@ class SumberDanaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -98,9 +93,9 @@ class SumberDanaController extends Controller
             $dataUpdate = $sumber_dana->where('id_sumber_dana', $id_sumber_dana)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-bendahara/sumber-dana')->with('success', 'Data Sumber Dana berhasil di update');
+                return redirect('dashboard-bendahara/sumber-dana')->with('success', 'Data Sumber Dana telah berhasil diperbarui!');
             } else {
-                return back()->with('error', 'Data Sumber Dana gagal di update');
+                return back()->with('error', 'Data Sumber Dana gagal diperbarui!');
             }
         } 
         else {
@@ -120,12 +115,12 @@ class SumberDanaController extends Controller
         if ($aksi) {
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data Sumber Dana berhasil dihapus'
+                'pesan'   => 'Data Sumber Dana telah berhasil dihapus!'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan'   => 'Data gagal dihapus'
+                'pesan'   => 'Data Sumber Dana gagal dihapus!'
             ];
         }
 

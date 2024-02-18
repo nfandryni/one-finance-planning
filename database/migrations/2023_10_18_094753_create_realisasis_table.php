@@ -25,21 +25,6 @@ return new class extends Migration
             $table->foreign('id_perencanaan_keuangan')->on('perencanaan_keuangan')->references('id_perencanaan_keuangan')->onUpdate
             ('cascade')->onDelete('cascade');
         });
-    
-    // VIEW
-    DB::unprepared('DROP VIEW IF EXISTS view_realisasi');
-    DB::unprepared(
-        "CREATE VIEW view_realisasi AS 
-        SELECT r.id_realisasi,
-        r.id_perencanaan_keuangan, 
-        r.judul_realisasi, 
-        r.tujuan, 
-        r.waktu, 
-        r.total_pembayaran
-        FROM realisasi AS r
-        INNER JOIN perencanaan_keuangan AS p ON r.id_perencanaan_keuangan = p.id_perencanaan_keuangan
-        "
-    );        
 
     // TRIGGER
     DB::unprepared("
@@ -53,19 +38,10 @@ return new class extends Migration
     DB::unprepared("
         CREATE TRIGGER update_realisasi_trigger AFTER UPDATE ON realisasi FOR EACH ROW
         BEGIN
-            INSERT INTO logs(aksi, aktivitas, waktu)
-            VALUES ('UPDATE', CONCAT('Memperbarui Realisasi dengan nama_kegiatan ', OLD.judul_realisasi, ' dan ID Realisasi ', OLD.id_realisasi), NOW());
-        END
+        INSERT INTO logs(aksi, aktivitas, waktu)
+        VALUES ('UPDATE', CONCAT('Memperbarui Realisasi ', NEW.judul_realisasi, ' dari pembayaran ', OLD.total_pembayaran, ' menjadi ', NEW.total_pembayaran), NOW());
+    END
     ");
-    
-    DB::unprepared("
-        CREATE TRIGGER hapus_realisasi_trigger AFTER DELETE ON realisasi FOR EACH ROW
-        BEGIN
-            INSERT INTO logs(aksi, aktivitas, waktu)
-            VALUES ('DELETE', CONCAT('Menghapus Realisasi dengan nama_kegiatan ', OLD.judul_realisasi), NOW());
-        END
-    ");
-    
     }
 
     /**

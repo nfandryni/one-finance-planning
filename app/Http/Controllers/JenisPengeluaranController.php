@@ -47,19 +47,15 @@ class JenisPengeluaranController extends Controller
         ->get();
 
         if($exist->isEmpty() && DB::statement("CALL tambah_jenis_pengeluaran(?)", ([$data['kategori']]))) {
-            return redirect('dashboard-bendahara/jenis-pengeluaran')->with('success', 'Data jenis pengeluaran baru berhasil ditambah');
+            return redirect('dashboard-bendahara/jenis-pengeluaran')->with('success', 'Data Jenis Pengeluaran telah berhasil ditambahkan!');
         } else {
-            return back()->with('error', 'Data jenis pengeluaran gagal ditambahkan');
+            return back()->with('error', 'Data Jenis Pengeluaran gagal ditambahkan!');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(jenis_pengeluaran $jenis_pengeluaran)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -95,9 +91,9 @@ class JenisPengeluaranController extends Controller
             $dataUpdate = $jenis_pengeluaran->where('id_jenis_pengeluaran', $id_jenis_pengeluaran)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-bendahara/jenis-pengeluaran')->with('success', 'Data jenis pengeluaran berhasil di update');
+                return redirect('dashboard-bendahara/jenis-pengeluaran')->with('success', 'Data Jenis Pengeluaran telah berhasil diperbarui!');
             } else {
-                return back()->with('error', 'Data jenis pengeluaran gagal di update');
+                return back()->with('error', 'Data Jenis Pengeluaran gagal diperbarui!');
             }
         }
         else {
@@ -119,12 +115,12 @@ class JenisPengeluaranController extends Controller
         if ($aksi) {
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data jenis pengeluaran berhasil dihapus'
+                'pesan'   => 'Data Jenis Pengeluaran telah berhasil dihapus!'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan'   => 'Data gagal dihapus'
+                'pesan'   => 'Data Jenis Pengeluaran gagal dihapus!'
             ];
         }
 

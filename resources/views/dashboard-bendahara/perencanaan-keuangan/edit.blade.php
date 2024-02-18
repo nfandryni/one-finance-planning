@@ -2,7 +2,7 @@
 @section('perencanaan-keuangan', 'active')
 @section('title', 'Edit Perencanaan Keuangan')
 @section('content')
-    <div class="row ">
+    <div class="row px-3">
         <div class="col-md-12">
                     <span class="h1">
                         Edit Data Perencanaan Keuangan

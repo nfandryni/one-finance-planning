@@ -9,7 +9,6 @@ use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class PengeluaranController extends Controller
 {
@@ -81,7 +80,7 @@ class PengeluaranController extends Controller
         $tambahData = $pengeluaran->create($data);
 
         if ($tambahData) {
-            return redirect('/dashboard-bendahara/pengeluaran')->with('success', 'Data Pengeluaran baru berhasil ditambah');
+            return redirect('/dashboard-bendahara/pengeluaran')->with('success', 'Data Pengeluaran telah berhasil ditambahkan!');
         }
 }
 
@@ -154,9 +153,9 @@ class PengeluaranController extends Controller
             $dataUpdate = pengeluaran::where('id_pengeluaran', $pengeluaran)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-bendahara/pengeluaran')->with('success', 'Data Pengeluaran berhasil di update');
+                return redirect('dashboard-bendahara/pengeluaran')->with('success', 'Data Pengeluaran telah berhasil diperbarui!');
             } else {
-                return back()->with('error', 'Data Pengeluaran gagal di update');
+                return back()->with('error', 'Data Pengeluaran gagal diperbarui!');
             }
         }
     }
@@ -173,12 +172,12 @@ class PengeluaranController extends Controller
         if ($aksi) {
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data pengeluaran berhasil dihapus'
+                'pesan'   => 'Data pengeluaran telah berhasil dihapus!'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan'   => 'Data gagal dihapus'
+                'pesan'   => 'Data Pengeluaran gagal dihapus!'
             ];
         }
 

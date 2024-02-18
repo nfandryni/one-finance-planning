@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-md-12 gap-2"
                         style=" display:flex; justify-content: space-between">
-                        <div class="col-md-6" style=" ">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Item Perencanaan</label>
                                 <input type="text" class="form-control"  style='background-color: #EAEAEA' readonly value="{{ $item_perencanaan->item_perencanaan }}" name="item_perencanaan" />
@@ -39,9 +39,10 @@
 
                             <div class="form-group">
                                     <label>Ruangan</label>
-                                    <select name="id_gedung" readonly  style='background-color: #EAEAEA' class="form-control">
-                                            <option value="{{ $item_perencanaan->id_gedung }}">
-                                                {{ $item_perencanaan->nama_ruangan }}</option>
+                                    <select name="id_gedung" readonly style='background-color: #EAEAEA' class="form-control">
+                                            <option value="{{ $gedung_readonly->id_gedung }}"
+                                                {{ $item_perencanaan->id_gedung == $gedung_readonly->id_gedung ? 'selected' : '' }}>
+                                                {{ $gedung_readonly->nama_ruangan }}</option>
                                     </select>
                             </div>
 
@@ -70,7 +71,7 @@
                                 @csrf
                             </div>
                         </div>
-                        <div class="col-md-6" style=" ">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label> Bulan Realisasi</label>
                         <input type="month" required readonly style='background-color: #EAEAEA' class="form-control" name="bulan_rencana_realisasi" value='{{ $item_perencanaan->bulan_rencana_realisasi}}' />
@@ -110,7 +111,7 @@
                 <div class="row">
                     <div class="col-md-12 gap-2"
                         style=" display:flex; justify-content: space-between">
-                        <div class="col-md-6" style=" ">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Item Perencanaan</label>
                                 <input type="text" class="form-control" value="{{ $item_perencanaan->item_perencanaan }}" name="item_perencanaan" />
@@ -153,7 +154,7 @@
                                 @csrf
                             </div>
                         </div>
-                        <div class="col-md-6" style=" ">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label> Bulan Realisasi</label>
                         <input type="month" required class="form-control" name="bulan_rencana_realisasi" value='{{ $item_perencanaan->bulan_rencana_realisasi}}' />

@@ -2,7 +2,7 @@
 @section('jenis-pengeluaran', 'active')
 @section('title', 'Edit Jenis Pengeluaran')
 @section('content')
-    <div class="row">
+    <div class="row px-3">
         <div class="col-md-12">
                     <span class="h1">
                         Edit Data Jenis Pengeluaran
@@ -13,7 +13,7 @@
                                     <input type="hidden" name="id_jenis_pengeluaran" value="{{ $jenis_pengeluaran->id_jenis_pengeluaran }}" />
                                 <div class="form-group">
                                     <label>Kategori</label>
-                                    <input type="text" class="form-control" name="kategori"
+                                    <input type="text" required class="form-control" name="kategori"
                                         value="{{ $jenis_pengeluaran->kategori }}" />
                             
                                 @csrf

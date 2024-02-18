@@ -21,15 +21,6 @@
                                 : {{$p->nama_sumber}}
                         </div>
                         </div>
-                        <div class='mt-1'>
-                            <div class="row mb-2">
-                                <div class="col-md-2">
-                                <label class='fw-bold'>Jenis Pengeluaran</label>
-                            </div>
-                            <div class="col-md-3">
-                                : {{$p->kategori}}
-                        </div>
-                        </div>
                         <div class='row mb-2'>
                             <div class="col-md-2">
                                 <label class='fw-bold'>Nama Pengeluaran</label>

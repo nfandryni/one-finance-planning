@@ -117,11 +117,13 @@
                                         <a class='btn btn-primary' style='margin:2px' href="/dashboard-bendahara/item-perencanaan/edit/{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-pen" style="cursor: pointer;">
                                         </i></a>
                                     @endif
-                                    @if(!isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
+                                    @if($p->status == 'Belum Dibeli' && !isset($perencanaan_keuangan->id_pengajuan_kebutuhan))
+                                    <a class='btn btn-primary' style='margin:2px' href="/dashboard-bendahara/item-perencanaan/edit/{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-pen" style="cursor: pointer;"></i>
+                                    </a>
                                             <btn class="btn btn-danger btnHapus"
                                                 idItemPerencanaan="{{ $p->id_item_perencanaan }}"><i class="fa-solid fa-trash"></i></btn>
-                                    </td>
-                                    @endif
+                                                @endif
+                                            </td>
                                 </tr>
                             @endforeach
 

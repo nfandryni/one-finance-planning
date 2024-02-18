@@ -68,38 +68,48 @@ class PengajuanKebutuhanController extends Controller
         ->where('id_pemohon', '=', $data['id_pemohon'])
         ->exists();
 
-        if($request->input('id_pengajuan_kebutuhan') !== null){
-            $dataUpdate = Pengajuan_Kebutuhan::where('id_pengajuan_kebutuhan',$request->input('id_pengajuan_kebutuhan'))
-                            ->update($data);
-            if($dataUpdate && !$exist){
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan Berhasil di Update');
-            }else{
-                return back()->with('error','Data Pengajuan Kebutuhan Gagal di Update');
-            }
-        }
-        else{
             if(!$exist) {
 
                 if (DB::statement("CALL tambah_pengajuan_kebutuhan(?, ?, ?, ?)", ([$data['id_pemohon'], $data['nama_kegiatan'], $data['tujuan'], $data['waktu']]))):
-                    return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan baru berhasil ditambah');
+                    return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan telah berhasil ditambahkan!');
                 else:
-                    return back()->with('error','Data Pengajuan Kebutuhan Gagal di Tambahkan');
+                    return back()->with('error','Data Pengajuan Kebutuhan gagal ditambahkan!');
                 endif;
             }
             else {
-                return back()->with('error','Data Pengajuan Kebutuhan Telah Ada!');
+                return back()->with('error','Data Pengajuan Kebutuhan telah ada!');
 
             }
-    }
 }
 
+        public function print_item(String $id)
+        {
+        $data = [
+            'pengajuan_kebutuhan'=> DB::table('view_pengajuan_pemohon')->where('id_pengajuan_kebutuhan', $id)->first(),
+            'item_kebutuhan'=> DB::table('view_pengajuan_kebutuhan')
+            ->where('view_pengajuan_kebutuhan.id_pengajuan_kebutuhan', '=', $id)
+            ->where(function ($query) {
+                $query->where('status', '-')
+                ->orWhere('status', 'Diterima');
+            })
+            ->get(),
+        ];
+
+        $user = Auth::user();
+        $role = $user->role;
+       
+        $pdf = PDF::loadView('dashboard-pemohon.pengajuan-kebutuhan.print-item', $data);
+
+        return $pdf->stream();
+        }
+        
         /**
      * Display the specified resource.
      */
     public function show(pengajuan_kebutuhan $pengajuan_kebutuhan, item_kebutuhan $item_kebutuhan, string $id, gedung $gedung)
     {
         $data = [
-            'pengajuan_kebutuhan'=> pengajuan_kebutuhan::where('id_pengajuan_kebutuhan', $id)->first(),
+            'pengajuan_kebutuhan'=> DB::table('view_pengajuan_pemohon')->where('id_pengajuan_kebutuhan', $id)->first(),
             'item_kebutuhan'=> DB::table('view_pengajuan_kebutuhan')
             ->where('view_pengajuan_kebutuhan.id_pengajuan_kebutuhan', $id)
             ->get(),
@@ -116,13 +126,13 @@ class PengajuanKebutuhanController extends Controller
         if ($dataUpdate) {
                 $pesan = [
                     'success' => true,
-                    'pesan' => 'Pengajuan Kebutuhan berhasil dikirim!'
+                    'pesan' => 'Pengajuan Kebutuhan telah berhasil dikirim!'
                 ];
                 return response()->json($pesan);
             } else {
                 $pesan = [
                     'success' => false,
-                    'message' => 'Pengajuan Kebutuhan gagal dikirim.',
+                    'message' => 'Pengajuan Kebutuhan gagal dikirim!',
                 ];
                 return response()->json($pesan);
             }
@@ -173,9 +183,9 @@ class PengajuanKebutuhanController extends Controller
             $dataUpdate = $pengajuan_kebutuhan->where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data berhasil di update');
+                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data Pengajuan Kebutuhan telah berhasil diperbarui!');
             } else {
-                return back()->with('error', 'Data gagal di update');
+                return back()->with('error', 'Data Pengajuan Kebutuhan gagal diperbarui!');
             }
         }
     }
@@ -193,12 +203,12 @@ class PengajuanKebutuhanController extends Controller
         if ($aksi) {
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data berhasil dihapus'
+                'pesan'   => 'Data Pengajuan Kebutuhan telah berhasil dihapus!'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan'   => 'Data gagal dihapus'
+                'pesan'   => 'Data Pengajuan Kebutuhan gagal dihapus!'
             ];
         }
 

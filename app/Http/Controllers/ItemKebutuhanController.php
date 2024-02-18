@@ -6,17 +6,13 @@ use App\Models\gedung;
 use App\Models\item_kebutuhan;
 use App\Models\pengajuan_kebutuhan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ItemKebutuhanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -57,35 +53,20 @@ class ItemKebutuhanController extends Controller
         }
 
 
-       
-        if($request->input('id_item_kebutuhan') !== null ){
-            $dataUpdate = item_kebutuhan::where('id_item_kebutuhan',$request->input('id_item_kebutuhan'))
-                            ->update($data);
-            if($dataUpdate){
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan berhasil di update');
-            }else{
-                return back()->with('error','Data Pengajuan Kebutuhan gagal di update');
-            }
-        }
-        else{
+    
             if($data):
               
                 $item_kebutuhan->create($data);
-                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success','Data Pengajuan Kebutuhan baru berhasil ditambah');
+                return redirect('/dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data Item Kebutuhan telah berhasil ditambahkan!');
             else:
-                return back()->with('error','Data Pengajuan Kebutuhan gagal ditambahkan');
+                return back()->with('error','Data Item Kebutuhan gagal ditambahkan!');
             endif;
-        }
     }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(item_kebutuhan $item_kebutuhan)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -93,9 +74,10 @@ class ItemKebutuhanController extends Controller
     public function edit(string $id,item_kebutuhan $item_kebutuhan, pengajuan_kebutuhan $pengajuan_kebutuhan, gedung $gedung)
     {
         //
+        $id_pengajuan_kebutuhan = DB::table('item_kebutuhan')->select('id_pengajuan_kebutuhan')->where('id_item_kebutuhan', $id)->first();
         $data = [
             'item_kebutuhan' => $item_kebutuhan::where('id_item_kebutuhan', $id)->first(),
-            'pengajuan_kebutuhan' => $pengajuan_kebutuhan->all(),
+            'pengajuan_kebutuhan' => $pengajuan_kebutuhan::where('id_pengajuan_kebutuhan', $id_pengajuan_kebutuhan->id_pengajuan_kebutuhan)->first(),
             'gedung' => $gedung->all()
         ];
         return view('dashboard-pemohon.item-kebutuhan.edit', $data);
@@ -120,6 +102,7 @@ class ItemKebutuhanController extends Controller
         ]);
 
         $id_item_kebutuhan = $request->input('id_item_kebutuhan');
+        $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');
 
         if ($item_kebutuhan !== null) {
 
@@ -136,9 +119,9 @@ class ItemKebutuhanController extends Controller
             $dataUpdate = $item_kebutuhan->where('id_item_kebutuhan', $id_item_kebutuhan)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-pemohon/pengajuan-kebutuhan')->with('success', 'Data Item Kebutuhan berhasil di update');
+                return redirect('dashboard-pemohon/pengajuan-kebutuhan/detail/'. $id_pengajuan_kebutuhan)->with('success', 'Data Item Kebutuhan telah berhasil diperbarui!');
             } else {
-                return back()->with('error', 'Data Item Kebutuhan gagal di update');
+                return back()->with('error', 'Data Item Kebutuhan gagal diperbarui!');
             }
         }
     }
@@ -156,12 +139,12 @@ class ItemKebutuhanController extends Controller
         if ($aksi) {
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data berhasil dihapus'
+                'pesan'   => 'Data Item Kebutuhan telah berhasil dihapus!'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan'   => 'Data gagal dihapus'
+                'pesan'   => 'Data Item Kebutuhan gagal dihapus!'
             ];
         }
 

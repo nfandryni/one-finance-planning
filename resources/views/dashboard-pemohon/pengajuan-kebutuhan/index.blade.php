@@ -102,7 +102,7 @@
             a.preventDefault();
             let idPengajuanKebutuhan = $(this).closest('.btnHapus').attr('idPengajuanKebutuhan');
             swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+                title: "Apakah Anda ingin menghapus data ini?",
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,

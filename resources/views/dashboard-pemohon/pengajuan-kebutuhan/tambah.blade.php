@@ -1,8 +1,8 @@
 @extends('layout.layout')
 @section('pengajuan-kebutuhan', 'active')
-@section('title', 'Daftar Pengajuan Kebutuhan')
+@section('title', 'Tambah Pengajuan Kebutuhan')
 @section('content')
-<div class="row">
+<div class="row px-3">
     <div class="col-md-12"  style="margin-bottom:2vh">
                 <span class="h2" style="font-weight:bold;">
                     Tambah Pengajuan Kebutuhan
@@ -14,11 +14,11 @@
                            
                             <div class="form-group">
                                 <label>Nama Kegiatan</label>
-                                <input type="text" class="form-control" name="nama_kegiatan" />
+                                <input type="text" required class="form-control" name="nama_kegiatan" placeholder="Nama Kegiatan" />
                             </div>
                             <div class="form-group">
                                 <label>Tujuan</label>
-                                <input type="text" class="form-control" name="tujuan" />
+                                <input type="text" required class="form-control" name="tujuan" placeholder="Tujuan" />
                                 @csrf
                             </div>
 

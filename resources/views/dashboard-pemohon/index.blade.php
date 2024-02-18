@@ -26,7 +26,11 @@
                             @foreach ($pengajuan_kebutuhan as $p)
                                 <tbody>
                                     <tr>
-                                        <td>{{ $p->id_pemohon }}</td>
+                                        @if($p->user_id == Auth::user()->user_id)
+                                        <td>{{ $p->nama }} (Anda)</td>
+                                        @else
+                                        <td>{{ $p->nama }} </td>
+                                        @endif
                                         <td>{{ $p->nama_kegiatan }}</td>
                                         <td>{{ $p->status }}</td>
                                         <td>{{ $p->waktu }}</td>

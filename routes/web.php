@@ -173,6 +173,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/pengajuan-kebutuhan/ajukan/{id}', [PengajuanKebutuhanController::class, 'send']);
         Route::delete('/pengajuan-kebutuhan/hapus', [PengajuanKebutuhanController::class, 'destroy']);
         Route::get('/cetak', [PengajuanKebutuhanController::class, 'cetak']);
+        Route::get('/pengajuan-kebutuhan/print-item/{id}', [PengajuanKebutuhanController::class, 'print_item']);
+
 
         Route::get('/', [DashboardPemohonController::class, 'index']);
         Route::get('/item-kebutuhan', [ItemKebutuhanController::class, 'index']);

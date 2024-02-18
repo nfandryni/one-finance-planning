@@ -19,7 +19,6 @@ class PerencanaanKeuanganController extends Controller
      */
     public function index(Request $request, perencanaan_keuangan $perencanaan_keuangan)
     {
-       
         $data = [
             'perencanaan_keuangan' => $perencanaan_keuangan
             ->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
@@ -61,9 +60,9 @@ class PerencanaanKeuanganController extends Controller
         if($role == 'bendaharasekolah') {
             $pdf = PDF::loadView('dashboard-bendahara.perencanaan-keuangan.print-item', $data);
         }
-        elseif($role == 'pemohon') {
-            $pdf = PDF::loadView('dashboard-pemohon.perencanaan-keuangan.print-item', $data);
-        }
+        // elseif($role == 'admin') {
+        //     $pdf = PDF::loadView('dashboard-pemohon.perencanaan-keuangan.print-item', $data);
+        // }
 
         return $pdf->stream();
     }
@@ -91,9 +90,9 @@ class PerencanaanKeuanganController extends Controller
 
        if ($data && !$exist) {
         $perencanaan_keuangan->create($data);
-        return redirect('dashboard-bendahara/perencanaan-keuangan')->with('success', 'Data Perencanaan Keuangan baru berhasil ditambah');
+        return redirect('dashboard-bendahara/perencanaan-keuangan')->with('success', 'Data Perencanaan Keuangan telah berhasil ditambahkan!');
     } else {
-        return back()->with('error', 'Data Perencanaan Keuangan gagal ditambahkan');
+        return back()->with('error', 'Data Perencanaan Keuangan gagal ditambahkan!');
     }
     }
 
@@ -163,9 +162,9 @@ class PerencanaanKeuanganController extends Controller
             $dataUpdate = $perencanaan_keuangan->where('id_perencanaan_keuangan', $id_perencanaan_keuangan)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard-bendahara/perencanaan-keuangan')->with('success', 'Data berhasil di update');
+                return redirect('dashboard-bendahara/perencanaan-keuangan')->with('success', 'Data Perencanaan Keuangan telah berhasil diperbarui!');
             } else {
-                return back()->with('error', 'Data gagal di update');
+                return back()->with('error', 'Data Perencanaan Keuangan gagal diperbarui!');
             }
         }
     }
@@ -189,12 +188,12 @@ class PerencanaanKeuanganController extends Controller
             if ($aksi) {
                 $pesan = [
                     'success' => true,
-                    'pesan'   => 'Data berhasil dihapus'
+                    'pesan'   => 'Data Perencanaan Keuangan telah berhasil dihapus!'
                 ];
             } else {
                 $pesan = [
                     'success' => false,
-                    'pesan'   => 'Data gagal dihapus'
+                    'pesan'   => 'Data Perencanaan Keuangan gagal dihapus!'
                 ];
             }
         }

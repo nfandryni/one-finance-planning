@@ -2,7 +2,7 @@
 @section('pemasukan', 'active')
 @section('title', 'Edit Pemasukan')
 @section('content')
-    <div class="row px-5">
+    <div class="row px-3">
         <div class="col-md-12">
                     <span class="h1">
                         Edit Data Pemasukan
@@ -14,7 +14,7 @@
                                     <input type="hidden" name="id_bendahara" value="{{ $pemasukan->id_bendahara }}" />
                                     <div class="form-group">
                                     <label>Nama Sumber</label>
-                                    <select class='form-select' name="id_sumber_dana">
+                                    <select class='form-select' required name="id_sumber_dana">
                                       @foreach ($sumber_dana as $s)
                                             <option value="{{ $s->id_sumber_dana }}"
                                                 {{ $pemasukan->id_sumber_dana == $s->id_sumber_dana ? 'selected' : '' }}>
@@ -25,17 +25,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Pemasukan</label>
-                                    <input type="text" class="form-control" name="nama"
+                                    <input type="text" required class="form-control" name="nama"
                                         value="{{ $pemasukan->nama }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Nominal</label>
-                                    <input type="number" class="form-control" name="nominal"
+                                    <input type="number" required class="form-control" name="nominal"
                                         value="{{ $pemasukan->nominal }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Waktu</label>
-                                    <input type="date" class="form-control" name="waktu"
+                                    <input type="date" required class="form-control" name="waktu"
                                         value="{{ $pemasukan->waktu }}" />
                                 </div>
                                 <div class="form-group">    

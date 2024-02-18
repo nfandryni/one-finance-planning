@@ -13,7 +13,7 @@
                                     <input type="hidden" name="id_sumber_dana" value="{{ $sumber_dana->id_sumber_dana }}" />
                                 <div class="form-group">
                                     <label>Nama Sumber Dana</label>
-                                    <input type="text" class="form-control" name="nama_sumber"
+                                    <input type="text" required class="form-control" name="nama_sumber"
                                         value="{{ $sumber_dana->nama_sumber }}" />
                                 </div>
                                 @csrf

@@ -48,7 +48,7 @@
                                 </div>
                              
                         </div>
-                        <div class="col-md-6" style=" ">
+                        <div class="col-md-6">
 
                             <div class="form-group">
                                 <label> Spesifikasi </label>

@@ -14,11 +14,6 @@ class ItemPerencanaanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -59,47 +54,34 @@ class ItemPerencanaanController extends Controller
             $foto_file->move(public_path('foto'), $foto_nama);
             $data['foto_barang_perencanaan'] = $foto_nama;
         }
-        if($request->input('id_item_perencanaan') !== null ){
-            
-            $dataUpdate = item_perencanaan::where('id_item_perencanaan',$request->input('id_item_perencanaan'))
-                            ->update($data);
-            if($dataUpdate){
-                return redirect('/dashboard-bendahara/perencanaan_keuangan')->with('success','Data Perencanaan Keuangan Berhasil di update');
-            }else{
-                return back()->with('error','Data Perencanaan Keuangan Gagal di update');
-            }
-        }
-        else{
+     
             if($data):
-              
                 $item_perencanaan->create($data);
-                return redirect('/dashboard-bendahara/perencanaan-keuangan')->with('success','Data Item Perencanaan Berhasil di Tambah');
+                return redirect('/dashboard-bendahara/perencanaan-keuangan')->with('success','Data Item Perencanaan telah berhasil ditambahkan!');
             else:
-                return back()->with('error','Data Item Gagal di Tambahkan');
+                return back()->with('error','Data Item Perencanaan gagal ditambahkan!');
             endif;
-        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(item_perencanaan $item_perencanaan)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id,item_perencanaan $item_perencanaan, perencanaan_keuangan $perencanaan_keuangan, gedung $gedung)
     {
+        $id_gedung = DB::table('item_perencanaan')->select('id_gedung')->where('id_item_perencanaan', $id)->first();
         $id_perencanaan_keuangan = $item_perencanaan::where('id_item_perencanaan', $id)
         ->select('id_perencanaan_keuangan')
         ->first();
         $data = [
-            'item_perencanaan' => $item_perencanaan::where('id_item_perencanaan', $id)
-            ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
-            ->first(),
+            'item_perencanaan' => $item_perencanaan::where('id_item_perencanaan', $id)->first(),
+            'gedung' => gedung::all(),
+            'gedung_readonly' => gedung::where('id_gedung', $id_gedung->id_gedung)->select('id_gedung', 'nama_ruangan')->first(),
+            // ->join('gedung', 'item_perencanaan.id_gedung', '=', 'gedung.id_gedung')
+            // ->first(),
             'perencanaan_keuangan' => $perencanaan_keuangan::where('id_perencanaan_keuangan', $id_perencanaan_keuangan->id_perencanaan_keuangan)->first(),
             'pengeluaran' => pengeluaran::all()
         ];
@@ -173,9 +155,9 @@ class ItemPerencanaanController extends Controller
                 $dataUpdate = $item_perencanaan->where('id_item_perencanaan', $id_item_perencanaan)->update(['id_realisasi' => $idRealisasi->id_realisasi]);
             }
 
-                return redirect('dashboard-bendahara/perencanaan-keuangan/detail/' . $id_perencanaan_keuangan)->with('success', 'Data Item Perencanaan berhasil di update');
+                return redirect('dashboard-bendahara/perencanaan-keuangan/detail/' . $id_perencanaan_keuangan)->with('success', 'Data Item Perencanaan telah berhasil diperbarui!');
         } else {
-            return back()->with('error', 'Data Item Perencanaan gagal di update');
+            return back()->with('error', 'Data Item Perencanaan gagal diperbarui!');
         }
     }
 
@@ -193,12 +175,12 @@ class ItemPerencanaanController extends Controller
         if ($aksi) {
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data berhasil dihapus'
+                'pesan'   => 'Data Item Perencanaan telah berhasil dihapus!'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan'   => 'Data gagal dihapus'
+                'pesan'   => 'Data Item Perencanaan gagal dihapus!'
             ];
         }
 

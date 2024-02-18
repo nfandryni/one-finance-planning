@@ -2,7 +2,7 @@
 @section('perencanaan-keuangan', 'active')
 @section('title', 'Tambah Perencanaan Keuangan')
 @section('content')
-    <div class="row">
+    <div class="row px-3">
         <div class="col-md-12" style="margin-bottom:2vh">
             <span class="h2" style="font-weight:bold;">
                 Tambah Data Perencanaan Keuangan
