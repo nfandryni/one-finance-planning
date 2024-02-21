@@ -83,8 +83,8 @@ return new class extends Migration
     ");
 
         DB::unprepared('DROP TRIGGER IF EXISTS tambah_total_perencanaan');
-        DB::unprepared("
-        CREATE TRIGGER tambah_total_perencanaan AFTER INSERT ON item_perencanaan FOR EACH ROW
+        DB::unprepared(
+        "CREATE TRIGGER tambah_total_perencanaan AFTER INSERT ON item_perencanaan FOR EACH ROW
         BEGIN
         DECLARE list INT;
         DECLARE cekTotal DECIMAL(10,0);

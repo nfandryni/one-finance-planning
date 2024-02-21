@@ -69,6 +69,21 @@ return new class extends Migration
             FROM pemohon INNER JOIN akun 
             ON pemohon.user_id = akun.user_id;"
         );
+
+        DB::unprepared('DROP VIEW IF EXISTS v_belum_terealisasi');
+        DB::unprepared(
+        "CREATE VIEW v_belum_terealisasi AS SELECT
+            perencanaan_keuangan.id_perencanaan_keuangan, 
+            item_perencanaan.id_item_perencanaan, 
+            item_perencanaan.status, 
+            item_perencanaan.item_perencanaan, 
+            perencanaan_keuangan.judul_perencanaan 
+        FROM item_perencanaan 
+        INNER JOIN perencanaan_keuangan 
+        ON perencanaan_keuangan.id_perencanaan_keuangan = item_perencanaan.id_perencanaan_keuangan 
+        ORDER BY waktu DESC"
+        );
+       
     }
 
     public function down(): void

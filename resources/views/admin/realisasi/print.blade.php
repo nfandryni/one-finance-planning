@@ -3,18 +3,18 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope='col'>Nama Kegiatan</th>
+            <th scope='col'>No</th>
+            <th scope='col'>Judul Realisasi</th>
             <th scope='col'>Waktu</th>
-            <th scope='col'>Tujuan</th>
-            <th scope='col'>Total Pembayaran</th>
+            <th scope='col'>Total Dana</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($realisasi as $p)
             <tr>
+                <td>{{ $p->loop_iteration }}</td>
                 <td>{{ $p->judul_realisasi }}</td>
                 <td>{{ $p->waktu }}</td>
-                <td>{{ $p->tujuan }}</td>
                 <td>{{ $p->total_pembayaran }}</td>
             </tr>
         @endforeach

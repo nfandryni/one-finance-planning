@@ -123,14 +123,7 @@ class KonfirmasiPengajuanController extends Controller
 
     }
 
-    public function logs(logs $logs)
-    {
-        $data = [
-            'logs' => $logs->all()
-        ];
-        return view("admin.konfirmasi.log",  $data);
 
-    }
     public function filter(Request $request, pengajuan_kebutuhan $pengajuan_kebutuhan)
     {
         $id_pengajuan_kebutuhan = $request->input('id_pengajuan_kebutuhan');

@@ -37,14 +37,38 @@ class AkunSeeder extends Seeder
         ]);
         DB::table('gedung')->insert([
             [
+                'nama_gedung' => 'A',
+                'nama_gedung' => 'B',
+                'nama_gedung' => 'C',
                 'nama_gedung' => 'D',
+                'nama_ruangan' => 'A1',
+                'nama_ruangan' => 'A2',
+                'nama_ruangan' => 'A3',
+                'nama_ruangan' => 'A4',
+                'nama_ruangan' => 'B1',
+                'nama_ruangan' => 'B2',
+                'nama_ruangan' => 'B3',
+                'nama_ruangan' => 'B4',
+                'nama_ruangan' => 'C1',
+                'nama_ruangan' => 'C2',
+                'nama_ruangan' => 'C3',
+                'nama_ruangan' => 'C4',
                 'nama_ruangan' => 'D1',
+                'nama_ruangan' => 'D2',
+                'nama_ruangan' => 'D3',
+                'nama_ruangan' => 'D4',
             ],
         ]);
         DB::table('sumber_dana')->insert([
             [
-                'nama_sumber' => 'BPOD'
+                'nama_sumber' => 'BPOD'  
             ],
+            [
+                'nama_sumber' => 'BOS'
+            ],
+            [
+                'nama_sumber' => 'Komite Sekolah'
+            ]
         ]);
         DB::table('jenis_pengeluaran')->insert([
             [
@@ -72,7 +96,7 @@ class AkunSeeder extends Seeder
                 'harga_satuan' => '12333',
                 'satuan' => '12333',
                 'spesifikasi' => '2024-02-14',
-                'bulan_rencana_realisasi' => null,
+                'bulan_rencana_realisasi' => '2024-09',
                 'status' => 'Diterima',
                 'kedaluwarsa' => null,
                 'foto_barang_kebutuhan' => 'kursi.jpg',
@@ -87,7 +111,67 @@ class AkunSeeder extends Seeder
                 'harga_satuan' => '12333',
                 'satuan' => '12333',
                 'spesifikasi' => '2024-02-14',
-                'bulan_rencana_realisasi' => null,
+                'bulan_rencana_realisasi' => '2024-09',
+                'status' => 'Diterima',
+                'kedaluwarsa' => null,
+                'foto_barang_kebutuhan' => 'kursi.jpg',
+            ],
+        ]);
+        DB::table('item_kebutuhan')->insert([
+            [
+                'id_pengajuan_kebutuhan' => '1',
+                'id_gedung' => '1',
+                'item_kebutuhan' => 'kebon jeruk',
+                'qty' => '1233',
+                'harga_satuan' => '12333',
+                'satuan' => '12333',
+                'spesifikasi' => '2024-02-14',
+                'bulan_rencana_realisasi' => '2024-09',
+                'status' => 'Diterima',
+                'kedaluwarsa' => null,
+                'foto_barang_kebutuhan' => 'kursi.jpg',
+            ],
+        ]);
+        DB::table('item_kebutuhan')->insert([
+            [
+                'id_pengajuan_kebutuhan' => '1',
+                'id_gedung' => '1',
+                'item_kebutuhan' => 'sawi',
+                'qty' => '1233',
+                'harga_satuan' => '12333',
+                'satuan' => '12333',
+                'spesifikasi' => '2024-02-14',
+                'bulan_rencana_realisasi' => '2024-09',
+                'status' => 'Diterima',
+                'kedaluwarsa' => null,
+                'foto_barang_kebutuhan' => 'kursi.jpg',
+            ],
+        ]);
+        DB::table('item_kebutuhan')->insert([
+            [
+                'id_pengajuan_kebutuhan' => '1',
+                'id_gedung' => '1',
+                'item_kebutuhan' => 'earphone',
+                'qty' => '1233',
+                'harga_satuan' => '12333',
+                'satuan' => '12333',
+                'spesifikasi' => '2024-02-14',
+                'bulan_rencana_realisasi' => '2024-09',
+                'status' => 'Diterima',
+                'kedaluwarsa' => null,
+                'foto_barang_kebutuhan' => 'kursi.jpg',
+            ],
+        ]);
+        DB::table('item_kebutuhan')->insert([
+            [
+                'id_pengajuan_kebutuhan' => '1',
+                'id_gedung' => '1',
+                'item_kebutuhan' => 'mouse pad',
+                'qty' => '1233',
+                'harga_satuan' => '12333',
+                'satuan' => '12333',
+                'spesifikasi' => '2024-02-14',
+                'bulan_rencana_realisasi' => '2024-09',
                 'status' => 'Diterima',
                 'kedaluwarsa' => null,
                 'foto_barang_kebutuhan' => 'kursi.jpg',

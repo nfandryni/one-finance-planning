@@ -9,17 +9,14 @@
         </tr>
     </thead>
     <tbody>
-    <tr>
-    <td> Perbaikan Fasilitas </td>
-                        <td> BOS</td>
-                        <td> 2024-01-13</td></tr>
-        {{-- @foreach ($perencanaan_keuangan as $p)
+  
+        @foreach ($perencanaan_keuangan as $p)
             <tr>
                 <td>{{ $p->judul_perencanaan }}</td>
                 <td>{{ $p->nama_sumber }}</td>
                 <td>{{ $p->waktu }}</td>
-                <td>{{ $p->tujuan }}</td>
+                {{-- <td>{{ $p->tujuan }}</td> --}}
             </tr>
-        @endforeach --}}
+        @endforeach
     </tbody>
 </table>

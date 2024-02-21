@@ -36,22 +36,7 @@ class PerencanaanKeuanganController extends Controller
 
         }
     }
-    public function detail(){
-    {
-
-       
-            return view('admin.perencanaan.detail');   
-
-        }
-    }
-
-    public function printay(){
-        {
-           
-            $pdf = PDF::loadView('admin.perencanaan.print');  
-    return $pdf ->stream();
-            }
-        }
+   
     /**
      * Show the form for creating a new resource.
      */
@@ -132,18 +117,18 @@ class PerencanaanKeuanganController extends Controller
             'perencanaan_keuangan' => $perencanaan_keuangan->join('sumber_dana', 'sumber_dana.id_sumber_dana', 'perencanaan_keuangan.id_sumber_dana')
             ->get()
         ];
-        $pdf = 
+       
         
         $user = Auth::user();
         $role = $user->role;
         if($role == 'bendaharasekolah') {
-            PDF::loadView('dashboard-bendahara.perencanaan-keuangan.print', $data);
+            $pdf = PDF::loadView('dashboard-bendahara.perencanaan-keuangan.print', $data);
         }
         elseif($role == 'admin') {
-            PDF::loadView('admin.perencanaan.print', $data);
+            $pdf = PDF::loadView('admin.perencanaan.print', $data);
         }
-
         return $pdf->stream();
+       
     }
      public function show(pengeluaran $pengeluaran, String $id) {    
         $data = [

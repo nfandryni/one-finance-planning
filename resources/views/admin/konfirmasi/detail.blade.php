@@ -5,7 +5,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div class="row justify-content-md-ceer" style="align-items: center">
+        <div class="row justify-content-md-center" style="align-items: center">
           <br />
                 <a class='text-black mt-2' href='/konfirmasi-pengajuan'><i class="fa-solid fa-arrow-left fa-xl "></i></a>
                 <div id='Konfirmasi'>
@@ -77,11 +77,13 @@
             <div>
                 <h4 class='fw-bold mb-3'>Item Kebutuhan</h4>
                 @if (!isset($pengajuan_kebutuhan->total_dana_kebutuhan))
+                <div class="d-flex justify-content-end">
                     <h6 class='fw-bold mb-3 text-sm-end' style='position: relative; margin-top: -40px;'>Total Dana yang
                         Dibutuhkan: <p class='fs-4 bg-success p-2 text-white text-sm-end'
-                            style='position: relative; width: 12%; margin-left:1100px; border-radius: 5px;margin-top:3px;'>
+                            style='position: relative; border-radius: 5px;margin-top:3px;'>
                             {{ $totalDanaKebutuhan ?? 0 }} </p>
                     </h6>
+                </div>
                 @endif
                 <table class="table table-hover table-borderless table-striped DataTable">
                     <thead>

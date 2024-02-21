@@ -9,6 +9,7 @@ return new class extends Migration
 {
     public function up()
     {
+        
         DB::unprepared('DROP FUNCTION IF EXISTS TotalAcc');
         //digunakan untuk menghitung total akun yang ada pada table akun
         DB::unprepared(
@@ -17,6 +18,16 @@ return new class extends Migration
             DECLARE TotalAccount INT;
             SELECT COUNT(user_id) INTO TotalAccount FROM akun ;
             RETURN TotalAccount;
+            END'
+        );
+
+        DB::unprepared('DROP FUNCTION IF EXISTS TotalRealisasi');
+        DB::unprepared(
+            'CREATE FUNCTION TotalRealisasi() RETURNS INT
+            BEGIN 
+            DECLARE total_realisasi INT;
+            SELECT COUNT(*) INTO total_realisasi FROM item_perencanaan WHERE status = "Terbeli";
+            RETURN total_realisasi;
             END'
         );
     }

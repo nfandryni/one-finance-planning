@@ -231,18 +231,4 @@ class RealisasiController extends Controller {
         return response()->json($pesan);
     }
 
-    public function printAdmin()
-    {
-        
-            $pdf = PDF::loadView('admin.realisasi.print');
-            return $pdf->stream();
-        
-    }
-
-    public function detail ()
-    {
-        
-        return view('admin.realisasi.detail');
-        
-    }
 }

@@ -66,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
         
         Route::prefix('/dashboard-admin')->group(function () {
             Route::get('/', [DashboardAdmin::class, 'index']);
-            Route::get('/riwayat', [KonfirmasiPengajuanController::class, 'logs']);
+            Route::get('/riwayat', [DashboardAdmin::class, 'riwayat']);
         });
 
         Route::prefix('/pemasukan')->group(function () {
@@ -82,8 +82,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('/realisasi')->group(function () {
             Route::get('/', [RealisasiController::class, 'index']);
-            // Route::get('/detail/{id}', [RealisasiController::class, 'show']);
-            Route::get('/detail/1', [RealisasiController::class, 'detail']);
+            Route::get('/detail/{id}', [RealisasiController::class, 'show']);
             Route::get('/print', [RealisasiController::class, 'print']);
             Route::get('/print-item/{id}', [RealisasiController::class, 'print_item']);
 
@@ -99,10 +98,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('/perencanaan-keuangan')->group(function () {
             Route::get('/', [PerencanaanKeuanganController::class, 'index']);
-            // Route::get('/detail/{id}', [PerencanaanKeuanganController::class, 'show']);
-            Route::get('/detail/1', [PerencanaanKeuanganController::class, 'detail']);
-            // Route::get('/print', [PerencanaanKeuanganController::class, 'print']);
-            Route::get('/print', [PerencanaanKeuanganController::class, 'printay']);
+            Route::get('/detail/{id}', [PerencanaanKeuanganController::class, 'show']);
+            Route::get('/print', [PerencanaanKeuanganController::class, 'print']);
             Route::get('/print-item/{id}', [PerencanaanKeuanganController::class, 'print_item']);
        });
        

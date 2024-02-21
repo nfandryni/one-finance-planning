@@ -131,14 +131,6 @@ return new class extends Migration
         ");
         
         DB::unprepared("
-            CREATE TRIGGER update_pengajuan_kebutuhan AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
-            BEGIN
-                INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('UPDATE', CONCAT('Memperbarui Pengajuan Kebutuhan dengan nama_kegiatan ', OLD.nama_kegiatan, ' dan ID Pengajuan Kebutuhan ', OLD.id_pengajuan_kebutuhan), NOW());
-            END
-        ");
-        
-        DB::unprepared("
             CREATE TRIGGER hapus_pengajuan_kebutuhan AFTER DELETE ON pengajuan_kebutuhan FOR EACH ROW
             BEGIN
                 INSERT INTO logs(aksi, aktivitas, waktu)
@@ -147,12 +139,17 @@ return new class extends Migration
         ");
 
         DB::unprepared("
-        CREATE TRIGGER konfirmasi AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
-            BEGIN
-                INSERT INTO logs(aksi, aktivitas, waktu)
-                VALUES ('UPDATE', CONCAT('Mengkonfirmasi Pengajuan Kebutuhan dengan nama_kegiatan ', OLD.nama_kegiatan, ' dan ID Pengajuan Kebutuhan ', OLD.id_pengajuan_kebutuhan), NOW());
-            END
-        ");
+        CREATE TRIGGER update_pengajuan_kebutuhan AFTER UPDATE ON pengajuan_kebutuhan FOR EACH ROW
+        BEGIN
+            IF NEW.status = 'DiKonfirmasi' AND OLD.status != 'DiKonfirmasi' THEN
+                INSERT INTO logs (aksi, aktivitas, waktu)
+                VALUES ('UPDATE', CONCAT('Mengkonfirmasi Pengajuan Kebutuhan dengan nama_kegiatan ', NEW.nama_kegiatan, ' dan ID Pengajuan Kebutuhan ', NEW.id_pengajuan_kebutuhan), NOW());
+            ELSE
+                INSERT INTO logs (aksi, aktivitas, waktu)
+                VALUES ('UPDATE', CONCAT('Memperbarui Pengajuan Kebutuhan dengan nama_kegiatan ', OLD.nama_kegiatan, ' dan ID Pengajuan Kebutuhan ', OLD.id_pengajuan_kebutuhan), NOW());
+            END IF;
+        END
+    ");
 
          //trgAfterKonfirmasi
          DB::unprepared(
@@ -160,8 +157,15 @@ return new class extends Migration
             BEGIN
                 IF OLD.status <> NEW.status AND NEW.status = "DiKonfirmasi" THEN
                     
-                    INSERT INTO perencanaan_keuangan (id_perencanaan_keuangan, id_pengajuan_kebutuhan, id_sumber_dana, judul_perencanaan, tujuan, waktu, total_dana_perencanaan)
-                    VALUES (1, NEW.id_pengajuan_kebutuhan, NEW.id_sumber_dana, CONCAT("Perencanaan for ", NEW.nama_kegiatan), NEW.tujuan, NEW.waktu, NEW.total_dana_kebutuhan);
+                    INSERT INTO perencanaan_keuangan (id_pengajuan_kebutuhan, id_sumber_dana, judul_perencanaan, tujuan, waktu, total_dana_perencanaan)
+                    VALUES (NEW.id_pengajuan_kebutuhan, NEW.id_sumber_dana, NEW.nama_kegiatan, NEW.tujuan, NEW.waktu, NEW.total_dana_kebutuhan);
+                    
+                    SET @last_id_perencanaan = LAST_INSERT_ID();
+
+                    INSERT INTO item_perencanaan (id_item_kebutuhan, id_perencanaan_keuangan, id_gedung, item_perencanaan, qty, harga_satuan, satuan, spesifikasi, bulan_rencana_realisasi, status, foto_barang_perencanaan)
+                    SELECT ik.id_item_kebutuhan, @last_id_perencanaan, ik.id_gedung, ik.item_kebutuhan, ik.qty, ik.harga_satuan, ik.satuan, ik.spesifikasi, ik.bulan_rencana_realisasi, "Belum Dibeli", ik.foto_barang_kebutuhan
+                    FROM item_kebutuhan ik
+                    WHERE ik.id_pengajuan_kebutuhan = NEW.id_pengajuan_kebutuhan;
         
                 END IF;
             END'
