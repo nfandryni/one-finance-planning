@@ -19,7 +19,7 @@ use App\Http\Controllers\SumberDanaController;
 use App\Http\Controllers\ItemKebutuhanController;
 use App\Http\Controllers\ItemPerencanaanController;
 use App\Http\Controllers\PerencanaanKeuanganController;
-use Illuminate\Support\Facades\Route;   
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +29,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
 
 Route::get('login',[LoginController::class,'index'])->name('login');
@@ -40,8 +42,8 @@ Route::post('login',[LoginController::class,'logincheck']);
 // Route::get('/profile', [ProfileController::class, 'index']);
 
 Route::middleware(['auth'])->group(function () {
-    
-    
+
+
     Route::middleware(['akses:superadmin'])->group(function () {
         Route::prefix('/dashboard-superadmin')->group(function () {
             Route::get('/', [DashboardController::class, 'index']);
@@ -59,11 +61,11 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('hapus', [AkunController::class, 'destroy']);
             Route::get('/generate/{id}', [AkunController::class, 'print']);
         });
-      
+
     });
 
     Route::middleware(['akses:admin'])->group(function () {
-        
+
         Route::prefix('/dashboard-admin')->group(function () {
             Route::get('/', [DashboardAdmin::class, 'index']);
             Route::get('/riwayat', [DashboardAdmin::class, 'riwayat']);
@@ -93,7 +95,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/detail/{id}', [KonfirmasiPengajuanController::class, 'show']);
             Route::post('/konfirmasi/{id}', [KonfirmasiPengajuanController::class, 'konfirmasi']);
             Route::get('/print', [KonfirmasiPengajuanController::class, 'print']);
-            
+
         });
 
         Route::prefix('/perencanaan-keuangan')->group(function () {
@@ -102,9 +104,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/print', [PerencanaanKeuanganController::class, 'print']);
             Route::get('/print-item/{id}', [PerencanaanKeuanganController::class, 'print_item']);
        });
-       
+
     });
-  
+
     Route::prefix('dashboard-bendahara')->middleware(['akses:bendaharasekolah'])->group(function () {
         Route::get('/chart-data', [DashboardBendaharaController::class, 'index']);
         Route::get('/', [DashboardBendaharaController::class, 'index']);
@@ -119,7 +121,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/realisasi/hapus', [RealisasiController::class, 'destroy']);
         Route::get('/realisasi/print', [RealisasiController::class, 'print']);
         Route::get('/realisasi/print-item/{id}', [RealisasiController::class, 'print_item']);
-        
+
         Route::get('/gedung', [GedungController::class, 'index']);
         Route::post('/gedung/tambah/simpan', [GedungController::class, 'store']);
         Route::get('/gedung/edit/{id}', [GedungController::class, 'edit']);
@@ -131,7 +133,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/sumber-dana/edit/{id}', [SumberDanaController::class, 'edit']);
         Route::post('/sumber-dana/edit/simpan', [SumberDanaController::class, 'update']);
         Route::delete('/sumber-dana/hapus', [SumberDanaController::class, 'destroy']);
-        
+
         Route::get('/pemasukan', [PemasukanController::class, 'index']);
         Route::get('/pemasukan/tambah', [PemasukanController::class, 'create']);
         Route::post('/pemasukan/simpan', [PemasukanController::class, 'store']);
@@ -149,7 +151,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/pengeluaran/edit/simpan', [PengeluaranController::class, 'update']);
         Route::delete('/pengeluaran/hapus', [PengeluaranController::class, 'destroy']);
         Route::get('/pengeluaran/print', [PengeluaranController::class, 'print']);
-        
+
         Route::get('/logs', [LogsController::class, 'index']);
         Route::get('/konfirmasi-pengajuan', [KonfirmasiPengajuanController::class, 'index']);
         Route::get('/konfirmasi-pengajuan/detail/{id}', [KonfirmasiPengajuanController::class, 'show']);
@@ -159,14 +161,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/konfirmasi-pengajuan/edit-item/{id}', [KonfirmasiPengajuanController::class, 'edit_item']);
         Route::post('/konfirmasi-pengajuan/edit-item/simpan', [KonfirmasiPengajuanController::class, 'update_item']);
         Route::get('/konfirmasi-pengajuan/print', [KonfirmasiPengajuanController::class, 'print']);
-        
+
         Route::get('/jenis-pengeluaran', [JenisPengeluaranController::class, 'index']);
         Route::get('/jenis-pengeluaran/tambah', [JenisPengeluaranController::class, 'create']);
         Route::post('/jenis-pengeluaran/simpan', [JenisPengeluaranController::class, 'store']);
         Route::get('/jenis-pengeluaran/edit/{id}', [JenisPengeluaranController::class, 'edit']);
         Route::post('/jenis-pengeluaran/edit/simpan', [JenisPengeluaranController::class, 'update']);
         Route::delete('/jenis-pengeluaran/hapus', [JenisPengeluaranController::class, 'destroy']);
-        
+
         Route::get('/perencanaan-keuangan', [PerencanaanKeuanganController::class, 'index']);
         Route::get('/perencanaan-keuangan/tambah', [PerencanaanKeuanganController::class, 'create']);
         Route::post('/perencanaan-keuangan/simpan', [PerencanaanKeuanganController::class, 'store']);
@@ -176,14 +178,14 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/perencanaan-keuangan/hapus', [PerencanaanKeuanganController::class, 'destroy']);
         Route::get('/perencanaan-keuangan/print', [PerencanaanKeuanganController::class, 'print']);
         Route::get('/perencanaan-keuangan/print-item/{id}', [PerencanaanKeuanganController::class, 'print_item']);
-        
+
         Route::get('/item-perencanaan', [ItemPerencanaanController::class, 'index']);
         Route::get('/item-perencanaan/tambah/{id}', [ItemPerencanaanController::class, 'create']);
         Route::post('/item-perencanaan/tambah/simpan', [ItemPerencanaanController::class, 'store']);
         Route::get('/item-perencanaan/edit/{id}', [ItemPerencanaanController::class, 'edit']);
         Route::post('/item-perencanaan/edit/simpan', [ItemPerencanaanController::class, 'update']);
         Route::delete('/item-perencanaan/hapus', [ItemPerencanaanController::class, 'destroy']);
-   
+
         Route::get('/item-perencanaan', [ItemPerencanaanController::class, 'index']);
         Route::get('/item-perencanaan/tambah', [ItemPerencanaanController::class, 'create']);
         Route::post('/item-perencanaan/tambah/simpan', [ItemPerencanaanController::class, 'store']);
@@ -191,7 +193,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/item-perencanaan/edit/simpan', [ItemPerencanaanController::class, 'update']);
         Route::delete('/item-perencanaan/hapus', [ItemPerencanaanController::class, 'destroy']);
     });
-    
+
     Route::prefix('dashboard-pemohon')->middleware(['akses:pemohon'])->group(function () {
         Route::get('/logs', [LogsController::class, 'index']);
         Route::delete('/logs/hapus', [LogsController::class, 'destroy']);
